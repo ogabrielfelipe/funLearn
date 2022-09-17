@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output = "../Documentation/ERD.png"
+  theme = "neutral"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Administrator {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(155)
+  username String @db.VarChar(50)
+  password String @db.VarChar(155)
+  @@map("administrator")
+}
+
+model Teacher {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(155)
+  username String @db.VarChar(50)
+  password String @db.VarChar(155)
+  team     Team[]
+
+  @@map("teacher")
+}
+
+model Team {
+  id     Int     @id @default(autoincrement())
+  name   String  @db.VarChar(155)
+  active Boolean @default(true)
+
+  teacherID Int
+  teacher   Teacher @relation(fields: [teacherID], references: [id])
+
+  students StudantsOnTeams[]
+
+  @@map("team")
+}
+
+model Studant {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(155)
+  register String @db.VarChar(50)
+  password String @db.VarChar(155)
+
+  teams     StudantsOnTeams[]
+  positions StudantOnPositions[]
+
+  @@map("studant")
+}
+
+model StudantsOnTeams {
+  studantID Int
+  student   Studant @relation(fields: [studantID], references: [id])
+  teamID    Int
+  team      Team    @relation(fields: [teamID], references: [id])
+
+  @@id([studantID, teamID])
+
+  @@map("studants_on_teams")
+}
+
+model Position {
+  id       Int     @id @default(autoincrement())
+  finish   Boolean @default(true)
+  pointing Int
+  score    Int
+
+  askID    Int
+  ask      Ask     @relation(fields: [askID], references: [id])
+  studants StudantOnPositions[]
+
+  @@map("position")
+}
+
+model StudantOnPositions {
+  studantID  Int
+  student    Studant  @relation(fields: [studantID], references: [id])
+  positionID Int
+  position   Position @relation(fields: [positionID], references: [id])
+
+  @@id([studantID, positionID])
+
+  @@map("studant_on_positions")
+}
+
+model Ask {
+  id       Int     @id @default(autoincrement())
+  question String  @db.VarChar(512)
+  active   Boolean @default(true)
+  image    String  @db.VarChar(155)
+  level    Level   @default(INITIAL)
+
+  position Position[]
+  answer   Answer[]
+
+  @@map("ask")
+}
+
+enum Level {
+  INITIAL
+  INTERMEDIARY
+  ADVANCED
+}
+
+model Answer {
+  id          Int     @id @default(autoincrement())
+  description String  @db.VarChar(255)
+  correct     Boolean @default(false)
+
+  askID       Int
+  ask         Ask @relation(fields: [askID], references: [id])
+
+  @@map("answer")
+}

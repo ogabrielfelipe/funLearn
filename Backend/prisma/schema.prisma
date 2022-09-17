@@ -17,17 +17,17 @@ datasource db {
 }
 
 model Administrator {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   name     String @db.VarChar(155)
-  username String @db.VarChar(50)
+  username String @unique @db.VarChar(50)
   password String @db.VarChar(155)
   @@map("administrator")
 }
 
 model Teacher {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   name     String @db.VarChar(155)
-  username String @db.VarChar(50)
+  username String @unique @db.VarChar(50)
   password String @db.VarChar(155)
   team     Team[]
 
@@ -35,11 +35,11 @@ model Teacher {
 }
 
 model Team {
-  id     Int     @id @default(autoincrement())
-  name   String  @db.VarChar(155)
+  id     String  @id @default(uuid())
+  name   String  @unique @db.VarChar(155)
   active Boolean @default(true)
 
-  teacherID Int
+  teacherID String
   teacher   Teacher @relation(fields: [teacherID], references: [id])
 
   students StudantsOnTeams[]
@@ -48,9 +48,9 @@ model Team {
 }
 
 model Studant {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   name     String @db.VarChar(155)
-  register String @db.VarChar(50)
+  register String @unique @db.VarChar(50)
   password String @db.VarChar(155)
 
   teams     StudantsOnTeams[]
@@ -60,9 +60,9 @@ model Studant {
 }
 
 model StudantsOnTeams {
-  studantID Int
+  studantID String
   student   Studant @relation(fields: [studantID], references: [id])
-  teamID    Int
+  teamID    String
   team      Team    @relation(fields: [teamID], references: [id])
 
   @@id([studantID, teamID])
@@ -71,12 +71,12 @@ model StudantsOnTeams {
 }
 
 model Position {
-  id       Int     @id @default(autoincrement())
+  id       String  @id @default(uuid())
   finish   Boolean @default(true)
   pointing Int
   score    Int
 
-  askID    Int
+  askID    String
   ask      Ask     @relation(fields: [askID], references: [id])
   studants StudantOnPositions[]
 
@@ -84,9 +84,9 @@ model Position {
 }
 
 model StudantOnPositions {
-  studantID  Int
+  studantID  String
   student    Studant  @relation(fields: [studantID], references: [id])
-  positionID Int
+  positionID String
   position   Position @relation(fields: [positionID], references: [id])
 
   @@id([studantID, positionID])
@@ -95,7 +95,7 @@ model StudantOnPositions {
 }
 
 model Ask {
-  id       Int     @id @default(autoincrement())
+  id       String  @id @default(uuid())
   question String  @db.VarChar(512)
   active   Boolean @default(true)
   image    String  @db.VarChar(155)
@@ -114,11 +114,11 @@ enum Level {
 }
 
 model Answer {
-  id          Int     @id @default(autoincrement())
+  id          String  @id @default(uuid())
   description String  @db.VarChar(255)
   correct     Boolean @default(false)
 
-  askID       Int
+  askID       String
   ask         Ask @relation(fields: [askID], references: [id])
 
   @@map("answer")

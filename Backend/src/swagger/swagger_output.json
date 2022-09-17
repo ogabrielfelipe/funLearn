@@ -1,0 +1,53 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/admin": {
+      "post": {
+        "tags": [
+          "Administrator"
+        ],
+        "description": "Endpoint para cadastrar um novo usuário administrador.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name, username, password",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            },
+            "description": " name: Deverá ser preenchido com o nome do usuário \n   username: Deverá ser preenchido com o nomde de usuário a ser utilizado para fazer o login \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login ",
+            "requerid": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário administrador cadastrada com sucesso."
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,14 +2,26 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
+    "title": "API - funLearn",
+    "description": "Documentação contendo detalhes de como utilizar e como configurar as APIs a serem utilizadas pelo front-end."
   },
-  "host": "localhost:3000",
+  "host": "localhost:3333",
   "basePath": "/",
-  "schemes": [
-    "http"
+  "tags": [
+    {
+      "name": "Administrator",
+      "description": "Endpoints"
+    },
+    {
+      "name": "Teacher",
+      "description": "Endpoints"
+    }
   ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {},
   "paths": {
     "/admin": {
       "post": {
@@ -22,32 +34,322 @@
         ],
         "parameters": [
           {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
             "name": "name, username, password",
             "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "username": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            },
             "description": " name: Deverá ser preenchido com o nome do usuário \n   username: Deverá ser preenchido com o nomde de usuário a ser utilizado para fazer o login \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login ",
-            "requerid": true
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/Administrator"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Usuário administrador cadastrada com sucesso."
+            "description": "Usuário administrador cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AddAdministrator"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
           }
         }
       }
+    },
+    "/teacher/auth": {
+      "post": {
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Endpoint para realizar o login do professor. \\n token é enviado no body da resposta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username, password",
+            "in": "body",
+            "description": " username: Deverá ser preenchido com o nomde de usuário a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login. ",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/AuthTeacher"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AuthTeacherRes"
+            }
+          }
+        }
+      }
+    },
+    "/teacher": {
+      "post": {
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Endpoint para cadastrar um novo usuário professor.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name, username, password, active",
+            "in": "body",
+            "description": " name: Deverá ser preenchido com o nome do usuário; \n   username: Deverá ser preenchido com o nome de usuário a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n   active: Deverá ser preenchido com o status do usuário. ",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/Teacher"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário professor cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AddTeacher"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Endpoint para alterar o cadastro do professor.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id, name, password, active",
+            "in": "body",
+            "description": " id: Deverá ser preenchido com o identificador do usuário; \n   name: Deverá ser preenchido com o nome do usuário, caso queira que seja alterado ou deixe com aspas vaizas; \n    password: Deverá ser preenchido com a nova senha do usuário, caso queira que seja alterado ou deixe com aspas vaizas; \n    active: Deverá ser preenchido com o status do usuário, caso queira que seja alterado ou deixe com aspas vaizas. ",
+            "schema": {
+              "$ref": "#/definitions/TeacherChange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeacherChangeRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Teacher": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      }
+    },
+    "TeacherChange": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues "
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "TeacherChangeRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "active"
+      ]
+    },
+    "AuthTeacher": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      }
+    },
+    "AuthTeacherRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "token": {
+          "type": "string",
+          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR2FicmllbCBGZWxpcGUgVmllaXJhIiwiZW1haWwiOiJvZ2FicmllbC52LmZlbGlwZUBnbWFpbC5jb20iLCJpYXQiOjE2NjI4NDg3MTcsImV4cCI6MTY2NTQ0MDcxNywic3ViIjoiY2VjODcxNDMtYzRmZi00NmQ1LWEwYjktMzlkOTk1Y2IyMDQ1In0.n-86Xwb_LowewLQNqbt64Pu5NhZOOngGF_vAHSQBloQ"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "token"
+      ]
+    },
+    "AddTeacher": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "password"
+      ]
+    },
+    "Administrator": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Barbara M. Dalton"
+        },
+        "username": {
+          "type": "string",
+          "example": "barbara"
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      }
+    },
+    "AddAdministrator": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Barbara M. Dalton"
+        },
+        "username": {
+          "type": "string",
+          "example": "barbara"
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "password"
+      ]
     }
   }
 }

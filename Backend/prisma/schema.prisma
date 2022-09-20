@@ -21,6 +21,7 @@ model Administrator {
   name     String @db.VarChar(155)
   username String @unique @db.VarChar(50)
   password String @db.VarChar(155)
+  active   Boolean @default(true)
   @@map("administrator")
 }
 
@@ -29,6 +30,7 @@ model Teacher {
   name     String @db.VarChar(155)
   username String @unique @db.VarChar(50)
   password String @db.VarChar(155)
+  active   Boolean @default(true)
   team     Team[]
 
   @@map("teacher")
@@ -52,6 +54,7 @@ model Studant {
   name     String @db.VarChar(155)
   register String @unique @db.VarChar(50)
   password String @db.VarChar(155)
+  active   Boolean @default(true)
 
   teams     StudantsOnTeams[]
   positions StudantOnPositions[]

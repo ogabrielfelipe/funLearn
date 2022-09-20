@@ -19,7 +19,7 @@ class ChangeTeacherService{
         })
 
         if (!teacher){
-            throw new Error("Professor não encontrado")
+            throw new Error("teacher not found.")
         }
 
         var passwordHash = '';

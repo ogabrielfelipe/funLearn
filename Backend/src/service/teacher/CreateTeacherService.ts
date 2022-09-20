@@ -17,6 +17,7 @@ class CreateTeacherService{
 
         const passwordHash = await hash(password, 8)
 
+        
         const create = prismaClient.teacher.create({
             data:{
                 name: name,
@@ -31,8 +32,10 @@ class CreateTeacherService{
                 active: true
             }
         })
-
         return create
+
+        return ''
+
     }
 }
 

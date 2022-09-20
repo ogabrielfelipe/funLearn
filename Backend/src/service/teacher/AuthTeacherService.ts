@@ -19,17 +19,17 @@ class AuthTeacherService{
         })
 
         if (!teacher){
-            throw new Error("username incorrect")
+            throw new Error("username incorrect.")
         }
 
         if (!teacher.active){
-            throw new Error("Teacher inative")
+            throw new Error("user inative.")
         }
 
         const passMatch = await compare(password, teacher.password)
 
         if (!passMatch){
-            throw new Error("Password incorrect")
+            throw new Error("Password incorrect.")
         }
 
         const token = sign(

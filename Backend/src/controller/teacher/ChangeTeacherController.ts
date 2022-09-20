@@ -35,10 +35,19 @@ class ChangeTeacherController{
             password: password
         })
 
+
+        /* #swagger.responses[404] = { 
+            description: 'Professor não encontrado' 
+        } */
+        /* #swagger.responses[500] = { 
+            description: 'Relacionado a erro de persistência no banco de dados ou erros internos.' 
+            } */
+
+
         /* #swagger.responses[200] = { 
             schema: { $ref: "#/definitions/TeacherChangeRes" },
-            description: 'Usuário autenticado com sucesso.' 
-        } */
+            description: 'Professor autenticado com sucesso.' 
+        } */        
 
         return res.status(200).json(result)
 

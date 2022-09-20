@@ -18,15 +18,46 @@ app.use(morgan("dev"))
 app.use(router)
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    if (err instanceof Error){
-        return res.status(400).json({
-            error: err.message
-        })
-    }   
-    return res.status(500).json({
-        status: "Error",
-        mensage: "Internal Server Error."
-    })
+
+    switch (err.message){
+        case 'teacher not found.':
+            return res.status(404).json({
+                error: "Professor não encontrado."
+            })
+            break;
+
+        case 'username incorrect.':
+            return res.status(401).json({
+                error: "Nome do usuário Incorreto."
+            })
+            break;
+        
+        case 'user inative.':
+            return res.status(403).json({
+                error: "Usuário inativo."
+            })
+            break;
+        
+        case 'Password incorrect.':
+            return res.status(401).json({
+                error: "Senha incorreta"
+            })
+            break;
+        
+        case 'password invalid':
+            return res.status(401).json({
+                error: "Senha inválida."
+            })
+            break;
+
+        default:
+            return res.status(500).json({
+                status: "Error",
+                mensage: err.message
+            })
+
+    }
+   
 })
 
 

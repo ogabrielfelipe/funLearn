@@ -35,6 +35,12 @@ class CreateTeacherController{
             active: active
         })
 
+        /* #swagger.responses[401] = { 
+            description: 'Senha inválida.' 
+        } */
+        /* #swagger.responses[500] = { 
+            description: 'Relacionado a erro de persistência no banco de dados ou erros internos.' 
+            } */
 
         /* #swagger.responses[200] = { 
             schema: { $ref: "#/definitions/AddTeacher" },

@@ -32,6 +32,16 @@ class AuthTeacherController{
             password: password
         })
 
+        /* #swagger.responses[401] = {            
+            description: 'Nome de usuário ou senha incorreta' 
+        } */
+        /* #swagger.responses[403] = {            
+            description: 'Usuário inativo.' 
+        } */
+        /* #swagger.responses[500] = { 
+            description: 'Relacionado a erro de persistência no banco de dados ou erros internos.' 
+            } */
+
         /* #swagger.responses[200] = { 
             schema: { $ref: "#/definitions/AuthTeacherRes" },
             description: 'Usuário autenticado com sucesso.' 

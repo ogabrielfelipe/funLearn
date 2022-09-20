@@ -56,10 +56,13 @@
             }
           },
           "401": {
-            "description": "Não autorizado."
+            "description": "Senha inválida."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
@@ -90,6 +93,15 @@
             "schema": {
               "$ref": "#/definitions/AuthTeacherRes"
             }
+          },
+          "401": {
+            "description": "Nome de usuário ou senha incorreta"
+          },
+          "403": {
+            "description": "Usuário inativo."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
@@ -127,10 +139,13 @@
             }
           },
           "401": {
-            "description": "Não autorizado."
+            "description": "Senha inválida."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       },
@@ -159,7 +174,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário autenticado com sucesso.",
+            "description": "Professor autenticado com sucesso.",
             "schema": {
               "$ref": "#/definitions/TeacherChangeRes"
             }
@@ -168,7 +183,10 @@
             "description": "Não autorizado."
           },
           "404": {
-            "description": "Token não encontrado"
+            "description": "Professor não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }

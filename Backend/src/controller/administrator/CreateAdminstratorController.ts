@@ -19,7 +19,8 @@ class CreateAdministratorController{
                 description: " name: Deverá ser preenchido com o nome do usuário \n
                      username: Deverá ser preenchido com o nomde de usuário a ser utilizado para fazer o login  \n 
                      password:  Deverá ser preenchido com a senha a ser utilziada para realizar o login ",
-                requerid: true            
+                requerid: true,
+                schema: { $ref: "#/definitions/Administrator" }                
             }
 
 
@@ -36,6 +37,7 @@ class CreateAdministratorController{
 
 
         /* #swagger.responses[200] = { 
+            schema: { $ref: "#/definitions/AddAdministrator" },
             description: 'Usuário administrador cadastrada com sucesso.' 
         } */
         return res.status(200).json(result)

@@ -4,13 +4,23 @@ import { Router } from 'express';
 import swaggerUi from 'swagger-ui-express';
 import swaggerFile from '../src/swagger/swagger_output.json'
 import { CreateAdministratorController } from './controller/administrator/CreateAdminstratorController';
+import { AuthTeacherController } from './controller/teacher/AuthTeacherController';
+import { ChangeTeacherController } from './controller/teacher/ChangeTeacherController';
+import { CreateTeacherController } from './controller/teacher/CreateTeacherController';
+import { isAuthenticated } from './middlewares/isAuthenticated';
 
 const router = Router();
 
 //Rota de documentos
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+// ----------- Administrator -----------
+router.post('/admin', isAuthenticated, new CreateAdministratorController().handle)
 
-router.post('/admin', new CreateAdministratorController().handle)
+
+// ----------- Teacher -----------
+router.post('/teacher/auth', new AuthTeacherController().handle)
+router.post('/teacher', isAuthenticated, new CreateTeacherController().handle)
+router.put('/teacher', isAuthenticated, new ChangeTeacherController().handle)
 
 export default router

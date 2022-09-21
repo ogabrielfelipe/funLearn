@@ -25,6 +25,7 @@ const doc = {
     ],
     securityDefinitions: {},
     definitions: {
+//-------------------- ## MODEL TEACHER ## --------------------
         Teacher:{
             name: "Fulano da Silva Rodrigues",
             username: "fulano",
@@ -50,7 +51,7 @@ const doc = {
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Fulano da Silva Rodrigues",
             $username: "fulano",
-            $token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR2FicmllbCBGZWxpcGUgVmllaXJhIiwiZW1haWwiOiJvZ2FicmllbC52LmZlbGlwZUBnbWFpbC5jb20iLCJpYXQiOjE2NjI4NDg3MTcsImV4cCI6MTY2NTQ0MDcxNywic3ViIjoiY2VjODcxNDMtYzRmZi00NmQ1LWEwYjktMzlkOTk1Y2IyMDQ1In0.n-86Xwb_LowewLQNqbt64Pu5NhZOOngGF_vAHSQBloQ"
+            $active: true
         },
         AddTeacher: {
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
@@ -58,7 +59,7 @@ const doc = {
             $username: "fulano",
             $password: "********"
         },
-
+//-------------------- ## MODEL ADMINISTRATOR ## --------------------
         Administrator:{
             name: "Barbara M. Dalton",
             username: "barbara",
@@ -69,7 +70,29 @@ const doc = {
             $name: "Barbara M. Dalton",
             $username: "barbara",
             $password: "********"
-        }
+        },
+        AuthAdministrator:{
+            username: "fulano",
+            password: "********"
+        },
+        AuthAdministratorRes:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Fulano da Silva Rodrigues",
+            $username: "fulano",
+            $active: true
+        },
+        AdministratorChange:{
+            id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            name: "Fulano da Silva Rodrigues ",
+            password: "********",
+            active: true
+        },
+        AdministratorChangeRes:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Fulano da Silva Rodrigues",
+            $username: "fulano",
+            $active: true,
+        },
 
     }
 }

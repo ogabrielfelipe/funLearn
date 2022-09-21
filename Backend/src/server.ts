@@ -10,7 +10,7 @@ import router from './router'
 
 const app = express();
 
-app.use(cors())
+app.use(cors({ exposedHeaders: ['x-access-token'] }))
 app.use(express.json())
 
 app.use(morgan("dev"))
@@ -23,6 +23,11 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
         case 'teacher not found.':
             return res.status(404).json({
                 error: "Professor não encontrado."
+            })
+            break;
+        case 'admin not found.':
+            return res.status(404).json({
+                error: "Administrador não encontrado."
             })
             break;
 

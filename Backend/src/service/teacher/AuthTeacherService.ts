@@ -48,6 +48,7 @@ class AuthTeacherService{
             id: teacher.id,
             name: teacher.name,
             username: teacher.username,
+            active: teacher.active,
             token: token
         };
     }

@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import { AuthTeacherService } from "../../service/teacher/AuthTeacherService";
+import { AuthAdministratorService } from "../../service/administrator/AuthAdministratorService";
 
 
 
-class AuthTeacherController{
-    async handle(req: Request, res: Response){
+class AuthAdministratorController{
+    async handle( req: Request, res: Response ){
 
         // #swagger.start
 
-        // #swagger.path = '/teacher/auth'
+        // #swagger.path = '/admin/auth'
         // #swagger.method = 'post'
-        // #swagger.description = 'Endpoint para realizar o login do professor. \n token é enviado no HEADER da resposta.'
+        // #swagger.description = 'Endpoint para realizar o login do Administrador. \n token é enviado no HEADER da resposta.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['Teacher']
+        // #swagger.tags = ['Administrator']
 
         /*
             #swagger.parameters['username', 'password'] = {
@@ -20,17 +20,18 @@ class AuthTeacherController{
                 description: " username: Deverá ser preenchido com o nomde de usuário a ser utilizado para fazer o login;  \n 
                      password:  Deverá ser preenchido com a senha a ser utilziada para realizar o login. ",
                 requerid: true,            
-                schema: { $ref: "#/definitions/AuthTeacher" }        
+                schema: { $ref: "#/definitions/AuthAdministrator" }        
             }
          */
 
         const { username, password } = req.body;
 
-        const authTeacherService = new AuthTeacherService();
-        const result = await authTeacherService.execute({
+        const authAdmin = new AuthAdministratorService();
+        const result = await authAdmin.execute({
             username: username,
             password: password
         })
+
 
         /* #swagger.responses[401] = {            
             description: 'Nome de usuário ou senha incorreta' 
@@ -43,22 +44,23 @@ class AuthTeacherController{
             } */
 
         /* #swagger.responses[200] = { 
-            schema: { $ref: "#/definitions/AuthTeacherRes" },
+            schema: { $ref: "#/definitions/AuthAdministratorRes" },
             description: 'Usuário autenticado com sucesso. \n
                 Token é passado pelo header, nome da variável: "x-access-token". \n 
-                \n Token com tempo de validade de 15 dias.
+                \n Token com tempo de validade de 1 hora.
             ' 
         } */
-        res.setHeader('x-access-token', result.token);
+
+        res.setHeader('x-access-token', result.token)
         return res.status(200).json({
-            id: result.id, 
+            id: result.id,
             name: result.name,
             username: result.username,
             active: result.active
-         })
+        })
 
         // #swagger.end
     }
 }
 
-export { AuthTeacherController }
+export { AuthAdministratorController }

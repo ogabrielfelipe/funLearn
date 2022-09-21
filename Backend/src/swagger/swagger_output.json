@@ -23,6 +23,45 @@
   ],
   "securityDefinitions": {},
   "paths": {
+    "/admin/auth": {
+      "post": {
+        "tags": [
+          "Administrator"
+        ],
+        "description": "Endpoint para realizar o login do Administrador. \\n token é enviado no HEADER da resposta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username, password",
+            "in": "body",
+            "description": " username: Deverá ser preenchido com o nomde de usuário a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login. ",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/AuthAdministrator"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n   \n Token com tempo de validade de 1 hora.  ",
+            "schema": {
+              "$ref": "#/definitions/AuthAdministratorRes"
+            }
+          },
+          "401": {
+            "description": "Nome de usuário ou senha incorreta"
+          },
+          "403": {
+            "description": "Usuário inativo."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
     "/admin": {
       "post": {
         "tags": [
@@ -65,6 +104,50 @@
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Administrator"
+        ],
+        "description": "Endpoint para alterar o cadastro do Administrador.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id, name, password, active",
+            "in": "body",
+            "description": " id: Deverá ser preenchido com o identificador do usuário; \n   name: Deverá ser preenchido com o nome do usuário, caso queira que seja alterado ou deixe com aspas vaizas; \n    password: Deverá ser preenchido com a nova senha do usuário, caso queira que seja alterado ou deixe com aspas vaizas; \n    active: Deverá ser preenchido com o status do usuário, caso queira que seja alterado ou deixe com aspas vaizas. ",
+            "schema": {
+              "$ref": "#/definitions/AdministratorChange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário administrador alterado com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AdministratorChangeRes"
+            }
+          },
+          "400": {
+            "description": "Administrador não encontrado."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
       }
     },
     "/teacher/auth": {
@@ -72,7 +155,7 @@
         "tags": [
           "Teacher"
         ],
-        "description": "Endpoint para realizar o login do professor. \\n token é enviado no body da resposta.",
+        "description": "Endpoint para realizar o login do professor. \\n token é enviado no HEADER da resposta.",
         "produces": [
           "application/json"
         ],
@@ -89,7 +172,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário autenticado com sucesso.",
+            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n   \n Token com tempo de validade de 15 dias.  ",
             "schema": {
               "$ref": "#/definitions/AuthTeacherRes"
             }
@@ -286,16 +369,16 @@
           "type": "string",
           "example": "fulano"
         },
-        "token": {
-          "type": "string",
-          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiR2FicmllbCBGZWxpcGUgVmllaXJhIiwiZW1haWwiOiJvZ2FicmllbC52LmZlbGlwZUBnbWFpbC5jb20iLCJpYXQiOjE2NjI4NDg3MTcsImV4cCI6MTY2NTQ0MDcxNywic3ViIjoiY2VjODcxNDMtYzRmZi00NmQ1LWEwYjktMzlkOTk1Y2IyMDQ1In0.n-86Xwb_LowewLQNqbt64Pu5NhZOOngGF_vAHSQBloQ"
+        "active": {
+          "type": "boolean",
+          "example": true
         }
       },
       "required": [
         "id",
         "name",
         "username",
-        "token"
+        "active"
       ]
     },
     "AddTeacher": {
@@ -367,6 +450,94 @@
         "name",
         "username",
         "password"
+      ]
+    },
+    "AuthAdministrator": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      }
+    },
+    "AuthAdministratorRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "active"
+      ]
+    },
+    "AdministratorChange": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues "
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "AdministratorChangeRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "active"
       ]
     }
   }

@@ -34,8 +34,6 @@ class CreateTeacherService{
         })
         return create
 
-        return ''
-
     }
 }
 

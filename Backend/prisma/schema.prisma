@@ -7,8 +7,8 @@ generator client {
 
 generator erd {
   provider = "prisma-erd-generator"
-  output = "../Documentation/ERD.png"
-  theme = "neutral"
+  output   = "../Documentation/ERD.png"
+  theme    = "neutral"
 }
 
 datasource db {
@@ -17,19 +17,20 @@ datasource db {
 }
 
 model Administrator {
-  id       String @id @default(uuid())
-  name     String @db.VarChar(155)
-  username String @unique @db.VarChar(50)
-  password String @db.VarChar(155)
+  id       String  @id @default(uuid())
+  name     String  @db.VarChar(155)
+  username String  @unique @db.VarChar(50)
+  password String  @db.VarChar(155)
   active   Boolean @default(true)
+
   @@map("administrator")
 }
 
 model Teacher {
-  id       String @id @default(uuid())
-  name     String @db.VarChar(155)
-  username String @unique @db.VarChar(50)
-  password String @db.VarChar(155)
+  id       String  @id @default(uuid())
+  name     String  @db.VarChar(155)
+  username String  @unique @db.VarChar(50)
+  password String  @db.VarChar(155)
   active   Boolean @default(true)
   team     Team[]
 
@@ -50,14 +51,14 @@ model Team {
 }
 
 model Studant {
-  id       String @id @default(uuid())
-  name     String @db.VarChar(155)
-  register String @unique @db.VarChar(50)
-  password String @db.VarChar(155)
+  id       String  @id @default(uuid())
+  name     String  @db.VarChar(155)
+  register BigInt  @unique @db.BigInt
+  password String  @db.VarChar(155)
   active   Boolean @default(true)
 
-  teams     StudantsOnTeams[]
-  positions StudantOnPositions[]
+  teams    StudantsOnTeams[]
+  position Position[]
 
   @@map("studant")
 }
@@ -69,7 +70,6 @@ model StudantsOnTeams {
   team      Team    @relation(fields: [teamID], references: [id])
 
   @@id([studantID, teamID])
-
   @@map("studants_on_teams")
 }
 
@@ -79,22 +79,12 @@ model Position {
   pointing Int
   score    Int
 
-  askID    String
-  ask      Ask     @relation(fields: [askID], references: [id])
-  studants StudantOnPositions[]
+  askID     String
+  ask       Ask     @relation(fields: [askID], references: [id])
+  studantID String
+  studant   Studant @relation(fields: [studantID], references: [id])
 
   @@map("position")
-}
-
-model StudantOnPositions {
-  studantID  String
-  student    Studant  @relation(fields: [studantID], references: [id])
-  positionID String
-  position   Position @relation(fields: [positionID], references: [id])
-
-  @@id([studantID, positionID])
-
-  @@map("studant_on_positions")
 }
 
 model Ask {
@@ -121,8 +111,8 @@ model Answer {
   description String  @db.VarChar(255)
   correct     Boolean @default(false)
 
-  askID       String
-  ask         Ask @relation(fields: [askID], references: [id])
+  askID String
+  ask   Ask    @relation(fields: [askID], references: [id])
 
   @@map("answer")
 }

@@ -21,6 +21,10 @@ const doc = {
         {
             "name": "Teacher",
             "description": "Endpoints" 
+        },
+        {
+            "name": "Studant",
+            "description": "Endpoints" 
         }
     ],
     securityDefinitions: {},
@@ -94,6 +98,19 @@ const doc = {
             $active: true,
         },
 
+//-------------------- ## MODEL ESTUDANTE ## --------------------
+        Studant:{
+            name: "Barbara M. Dalton",
+            register: 120998977234,
+            password: "********",
+            active: true
+        },
+        AddStudant:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Barbara M. Dalton",
+            register: 120998977234,
+            active: true
+        },
     }
 }
 

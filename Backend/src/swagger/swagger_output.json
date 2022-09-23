@@ -15,6 +15,10 @@
     {
       "name": "Teacher",
       "description": "Endpoints"
+    },
+    {
+      "name": "Studant",
+      "description": "Endpoints"
     }
   ],
   "schemes": [
@@ -23,6 +27,17 @@
   ],
   "securityDefinitions": {},
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/admin/auth": {
       "post": {
         "tags": [
@@ -267,6 +282,50 @@
           },
           "404": {
             "description": "Professor não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/studant": {
+      "post": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para cadastrar um novo usuário Estudante.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name, register, password, active",
+            "in": "body",
+            "description": " name: Deverá ser preenchido com o nome do usuário; \n   register: Deverá ser preenchido com o numero de matrícula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n   active: Deverá ser preenchido com o status do usuário. ",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/Studant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário estudante cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AddStudant"
+            }
+          },
+          "401": {
+            "description": "Senha inválida."
+          },
+          "404": {
+            "description": "Token não encontrado"
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
@@ -538,6 +597,52 @@
         "name",
         "username",
         "active"
+      ]
+    },
+    "Studant": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Barbara M. Dalton"
+        },
+        "register": {
+          "type": "number",
+          "example": 120998977234
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "AddStudant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Barbara M. Dalton"
+        },
+        "register": {
+          "type": "number",
+          "example": 120998977234
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "name"
       ]
     }
   }

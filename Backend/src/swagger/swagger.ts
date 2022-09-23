@@ -103,13 +103,24 @@ const doc = {
             name: "Barbara M. Dalton",
             register: 120998977234,
             password: "********",
-            active: true
+            active: true,
+            teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        StudantFile:{
+            password: "********",
+            teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
         },
         AddStudant:{
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Barbara M. Dalton",
             register: 120998977234,
-            active: true
+            active: true,
+            teams:{
+                team:{
+                    id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                    name: "1º ano - Informática"
+                }
+            }
         },
     }
 }

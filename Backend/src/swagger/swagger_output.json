@@ -305,9 +305,9 @@
             "type": "string"
           },
           {
-            "name": "name, register, password, active",
+            "name": "name, register, password, active, teamID",
             "in": "body",
-            "description": " name: Deverá ser preenchido com o nome do usuário; \n   register: Deverá ser preenchido com o numero de matrícula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n   active: Deverá ser preenchido com o status do usuário. ",
+            "description": " name: Deverá ser preenchido com o nome do usuário; \n   register: Deverá ser preenchido com o numero de matrícula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n   active: Deverá ser preenchido com o status do usuário. \n   teamID: Deverá ser preenchido com o identificador da turma.",
             "requerid": true,
             "schema": {
               "$ref": "#/definitions/Studant"
@@ -321,6 +321,9 @@
               "$ref": "#/definitions/AddStudant"
             }
           },
+          "400": {
+            "description": "Turma não encontrada ou Inativa"
+          },
           "401": {
             "description": "Senha inválida."
           },
@@ -329,6 +332,95 @@
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/studant/many": {
+      "post": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para cadastrar usuários Estudantes através da importação de arquivo.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name, teamID",
+            "in": "body",
+            "description": " name: Deverá ser preenchido com o nome do usuário; \n   teamID: Deverá ser preenchido com o identificador da turma.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/StudantFile"
+            }
+          },
+          {
+            "name": "file",
+            "in": "file",
+            "description": " file: Arquivo que deverá ser importado seguindo o modelo disponibilizado para importar os alunos.",
+            "requerid": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuários cadastrados com sucesso"
+          },
+          "400": {
+            "description": "Turma não encontrada; \nTurma Inativa; \n Arquivo não importado."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
+    "/team": {
+      "post": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "active": {
+                  "example": "any"
+                },
+                "teacherID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
           }
         }
       }
@@ -617,6 +709,23 @@
         "active": {
           "type": "boolean",
           "example": true
+        },
+        "teamID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        }
+      }
+    },
+    "StudantFile": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "example": "********"
+        },
+        "teamID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
         }
       }
     },
@@ -638,6 +747,24 @@
         "active": {
           "type": "boolean",
           "example": true
+        },
+        "teams": {
+          "type": "object",
+          "properties": {
+            "team": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "1º ano - Informática"
+                }
+              }
+            }
+          }
         }
       },
       "required": [

@@ -1,4 +1,5 @@
 require("dotenv").config();
+require('./patch.ts')
 
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
@@ -43,6 +44,23 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             })
             break;
         
+        case 'teacher inative.':
+            return res.status(403).json({
+                error: "Professor inativo."
+            })
+            break;
+
+        case 'team not found.':
+            return res.status(403).json({
+                error: "Turma não encontrada."
+            })
+            break;
+        case 'team inative.':
+            return res.status(403).json({
+                error: "Turma inativa."
+            })
+            break;
+
         case 'Password incorrect.':
             return res.status(401).json({
                 error: "Senha incorreta"

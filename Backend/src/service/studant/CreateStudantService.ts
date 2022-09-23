@@ -6,36 +6,75 @@ interface StudantRequest {
   register: number;
   password: string;
   active: boolean;
+  teamID: string;
 }
 
+/**
+ *  Para resolver o problema do register por ser BigInt e o JSON não transformar para string, foi implementado
+ * o arquivo patch.ts dentro da pasta src, ele pega o valor do BigInt e converter em string. 
+ */
+
 class CreateStudantService {
-  async execute({ name, register, password, active }: StudantRequest) {
+  async execute({ name, register, password, active, teamID }: StudantRequest) {
+
     if (!password) {
       throw new Error("password invalid");
     }
     const passwordHash = await hash(password, 8);
 
-    const create = await prismaClient.studant.create({
+    const team = await prismaClient.team.findFirst({
+      where: {
+        id: teamID
+      }
+    })
+
+    if (!team){
+      throw new Error('team not found.')
+    }
+
+    if (!team.active){
+      throw new Error('team inative.')
+    }
+
+    const create = await prismaClient.studantsOnTeams.create({
       data: {
-        name: name,
-        password: passwordHash,
-        register: register,
-        active: active,
+        student: {
+          create:{
+            name: name,
+            password: passwordHash,
+            register: register,
+            active: active,
+          }
+        },
+        team:{
+          connect:{
+            id: teamID
+          }
+        }
       },
       select: {
-        id: true,
-        name: true,
-        register: true,
-        active: true,
+        student:{
+          select: {
+            id: true,
+            name: true,
+            register: true,
+            active: true,
+            teams:{
+              select:{
+                team:{
+                  select:{
+                    id: true,
+                    name: true
+                  }
+                }
+              }
+            }
+          }
+        }
       },
     });
 
-    return {
-        id: create.id,
-        name: create.name,
-        register: create.register.toString(),
-        active: create.active
-    }
+    return create
   }
 }
 

@@ -14,6 +14,7 @@ import { AuthTeacherController } from './controller/teacher/AuthTeacherControlle
 import { ChangeTeacherController } from './controller/teacher/ChangeTeacherController';
 import { CreateTeacherController } from './controller/teacher/CreateTeacherController';
 import { isAuthenticated } from './middlewares/isAuthenticated';
+import { CreateTeamController } from './controller/team/CreateTeamController';
 
 const path = require('path')
 const router = Router();
@@ -55,5 +56,8 @@ router.put('/teacher', isAuthenticated, new ChangeTeacherController().handle)
 router.post('/studant', isAuthenticated, new CreateStudantController().handle)
 router.post('/studant/many', isAuthenticated, upload.single('file') , new CreateManyStudantController().handle)
 
+
+// ----------- Studant -----------
+router.post('/team', isAuthenticated, new CreateTeamController().handle)
 
 export default router

@@ -6,7 +6,7 @@ interface TeacherRequest{
     id: string
     name: string,
     password: string,
-    active: boolean
+    active: boolean | null
 }
 
 class ChangeTeacherService{

@@ -16,6 +16,7 @@ app.use(express.json())
 
 app.use(morgan("dev"))
 
+
 app.use(router)
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
@@ -72,6 +73,31 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
                 error: "Senha inválida."
             })
             break;
+
+        case 'studant not found.':
+            return res.status(404).json({
+                error: "Aluno não encontrado."
+            })
+            break;
+
+        case 'team is required.':
+            return res.status(401).json({
+                error: 'É necessário preencher a turma.'
+            })
+            break;
+
+        case 'studant is required.':
+            return res.status(401).json({
+                error: 'É necessário preencher o identificador do Aluno.'
+            })
+            break;
+
+        case 'studant not found on table studantsOnTeams.':
+            return res.status(404).json({
+                error: "Aluno não encontrado no relacionamento com a Turma."
+            })
+            break;
+
 
         default:
             return res.status(500).json({

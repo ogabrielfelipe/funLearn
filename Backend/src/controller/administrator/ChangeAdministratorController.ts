@@ -36,7 +36,7 @@ class ChangeAdministratorController{
         })
 
 
-         /* #swagger.responses[400] = { 
+        /* #swagger.responses[400] = { 
             description: 'Administrador não encontrado.' 
             } */
 

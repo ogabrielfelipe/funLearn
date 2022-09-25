@@ -14,28 +14,33 @@ class CreateStudantController{
         // #swagger.tags = ['Studant']
 
         /*
-            #swagger.parameters['name', 'register', 'password', 'active'] = {
+            #swagger.parameters['name', 'register', 'password', 'active', 'teamID'] = {
                 in: 'body',
                 description: " name: Deverá ser preenchido com o nome do usuário; \n
                      register: Deverá ser preenchido com o numero de matrícula do aluno a ser utilizado para fazer o login;  \n 
                      password:  Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n
-                    active: Deverá ser preenchido com o status do usuário. ",
+                    active: Deverá ser preenchido com o status do usuário. \n
+                    teamID: Deverá ser preenchido com o identificador da turma.",
                 requerid: true,
                 schema: { $ref: "#/definitions/Studant" }        
             }
          */
 
-        const { name, register, password, active } = req.body
+        const { name, register, password, active, teamID } = req.body
 
         const createService = new CreateStudantService();
         const result = await createService.execute({
             name: name,
             register: register,
             password: password,
-            active: active
+            active: active,
+            teamID: teamID
         })
 
-         /* #swagger.responses[401] = { 
+        /* #swagger.responses[400] = { 
+            description: 'Turma não encontrada ou Inativa' 
+        } */
+        /* #swagger.responses[401] = { 
             description: 'Senha inválida.' 
         } */
         /* #swagger.responses[500] = { 

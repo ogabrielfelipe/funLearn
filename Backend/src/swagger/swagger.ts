@@ -103,14 +103,89 @@ const doc = {
             name: "Barbara M. Dalton",
             register: 120998977234,
             password: "********",
-            active: true
+            active: true,
+            teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        StudantFile:{
+            password: "********",
+            teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
         },
         AddStudant:{
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Barbara M. Dalton",
-            register: 120998977234,
-            active: true
+            register: "120998977234",
+            active: true,
+            teams:{
+                team:{
+                    id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                    name: "1º ano - Informática",
+                    active: true 
+                }
+            }
         },
+        StudantChange:{
+            $studantID: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Barbara M. Dalton",
+            password: "********",
+            active: true,
+            $teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        StudantChangeRes:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Barbara M. Dalton",
+            register: "120998977234",
+            active: true,
+            teams:{
+                team:{
+                    id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                    name: "1º ano - Informática",
+                    active: true 
+                }
+            }
+        },
+        FindStudant:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Barbara M. Dalton",
+            register: "120998977234",
+            active: true,
+            teams: [
+                {
+                    team:{
+                        id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                        name: "1º ano - Informática",
+                        active: true,
+                        teacher: {
+                            id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                            name: "Fulano da Silva Rodrigues",
+                            active: true
+                        }
+                    }
+                }
+            ],
+            position: []
+
+        },
+        FindStudants: {
+            name: "gabriel OU parte do nome OU aspas vazia"
+        },
+        FindStudantsRes: [
+            {
+                $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+                $name: "Barbara M. Dalton",
+                active: true,
+                teams: [
+                    {
+                        team: {
+                            id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                            name: "1º ano - Informática",
+                            active: true,
+                        }
+                    }
+                ]
+            }
+        ]
+
+
     }
 }
 

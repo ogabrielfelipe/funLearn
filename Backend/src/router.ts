@@ -1,5 +1,5 @@
 
-import { Request, Response, Router } from 'express';
+import express, { Request, Response, Router } from 'express';
 import multer from 'multer';
 import  {v4 as uuidv4}  from 'uuid'
 
@@ -14,6 +14,10 @@ import { AuthTeacherController } from './controller/teacher/AuthTeacherControlle
 import { ChangeTeacherController } from './controller/teacher/ChangeTeacherController';
 import { CreateTeacherController } from './controller/teacher/CreateTeacherController';
 import { isAuthenticated } from './middlewares/isAuthenticated';
+import { CreateTeamController } from './controller/team/CreateTeamController';
+import { ChangeStudantController } from './controller/studant/ChangeStudantController';
+import { FindStudantController } from './controller/studant/FindStudantController';
+import { FindManyStudantController } from './controller/studant/FindManyStudantController';
 
 const path = require('path')
 const router = Router();
@@ -28,7 +32,6 @@ const upload = multer({
         }
     })
 })
-
 
 router.get('/', (_req: Request, res: Response) => {
     const path = require('path')
@@ -54,6 +57,12 @@ router.put('/teacher', isAuthenticated, new ChangeTeacherController().handle)
 // ----------- Studant -----------
 router.post('/studant', isAuthenticated, new CreateStudantController().handle)
 router.post('/studant/many', isAuthenticated, upload.single('file') , new CreateManyStudantController().handle)
+router.put('/studant', isAuthenticated, new ChangeStudantController().handle)
+router.get('/studant', isAuthenticated, new FindStudantController().handle)
+router.get('/studants', isAuthenticated, new FindManyStudantController().handle)
 
+
+// ----------- Studant -----------
+router.post('/team', isAuthenticated, new CreateTeamController().handle)
 
 export default router

@@ -2,7 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
 
 interface PayLoad{
-    sub: string
+    sub: string,
+    type: string
 }
 
 
@@ -24,10 +25,14 @@ export function isAuthenticated(
   const [, token] = authToken.split(" ");
 
   try {
-    const { sub } = verify(token, process.env.SECRET!) as PayLoad;
+    const { sub, type} = verify(token, process.env.SECRET!) as PayLoad;
+
 
     //Recuperar o id do token, foi necessario criar a pasta @types e alterar o tsconfig.json "typeRoots" do module "commonjs"
-    req.user_id = sub;
+    req.user= {
+      id: sub,
+      type: type
+    }
 
     return next();
   } catch (err) {

@@ -305,9 +305,9 @@
             "type": "string"
           },
           {
-            "name": "name, register, password, active",
+            "name": "name, register, password, active, teamID",
             "in": "body",
-            "description": " name: Deverá ser preenchido com o nome do usuário; \n   register: Deverá ser preenchido com o numero de matrícula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n   active: Deverá ser preenchido com o status do usuário. ",
+            "description": " name: Deverá ser preenchido com o nome do usuário; \n   register: Deverá ser preenchido com o numero de matrícula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n   active: Deverá ser preenchido com o status do usuário. \n   teamID: Deverá ser preenchido com o identificador da turma.",
             "requerid": true,
             "schema": {
               "$ref": "#/definitions/Studant"
@@ -321,6 +321,9 @@
               "$ref": "#/definitions/AddStudant"
             }
           },
+          "400": {
+            "description": "Turma não encontrada ou Inativa"
+          },
           "401": {
             "description": "Senha inválida."
           },
@@ -329,6 +332,221 @@
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para alterar o cadastro do Aluno.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "studantID, name, password, teamID, active",
+            "in": "body",
+            "description": " studantID: Deverá ser preenchido com o identificador do Aluno; \n   name: Deverá ser preenchido com o nome do aluno, caso queira que seja alterado ou deixe com aspas duplas vaizas; \n    password: Deverá ser preenchido com a nova senha do usuário, caso queira que seja alterado ou deixe com sapas duplas vaizas; \n    active: Deverá ser preenchido com o status do usuário, caso queira que seja alterado ou deixe com null. ",
+            "schema": {
+              "$ref": "#/definitions/StudantChange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário administrador alterado com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/StudantChangeRes"
+            }
+          },
+          "401": {
+            "description": "É necessário preencher a turma."
+          },
+          "403": {
+            "description": "Turma Inativa."
+          },
+          "404": {
+            "description": "Aluno ou Turma não encontrado ou Aluno não encontrado no relacionamento com a Turma."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para buscar os detalhes do cadastro do aluno.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "studantID",
+            "in": "query",
+            "description": " Deverá ser preenchido com o identificador do Aluno;",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindStudant"
+            }
+          },
+          "401": {
+            "description": "É necessário preencher o identificador do Aluno."
+          },
+          "404": {
+            "description": "Aluno não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/studant/many": {
+      "post": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para cadastrar usuários Estudantes através da importação de arquivo.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name, teamID",
+            "in": "body",
+            "description": " name: Deverá ser preenchido com o nome do usuário; \n   teamID: Deverá ser preenchido com o identificador da turma.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/StudantFile"
+            }
+          },
+          {
+            "name": "file",
+            "in": "file",
+            "description": " file: Arquivo que deverá ser importado seguindo o modelo disponibilizado para importar os alunos.",
+            "requerid": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuários cadastrados com sucesso"
+          },
+          "400": {
+            "description": "Turma não encontrada; \nTurma Inativa; \n Arquivo não importado."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
+    "/studants": {
+      "get": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para listar todos os estudantes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administradores.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": " Deverá ser preenchido com o nome do aluno do Aluno, função não diferencia Maiúsculo de Minúsculo e nem de Ordem de escrita (Like %_%).",
+            "schema": {
+              "$ref": "#/definitions/FindStudants"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindStudantsRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/team": {
+      "post": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "active": {
+                  "example": "any"
+                },
+                "teacherID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
           }
         }
       }
@@ -617,6 +835,23 @@
         "active": {
           "type": "boolean",
           "example": true
+        },
+        "teamID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        }
+      }
+    },
+    "StudantFile": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "example": "********"
+        },
+        "teamID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
         }
       }
     },
@@ -632,18 +867,247 @@
           "example": "Barbara M. Dalton"
         },
         "register": {
-          "type": "number",
-          "example": 120998977234
+          "type": "string",
+          "example": "120998977234"
         },
         "active": {
           "type": "boolean",
           "example": true
+        },
+        "teams": {
+          "type": "object",
+          "properties": {
+            "team": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "1º ano - Informática"
+                },
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
         }
       },
       "required": [
         "id",
         "name"
       ]
+    },
+    "StudantChange": {
+      "type": "object",
+      "properties": {
+        "studantID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Barbara M. Dalton"
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "teamID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        }
+      },
+      "required": [
+        "studantID",
+        "name",
+        "teamID"
+      ]
+    },
+    "StudantChangeRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Barbara M. Dalton"
+        },
+        "register": {
+          "type": "string",
+          "example": "120998977234"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "teams": {
+          "type": "object",
+          "properties": {
+            "team": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "1º ano - Informática"
+                },
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "FindStudant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Barbara M. Dalton"
+        },
+        "register": {
+          "type": "string",
+          "example": "120998977234"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "team": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "1º ano - Informática"
+                  },
+                  "active": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "teacher": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Fulano da Silva Rodrigues"
+                      },
+                      "active": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "position": {
+          "type": "array",
+          "example": [],
+          "items": {}
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "FindStudants": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "gabriel OU parte do nome OU aspas vazia"
+        }
+      }
+    },
+    "FindStudantsRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+          },
+          "name": {
+            "type": "string",
+            "example": "Barbara M. Dalton"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "teams": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "team": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "1º ano - Informática"
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
     }
   }
 }

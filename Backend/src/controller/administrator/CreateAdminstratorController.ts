@@ -7,7 +7,7 @@ class CreateAdministratorController{
 
         // #swagger.start
 
-        // #swagger.path = '/admin'
+        // #swagger.path = '/administrator'
         // #swagger.method = 'post'
         // #swagger.description = 'Endpoint para cadastrar um novo usuário administrador.'
         // #swagger.produces = ["application/json"]

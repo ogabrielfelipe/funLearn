@@ -18,6 +18,9 @@ import { CreateTeamController } from './controller/team/CreateTeamController';
 import { ChangeStudantController } from './controller/studant/ChangeStudantController';
 import { FindStudantController } from './controller/studant/FindStudantController';
 import { FindManyStudantController } from './controller/studant/FindManyStudantController';
+import { SendFileModelCreateStudantController } from './controller/studant/SendFileModelCreateStudantController';
+import { HomePage } from './controller/home/HomePage';
+import { AuthStudantController } from './controller/studant/AuthStudantController';
 
 const path = require('path')
 const router = Router();
@@ -27,25 +30,20 @@ const upload = multer({
         destination: path.resolve('tmp/import/'),
         filename(_req, file, cb){
             const fileName = `${uuidv4()}-${file.originalname}`
-
             return cb(null, fileName)
         }
     })
 })
 
-router.get('/', (_req: Request, res: Response) => {
-    const path = require('path')
-    var homeService = path.resolve('src/pages/initial/index.html');
-    res.status(200).sendFile(homeService)
-})
+router.get('/', new HomePage().handle)
 
-//Rota de documentos
+//Rota de documentos (Swagger)
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // ----------- Administrator -----------
-router.post('/admin/auth', new AuthAdministratorController().handle)
-router.post('/admin', isAuthenticated, new CreateAdministratorController().handle)
-router.put('/admin', isAuthenticated, new ChangeAdministratorController().handle)
+router.post('/administrator/auth', new AuthAdministratorController().handle)
+router.post('/administrator', isAuthenticated, new CreateAdministratorController().handle)
+router.put('/administrator', isAuthenticated, new ChangeAdministratorController().handle)
 
 
 // ----------- Teacher -----------
@@ -55,12 +53,13 @@ router.put('/teacher', isAuthenticated, new ChangeTeacherController().handle)
 
 
 // ----------- Studant -----------
+router.post('/studant/auth', new AuthStudantController().handle)
 router.post('/studant', isAuthenticated, new CreateStudantController().handle)
 router.post('/studant/many', isAuthenticated, upload.single('file') , new CreateManyStudantController().handle)
 router.put('/studant', isAuthenticated, new ChangeStudantController().handle)
 router.get('/studant', isAuthenticated, new FindStudantController().handle)
 router.get('/studants', isAuthenticated, new FindManyStudantController().handle)
-
+router.get('/studant/modelo-criacao', isAuthenticated, new SendFileModelCreateStudantController().handle)
 
 // ----------- Studant -----------
 router.post('/team', isAuthenticated, new CreateTeamController().handle)

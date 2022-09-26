@@ -25,6 +25,10 @@ const doc = {
         {
             "name": "Studant",
             "description": "Endpoints" 
+        },
+        {
+            "name": "Home",
+            "description": "Endpoint" 
         }
     ],
     securityDefinitions: {},
@@ -122,6 +126,16 @@ const doc = {
                     active: true 
                 }
             }
+        },
+        AuthStudant:{
+            register: 12332112345,
+            password: "********"
+        },
+        AuthStudantRes:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Fulano da Silva Rodrigues",
+            $register: "12332112345",
+            $active: true
         },
         StudantChange:{
             $studantID: "4531b848-15c8-4dfe-baf8-564491fd4a04",

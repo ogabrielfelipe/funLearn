@@ -19,6 +19,10 @@
     {
       "name": "Studant",
       "description": "Endpoints"
+    },
+    {
+      "name": "Home",
+      "description": "Endpoint"
     }
   ],
   "schemes": [
@@ -29,7 +33,13 @@
   "paths": {
     "/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Home"
+        ],
+        "description": "Endpoint da tela inicial das APIs do Sistema FunLearn.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -38,7 +48,7 @@
         }
       }
     },
-    "/admin/auth": {
+    "/administrator/auth": {
       "post": {
         "tags": [
           "Administrator"
@@ -77,7 +87,7 @@
         }
       }
     },
-    "/admin": {
+    "/administrator": {
       "post": {
         "tags": [
           "Administrator"
@@ -187,7 +197,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n   \n Token com tempo de validade de 15 dias.  ",
+            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n  É passado tambem o tipo de usuário pelo Header: \"x-access-type\" \n  Token com tempo de validade de 15 dias.  ",
             "schema": {
               "$ref": "#/definitions/AuthTeacherRes"
             }
@@ -282,6 +292,45 @@
           },
           "404": {
             "description": "Professor não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/studant/auth": {
+      "post": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para realizar o login do aluno. \\n token e o tipo de login é enviado no HEADER da resposta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "register, password",
+            "in": "body",
+            "description": " register: Deverá ser preenchido com numero de matricula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login. ",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/AuthStudant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n  É passado tambem o tipo de usuário pelo Header: \"x-access-type\" \n  Token com tempo de validade de 15 dias.  ",
+            "schema": {
+              "$ref": "#/definitions/AuthStudantRes"
+            }
+          },
+          "401": {
+            "description": "Número de matrícula ou senha incorreta"
+          },
+          "403": {
+            "description": "Aluno inativo."
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
@@ -506,6 +555,35 @@
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/studant/modelo-criacao": {
+      "get": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para fazer o download do modelo de importação dos alunos.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Arquivo baixado com sucesso."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
           }
         }
       }
@@ -900,6 +978,46 @@
       "required": [
         "id",
         "name"
+      ]
+    },
+    "AuthStudant": {
+      "type": "object",
+      "properties": {
+        "register": {
+          "type": "number",
+          "example": 12332112345
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      }
+    },
+    "AuthStudantRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "register": {
+          "type": "string",
+          "example": "12332112345"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "register",
+        "active"
       ]
     },
     "StudantChange": {

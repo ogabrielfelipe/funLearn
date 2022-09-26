@@ -11,7 +11,7 @@ import router from './router'
 
 const app = express();
 
-app.use(cors({ exposedHeaders: ['x-access-token'] }))
+app.use(cors({ exposedHeaders: ['x-access-token', 'x-access-type'] }))
 app.use(express.json())
 
 app.use(morgan("dev"))
@@ -77,6 +77,16 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
         case 'studant not found.':
             return res.status(404).json({
                 error: "Aluno não encontrado."
+            })
+            break;
+        case 'studant inative.':
+            return res.status(403).json({
+                error: "Aluno inativo."
+            })
+            break;
+        case 'register incorrect.':
+            return res.status(401).json({
+                error: "Número da matrícula incorreta."
             })
             break;
 

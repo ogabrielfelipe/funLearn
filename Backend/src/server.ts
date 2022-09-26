@@ -27,6 +27,12 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
                 error: "Professor não encontrado."
             })
             break;
+
+        case 'teacher is required.':
+            return res.status(401).json({
+                error: "Identificador do professor deve ser fornecido."
+            })
+            break;
         case 'admin not found.':
             return res.status(404).json({
                 error: "Administrador não encontrado."
@@ -107,6 +113,13 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
                 error: "Aluno não encontrado no relacionamento com a Turma."
             })
             break;
+
+        case 'user is not permission.':
+            return res.status(401).json({
+                error: "Usuário não possui permissão para acessar essas informações."
+            })
+            break;
+
 
 
         default:

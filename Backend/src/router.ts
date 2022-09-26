@@ -21,6 +21,10 @@ import { FindManyStudantController } from './controller/studant/FindManyStudantC
 import { SendFileModelCreateStudantController } from './controller/studant/SendFileModelCreateStudantController';
 import { HomePage } from './controller/home/HomePage';
 import { AuthStudantController } from './controller/studant/AuthStudantController';
+import { FindTeacherController } from './controller/teacher/FindTeacherController';
+import { FindManyTeacherController } from './controller/teacher/FindManyTeacherController';
+import { FindAdministratorController } from './controller/administrator/FindAdministratorController';
+import { FindManyAdministratorController } from './controller/administrator/FindManyAdministratorController';
 
 const path = require('path')
 const router = Router();
@@ -44,13 +48,15 @@ router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 router.post('/administrator/auth', new AuthAdministratorController().handle)
 router.post('/administrator', isAuthenticated, new CreateAdministratorController().handle)
 router.put('/administrator', isAuthenticated, new ChangeAdministratorController().handle)
-
+router.get('/administrator', isAuthenticated, new FindAdministratorController().handle)
+router.get('/adminstrators', isAuthenticated, new FindManyAdministratorController().handle)
 
 // ----------- Teacher -----------
 router.post('/teacher/auth', new AuthTeacherController().handle)
 router.post('/teacher', isAuthenticated, new CreateTeacherController().handle)
 router.put('/teacher', isAuthenticated, new ChangeTeacherController().handle)
-
+router.get('/teacher', isAuthenticated, new FindTeacherController().handle)
+router.get('/teachers', isAuthenticated, new FindManyTeacherController().handle)
 
 // ----------- Studant -----------
 router.post('/studant/auth', new AuthStudantController().handle)

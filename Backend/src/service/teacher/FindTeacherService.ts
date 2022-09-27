@@ -12,7 +12,7 @@ class FindTeacherService{
     async execute( {teacherID, user}:FindTeacherRequest ){
 
         if(!teacherID){
-            throw new Error('teacher is required.')
+            throw new Error('identifier is required')
         }
 
         if (user.type === "teacher"){

@@ -67,6 +67,35 @@ const doc = {
             $username: "fulano",
             $password: "********"
         },
+        FindTeacher:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Fulano da Silva Rodrigues",
+            $username: "fulano",
+            $active: true,
+            team: [
+                {
+                    id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                    name: "1º ano - Informática",
+                    active: true,
+                }
+            ]
+        },
+        FindTeachersReq:{
+            $name: "Fulano da Silva Rodrigues",
+        },
+        FindTeachers:[{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Fulano da Silva Rodrigues",
+            $username: "fulano",
+            $active: true,
+            team: [
+                {
+                    id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                    name: "1º ano - Informática",
+                    active: true,
+                }
+            ]
+        }],
 //-------------------- ## MODEL ADMINISTRATOR ## --------------------
         Administrator:{
             name: "Barbara M. Dalton",
@@ -101,6 +130,21 @@ const doc = {
             $username: "fulano",
             $active: true,
         },
+        FindAdministrator:{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Fulano da Silva Rodrigues",
+            $username: "fulano",
+            $active: true
+        },
+        FindAdministratorsReq:{
+            $name: "Fulano da Silva Rodrigues",            
+        },  
+        FindAdministrators: [{
+            $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "Fulano da Silva Rodrigues",
+            $username: "fulano",
+            $active: true
+        },],
 
 //-------------------- ## MODEL ESTUDANTE ## --------------------
         Studant:{

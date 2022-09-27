@@ -120,6 +120,12 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             })
             break;
 
+        case 'identifier is required':
+            return res.status(401).json({
+                error: "Identificador do registro é necessário."
+            })
+            break;
+
 
 
         default:

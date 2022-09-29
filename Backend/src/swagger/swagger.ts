@@ -241,7 +241,29 @@ const doc = {
                     }
                 ]
             }
-        ]
+        ],
+
+
+        CreateManyStudants500:{
+            "header": "Error",
+            "code": 500,
+            "description": {
+                "code": "P2002",
+                "clientVersion": "4.3.1",
+                "meta": {
+                    "target": "studant_register_key"
+                }
+            }
+        },
+        CreateManyStudant200:{
+            "header": "Success",
+            "code": 200,
+            "description": {
+                "msg": "Cadastro efetuado com sucesso.",
+                "count": 3
+            }
+        }
+        
 
 
     }

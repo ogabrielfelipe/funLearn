@@ -21,6 +21,9 @@ app.use(router)
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
+    console.log(err)
+    console.log(typeof err)
+
     switch (err.message){
         case 'teacher not found.':
             return res.status(404).json({
@@ -58,7 +61,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             break;
 
         case 'team not found.':
-            return res.status(403).json({
+            return res.status(404).json({
                 error: "Turma não encontrada."
             })
             break;
@@ -125,7 +128,17 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
                 error: "Identificador do registro é necessário."
             })
             break;
-
+        
+        case 'password not sent.':
+            return res.status(403).json({
+                error: "Senha não enviada."
+            })
+            break;
+        case 'team not sent.':
+            return res.status(403).json({
+                error: "Turma não enviada."
+            })
+            break;
 
 
         default:

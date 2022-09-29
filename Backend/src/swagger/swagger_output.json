@@ -666,16 +666,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuários cadastrados com sucesso"
-          },
-          "400": {
-            "description": "Turma não encontrada; \nTurma Inativa; \n Arquivo não importado."
+            "description": "Usuários cadastrados com sucesso",
+            "schema": {
+              "$ref": "#/definitions/CreateManyStudant200"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
-            "description": "Token não encontrado"
+            "description": "Turma não encontrada; \nTurma Inativa; \n Arquivo não importado. \n Turma ou Senha não enviada na requisição "
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados. \n **É necessário verificar o atributo CODE para verificar o status da requisição",
+            "schema": {
+              "$ref": "#/definitions/CreateManyStudants500"
+            }
           }
         }
       }
@@ -1567,6 +1573,67 @@
           "id",
           "name"
         ]
+      }
+    },
+    "CreateManyStudants500": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "type": "string",
+          "example": "Error"
+        },
+        "code": {
+          "type": "number",
+          "example": 500
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "example": "P2002"
+            },
+            "clientVersion": {
+              "type": "string",
+              "example": "4.3.1"
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "target": {
+                  "type": "string",
+                  "example": "studant_register_key"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "CreateManyStudant200": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "type": "string",
+          "example": "Success"
+        },
+        "code": {
+          "type": "number",
+          "example": 200
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "msg": {
+              "type": "string",
+              "example": "Cadastro efetuado com sucesso."
+            },
+            "count": {
+              "type": "number",
+              "example": 3
+            }
+          }
+        }
       }
     }
   }

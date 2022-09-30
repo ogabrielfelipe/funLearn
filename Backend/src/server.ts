@@ -21,9 +21,6 @@ app.use(router)
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
-    console.log(err)
-    console.log(typeof err)
-
     switch (err.message){
         case 'teacher not found.':
             return res.status(404).json({

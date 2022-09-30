@@ -21,6 +21,10 @@
       "description": "Endpoints"
     },
     {
+      "name": "Team",
+      "description": "Endpoint"
+    },
+    {
       "name": "Home",
       "description": "Endpoint"
     }
@@ -760,7 +764,13 @@
     },
     "/team": {
       "post": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para cadastrar uma nova turma.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -768,33 +778,158 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "name, teacherID, active",
             "in": "body",
+            "description": " name: Deverá ser preenchido com o nome da Turma; \n   teacherID: Deverá ser preenchido com o identificador do professor a ser vinculado na turma; \n    active: Deverá ser preenchido com o status da turma, se está ativa ou não. ",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "active": {
-                  "example": "any"
-                },
-                "teacherID": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Team"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Turma cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Professor inativo."
+          },
+          "404": {
+            "description": "Professor não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para alterar o cadastro da turma.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id,name, teacherID, active",
+            "in": "body",
+            "description": " id: Deverá ser preenchido com o identificador da turma que deseja realizar a alteração; \n    name: Deverá ser preenchido com o nome da Turma; \n   teacherID: Deverá ser preenchido com o identificador do professor a ser vinculado na turma; \n    active: Deverá ser preenchido com o status da turma, se está ativa ou não. ",
+            "schema": {
+              "$ref": "#/definitions/TeamChange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Turma cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Professor inativo."
+          },
+          "404": {
+            "description": "Turma não encontrada ou Professor não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para buscar detalhes do cadastro da turma.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "teamID",
+            "in": "query",
+            "description": "Deverá ser preenchido com o identificador da turma que deseja realizar a busca.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca realizada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamRes"
+            }
+          },
+          "401": {
+            "description": "É necessário informar uma turma."
+          },
+          "404": {
+            "description": "Turma não encontrada."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/teams": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para listar as turmas cadastradas.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Deverá ser preenchido com o nome da turma, função não diferencia Maiúsculo de Minúsculo e nem de Ordem de escrita (Like %_%).",
+            "schema": {
+              "$ref": "#/definitions/TeamFind"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca realizada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamsRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
@@ -1634,6 +1769,149 @@
             }
           }
         }
+      }
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "TeamFind": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        }
+      }
+    },
+    "TeamRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "teacher": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+            },
+            "name": {
+              "type": "string",
+              "example": "Fulano da Silva Rodrigues"
+            },
+            "active": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        }
+      },
+      "required": [
+        "name",
+        "teacherID",
+        "active",
+        "teacher"
+      ]
+    },
+    "TeamChange": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "name",
+        "teacherID",
+        "active"
+      ]
+    },
+    "TeamsRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+          },
+          "name": {
+            "type": "string",
+            "example": "1º Ano - Técnico em Informática"
+          },
+          "teacherID": {
+            "type": "string",
+            "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "teacher": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+              },
+              "name": {
+                "type": "string",
+                "example": "Fulano da Silva Rodrigues"
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        },
+        "required": [
+          "name",
+          "teacherID",
+          "active",
+          "teacher"
+        ]
       }
     }
   }

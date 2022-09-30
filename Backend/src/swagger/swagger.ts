@@ -27,6 +27,10 @@ const doc = {
             "description": "Endpoints" 
         },
         {
+            "name": "Team",
+            "description": "Endpoint" 
+        },
+        {
             "name": "Home",
             "description": "Endpoint" 
         }
@@ -262,9 +266,45 @@ const doc = {
                 "msg": "Cadastro efetuado com sucesso.",
                 "count": 3
             }
-        }
+        },
         
-
+        // --------------- TEAM -----------------------
+        Team:{
+            name: "1º Ano - Técnico em Informática",
+            teacherID: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+            active: true
+        },
+        TeamFind:{
+            name: "1º Ano - Técnico em Informática",
+        },
+        TeamRes:{
+            id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "1º Ano - Técnico em Informática",
+            $teacherID: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $active: true,
+            $teacher:{
+                id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                name: "Fulano da Silva Rodrigues",
+                active: true
+            }
+        },
+        TeamChange:{
+            id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "1º Ano - Técnico em Informática",
+            $teacherID: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $active: true,
+        },
+        TeamsRes:[{
+            id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $name: "1º Ano - Técnico em Informática",
+            $teacherID: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+            $active: true,
+            $teacher:{
+                id: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+                name: "Fulano da Silva Rodrigues",
+                active: true
+            }
+        }],
 
     }
 }

@@ -19,12 +19,15 @@ import { ChangeStudantController } from './controller/studant/ChangeStudantContr
 import { FindStudantController } from './controller/studant/FindStudantController';
 import { FindManyStudantController } from './controller/studant/FindManyStudantController';
 import { SendFileModelCreateStudantController } from './controller/studant/SendFileModelCreateStudantController';
-import { HomePage } from './controller/home/HomePage';
+import { HomePage } from './controller/default/HomePage';
 import { AuthStudantController } from './controller/studant/AuthStudantController';
 import { FindTeacherController } from './controller/teacher/FindTeacherController';
 import { FindManyTeacherController } from './controller/teacher/FindManyTeacherController';
 import { FindAdministratorController } from './controller/administrator/FindAdministratorController';
 import { FindManyAdministratorController } from './controller/administrator/FindManyAdministratorController';
+import { ChangeTeamController } from './controller/team/ChangeTeamController';
+import { FindTeamController } from './controller/team/FindTeamController';
+import { FindTeamsController } from './controller/team/FindTeamsController';
 
 const path = require('path')
 const router = Router();
@@ -69,5 +72,9 @@ router.get('/studant/modelo-criacao', isAuthenticated, new SendFileModelCreateSt
 
 // ----------- Studant -----------
 router.post('/team', isAuthenticated, new CreateTeamController().handle)
+router.put('/team', isAuthenticated, new ChangeTeamController().handle)
+router.get('/team', isAuthenticated, new FindTeamController().handle)
+router.get('/teams', isAuthenticated, new FindTeamsController().handle)
+
 
 export default router

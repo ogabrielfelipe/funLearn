@@ -4,13 +4,11 @@ Trabalho de Conclusão de Curso.
 
 ## Backend
 
----
 
 ### 📄 Introdução do Módulo
 
 Este módulo contem todas as funcionalidades do Sistema e disponibiliza em forma de APIs para ser utilizado. Foi criado em [Node.js](https://nodejs.org/en/) e utiliza o framework [Express.js](http://expressjs.com/) para disponibilzar as APIs e para armazenar os dados utiliza o [MySQL](https://www.mysql.com/)
 
----
 
 ### ✅ Requisitos
 
@@ -76,4 +74,3 @@ Com o módulo em execução, você poderá acessa-lo pelo link: [http://localhos
 
 ![image](https://user-images.githubusercontent.com/80602315/193366751-7a51224d-82cb-4e10-9e88-023f0d70fb28.png)
 
----

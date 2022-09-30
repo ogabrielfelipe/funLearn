@@ -74,6 +74,6 @@ yarn dev
 
 Com o módulo em execução, você poderá acessa-lo pelo link: [http://localhost:3333](http://localhost:3333/), e terá acesso a tela inicial da API que poderá visualizar a documentação da mesma.
 
-![Untitled](Backend%206fdf3b8cde4742b8b01f8219c0518a0a/Untitled.png)
+![image](https://user-images.githubusercontent.com/80602315/193366751-7a51224d-82cb-4e10-9e88-023f0d70fb28.png)
 
 ---

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import xlsxFile from 'read-excel-file/node'
+import { CreateManyStudantService } from "../../service/studant/CreateManyStudantService";
 import { CreateStudantService } from "../../service/studant/CreateStudantService";
 
 class CreateManyStudantController{
@@ -37,53 +38,60 @@ class CreateManyStudantController{
             throw new Error('file not found.')
         }
 
+        if (password === "" || !password){
+            throw new Error('password not sent.')
+        }
+
+        if (teamID === "" || !teamID){
+            throw new Error('team not sent.')
+        }
+
         const path = require('path')
         let fs = require('fs');
-        const createStudant = new CreateStudantService();
+        const createStudants = new CreateManyStudantService();
 
-        //let count = 0;
-        var listUsers = Array();
-        var listUsersCreate = Array();
-
-        xlsxFile(path.resolve(`tmp/import/${file.filename}`)).then( (rows) => {
+        
+        xlsxFile(path.resolve(`tmp/import/${file.filename}`)).then(async (rows) => {
+            var listUsers = Array();
             rows.slice(3, rows.length).forEach( (row) => {
                 listUsers.push( {
                         name: row[0].toString(), 
-                        register: Number(row[1])
+                        register: Number(row[1].toString()),
+                        password: password,
+                        active: true
                     } )
             })
-            
-            try{
-                listUsers.forEach( async (r) => {
-                    createStudant.execute({
-                        name: r.name,
-                        register: r.register,
-                        active: true,
-                        password: password,
-                        teamID: teamID
-                    }).then(() => {
-                        //count += 1;
-                    })
-                    
-                })
 
-                console.log(listUsersCreate)
-                
-            }catch(err){
-
-            }
+            const result = await createStudants.execute({
+                studants: listUsers,
+                teamID: teamID
+            })
 
             fs.unlink(path.resolve(`tmp/import/${file.filename}`), (er: any) => {
                 if (er) throw er;
             })
 
-            /* #swagger.responses[400] = { 
-                description: 'Turma não encontrada; \nTurma Inativa; \n Arquivo não importado.' 
+            /* #swagger.responses[404] = { 
+                description: 'Turma não encontrada; \nTurma Inativa; \n Arquivo não importado. \n Turma ou Senha não enviada na requisição ' 
+            } */
+
+            /* #swagger.responses[500] = { 
+                description: 'Relacionado a erro de persistência no banco de dados. \n **É necessário verificar o atributo CODE para verificar o status da requisição',
+                schema: { $ref: "#/definitions/CreateManyStudants500" }   
+
             } */
             /* #swagger.responses[200] = { 
-                description: 'Usuários cadastrados com sucesso' 
+                description: 'Usuários cadastrados com sucesso',
+                schema: { $ref: "#/definitions/CreateManyStudant200" }   
             } */
-            return res.status(200).json({msg: 'Usuários cadastrados com sucesso', listUsersCreate})
+
+            //console.log(result)
+            if(result.code === 500){
+                return res.status(500).json(result)
+            }
+
+            return res.status(200).json(result)
+        
         })     
         // #swagger.end
     }

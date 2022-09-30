@@ -19,6 +19,14 @@
     {
       "name": "Studant",
       "description": "Endpoints"
+    },
+    {
+      "name": "Team",
+      "description": "Endpoint"
+    },
+    {
+      "name": "Home",
+      "description": "Endpoint"
     }
   ],
   "schemes": [
@@ -29,7 +37,13 @@
   "paths": {
     "/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Home"
+        ],
+        "description": "Endpoint da tela inicial das APIs do Sistema FunLearn.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -38,7 +52,7 @@
         }
       }
     },
-    "/admin/auth": {
+    "/administrator/auth": {
       "post": {
         "tags": [
           "Administrator"
@@ -77,7 +91,7 @@
         }
       }
     },
-    "/admin": {
+    "/administrator": {
       "post": {
         "tags": [
           "Administrator"
@@ -163,6 +177,88 @@
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Administrator"
+        ],
+        "description": "Endpoint para buscar os detalhes do cadastro do administrador. Busca só é efetuada somente com usuários administradores.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "adminID",
+            "in": "query",
+            "description": " Deverá ser preenchido com o identificador do Administrador;",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindAdministrator"
+            }
+          },
+          "401": {
+            "description": "Identificador do registro é necessário. \n Usuário não tem permissão para buscar os dados."
+          },
+          "404": {
+            "description": "Usuário Administrador não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/adminstrators": {
+      "get": {
+        "tags": [
+          "Administrator"
+        ],
+        "description": "Endpoint para listar cadastro de todos ox administradores ou filtrar pelo nome. Busca só é efetuada somente com usuários administradores.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": " Deverá ser preenchido com o nome do Administrador, caso queira listar todos deixar o campo com aspas vazias.",
+            "schema": {
+              "$ref": "#/definitions/FindAdministratorsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindAdministrators"
+            }
+          },
+          "401": {
+            "description": "Usuário não tem permissão para buscar os dados."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
       }
     },
     "/teacher/auth": {
@@ -187,7 +283,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n   \n Token com tempo de validade de 15 dias.  ",
+            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n  É passado tambem o tipo de usuário pelo Header: \"x-access-type\" \n  Token com tempo de validade de 15 dias.  ",
             "schema": {
               "$ref": "#/definitions/AuthTeacherRes"
             }
@@ -282,6 +378,127 @@
           },
           "404": {
             "description": "Professor não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Endpoint para buscar os detalhes do cadastro do Professor. Para usuários Professores so poderá buscar os detalhes do cadastro do mesmo. Para Usuários Administradores poderá ver os detalhes de todos os cadastros.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "teacherID",
+            "in": "query",
+            "description": " Deverá ser preenchido com o identificador do Professor;",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindTeacher"
+            }
+          },
+          "401": {
+            "description": "Identificador do registro é necessário. \n Usuário não tem permissão para buscar os dados."
+          },
+          "404": {
+            "description": "Usuário Professor não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/teachers": {
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Endpoint para listar cadastro de todos os professores ou filtrar pelo nome. Busca só é efetuada somente com usuários administradores.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": " Deverá ser preenchido com o nome do professor, caso queira listar todos deixar o campo com aspas vazias.",
+            "schema": {
+              "$ref": "#/definitions/FindTeachersReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindTeachers"
+            }
+          },
+          "401": {
+            "description": "Usuário não tem permissão para buscar os dados."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/studant/auth": {
+      "post": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para realizar o login do aluno. Token e o tipo de login é enviado no HEADER da resposta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "register, password",
+            "in": "body",
+            "description": " register: Deverá ser preenchido com numero de matricula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login. ",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/AuthStudant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n  É passado tambem o tipo de usuário pelo Header: \"x-access-type\" \n  Token com tempo de validade de 15 dias.  ",
+            "schema": {
+              "$ref": "#/definitions/AuthStudantRes"
+            }
+          },
+          "401": {
+            "description": "Número de matrícula ou senha incorreta"
+          },
+          "403": {
+            "description": "Aluno inativo."
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
@@ -453,16 +670,22 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuários cadastrados com sucesso"
-          },
-          "400": {
-            "description": "Turma não encontrada; \nTurma Inativa; \n Arquivo não importado."
+            "description": "Usuários cadastrados com sucesso",
+            "schema": {
+              "$ref": "#/definitions/CreateManyStudant200"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
-            "description": "Token não encontrado"
+            "description": "Turma não encontrada; \nTurma Inativa; \n Arquivo não importado. \n Turma ou Senha não enviada na requisição "
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados. \n **É necessário verificar o atributo CODE para verificar o status da requisição",
+            "schema": {
+              "$ref": "#/definitions/CreateManyStudants500"
+            }
           }
         }
       }
@@ -510,9 +733,44 @@
         }
       }
     },
+    "/studant/modelo-criacao": {
+      "get": {
+        "tags": [
+          "Studant"
+        ],
+        "description": "Endpoint para fazer o download do modelo de importação dos alunos.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Arquivo baixado com sucesso."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
     "/team": {
       "post": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para cadastrar uma nova turma.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -520,33 +778,158 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "name, teacherID, active",
             "in": "body",
+            "description": " name: Deverá ser preenchido com o nome da Turma; \n   teacherID: Deverá ser preenchido com o identificador do professor a ser vinculado na turma; \n    active: Deverá ser preenchido com o status da turma, se está ativa ou não. ",
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "active": {
-                  "example": "any"
-                },
-                "teacherID": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Team"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Turma cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Professor inativo."
+          },
+          "404": {
+            "description": "Professor não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para alterar o cadastro da turma.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "id,name, teacherID, active",
+            "in": "body",
+            "description": " id: Deverá ser preenchido com o identificador da turma que deseja realizar a alteração; \n    name: Deverá ser preenchido com o nome da Turma; \n   teacherID: Deverá ser preenchido com o identificador do professor a ser vinculado na turma; \n    active: Deverá ser preenchido com o status da turma, se está ativa ou não. ",
+            "schema": {
+              "$ref": "#/definitions/TeamChange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Turma cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Professor inativo."
+          },
+          "404": {
+            "description": "Turma não encontrada ou Professor não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para buscar detalhes do cadastro da turma.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "teamID",
+            "in": "query",
+            "description": "Deverá ser preenchido com o identificador da turma que deseja realizar a busca.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca realizada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamRes"
+            }
+          },
+          "401": {
+            "description": "É necessário informar uma turma."
+          },
+          "404": {
+            "description": "Turma não encontrada."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/teams": {
+      "get": {
+        "tags": [
+          "Team"
+        ],
+        "description": "Endpoint para listar as turmas cadastradas.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "body",
+            "description": "Deverá ser preenchido com o nome da turma, função não diferencia Maiúsculo de Minúsculo e nem de Ordem de escrita (Like %_%).",
+            "schema": {
+              "$ref": "#/definitions/TeamFind"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca realizada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/TeamsRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
@@ -685,6 +1068,115 @@
         "password"
       ]
     },
+    "FindTeacher": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "team": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+              },
+              "name": {
+                "type": "string",
+                "example": "1º ano - Informática"
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "active"
+      ]
+    },
+    "FindTeachersReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "FindTeachers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+          },
+          "name": {
+            "type": "string",
+            "example": "Fulano da Silva Rodrigues"
+          },
+          "username": {
+            "type": "string",
+            "example": "fulano"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "team": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "1º ano - Informática"
+                },
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "username",
+          "active"
+        ]
+      }
+    },
     "Administrator": {
       "type": "object",
       "properties": {
@@ -817,6 +1309,75 @@
         "active"
       ]
     },
+    "FindAdministrator": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "username": {
+          "type": "string",
+          "example": "fulano"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "username",
+        "active"
+      ]
+    },
+    "FindAdministratorsReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "FindAdministrators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+          },
+          "name": {
+            "type": "string",
+            "example": "Fulano da Silva Rodrigues"
+          },
+          "username": {
+            "type": "string",
+            "example": "fulano"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "username",
+          "active"
+        ]
+      }
+    },
     "Studant": {
       "type": "object",
       "properties": {
@@ -900,6 +1461,46 @@
       "required": [
         "id",
         "name"
+      ]
+    },
+    "AuthStudant": {
+      "type": "object",
+      "properties": {
+        "register": {
+          "type": "number",
+          "example": 12332112345
+        },
+        "password": {
+          "type": "string",
+          "example": "********"
+        }
+      }
+    },
+    "AuthStudantRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "Fulano da Silva Rodrigues"
+        },
+        "register": {
+          "type": "string",
+          "example": "12332112345"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "register",
+        "active"
       ]
     },
     "StudantChange": {
@@ -1106,6 +1707,210 @@
         "required": [
           "id",
           "name"
+        ]
+      }
+    },
+    "CreateManyStudants500": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "type": "string",
+          "example": "Error"
+        },
+        "code": {
+          "type": "number",
+          "example": 500
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "example": "P2002"
+            },
+            "clientVersion": {
+              "type": "string",
+              "example": "4.3.1"
+            },
+            "meta": {
+              "type": "object",
+              "properties": {
+                "target": {
+                  "type": "string",
+                  "example": "studant_register_key"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "CreateManyStudant200": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "type": "string",
+          "example": "Success"
+        },
+        "code": {
+          "type": "number",
+          "example": 200
+        },
+        "description": {
+          "type": "object",
+          "properties": {
+            "msg": {
+              "type": "string",
+              "example": "Cadastro efetuado com sucesso."
+            },
+            "count": {
+              "type": "number",
+              "example": 3
+            }
+          }
+        }
+      }
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "TeamFind": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        }
+      }
+    },
+    "TeamRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "teacher": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+            },
+            "name": {
+              "type": "string",
+              "example": "Fulano da Silva Rodrigues"
+            },
+            "active": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        }
+      },
+      "required": [
+        "name",
+        "teacherID",
+        "active",
+        "teacher"
+      ]
+    },
+    "TeamChange": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "name": {
+          "type": "string",
+          "example": "1º Ano - Técnico em Informática"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "name",
+        "teacherID",
+        "active"
+      ]
+    },
+    "TeamsRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+          },
+          "name": {
+            "type": "string",
+            "example": "1º Ano - Técnico em Informática"
+          },
+          "teacherID": {
+            "type": "string",
+            "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "teacher": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
+              },
+              "name": {
+                "type": "string",
+                "example": "Fulano da Silva Rodrigues"
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        },
+        "required": [
+          "name",
+          "teacherID",
+          "active",
+          "teacher"
         ]
       }
     }

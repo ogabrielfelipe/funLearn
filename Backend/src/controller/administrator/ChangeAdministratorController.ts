@@ -8,7 +8,7 @@ class ChangeAdministratorController{
 
         // #swagger.start
 
-        // #swagger.path = '/admin'
+        // #swagger.path = '/administrator'
         // #swagger.method = 'put'
         // #swagger.description = 'Endpoint para alterar o cadastro do Administrador.'
         // #swagger.produces = ["application/json"]

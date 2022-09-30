@@ -8,7 +8,7 @@ class AuthAdministratorController{
 
         // #swagger.start
 
-        // #swagger.path = '/admin/auth'
+        // #swagger.path = '/administrator/auth'
         // #swagger.method = 'post'
         // #swagger.description = 'Endpoint para realizar o login do Administrador. \n token é enviado no HEADER da resposta.'
         // #swagger.produces = ["application/json"]

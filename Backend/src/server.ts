@@ -11,7 +11,7 @@ import router from './router'
 
 const app = express();
 
-app.use(cors({ exposedHeaders: ['x-access-token'] }))
+app.use(cors({ exposedHeaders: ['x-access-token', 'x-access-type'] }))
 app.use(express.json())
 
 app.use(morgan("dev"))
@@ -25,6 +25,12 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
         case 'teacher not found.':
             return res.status(404).json({
                 error: "Professor não encontrado."
+            })
+            break;
+
+        case 'teacher is required.':
+            return res.status(401).json({
+                error: "Identificador do professor deve ser fornecido."
             })
             break;
         case 'admin not found.':
@@ -52,7 +58,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             break;
 
         case 'team not found.':
-            return res.status(403).json({
+            return res.status(404).json({
                 error: "Turma não encontrada."
             })
             break;
@@ -79,6 +85,16 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
                 error: "Aluno não encontrado."
             })
             break;
+        case 'studant inative.':
+            return res.status(403).json({
+                error: "Aluno inativo."
+            })
+            break;
+        case 'register incorrect.':
+            return res.status(401).json({
+                error: "Número da matrícula incorreta."
+            })
+            break;
 
         case 'team is required.':
             return res.status(401).json({
@@ -95,6 +111,29 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
         case 'studant not found on table studantsOnTeams.':
             return res.status(404).json({
                 error: "Aluno não encontrado no relacionamento com a Turma."
+            })
+            break;
+
+        case 'user is not permission.':
+            return res.status(401).json({
+                error: "Usuário não possui permissão para acessar essas informações."
+            })
+            break;
+
+        case 'identifier is required':
+            return res.status(401).json({
+                error: "Identificador do registro é necessário."
+            })
+            break;
+        
+        case 'password not sent.':
+            return res.status(403).json({
+                error: "Senha não enviada."
+            })
+            break;
+        case 'team not sent.':
+            return res.status(403).json({
+                error: "Turma não enviada."
             })
             break;
 

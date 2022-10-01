@@ -16,6 +16,7 @@ app.use(express.json())
 
 app.use(morgan("dev"))
 
+app.use('/static', express.static(__dirname+"/pages/static"))
 
 app.use(router)
 
@@ -137,6 +138,57 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             })
             break;
 
+        case 'Ask not found.':
+            return res.status(404).json({
+                error: "Pergunta não encontrada."
+            })
+            break;
+
+        case 'answer not found.':
+            return res.status(404).json({
+                error: "Resposta não encontrada."
+            })
+            break;
+        
+        case 'There is already a correct alternative.':
+            return res.status(401).json({
+                error: "Já existe uma alteranativa correta para a pergunta vinculada."
+            })
+        case 'Question has more than one correct alternative.':
+            return res.status(403).json({
+                error: "Pergunta possui mais de uma alternativa correta."
+            })
+
+        case 'A correct answer to the question has not been identified.':
+            return res.status(404).json({
+                error: "Não foi identificado uma resposta correta para a pergunta."
+            })
+            break;
+
+        case 'number of questions different from 4.':
+            return res.status(403).json({
+                error: "Número de alternativas diferente de 4."
+            })
+            break;
+
+        case 'there must be 1 correct question.':
+            return res.status(403).json({
+                error: "Deve haver uma resposta correta."
+            })
+            break;
+
+        case 'Error: description type incorrect.':
+            return res.status(403).json({
+                error: "Tipo do campo description incorreto."
+            })
+            break;
+
+        case 'Error: correct type incorrect.':
+            return res.status(403).json({
+                error: "Tipo do campo correct incorreto."
+            })
+            break;
+
 
         default:
             return res.status(500).json({
@@ -148,7 +200,25 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
    
 })
 
+import os from 'os';
+
+const networkInfo = os.networkInterfaces();
+
+const platform = process.platform
+let host = "";
+
+if (platform == "linux"){
+    if (!networkInfo.enp1s0){
+        host = networkInfo.lo![0].address
+    }else{
+        host = networkInfo.enp1s0![0].address
+    }
+}else if (platform == "win32"){
+    host = networkInfo['Ethernet Instance 0']![1].address
+}
+
+
 
 app.listen(3333, () => {
-    console.log(`[SERVER] Running at http://localhost:3333`)
+    console.log(`[SERVER] Running at http://${host === "" ? "localhost" : host}:3333`)
 })

@@ -28,6 +28,13 @@ import { FindManyAdministratorController } from './controller/administrator/Find
 import { ChangeTeamController } from './controller/team/ChangeTeamController';
 import { FindTeamController } from './controller/team/FindTeamController';
 import { FindTeamsController } from './controller/team/FindTeamsController';
+import { CreateAskController } from './controller/ask/CreateAskController';
+import { ChangeAskController } from './controller/ask/ChangeAskController';
+import { ChangeAnswerController } from './controller/answer/ChangeAnswerController';
+import { DeleteAnswerController } from './controller/answer/DeleteAnswerController';
+import { CreateAnswerController } from './controller/answer/CreateAnswerController';
+import { FindAskController } from './controller/ask/FindAskController';
+import { FindManyAskController } from './controller/ask/FindManyAskController';
 
 const path = require('path')
 const router = Router();
@@ -75,6 +82,31 @@ router.post('/team', isAuthenticated, new CreateTeamController().handle)
 router.put('/team', isAuthenticated, new ChangeTeamController().handle)
 router.get('/team', isAuthenticated, new FindTeamController().handle)
 router.get('/teams', isAuthenticated, new FindTeamsController().handle)
+
+
+// ------------ Ask ---------------
+
+const storage = multer.diskStorage({
+    destination: path.resolve('ImagesAsk/'),
+    filename(req, file, callback) {
+        const fileName = `${uuidv4()}-${file.originalname}`
+        return callback(null, fileName)
+    },
+})
+const uploadImageAsk = multer({storage})
+
+router.post('/ask', isAuthenticated, uploadImageAsk.single('image'), new CreateAskController().handle)
+router.put('/ask', isAuthenticated, new ChangeAskController().handle)
+router.get('/ask', isAuthenticated, new FindAskController().handle)
+router.get('/asks', isAuthenticated, new FindManyAskController().handle)
+router.use('/ask/image', isAuthenticated, express.static("ImagesAsk/"))
+
+
+// ----------- Answer --------------
+
+router.post('/answer', isAuthenticated, new CreateAnswerController().handle)
+router.put('/answer', isAuthenticated, new ChangeAnswerController().handle)
+router.delete('/answer', isAuthenticated, new DeleteAnswerController().handle)
 
 
 export default router

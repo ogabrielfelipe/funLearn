@@ -25,13 +25,21 @@
       "description": "Endpoint"
     },
     {
+      "name": "Ask",
+      "description": "Endpoint"
+    },
+    null,
+    {
+      "name": "Answer",
+      "description": "Endpoint"
+    },
+    {
       "name": "Home",
       "description": "Endpoint"
     }
   ],
   "schemes": [
-    "http",
-    "https"
+    "http"
   ],
   "securityDefinitions": {},
   "paths": {
@@ -927,6 +935,301 @@
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/ask": {
+      "post": {
+        "tags": [
+          "Ask"
+        ],
+        "description": "Endpoint para cadastrar uma nova pergunta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "question, active, image, level, answer",
+            "in": "body",
+            "description": " question: Deverá ser preenchido com enunciado da pergunta; \n   active: Deverá ser preenchido com o status da pergunta, se está ativa ou não; \n   image: Deverá ser informado uma imagem, para ilustrar (Não é obrigatório); \n   level: Deverá ser informado o nível da pergunta, podendo ser Iniciante, Intermediária ou avançada; \n   answer: Deverá ser preenchido com um JSON de nome DATA contendo uma lista de 4 perguntas, sendo uma delas verdadeira e o restante falsas.",
+            "schema": {
+              "$ref": "#/definitions/Ask"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pergunta cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AskResp"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Número de alternativas diferente de 4.\nDeve haver uma resposta correta.\nTipo do campo description incorreto.\nTipo do campo correct incorreto."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Ask"
+        ],
+        "description": "Endpoint para Alterar o cadastro pergunta. Essa alteração só ocorre para os campos question e active, os demais são alterados individualmente.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "askID, question, active",
+            "in": "body",
+            "description": "askID: Deverá ser informado com o identificador da pergunta; \n    question: Deverá ser preenchido com enunciado da pergunta; \n   active: Deverá ser preenchido com o status da pergunta, se está ativa ou não.",
+            "schema": {
+              "$ref": "#/definitions/AskChange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pergunta alterada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AskResp"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Número de alternativas diferente de 4.\nDeve haver uma resposta correta.\nPergunta possui mais de uma alternativa correta."
+          },
+          "404": {
+            "description": "Pergunta não encontrada.\nNão foi identificado uma resposta correta para a pergunta."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Ask"
+        ],
+        "description": "Endpoint para dedtalhar o cadastro da pergunta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "askID",
+            "in": "query",
+            "description": " Deverá informar o identificador da pergunta que deseja detalhar.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AskResp"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/asks": {
+      "get": {
+        "tags": [
+          "Ask"
+        ],
+        "description": "Endpoint para listar todas as perguntas cadastradas ou apenas a que utilizar o filtro.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "question",
+            "in": "body",
+            "description": " Deverá informar o enunciado da questão, podendo digitar parte do nome (LIKE %_%) ou para pesquisar todos deixar com aspas vaizas.",
+            "schema": {
+              "$ref": "#/definitions/AskFindMany"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AskFindManyRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/answer": {
+      "post": {
+        "tags": [
+          "Answer"
+        ],
+        "description": "Endpoint para cadastrar uma resposta para a pergunta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "answerID, description, correct",
+            "in": "body",
+            "description": "askID: Deverá ser informado com o identificador da pergunta; \n    description: Deverá ser preenchido com a descrição da resposta; \n   correct: Deverá ser preenchido com o tipo da resposta se é correta ou não.",
+            "schema": {
+              "$ref": "#/definitions/Answer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta criada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AnswerChangeRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Número de alternativas diferente de 4.\nDeve haver uma resposta correta.\nTipo do campo description incorreto.\nTipo do campo correct incorreto."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Answer"
+        ],
+        "description": "Endpoint para Alterar o cadastro da resposta da pergunta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "answerID, description, correct",
+            "in": "body",
+            "description": "answerID: Deverá ser informado com o identificador da resposta; \n    description: Deverá ser preenchido com a descrição da resposta; \n   correct: Deverá ser preenchido com o tipo da resposta se é correta ou não.",
+            "schema": {
+              "$ref": "#/definitions/AnswerChange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta alterada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/AnswerChangeRes"
+            }
+          },
+          "401": {
+            "description": "Já existe uma alteranativa correta para a pergunta vinculada."
+          },
+          "404": {
+            "description": "Resposta não encontrada."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Answer"
+        ],
+        "description": "Endpoint para excluir uma resposta da pergunta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "answerID",
+            "in": "query",
+            "description": "answerID: Deverá ser informado com o identificador da resposta.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resposta excluida com sucesso."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Resposta não excluida."
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
@@ -1912,6 +2215,202 @@
           "active",
           "teacher"
         ]
+      }
+    },
+    "Ask": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "example": " Aqui será informado uma pergunta "
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "image": {
+          "type": "string",
+          "example": "image.png"
+        },
+        "level": {
+          "type": "string",
+          "example": "INITIAL"
+        },
+        "answer": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "example": "Alternativa 1"
+                  },
+                  "correct": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AskResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "46e50259-ab8d-40e8-8c68-5fc81f604e43"
+        },
+        "question": {
+          "type": "string",
+          "example": " Aqui será informado uma pergunta "
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "image": {
+          "type": "string",
+          "example": "image.png"
+        },
+        "level": {
+          "type": "string",
+          "example": "INITIAL"
+        },
+        "answer": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "1651b180-597b-4689-a89c-7c3acfedc529"
+              },
+              "description": {
+                "type": "string",
+                "example": "Alternativa 1"
+              },
+              "correct": {
+                "type": "boolean",
+                "example": false
+              },
+              "askID": {
+                "type": "string",
+                "example": "46e50259-ab8d-40e8-8c68-5fc81f604e43"
+              }
+            }
+          }
+        }
+      }
+    },
+    "AskChange": {
+      "type": "object",
+      "properties": {
+        "askID": {
+          "type": "string",
+          "example": "46e50259-ab8d-40e8-8c68-5fc81f604e43"
+        },
+        "question": {
+          "type": "string",
+          "example": " Aqui será informado uma pergunta "
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "Answer": {
+      "type": "object",
+      "properties": {
+        "askID": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "description": {
+          "type": "string",
+          "example": "Alternativa alterada"
+        },
+        "correct": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "AnswerChange": {
+      "type": "object",
+      "properties": {
+        "answerID": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "description": {
+          "type": "string",
+          "example": "Alternativa alterada"
+        },
+        "correct": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "AnswerChangeRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "description": {
+          "type": "string",
+          "example": "Alternativa alterada"
+        },
+        "correct": {
+          "type": "boolean",
+          "example": true
+        },
+        "askID": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        }
+      }
+    },
+    "AskFindMany": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "example": " Aqui será informado uma pergunta "
+        }
+      }
+    },
+    "AskFindManyRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+          },
+          "question": {
+            "type": "string",
+            "example": " Aqui será informado uma pergunta "
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "level": {
+            "type": "string",
+            "example": "INITIAL"
+          }
+        }
       }
     }
   }

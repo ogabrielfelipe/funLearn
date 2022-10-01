@@ -18,7 +18,7 @@ class CreateTeacherService{
         const passwordHash = await hash(password, 8)
 
         
-        const create = prismaClient.teacher.create({
+        const create = await prismaClient.teacher.create({
             data:{
                 name: name,
                 username: username,

@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { FindTeamsService } from "../../service/team/FindTeamsService";
 
 
-
-
 class FindTeamsController{
     async handle(req: Request, res: Response){
 
@@ -21,7 +19,7 @@ class FindTeamsController{
                 description: "Deverá ser preenchido com o nome da turma, função não diferencia Maiúsculo de Minúsculo e nem de Ordem de escrita (Like %_%).",
                 schema: { $ref: "#/definitions/TeamFind" },
             }
-         */
+        */
 
         const { name } = req.body;
         

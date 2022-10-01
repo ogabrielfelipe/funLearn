@@ -33,10 +33,10 @@ class CreateTeamController{
             teacherID: teacherID
         })
 
-         /* #swagger.responses[404] = { 
+        /* #swagger.responses[404] = { 
             description: 'Professor não encontrado.' 
         } */
-         /* #swagger.responses[403] = { 
+        /* #swagger.responses[403] = { 
             description: 'Professor inativo.' 
         } */
         /* #swagger.responses[500] = { 

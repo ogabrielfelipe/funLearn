@@ -12,7 +12,6 @@ const doc = {
     },
     host: "localhost:3333",
     basePath: "/",
-    schemes: ['http', 'https'],
     tags: [
         {
             "name": "Administrator",
@@ -28,6 +27,14 @@ const doc = {
         },
         {
             "name": "Team",
+            "description": "Endpoint" 
+        },
+        {
+            "name": "Ask",
+            "description": "Endpoint" 
+        },,
+        {
+            "name": "Answer",
             "description": "Endpoint" 
         },
         {
@@ -305,6 +312,71 @@ const doc = {
                 active: true
             }
         }],
+
+        // --------------------- ASK --------------------------------
+
+        Ask:{
+            question: " Aqui será informado uma pergunta ",
+            active: true,
+            image: "image.png",
+            level: "INITIAL",
+            answer: { 
+                data:[
+                    {
+                        "description": "Alternativa 1",
+                        "correct": false
+                    }
+                ]
+            }
+            
+        },
+        AskResp:{
+            id: "46e50259-ab8d-40e8-8c68-5fc81f604e43",
+            question: " Aqui será informado uma pergunta ",
+            active: true,
+            image: "image.png",
+            level: "INITIAL",
+            answer: [
+                {
+                    id: "1651b180-597b-4689-a89c-7c3acfedc529",
+                    description: "Alternativa 1",
+                    correct: false,
+                    askID: "46e50259-ab8d-40e8-8c68-5fc81f604e43"
+                }
+            ]
+        },
+        AskChange:{
+            askID: "46e50259-ab8d-40e8-8c68-5fc81f604e43",
+            question: " Aqui será informado uma pergunta ",
+            active: true
+        },
+        Answer:{
+            askID: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            description: "Alternativa alterada",
+            correct: true,
+        },
+        AnswerChange:{
+            answerID: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            description: "Alternativa alterada",
+            correct: true
+        },
+        AnswerChangeRes:{
+            id: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            description: "Alternativa alterada",
+            correct: true,
+            askID: "031dd41f-15f2-490b-9eb4-99779b43480c",
+        },
+        AskFindMany:{
+            question: " Aqui será informado uma pergunta "
+        },
+        AskFindManyRes:[{
+            id: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            question: " Aqui será informado uma pergunta ",
+            active: true,
+            level: "INITIAL",
+            
+        }],
+
 
     }
 }

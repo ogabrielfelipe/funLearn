@@ -101,7 +101,35 @@ router.post('/ask', isAuthenticated, uploadImageAsk.single('image'), new CreateA
 router.put('/ask', isAuthenticated, new ChangeAskController().handle)
 router.get('/ask', isAuthenticated, new FindAskController().handle)
 router.get('/asks', isAuthenticated, new FindManyAskController().handle)
+
+
+// #swagger.start
+
+// #swagger.path = '/ask/image'
+// #swagger.method = 'get'
+// #swagger.description = 'Endpoint para exibir a imagem que deseja visualizar.'
+// #swagger.produces = ["application/json"]
+// #swagger.tags = ['Ask']
+
+/*
+    #swagger.parameters['name-image'] = {
+        in: 'query',
+        description: "Deverá ser preenchido com o nome da imagem que está cadastrada na pergunta.",
+        requerid: true       
+    }
+
+*/
+
 router.use('/ask/image', isAuthenticated, express.static("ImagesAsk/"))
+
+/* #swagger.responses[404] = { 
+    description: 'Imagem não encontrada.' 
+} */
+/* #swagger.responses[200] = { 
+    description: 'Busca efetuada com sucesso e exibe a imagem.' 
+} */
+
+// #swagger.end
 
 router.put('/ask/image', isAuthenticated, uploadImageAsk.single('image'), new ChangeImageOnAskController().handle)
 router.delete('/ask/image', isAuthenticated, new DeleteImageOnAskController().handle)

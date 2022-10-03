@@ -330,6 +330,13 @@ const doc = {
             }
             
         },
+        Ask2:{
+            id: "46e50259-ab8d-40e8-8c68-5fc81f604e43",
+            question: " Aqui será informado uma pergunta ",
+            active: true,
+            image: "image.png",
+            level: "INITIAL",            
+        },
         AskResp:{
             id: "46e50259-ab8d-40e8-8c68-5fc81f604e43",
             question: " Aqui será informado uma pergunta ",

@@ -1114,6 +1114,124 @@
         }
       }
     },
+    "/ask/image": {
+      "put": {
+        "tags": [
+          "Ask"
+        ],
+        "description": "Endpoint para alterar a imagem vinculada a pergunta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "askID",
+            "in": "query",
+            "description": "Deverá ser preenchido com o identificador da pergunta.",
+            "requerid": true,
+            "type": "string"
+          },
+          {
+            "name": "image",
+            "in": "file",
+            "description": "deverá ser informado com a imagem que deseja vincular na pergunta.",
+            "requerid": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imagem alterada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/Ask2"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Imagem não encontrada. \nPergunta não encontrada."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Ask"
+        ],
+        "description": "Endpoint para excluir a imagem vinculada a pergunta.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "askID",
+            "in": "query",
+            "description": "Deverá ser preenchido com o identificador da pergunta.",
+            "requerid": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "imagem excluida com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/Ask2"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Pergunta não possui imagem para excluir. \nImagem não encontrada."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados. \nNão foi possível realizar a exclusão."
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Ask"
+        ],
+        "description": "Endpoint para exibir a imagem que deseja visualizar.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "name-image",
+            "in": "query",
+            "description": "Deverá ser preenchido com o nome da imagem que está cadastrada na pergunta.",
+            "requerid": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso e exibe a imagem."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Imagem não encontrada."
+          }
+        }
+      }
+    },
     "/answer": {
       "post": {
         "tags": [
@@ -2256,6 +2374,31 @@
               }
             }
           }
+        }
+      }
+    },
+    "Ask2": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "46e50259-ab8d-40e8-8c68-5fc81f604e43"
+        },
+        "question": {
+          "type": "string",
+          "example": " Aqui será informado uma pergunta "
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "image": {
+          "type": "string",
+          "example": "image.png"
+        },
+        "level": {
+          "type": "string",
+          "example": "INITIAL"
         }
       }
     },

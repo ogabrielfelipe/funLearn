@@ -6,6 +6,25 @@ import { FindAskService } from "../../service/ask/FindAskService";
 
 class DeleteImageOnAskController{
     async handle(req: Request, res: Response){
+
+
+        // #swagger.start
+
+        // #swagger.path = '/ask/imagea'
+        // #swagger.method = 'delete'
+        // #swagger.description = 'Endpoint para excluir a imagem vinculada a pergunta.'
+        // #swagger.produces = ["application/json"]
+        // #swagger.tags = ['Ask']
+
+        /*
+            #swagger.parameters['askID'] = {
+                in: 'query',
+                description: "Deverá ser preenchido com o identificador da pergunta.",
+                requerid: true        
+            }
+
+         */
+
         const askID = req.query['askID'] as string;
 
         const path = require('path')
@@ -39,11 +58,25 @@ class DeleteImageOnAskController{
                  image: ""
              })
 
+            /* #swagger.responses[200] = { 
+                description: 'imagem excluida com sucesso.',
+                schema: { $ref: "#/definitions/Ask2" }   
+            } */
             
             return res.status(200).json(result)
         }else{
-            return res.status(404).json({error: "Não foi possível realizar a exclusão."})
+
+            /* #swagger.responses[404] = { 
+                description: 'Pergunta não possui imagem para excluir. \nImagem não encontrada.' 
+            } */
+
+            /* #swagger.responses[500] = { 
+                description: 'Relacionado a erro de persistência no banco de dados. \nNão foi possível realizar a exclusão.'
+            } */
+            return res.status(500).json({error: "Não foi possível realizar a exclusão."})
         }
+
+        // #swagger.end
     }
 }
 

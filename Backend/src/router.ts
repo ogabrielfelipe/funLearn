@@ -35,6 +35,8 @@ import { DeleteAnswerController } from './controller/answer/DeleteAnswerControll
 import { CreateAnswerController } from './controller/answer/CreateAnswerController';
 import { FindAskController } from './controller/ask/FindAskController';
 import { FindManyAskController } from './controller/ask/FindManyAskController';
+import { ChangeImageOnAskController } from './controller/ask/ChangeImageOnAskController';
+import { DeleteImageOnAskController } from './controller/ask/DeleteImageOnAskController';
 
 const path = require('path')
 const router = Router();
@@ -100,6 +102,9 @@ router.put('/ask', isAuthenticated, new ChangeAskController().handle)
 router.get('/ask', isAuthenticated, new FindAskController().handle)
 router.get('/asks', isAuthenticated, new FindManyAskController().handle)
 router.use('/ask/image', isAuthenticated, express.static("ImagesAsk/"))
+
+router.put('/ask/image', isAuthenticated, uploadImageAsk.single('image'), new ChangeImageOnAskController().handle)
+router.delete('/ask/image', isAuthenticated, new DeleteImageOnAskController().handle)
 
 
 // ----------- Answer --------------

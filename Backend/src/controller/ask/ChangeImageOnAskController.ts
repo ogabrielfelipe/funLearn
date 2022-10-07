@@ -7,6 +7,28 @@ import { FindAskService } from "../../service/ask/FindAskService";
 class ChangeImageOnAskController{
     async handle(req: Request, res: Response){
 
+        // #swagger.start
+
+        // #swagger.path = '/ask/imagea'
+        // #swagger.method = 'put'
+        // #swagger.description = 'Endpoint para alterar a imagem vinculada a pergunta.'
+        // #swagger.produces = ["application/json"]
+        // #swagger.tags = ['Ask']
+
+        /*
+            #swagger.parameters['askID'] = {
+                in: 'query',
+                description: "Deverá ser preenchido com o identificador da pergunta.",
+                requerid: true        
+            }
+
+            #swagger.parameters['image'] = {
+                in: 'file',
+                description: "deverá ser informado com a imagem que deseja vincular na pergunta.",
+                requerid: true,      
+            }
+         */
+
         const askID = req.query['askID'] as string;
         const image = req.file
 
@@ -23,7 +45,7 @@ class ChangeImageOnAskController{
             const findImageSaveRes = await findImageSave.execute(askID)
 
             if (findImageSaveRes?.image){
-                fs.unlink(path.resolve(`ImagesAsk/${findImageSaveRes?.image}`), (er: any) => {
+                fs.unlink(path.resolve(`ImagesAsk/${findImageSaveRes?.image}`), (er: any) => {                  
                     if (er) throw new Error(er);
                 })
             }
@@ -36,10 +58,26 @@ class ChangeImageOnAskController{
             })
 
 
+            /* #swagger.responses[200] = { 
+                description: 'Imagem alterada com sucesso.',
+                schema: { $ref: "#/definitions/Ask2" }   
+            } */
             return res.status(200).json(result)
         }else{
+
+            /* #swagger.responses[404] = { 
+                description: 'Imagem não encontrada. \nPergunta não encontrada.' 
+            } */
+
             return res.status(404).json({error: "Image not found."})
         }
+
+        /* #swagger.responses[500] = { 
+                description: 'Relacionado a erro de persistência no banco de dados.'
+        } */
+
+
+        // #swagger.end
     }
 }
 

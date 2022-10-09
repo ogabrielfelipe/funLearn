@@ -30,6 +30,8 @@ class DeleteImageOnAskController{
         const path = require('path')
         const fs = require('fs');
 
+        const dir = process.env['DIR_IMAGEASK']
+
         
         //--- Função para buscar a imagem que foi cadastrada na pergunta e excluir caso exista.
         const findImageSave = new FindAskService();
@@ -41,12 +43,12 @@ class DeleteImageOnAskController{
             })
         }
 
-        const imagePath = path.resolve(`ImagesAsk/${findImageSaveRes?.image}`);
+        const imagePath = path.resolve(`${dir}${findImageSaveRes?.image}`);
         var result;
         if(fs.existsSync(imagePath)){
 
             if (findImageSaveRes?.image){
-                fs.unlink(path.resolve(`ImagesAsk/${findImageSaveRes?.image}`), (er: any) => {
+                fs.unlink(path.resolve(`${dir}${findImageSaveRes?.image}`), (er: any) => {
                     if (er) throw er;
                 })
             }

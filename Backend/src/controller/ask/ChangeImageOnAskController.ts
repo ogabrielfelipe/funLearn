@@ -34,8 +34,10 @@ class ChangeImageOnAskController{
 
         const path = require('path')
         const fs = require('fs');
+        
+        const dir = process.env['DIR_IMAGEASK']
 
-        const imagePath = path.resolve(`ImagesAsk/${image?.filename}`);
+        const imagePath = path.resolve(`${dir}${image?.filename}`);
 
         var result;
         if(fs.existsSync(imagePath)){
@@ -45,7 +47,7 @@ class ChangeImageOnAskController{
             const findImageSaveRes = await findImageSave.execute(askID)
 
             if (findImageSaveRes?.image){
-                fs.unlink(path.resolve(`ImagesAsk/${findImageSaveRes?.image}`), (er: any) => {                  
+                fs.unlink(path.resolve(`${dir}${findImageSaveRes?.image}`), (er: any) => {                  
                     if (er) throw new Error(er);
                 })
             }

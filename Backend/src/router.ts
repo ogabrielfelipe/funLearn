@@ -43,7 +43,7 @@ const router = Router();
 
 const upload = multer({
     storage: multer.diskStorage({
-        destination: path.resolve('tmp/import/'),
+        destination: path.resolve(process.env['DIR_TEMP_IMPORT']),
         filename(_req, file, cb){
             const fileName = `${uuidv4()}-${file.originalname}`
             return cb(null, fileName)
@@ -89,7 +89,7 @@ router.get('/teams', isAuthenticated, new FindTeamsController().handle)
 // ------------ Ask ---------------
 
 const storage = multer.diskStorage({
-    destination: path.resolve('ImagesAsk/'),
+    destination: path.resolve(process.env['DIR_IMAGEASK']),
     filename(req, file, callback) {
         const fileName = `${uuidv4()}-${file.originalname}`
         return callback(null, fileName)
@@ -120,7 +120,7 @@ router.get('/asks', isAuthenticated, new FindManyAskController().handle)
 
 */
 
-router.use('/ask/image', isAuthenticated, express.static("ImagesAsk/"))
+router.use('/ask/image', isAuthenticated, express.static(process.env['DIR_IMAGEASK'] as string))
 
 /* #swagger.responses[404] = { 
     description: 'Imagem não encontrada.' 

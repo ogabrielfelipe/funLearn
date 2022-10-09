@@ -18,6 +18,21 @@ app.use(morgan("dev"))
 
 app.use('/static', express.static(__dirname+"/pages/static"))
 
+// --------- Creating folder to store images ----------------
+const fs = require('fs');
+const path = require('path')
+
+const dir = path.resolve(process.env['DIR_IMAGEASK'])
+
+if (!fs.existsSync(dir)){
+    fs.mkdir(dir, (err: any)=>{
+        if (err){
+            console.log({msg: "Folder not created", error: err})
+            return;
+        }
+    })  
+}
+
 app.use(router)
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {

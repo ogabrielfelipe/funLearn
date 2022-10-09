@@ -73,6 +73,7 @@ Com o módulo em execução, você poderá acessa-lo pelo link: [http://localhos
 
 ![demo_initial](Backend/static/demo_initial.png)
 
+
 ---
 
 ## Frontend

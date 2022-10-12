@@ -2,44 +2,20 @@ import React from 'react';
 
 import Link from "next/link";
 
-import { Header, HeaderLogin, Background, ScreenStudent, Rectangle, Model, Card } from "./styles"
+import LoginProfessor from './assets/Login Professor.svg';
+
+import { Card, Container} from "./styles"
 
 function Teacher() {
   return (
-  <>
-    <Header>
-      <HeaderLogin>
-        <h3>FunLearn</h3>
-
-        <Link href="/">
-          <a>Voltar</a>
-        </Link>
-
-        <Background>
-          <Rectangle>
-            <ScreenStudent>
-              <h3>imagem</h3>
-            </ScreenStudent>
-            <Model>
-              <h3>Bem vindo ao módulo aluno</h3>
-            </Model>
-            <Card>
-              <div>
-                <p>Número da matrícula</p>
-                <input type="text" name="" id="" />
-              </div>
-              <div>
-                <p>Senha</p>
-                <input type="text" name="" id="" />
-              </div>
-              <button>Entrar</button>
-            </Card>
-          </Rectangle>
-        </Background>
-      </HeaderLogin>
-    </Header>
-  </>
-  );
+    <>
+      <Card>
+        <Container>
+            <img src={LoginProfessor}/>
+        </Container>  
+      </Card>
+    </>
+    );
 }
 
 export default Teacher;

@@ -52,6 +52,7 @@ class AuthAdministratorController{
         } */
 
         res.setHeader('x-access-token', result.token)
+        res.setHeader('x-access-type', 'administrator')
         return res.status(200).json({
             id: result.id,
             name: result.name,

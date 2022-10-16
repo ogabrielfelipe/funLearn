@@ -2,15 +2,15 @@ import prismaClient from "../../prisma"
 
 
 class FindStudantService{
-    async execute(studantID: string){
+    async execute(studentID: string){
 
-        if(!studantID){
+        if(!studentID){
             throw new Error('studant is required.')
         }
 
         const studant = await prismaClient.studant.findUnique({
             where:{
-                id: studantID
+                id: studentID
             },
             select:{
                 id: true,

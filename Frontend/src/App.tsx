@@ -1,20 +1,22 @@
 import React from 'react';
 
+import { BrowserRouter } from "react-router-dom";
+
 import Link from "next/link";
 
-import TelaInicial from './assets/TelaInicial.svg';
+import type { AppProps } from 'next/app';
 
-import { Card, Container } from "./styles"
+// import BackgroundSistema from './assets/Background Sistema.svg';
 
-function App() {
+import { Card, Container, Button } from "./styles"
+import { AuthProvider } from './contexts/AuthContext';
+
+
+function App( { Component, pageProps }:AppProps) {
   return (
-  <>
-    <Card>
-      <Container>
-          <img src={TelaInicial}/>
-      </Container>  
-    </Card>
-  </>
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
   );
 }
 

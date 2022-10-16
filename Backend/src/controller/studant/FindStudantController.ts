@@ -21,10 +21,10 @@ class FindStudantController{
             }
         */
 
-        const studantID = req.query['studantID'] as string
+        const studentID = req.query['studentID'] as string
 
         const findStudant = new FindStudantService()
-        const result = await findStudant.execute(studantID)
+        const result = await findStudant.execute(studentID)
 
     
         /* #swagger.responses[401] = { 

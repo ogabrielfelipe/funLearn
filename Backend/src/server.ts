@@ -229,8 +229,13 @@ if (platform == "linux"){
         host = networkInfo.enp1s0![0].address
     }
 }else if (platform == "win32"){
+<<<<<<< HEAD
     host = 'localhost'; 
     //networkInfo['Ethernet Instance 0']![1].address
+=======
+    host = 'localhost'
+    // networkInfo['Ethernet Instance 0']![1].address
+>>>>>>> origin
 }
 
 

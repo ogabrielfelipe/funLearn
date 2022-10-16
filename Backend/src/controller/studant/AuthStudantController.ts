@@ -54,7 +54,7 @@ class AuthStudantController{
 
 
         res.setHeader('x-access-token', result.token);
-        res.setHeader('x-access-type', 'studant')
+        res.setHeader('x-access-type', 'student')
         return res.status(200).json({
             id: result.id, 
             name: result.name,

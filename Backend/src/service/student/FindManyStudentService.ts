@@ -1,7 +1,7 @@
 import prismaClient from "../../prisma"
 
 
-interface FindManyStudantRequest{
+interface FindManystudentRequest{
     name: string,
     userRequest: {
         id: string,
@@ -9,10 +9,10 @@ interface FindManyStudantRequest{
     }
 }
 
-class FindManyStudantService{
-    async execute( { name, userRequest }:FindManyStudantRequest ){
+class FindManyStudentService{
+    async execute( { name, userRequest }:FindManystudentRequest ){
 
-        const studants = await prismaClient.studant.findMany({
+        const students = await prismaClient.student.findMany({
             
             where:{
                 ...(!name ? {} : { name: { contains: `%${name}%` }}),
@@ -36,8 +36,8 @@ class FindManyStudantService{
             }                 
         })
 
-        return studants
+        return students
     }
 }
 
-export { FindManyStudantService }
+export { FindManyStudentService }

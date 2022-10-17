@@ -1,14 +1,14 @@
 import prismaClient from "../../prisma"
 
 
-class FindStudantService{
+class FindStudentService{
     async execute(studentID: string){
 
         if(!studentID){
-            throw new Error('studant is required.')
+            throw new Error('student is required.')
         }
 
-        const studant = await prismaClient.studant.findUnique({
+        const student = await prismaClient.student.findUnique({
             where:{
                 id: studentID
             },
@@ -62,14 +62,14 @@ class FindStudantService{
         })
 
 
-        if (!studant){
-            throw new Error('studant not found.')
+        if (!student){
+            throw new Error('student not found.')
         }
 
-        return studant
+        return student
 
 
     }
 }
 
-export { FindStudantService }
+export { FindStudentService }

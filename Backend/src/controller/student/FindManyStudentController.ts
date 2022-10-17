@@ -1,24 +1,24 @@
 import { Request, Response } from "express";
-import { FindManyStudantService } from "../../service/studant/FindManyStudantService";
+import { FindManyStudentService } from "../../service/student/FindManyStudentService";
 
 
 
-class FindManyStudantController{
+class FindManyStudentController{
     async handle(req: Request, res: Response){
 
         // #swagger.start
 
-        // #swagger.path = '/studants'
+        // #swagger.path = '/students'
         // #swagger.method = 'get'
-        // #swagger.description = 'Endpoint para listar todos os estudantes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administradores.'
+        // #swagger.description = 'Endpoint para listar todos os estudentes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administradores.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['Studant']
+        // #swagger.tags = ['student']
 
          /*
             #swagger.parameters['name'] = {
                 in: 'body',
                 description: " Deverá ser preenchido com o nome do aluno do Aluno, função não diferencia Maiúsculo de Minúsculo e nem de Ordem de escrita (Like %_%).", 
-            schema: { $ref: "#/definitions/FindStudants" },    
+            schema: { $ref: "#/definitions/Findstudents" },    
             }
          */
 
@@ -26,8 +26,8 @@ class FindManyStudantController{
 
         
 
-        const findManyStudant = new FindManyStudantService();
-        const result = await findManyStudant.execute({
+        const findManystudent = new FindManyStudentService();
+        const result = await findManystudent.execute({
             name: name,
             userRequest: req.user
         })
@@ -37,7 +37,7 @@ class FindManyStudantController{
         } */
 
         /* #swagger.responses[200] = { 
-            schema: { $ref: "#/definitions/FindStudantsRes" },
+            schema: { $ref: "#/definitions/FindstudentsRes" },
             description: 'Busca efetuada com sucesso.' 
         } */
 
@@ -46,4 +46,4 @@ class FindManyStudantController{
     }   
 }
 
-export { FindManyStudantController }
+export { FindManyStudentController }

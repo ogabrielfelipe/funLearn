@@ -11,7 +11,7 @@ interface FindTeachersRequest{
 class FindManyTeacherService{
     async execute( {name, user}:FindTeachersRequest ){
 
-        if (user.type === "studant" || user.type === "teacher"){
+        if (user.type === "student" || user.type === "teacher"){
             throw new Error('user is not permission.')
         }
 

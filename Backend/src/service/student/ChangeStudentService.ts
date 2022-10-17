@@ -1,32 +1,32 @@
 import { hash } from "bcryptjs";
 import prismaClient from "../../prisma";
 
-interface StudantChangeRequest {
-  studantID: string;
+interface studentChangeRequest {
+  studentID: string;
   name: string;
   password: string;
   teamID: string;
   active: boolean | null;
 }
 
-class ChangeStudantService {
+class ChangeStudentService {
   async execute({
-    studantID,
+    studentID,
     name,
     password,
     teamID,
     active,
-  }: StudantChangeRequest) {
-    // verificação e busca na table Studant
+  }: studentChangeRequest) {
+    // verificação e busca na table student
 
-    const studant = await prismaClient.studant.findUnique({
+    const student = await prismaClient.student.findUnique({
       where: {
-        id: studantID,
+        id: studentID,
       },
     });
 
-    if (!studant) {
-      throw new Error("studant not found.");
+    if (!student) {
+      throw new Error("student not found.");
     }
 
     // Criação da senha criptografada
@@ -56,32 +56,32 @@ class ChangeStudantService {
       throw new Error("team inative.");
     }
 
-    // verificação e busca na table StudantsOnTeams
+    // verificação e busca na table studentsOnTeams
 
-    const studantsOnTeams = await prismaClient.studantsOnTeams.findFirst({
+    const studentsOnTeams = await prismaClient.studentsOnTeams.findFirst({
       where: {
-        studantID: studant.id,
+        studentID: student.id,
       },
     });
 
-    if (!studantsOnTeams) {
-      throw new Error("studant not found on table studantsOnTeams.");
+    if (!studentsOnTeams) {
+      throw new Error("student not found on table studentsOnTeams.");
     }
 
     // Alteração do aluno
 
-    const changeStudant = await prismaClient.studant.update({
+    const changestudent = await prismaClient.student.update({
       where: {
-        id: studant.id,
+        id: student.id,
       },
       data: {
-        name: name === "" ? studant.name : name,
-        password: password === "" ? studant.password : passwordHash,
-        active: active === null ? studant.active : active,
+        name: name === "" ? student.name : name,
+        password: password === "" ? student.password : passwordHash,
+        active: active === null ? student.active : active,
         teams: {
           updateMany: {
             where: {
-              studantID: studant.id,
+              studentID: student.id,
             },
             data: {
               teamID: team.id,
@@ -108,8 +108,8 @@ class ChangeStudantService {
       },
     });
 
-    return changeStudant;
+    return changestudent;
   }
 }
 
-export { ChangeStudantService };
+export { ChangeStudentService };

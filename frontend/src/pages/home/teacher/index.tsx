@@ -9,19 +9,31 @@ export default function HomeTeacher(){
     )
 }
 
-export const getServerSideProps = canSSRAuth( (ctx) => {
-
-    if (ctx.req.cookies['@nextauth.type'] === 'teacher') {        
-        return {
-            props:{}
+export const getServerSideProps = async (ctx) => {
+    const api = setupAPIClient(ctx);
+    try{
+        const userLog = await api.post('/teacher/auth/session')
+        if (userLog.status === 200){
+            return{
+                props:{
+                    userLog: userLog.data
+                }
+            }
+        }else{  
+            return{
+                redirect: {
+                    destination: "/",
+                    permanent: false
+                }
+            }
         }
-    }else{
-        return {
+    }catch(error){
+        return{
             redirect: {
-                destination: '/',
+                destination: "/",
                 permanent: false
             }
         }
     }
     
-})
+}

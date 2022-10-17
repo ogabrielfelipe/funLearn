@@ -20,7 +20,7 @@ class FindTeacherService{
                 throw new Error('user is not permission.')
             }
         }
-        if (user.type === "studant"){
+        if (user.type === "student"){
             throw new Error('user is not permission.')
         }
 

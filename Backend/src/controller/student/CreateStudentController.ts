@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
-import { CreateStudantService } from "../../service/studant/CreateStudantService";
+import { CreateStudentService } from "../../service/student/CreateStudentService";
 
 
-class CreateStudantController{
+class CreateStudentController{
     async handle(req: Request, res: Response){
 
         // #swagger.start
 
-        // #swagger.path = '/studant'
+        // #swagger.path = '/student'
         // #swagger.method = 'post'
-        // #swagger.description = 'Endpoint para cadastrar um novo usuário Estudante.'
+        // #swagger.description = 'Endpoint para cadastrar um novo usuário Estudente.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['Studant']
+        // #swagger.tags = ['student']
 
         /*
             #swagger.parameters['name', 'register', 'password', 'active', 'teamID'] = {
@@ -22,13 +22,13 @@ class CreateStudantController{
                     active: Deverá ser preenchido com o status do usuário. \n
                     teamID: Deverá ser preenchido com o identificador da turma.",
                 requerid: true,
-                schema: { $ref: "#/definitions/Studant" }        
+                schema: { $ref: "#/definitions/student" }        
             }
          */
 
         const { name, register, password, active, teamID } = req.body
 
-        const createService = new CreateStudantService();
+        const createService = new CreateStudentService();
         const result = await createService.execute({
             name: name,
             register: register,
@@ -48,12 +48,12 @@ class CreateStudantController{
             } */
 
         /* #swagger.responses[200] = { 
-            schema: { $ref: "#/definitions/AddStudant" },
-            description: 'Usuário estudante cadastrada com sucesso.' 
+            schema: { $ref: "#/definitions/Addstudent" },
+            description: 'Usuário estudente cadastrada com sucesso.' 
         } */
 
         return res.status(200).json(result)
     }
 }
 
-export { CreateStudantController }
+export { CreateStudentController }

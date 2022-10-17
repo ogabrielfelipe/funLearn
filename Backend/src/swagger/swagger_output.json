@@ -17,7 +17,7 @@
       "description": "Endpoints"
     },
     {
-      "name": "Studant",
+      "name": "student",
       "description": "Endpoints"
     },
     {
@@ -475,10 +475,10 @@
         }
       }
     },
-    "/studant/auth": {
+    "/student/auth": {
       "post": {
         "tags": [
-          "Studant"
+          "student"
         ],
         "description": "Endpoint para realizar o login do aluno. Token e o tipo de login é enviado no HEADER da resposta.",
         "produces": [
@@ -491,7 +491,7 @@
             "description": " register: Deverá ser preenchido com numero de matricula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login. ",
             "requerid": true,
             "schema": {
-              "$ref": "#/definitions/AuthStudant"
+              "$ref": "#/definitions/Authstudent"
             }
           }
         ],
@@ -499,7 +499,7 @@
           "200": {
             "description": "Usuário autenticado com sucesso. \n  Token é passado pelo header, nome da variável: \"x-access-token\". \n  É passado tambem o tipo de usuário pelo Header: \"x-access-type\" \n  Token com tempo de validade de 15 dias.  ",
             "schema": {
-              "$ref": "#/definitions/AuthStudantRes"
+              "$ref": "#/definitions/AuthstudentRes"
             }
           },
           "401": {
@@ -514,12 +514,12 @@
         }
       }
     },
-    "/studant": {
+    "/student": {
       "post": {
         "tags": [
-          "Studant"
+          "student"
         ],
-        "description": "Endpoint para cadastrar um novo usuário Estudante.",
+        "description": "Endpoint para cadastrar um novo usuário Estudente.",
         "produces": [
           "application/json"
         ],
@@ -535,15 +535,15 @@
             "description": " name: Deverá ser preenchido com o nome do usuário; \n   register: Deverá ser preenchido com o numero de matrícula do aluno a ser utilizado para fazer o login; \n    password: Deverá ser preenchido com a senha a ser utilziada para realizar o login; \n   active: Deverá ser preenchido com o status do usuário. \n   teamID: Deverá ser preenchido com o identificador da turma.",
             "requerid": true,
             "schema": {
-              "$ref": "#/definitions/Studant"
+              "$ref": "#/definitions/student"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Usuário estudante cadastrada com sucesso.",
+            "description": "Usuário estudente cadastrada com sucesso.",
             "schema": {
-              "$ref": "#/definitions/AddStudant"
+              "$ref": "#/definitions/Addstudent"
             }
           },
           "400": {
@@ -562,7 +562,7 @@
       },
       "put": {
         "tags": [
-          "Studant"
+          "student"
         ],
         "description": "Endpoint para alterar o cadastro do Aluno.",
         "produces": [
@@ -575,11 +575,11 @@
             "type": "string"
           },
           {
-            "name": "studantID, name, password, teamID, active",
+            "name": "studentID, name, password, teamID, active",
             "in": "body",
-            "description": " studantID: Deverá ser preenchido com o identificador do Aluno; \n   name: Deverá ser preenchido com o nome do aluno, caso queira que seja alterado ou deixe com aspas duplas vaizas; \n    password: Deverá ser preenchido com a nova senha do usuário, caso queira que seja alterado ou deixe com sapas duplas vaizas; \n    active: Deverá ser preenchido com o status do usuário, caso queira que seja alterado ou deixe com null. ",
+            "description": " studentID: Deverá ser preenchido com o identificador do Aluno; \n   name: Deverá ser preenchido com o nome do aluno, caso queira que seja alterado ou deixe com aspas duplas vaizas; \n    password: Deverá ser preenchido com a nova senha do usuário, caso queira que seja alterado ou deixe com sapas duplas vaizas; \n    active: Deverá ser preenchido com o status do usuário, caso queira que seja alterado ou deixe com null. ",
             "schema": {
-              "$ref": "#/definitions/StudantChange"
+              "$ref": "#/definitions/studentChange"
             }
           }
         ],
@@ -587,7 +587,7 @@
           "200": {
             "description": "Usuário administrador alterado com sucesso.",
             "schema": {
-              "$ref": "#/definitions/StudantChangeRes"
+              "$ref": "#/definitions/studentChangeRes"
             }
           },
           "401": {
@@ -606,7 +606,7 @@
       },
       "get": {
         "tags": [
-          "Studant"
+          "student"
         ],
         "description": "Endpoint para buscar os detalhes do cadastro do aluno.",
         "produces": [
@@ -619,7 +619,7 @@
             "type": "string"
           },
           {
-            "name": "studantID",
+            "name": "studentID",
             "in": "query",
             "description": " Deverá ser preenchido com o identificador do Aluno;",
             "type": "string"
@@ -629,7 +629,7 @@
           "200": {
             "description": "Busca efetuada com sucesso.",
             "schema": {
-              "$ref": "#/definitions/FindStudant"
+              "$ref": "#/definitions/Findstudent"
             }
           },
           "401": {
@@ -644,12 +644,12 @@
         }
       }
     },
-    "/studant/many": {
+    "/student/many": {
       "post": {
         "tags": [
-          "Studant"
+          "student"
         ],
-        "description": "Endpoint para cadastrar usuários Estudantes através da importação de arquivo.",
+        "description": "Endpoint para cadastrar usuários Estudentes através da importação de arquivo.",
         "produces": [
           "application/json"
         ],
@@ -665,7 +665,7 @@
             "description": " name: Deverá ser preenchido com o nome do usuário; \n   teamID: Deverá ser preenchido com o identificador da turma.",
             "requerid": true,
             "schema": {
-              "$ref": "#/definitions/StudantFile"
+              "$ref": "#/definitions/studentFile"
             }
           },
           {
@@ -680,7 +680,7 @@
           "200": {
             "description": "Usuários cadastrados com sucesso",
             "schema": {
-              "$ref": "#/definitions/CreateManyStudant200"
+              "$ref": "#/definitions/CreateManystudent200"
             }
           },
           "401": {
@@ -692,18 +692,18 @@
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados. \n **É necessário verificar o atributo CODE para verificar o status da requisição",
             "schema": {
-              "$ref": "#/definitions/CreateManyStudants500"
+              "$ref": "#/definitions/CreateManystudents500"
             }
           }
         }
       }
     },
-    "/studants": {
+    "/students": {
       "get": {
         "tags": [
-          "Studant"
+          "student"
         ],
-        "description": "Endpoint para listar todos os estudantes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administradores.",
+        "description": "Endpoint para listar todos os estudentes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administradores.",
         "produces": [
           "application/json"
         ],
@@ -718,7 +718,7 @@
             "in": "body",
             "description": " Deverá ser preenchido com o nome do aluno do Aluno, função não diferencia Maiúsculo de Minúsculo e nem de Ordem de escrita (Like %_%).",
             "schema": {
-              "$ref": "#/definitions/FindStudants"
+              "$ref": "#/definitions/Findstudents"
             }
           }
         ],
@@ -726,7 +726,7 @@
           "200": {
             "description": "Busca efetuada com sucesso.",
             "schema": {
-              "$ref": "#/definitions/FindStudantsRes"
+              "$ref": "#/definitions/FindstudentsRes"
             }
           },
           "401": {
@@ -741,10 +741,10 @@
         }
       }
     },
-    "/studant/modelo-criacao": {
+    "/student/modelo-criacao": {
       "get": {
         "tags": [
-          "Studant"
+          "student"
         ],
         "description": "Endpoint para fazer o download do modelo de importação dos alunos.",
         "produces": [
@@ -1799,7 +1799,7 @@
         ]
       }
     },
-    "Studant": {
+    "student": {
       "type": "object",
       "properties": {
         "name": {
@@ -1824,7 +1824,7 @@
         }
       }
     },
-    "StudantFile": {
+    "studentFile": {
       "type": "object",
       "properties": {
         "password": {
@@ -1837,7 +1837,7 @@
         }
       }
     },
-    "AddStudant": {
+    "Addstudent": {
       "type": "object",
       "properties": {
         "id": {
@@ -1884,7 +1884,7 @@
         "name"
       ]
     },
-    "AuthStudant": {
+    "Authstudent": {
       "type": "object",
       "properties": {
         "register": {
@@ -1897,7 +1897,7 @@
         }
       }
     },
-    "AuthStudantRes": {
+    "AuthstudentRes": {
       "type": "object",
       "properties": {
         "id": {
@@ -1924,10 +1924,10 @@
         "active"
       ]
     },
-    "StudantChange": {
+    "studentChange": {
       "type": "object",
       "properties": {
-        "studantID": {
+        "studentID": {
           "type": "string",
           "example": "4531b848-15c8-4dfe-baf8-564491fd4a04"
         },
@@ -1949,12 +1949,12 @@
         }
       },
       "required": [
-        "studantID",
+        "studentID",
         "name",
         "teamID"
       ]
     },
-    "StudantChangeRes": {
+    "studentChangeRes": {
       "type": "object",
       "properties": {
         "id": {
@@ -2001,7 +2001,7 @@
         "name"
       ]
     },
-    "FindStudant": {
+    "Findstudent": {
       "type": "object",
       "properties": {
         "id": {
@@ -2073,7 +2073,7 @@
         "name"
       ]
     },
-    "FindStudants": {
+    "Findstudents": {
       "type": "object",
       "properties": {
         "name": {
@@ -2082,7 +2082,7 @@
         }
       }
     },
-    "FindStudantsRes": {
+    "FindstudentsRes": {
       "type": "array",
       "items": {
         "type": "object",
@@ -2131,7 +2131,7 @@
         ]
       }
     },
-    "CreateManyStudants500": {
+    "CreateManystudents500": {
       "type": "object",
       "properties": {
         "header": {
@@ -2158,7 +2158,7 @@
               "properties": {
                 "target": {
                   "type": "string",
-                  "example": "studant_register_key"
+                  "example": "student_register_key"
                 }
               }
             }
@@ -2166,7 +2166,7 @@
         }
       }
     },
-    "CreateManyStudant200": {
+    "CreateManystudent200": {
       "type": "object",
       "properties": {
         "header": {

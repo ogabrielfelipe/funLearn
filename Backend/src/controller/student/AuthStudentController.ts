@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
-import { AuthStudantService } from "../../service/studant/AuthStudantService";
+import { AuthStudentService } from "../../service/student/AuthStudentService";
 
 
 
-class AuthStudantController{
+class AuthStudentController{
     async handle(req: Request, res: Response){
 
         // #swagger.start
 
-        // #swagger.path = '/studant/auth'
+        // #swagger.path = '/student/auth'
         // #swagger.method = 'post'
         // #swagger.description = 'Endpoint para realizar o login do aluno. Token e o tipo de login é enviado no HEADER da resposta.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['Studant']
+        // #swagger.tags = ['student']
 
         /*
             #swagger.parameters['register', 'password'] = {
@@ -20,14 +20,14 @@ class AuthStudantController{
                 description: " register: Deverá ser preenchido com numero de matricula do aluno a ser utilizado para fazer o login;  \n 
                      password:  Deverá ser preenchido com a senha a ser utilziada para realizar o login. ",
                 requerid: true,            
-                schema: { $ref: "#/definitions/AuthStudant" }        
+                schema: { $ref: "#/definitions/Authstudent" }        
             }
          */
 
         const { register, password } = req.body;
 
-        const authStudant = new AuthStudantService();
-        const result = await authStudant.execute({
+        const authstudent = new AuthStudentService();
+        const result = await authstudent.execute({
             register: register,
             password: password
         })
@@ -44,7 +44,7 @@ class AuthStudantController{
             } */
 
         /* #swagger.responses[200] = { 
-            schema: { $ref: "#/definitions/AuthStudantRes" },
+            schema: { $ref: "#/definitions/AuthstudentRes" },
             description: 'Usuário autenticado com sucesso. \n
                 Token é passado pelo header, nome da variável: "x-access-token". \n
                 É passado tambem o tipo de usuário pelo Header: "x-access-type" \n
@@ -65,4 +65,4 @@ class AuthStudantController{
     }
 }
 
-export { AuthStudantController }
+export { AuthStudentController }

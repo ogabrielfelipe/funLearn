@@ -8,7 +8,7 @@ import BackgroundSistema from '../../../assets/BackgroundSistema.svg';
 
 import { Card, Container, Button } from "./styles";
 
-export default function LoginStudant(){
+export default function Loginstudent(){
 
 
     const { signIn } = useContext(AuthContext)

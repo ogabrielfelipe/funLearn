@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 
-class SendFileModelCreateStudantController {
+class SendFileModelCreatestudentController {
   async handle(req: Request, res: Response) {
     // #swagger.start
 
-    // #swagger.path = '/studant/modelo-criacao'
+    // #swagger.path = '/student/modelo-criacao'
     // #swagger.method = 'get'
     // #swagger.description = 'Endpoint para fazer o download do modelo de importação dos alunos.'
     // #swagger.produces = ["application/json"]
-    // #swagger.tags = ['Studant']
+    // #swagger.tags = ['student']
 
     const path = require("path");
     var modeloCriacao = path.resolve(
@@ -24,4 +24,4 @@ class SendFileModelCreateStudantController {
   }
 }
 
-export { SendFileModelCreateStudantController }
+export { SendFileModelCreatestudentController }

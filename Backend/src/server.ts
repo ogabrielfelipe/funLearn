@@ -96,12 +96,12 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             })
             break;
 
-        case 'studant not found.':
+        case 'student not found.':
             return res.status(404).json({
                 error: "Aluno não encontrado."
             })
             break;
-        case 'studant inative.':
+        case 'student inative.':
             return res.status(403).json({
                 error: "Aluno inativo."
             })
@@ -118,13 +118,13 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             })
             break;
 
-        case 'studant is required.':
+        case 'student is required.':
             return res.status(401).json({
                 error: 'É necessário preencher o identificador do Aluno.'
             })
             break;
 
-        case 'studant not found on table studantsOnTeams.':
+        case 'student not found on table studentsOnTeams.':
             return res.status(404).json({
                 error: "Aluno não encontrado no relacionamento com a Turma."
             })
@@ -229,8 +229,8 @@ if (platform == "linux"){
         host = networkInfo.enp1s0![0].address
     }
 }else if (platform == "win32"){
-    host = 'localhost'
-    // networkInfo['Ethernet Instance 0']![1].address
+    host = 'localhost'; 
+    //networkInfo['Ethernet Instance 0']![1].address
 }
 
 

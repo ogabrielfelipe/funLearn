@@ -1,7 +1,6 @@
 import { canSSRAuth } from "../../../utils/canSSRAuth"
 
 
-
 export default function HomeStudent(){
     return (
         <>

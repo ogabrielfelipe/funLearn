@@ -1,8 +1,7 @@
-import { canSSRAuth } from "../../../utils/canSSRAuth"
 import { AuthContext } from "../../../contexts/AuthContext";
 import { useContext } from "react"
 import Router from "next/router";
-import { api } from "../../../services/apiClient";
+import { setupAPIClient } from "../../../services/api";
 
 
 export default function HomeAdministrator(){
@@ -16,19 +15,31 @@ export default function HomeAdministrator(){
     )
 }
 
-export const getServerSideProps = canSSRAuth( (ctx) => {
-
-    if (ctx.req.cookies['@nextauth.type'] === 'administrator') {        
-        return {
-            props:{}
+export const getServerSideProps = async (ctx) => {
+    const api = setupAPIClient(ctx);
+    try{
+        const userLog = await api.post('/administrator/auth/session')
+        if (userLog.status === 200){
+            return{
+                props:{
+                    userLog: userLog.data
+                }
+            }
+        }else{  
+            return{
+                redirect: {
+                    destination: "/",
+                    permanent: false
+                }
+            }
         }
-    }else{
-        return {
+    }catch(error){
+        return{
             redirect: {
-                destination: '/',
+                destination: "/",
                 permanent: false
             }
         }
     }
     
-})
+}

@@ -1,35 +1,35 @@
 import { Request, Response } from "express";
-import { ChangeStudantService } from "../../service/studant/ChangeStudantService";
+import { ChangeStudentService } from "../../service/student/ChangeStudentService";
 
 
 
-class ChangeStudantController{
+class ChangestudentController{
     async handle(req: Request, res: Response){
 
         // #swagger.start
 
-        // #swagger.path = '/studant'
+        // #swagger.path = '/student'
         // #swagger.method = 'put'
         // #swagger.description = 'Endpoint para alterar o cadastro do Aluno.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['Studant']
+        // #swagger.tags = ['student']
 
         /*
-            #swagger.parameters['studantID', 'name', 'password', 'teamID', 'active'] = {
+            #swagger.parameters['studentID', 'name', 'password', 'teamID', 'active'] = {
                 in: 'body',
-                description: " studantID: Deverá ser preenchido com o identificador do Aluno; \n
+                description: " studentID: Deverá ser preenchido com o identificador do Aluno; \n
                     name: Deverá ser preenchido com o nome do aluno, caso queira que seja alterado ou deixe com aspas duplas vaizas; \n 
                     password:  Deverá ser preenchido com a nova senha do usuário, caso queira que seja alterado ou deixe com sapas duplas vaizas; \n 
                     active:  Deverá ser preenchido com o status do usuário, caso queira que seja alterado ou deixe com null. ",
-                schema: { $ref: "#/definitions/StudantChange" }        
+                schema: { $ref: "#/definitions/studentChange" }        
             }
          */
 
-        const { studantID, name, password, teamID, active } = req.body;
+        const { studentID, name, password, teamID, active } = req.body;
 
-        const changeStudant = new ChangeStudantService()
-        const result = await changeStudant.execute({
-            studantID: studantID,
+        const changestudent = new ChangeStudentService()
+        const result = await changestudent.execute({
+            studentID: studentID,
             name: name,
             password: password,
             teamID: teamID,
@@ -54,7 +54,7 @@ class ChangeStudantController{
             } */
 
         /* #swagger.responses[200] = { 
-            schema: { $ref: "#/definitions/StudantChangeRes" },
+            schema: { $ref: "#/definitions/studentChangeRes" },
             description: 'Usuário administrador alterado com sucesso.' 
         } */
 
@@ -65,4 +65,4 @@ class ChangeStudantController{
     }
 }
 
-export { ChangeStudantController }
+export { ChangestudentController }

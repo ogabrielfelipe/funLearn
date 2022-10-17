@@ -22,7 +22,7 @@ const doc = {
             "description": "Endpoints" 
         },
         {
-            "name": "Studant",
+            "name": "student",
             "description": "Endpoints" 
         },
         {
@@ -157,19 +157,19 @@ const doc = {
             $active: true
         },],
 
-//-------------------- ## MODEL ESTUDANTE ## --------------------
-        Studant:{
+//-------------------- ## MODEL EstudentE ## --------------------
+        student:{
             name: "Barbara M. Dalton",
             register: 120998977234,
             password: "********",
             active: true,
             teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
         },
-        StudantFile:{
+        studentFile:{
             password: "********",
             teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
         },
-        AddStudant:{
+        Addstudent:{
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Barbara M. Dalton",
             register: "120998977234",
@@ -182,24 +182,24 @@ const doc = {
                 }
             }
         },
-        AuthStudant:{
+        Authstudent:{
             register: 12332112345,
             password: "********"
         },
-        AuthStudantRes:{
+        AuthstudentRes:{
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Fulano da Silva Rodrigues",
             $register: "12332112345",
             $active: true
         },
-        StudantChange:{
-            $studantID: "4531b848-15c8-4dfe-baf8-564491fd4a04",
+        studentChange:{
+            $studentID: "4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Barbara M. Dalton",
             password: "********",
             active: true,
             $teamID: "4531b848-15c8-4dfe-baf8-564491fd4a04"
         },
-        StudantChangeRes:{
+        studentChangeRes:{
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Barbara M. Dalton",
             register: "120998977234",
@@ -212,7 +212,7 @@ const doc = {
                 }
             }
         },
-        FindStudant:{
+        Findstudent:{
             $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
             $name: "Barbara M. Dalton",
             register: "120998977234",
@@ -234,10 +234,10 @@ const doc = {
             position: []
 
         },
-        FindStudants: {
+        Findstudents: {
             name: "gabriel OU parte do nome OU aspas vazia"
         },
-        FindStudantsRes: [
+        FindstudentsRes: [
             {
                 $id:"4531b848-15c8-4dfe-baf8-564491fd4a04",
                 $name: "Barbara M. Dalton",
@@ -255,18 +255,18 @@ const doc = {
         ],
 
 
-        CreateManyStudants500:{
+        CreateManystudents500:{
             "header": "Error",
             "code": 500,
             "description": {
                 "code": "P2002",
                 "clientVersion": "4.3.1",
                 "meta": {
-                    "target": "studant_register_key"
+                    "target": "student_register_key"
                 }
             }
         },
-        CreateManyStudant200:{
+        CreateManystudent200:{
             "header": "Success",
             "code": 200,
             "description": {

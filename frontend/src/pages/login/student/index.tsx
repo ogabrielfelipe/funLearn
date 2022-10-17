@@ -6,7 +6,7 @@ import { canSSRGuest } from "../../../utils/canSSRGuest";
 
 
 
-export default function LoginStudant(){
+export default function Loginstudent(){
 
 
     const { signIn } = useContext(AuthContext)

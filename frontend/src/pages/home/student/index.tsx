@@ -1,5 +1,4 @@
 import { setupAPIClient } from "../../../services/api";
-import { canSSRAuth } from "../../../utils/canSSRAuth"
 
 
 export default function HomeStudent(){

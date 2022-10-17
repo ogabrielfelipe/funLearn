@@ -1,4 +1,5 @@
 import DashboardProfessor from '../../../assets/Dashboard Professor.svg';
+import { setupAPIClient } from '../../../services/api';
 
 export default function HomeTeacher(){
     return (

@@ -10,7 +10,7 @@ class FindTeacherController{
 
         // #swagger.path = '/teacher'
         // #swagger.method = 'get'
-        // #swagger.description = 'Endpoint para buscar os detalhes do cadastro do Professor. Para usuários Professores so poderá buscar os detalhes do cadastro do mesmo. Para Usuários Administradores poderá ver os detalhes de todos os cadastros.'
+        // #swagger.description = 'Endpoint para buscar os detalhes do cadastro do Professor. Para usuários Professores so poderá buscar os detalhes do cadastro do mesmo. Para Usuários administradores poderá ver os detalhes de todos os cadastros.'
         // #swagger.produces = ["application/json"]
         // #swagger.tags = ['Teacher']
 

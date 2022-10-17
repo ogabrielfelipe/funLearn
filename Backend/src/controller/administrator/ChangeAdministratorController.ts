@@ -10,7 +10,7 @@ class ChangeAdministratorController{
 
         // #swagger.path = '/administrator'
         // #swagger.method = 'put'
-        // #swagger.description = 'Endpoint para alterar o cadastro do Administrador.'
+        // #swagger.description = 'Endpoint para alterar o cadastro do administrador.'
         // #swagger.produces = ["application/json"]
         // #swagger.tags = ['Administrator']
 
@@ -37,7 +37,7 @@ class ChangeAdministratorController{
 
 
         /* #swagger.responses[400] = { 
-            description: 'Administrador não encontrado.' 
+            description: 'administrator não encontrado.' 
             } */
 
         /* #swagger.responses[500] = { 
@@ -46,7 +46,7 @@ class ChangeAdministratorController{
 
         /* #swagger.responses[200] = { 
             schema: { $ref: "#/definitions/AdministratorChangeRes" },
-            description: 'Usuário administrador alterado com sucesso.' 
+            description: 'Usuário administrator alterado com sucesso.' 
         } */
 
         return res.status(200).json(result)

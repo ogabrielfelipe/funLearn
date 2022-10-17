@@ -35,7 +35,7 @@ export default function LoginAdmin(){
             <Card>
                 <Container>
                     {/* <img src={BackgroundSistema}/> */}
-                    <h1> Tela de Login do Administrador </h1>
+                    <h1> Tela de Login do administrador </h1>
                     <form onSubmit={handleLogin}>
                         <input 
                             type="text"

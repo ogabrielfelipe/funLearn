@@ -55,7 +55,7 @@ class ChangestudentController{
 
         /* #swagger.responses[200] = { 
             schema: { $ref: "#/definitions/studentChangeRes" },
-            description: 'Usuário administrador alterado com sucesso.' 
+            description: 'Usuário administrator alterado com sucesso.' 
         } */
 
         return res.status(200).json(result)

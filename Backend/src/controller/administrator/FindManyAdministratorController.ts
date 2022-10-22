@@ -10,14 +10,14 @@ class FindManyAdministratorController{
 
         // #swagger.path = '/administrators'
         // #swagger.method = 'get'
-        // #swagger.description = 'Endpoint para listar cadastro de todos ox administradores ou filtrar pelo nome. Busca só é efetuada somente com usuários administradores.'
+        // #swagger.description = 'Endpoint para listar cadastro de todos ox administratores ou filtrar pelo nome. Busca só é efetuada somente com usuários administratores.'
         // #swagger.produces = ["application/json"]
         // #swagger.tags = ['Administrator']
 
         /*
             #swagger.parameters['name'] = {
                 in: 'body',
-                description: " Deverá ser preenchido com o nome do Administrador, caso queira listar todos deixar o campo com aspas vazias.", 
+                description: " Deverá ser preenchido com o nome do administrator, caso queira listar todos deixar o campo com aspas vazias.", 
                 schema: { $ref: "#/definitions/FindAdministratorsReq" } 
                     
             }

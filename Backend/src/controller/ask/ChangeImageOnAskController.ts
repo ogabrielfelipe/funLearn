@@ -9,7 +9,7 @@ class ChangeImageOnAskController{
 
         // #swagger.start
 
-        // #swagger.path = '/ask/imagea'
+        // #swagger.path = '/ask/image'
         // #swagger.method = 'put'
         // #swagger.description = 'Endpoint para alterar a imagem vinculada a pergunta.'
         // #swagger.produces = ["application/json"]

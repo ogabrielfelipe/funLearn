@@ -1,18 +1,17 @@
 import { Request, Response } from "express";
 import xlsxFile from 'read-excel-file/node'
-import { CreateManyStudantService } from "../../service/studant/CreateManyStudantService";
-import { CreateStudantService } from "../../service/studant/CreateStudantService";
+import { CreateManyStudentService } from "../../service/student/CreateManyStudentService";
 
-class CreateManyStudantController{
+class CreateManyStudentController{
     async handle(req: Request, res: Response){
 
         // #swagger.start
 
-        // #swagger.path = '/studant/many'
+        // #swagger.path = '/student/many'
         // #swagger.method = 'post'
-        // #swagger.description = 'Endpoint para cadastrar usuários Estudantes através da importação de arquivo.'
+        // #swagger.description = 'Endpoint para cadastrar usuários Estudentes através da importação de arquivo.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['Studant']
+        // #swagger.tags = ['student']
 
         /*
             #swagger.parameters['name', 'teamID'] = {
@@ -20,7 +19,7 @@ class CreateManyStudantController{
                 description: " name: Deverá ser preenchido com o nome do usuário; \n
                     teamID: Deverá ser preenchido com o identificador da turma.",
                 requerid: true,
-                schema: { $ref: "#/definitions/StudantFile" }        
+                schema: { $ref: "#/definitions/studentFile" }        
             }
 
             #swagger.parameters['file'] = {
@@ -48,7 +47,7 @@ class CreateManyStudantController{
 
         const path = require('path')
         let fs = require('fs');
-        const createStudants = new CreateManyStudantService();
+        const createstudents = new CreateManyStudentService();
 
         
         xlsxFile(path.resolve(`tmp/import/${file.filename}`)).then(async (rows) => {
@@ -62,8 +61,8 @@ class CreateManyStudantController{
                     } )
             })
 
-            const result = await createStudants.execute({
-                studants: listUsers,
+            const result = await createstudents.execute({
+                students: listUsers,
                 teamID: teamID
             })
 
@@ -77,12 +76,12 @@ class CreateManyStudantController{
 
             /* #swagger.responses[500] = { 
                 description: 'Relacionado a erro de persistência no banco de dados. \n **É necessário verificar o atributo CODE para verificar o status da requisição',
-                schema: { $ref: "#/definitions/CreateManyStudants500" }   
+                schema: { $ref: "#/definitions/CreateManystudents500" }   
 
             } */
             /* #swagger.responses[200] = { 
                 description: 'Usuários cadastrados com sucesso',
-                schema: { $ref: "#/definitions/CreateManyStudant200" }   
+                schema: { $ref: "#/definitions/CreateManystudent200" }   
             } */
 
             //console.log(result)
@@ -97,4 +96,4 @@ class CreateManyStudantController{
     }
 }
 
-export { CreateManyStudantController }
+export { CreateManyStudentController }

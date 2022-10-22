@@ -10,7 +10,7 @@ class FindManyTeacherController{
 
         // #swagger.path = '/teachers'
         // #swagger.method = 'get'
-        // #swagger.description = 'Endpoint para listar cadastro de todos os professores ou filtrar pelo nome. Busca só é efetuada somente com usuários administradores.'
+        // #swagger.description = 'Endpoint para listar cadastro de todos os professores ou filtrar pelo nome. Busca só é efetuada somente com usuários administratores.'
         // #swagger.produces = ["application/json"]
         // #swagger.tags = ['Teacher']
 

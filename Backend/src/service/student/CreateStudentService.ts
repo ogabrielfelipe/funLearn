@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 import prismaClient from "../../prisma";
 
-interface StudantRequest {
+interface StudentRequest {
   name: string;
   register: number;
   password: string;
@@ -14,8 +14,8 @@ interface StudantRequest {
  * o arquivo patch.ts dentro da pasta src, ele pega o valor do BigInt e converter em string. 
  */
 
-class CreateStudantService {
-  async execute({ name, register, password, active, teamID }: StudantRequest) {
+class CreateStudentService {
+  async execute({ name, register, password, active, teamID }: StudentRequest) {
 
     if (!password) {
       throw new Error("password invalid");
@@ -36,7 +36,7 @@ class CreateStudantService {
       throw new Error('team inative.')
     }
 
-    const create = await prismaClient.studantsOnTeams.create({
+    const create = await prismaClient.studentsOnTeams.create({
       data: {
         student: {
           create:{
@@ -78,4 +78,4 @@ class CreateStudantService {
   }
 }
 
-export { CreateStudantService };
+export { CreateStudentService };

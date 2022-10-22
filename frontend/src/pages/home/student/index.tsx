@@ -20,19 +20,31 @@ export default function HomeStudent(){
     )
 }
 
-export const getServerSideProps = canSSRAuth( (ctx) => {
-
-    if (ctx.req.cookies['@nextauth.type'] === 'student') {        
-        return {
-            props:{}
+export const getServerSideProps = async (ctx) => {
+    const api = setupAPIClient(ctx);
+    try{
+        const userLog = await api.post('/student/auth/session')
+        if (userLog.status === 200){
+            return{
+                props:{
+                    userLog: userLog.data
+                }
+            }
+        }else{
+            return{
+                redirect: {
+                    destination: "/",
+                    permanent: false
+                }
+            }
         }
-    }else{
-        return {
+    }catch(error){
+        return{
             redirect: {
-                destination: '/',
+                destination: "/",
                 permanent: false
             }
         }
     }
     
-})
+}

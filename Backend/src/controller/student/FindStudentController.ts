@@ -1,21 +1,21 @@
 import { Request, Response } from "express";
-import { FindStudantService } from "../../service/studant/FindStudantService";
+import { FindStudentService } from "../../service/student/FindStudentService";
 
 
 
-class FindStudantController{
+class FindStudentController{
     async handle(req: Request, res: Response){
 
         // #swagger.start
 
-        // #swagger.path = '/studant'
+        // #swagger.path = '/student'
         // #swagger.method = 'get'
         // #swagger.description = 'Endpoint para buscar os detalhes do cadastro do aluno.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['Studant']
+        // #swagger.tags = ['student']
 
         /*
-            #swagger.parameters['studantID'] = {
+            #swagger.parameters['studentID'] = {
                 in: 'query',
                 description: " Deverá ser preenchido com o identificador do Aluno;",     
             }
@@ -23,8 +23,8 @@ class FindStudantController{
 
         const studentID = req.query['studentID'] as string
 
-        const findStudant = new FindStudantService()
-        const result = await findStudant.execute(studentID)
+        const findstudent = new FindStudentService()
+        const result = await findstudent.execute(studentID)
 
     
         /* #swagger.responses[401] = { 
@@ -40,7 +40,7 @@ class FindStudantController{
             } */
 
         /* #swagger.responses[200] = { 
-            schema: { $ref: "#/definitions/FindStudant" },
+            schema: { $ref: "#/definitions/Findstudent" },
             description: 'Busca efetuada com sucesso.' 
         } */
 
@@ -48,4 +48,4 @@ class FindStudantController{
     }
 }
 
-export { FindStudantController }
+export { FindStudentController }

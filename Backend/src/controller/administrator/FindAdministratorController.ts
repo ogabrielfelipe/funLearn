@@ -10,14 +10,14 @@ class FindAdministratorController{
 
         // #swagger.path = '/administrator'
         // #swagger.method = 'get'
-        // #swagger.description = 'Endpoint para buscar os detalhes do cadastro do administrador. Busca só é efetuada somente com usuários administradores.'
+        // #swagger.description = 'Endpoint para buscar os detalhes do cadastro do administrator. Busca só é efetuada somente com usuários administradores.'
         // #swagger.produces = ["application/json"]
         // #swagger.tags = ['Administrator']
 
         /*
             #swagger.parameters['adminID'] = {
                 in: 'query',
-                description: " Deverá ser preenchido com o identificador do Administrador;",     
+                description: " Deverá ser preenchido com o identificador do administrador;",     
             }
         */
 
@@ -34,7 +34,7 @@ class FindAdministratorController{
             description: 'Identificador do registro é necessário. \n Usuário não tem permissão para buscar os dados.' 
         } */
         /* #swagger.responses[404] = { 
-            description: 'Usuário Administrador não encontrado' 
+            description: 'Usuário administrator não encontrado' 
         } */
 
         /* #swagger.responses[500] = { 

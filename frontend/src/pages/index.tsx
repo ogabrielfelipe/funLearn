@@ -18,7 +18,7 @@ const Home: NextPage = () => {
             {/* <img src={Admin}/> */}
 
             <Button>
-              <Link href='/login/admin'> Login Administrador </Link>
+              <Link href='/login/admin'> Login administrador </Link>
             </Button>
           
             <Button>

@@ -4,20 +4,20 @@ import prismaClient from "../../prisma";
 
 const prisma = new PrismaClient();
 
-type StudantProps = {
+type StudentProps = {
   name: string;
   register: number;
   active: boolean;
   password: string;
 };
 
-interface StudantRequest {
-  studants: StudantProps[];
+interface StudentRequest {
+  students: StudentProps[];
   teamID: string;
 }
 
-class CreateManyStudantService {
-  async execute({ studants, teamID }: StudantRequest) {
+class CreateManyStudentService {
+  async execute({ students, teamID }: StudentRequest) {
     const team = await prismaClient.team.findUnique({
       where: {
         id: teamID,
@@ -30,8 +30,8 @@ class CreateManyStudantService {
       throw new Error("team inative.");
     }
 
-    const data = Array<StudantProps>();
-    studants.forEach((st) => {
+    const data = Array<StudentProps>();
+    students.forEach((st) => {
       data.push({
         name: st.name,
         password: hashSync(st.password, 8),
@@ -43,7 +43,7 @@ class CreateManyStudantService {
     try {
       let i = 0;
       for (; i < data.length; i++) {
-        await prismaClient.studantsOnTeams.create({
+        await prismaClient.studentsOnTeams.create({
           data: {
             student: {
               create: {
@@ -79,4 +79,4 @@ class CreateManyStudantService {
   }
 }
 
-export { CreateManyStudantService };
+export { CreateManyStudentService };

@@ -3,53 +3,53 @@ import { sign } from "jsonwebtoken"
 import prismaClient from "../../prisma"
 
 
-interface AuthStudantRequest{
+interface AuthstudentRequest{
     register: number,
     password: string
 }
 
-class AuthStudantService{
-    async execute( {register, password}:AuthStudantRequest ){
-        const studant = await prismaClient.studant.findUnique({
+class AuthStudentService{
+    async execute( {register, password}:AuthstudentRequest ){
+        const student = await prismaClient.student.findUnique({
             where:{
                 register: register
             }
         })
 
-        if (!studant){
+        if (!student){
             throw new Error("register incorrect.")
         }
 
-        if (!studant.active){
-            throw new Error("studant inative.")
+        if (!student.active){
+            throw new Error("student inative.")
         }
 
-        const passMatch = await compare(password, studant.password)
+        const passMatch = await compare(password, student.password)
 
         if (!passMatch){
             throw new Error("Password incorrect.")
         }
         const token = sign(
             {
-                name: studant.name,
-                type: "studant"
+                name: student.name,
+                type: "student"
             },
             process.env.SECRET!,
             {
-                subject: studant.id,
+                subject: student.id,
                 expiresIn: '15d'
             }
         )
 
         return {
-            id: studant.id,
-            name: studant.name,
-            register: studant.register,
-            active: studant.active,
+            id: student.id,
+            name: student.name,
+            register: student.register,
+            active: student.active,
             token: token
         };
 
     }
 }
 
-export { AuthStudantService }
+export { AuthStudentService }

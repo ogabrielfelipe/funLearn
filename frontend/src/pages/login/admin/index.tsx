@@ -5,6 +5,8 @@ import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
 import { canSSRGuest } from "../../../utils/canSSRGuest";
 
+import Link from 'next/link'
+
 import BackgroundSistema from '../../../assets/BackgroundSistema.svg';
 
 import { Card, Container, Button } from "./styles";
@@ -35,7 +37,12 @@ export default function LoginAdmin(){
             <Card>
                 <Container>
                     {/* <img src={BackgroundSistema}/> */}
-                    <h1> Tela de Login do Administrador </h1>
+
+                    <Button>
+                        <Link href='/'> Voltar  </Link>
+                    </Button>
+                    
+                    <h1> Tela de Login do administrador </h1>
                     <form onSubmit={handleLogin}>
                         <input 
                             type="text"

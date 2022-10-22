@@ -12,7 +12,6 @@ import { Card, Container, Button } from "./styles";
 
 const Home: NextPage = () => {
   return (
-    <>
       <Card>
         <Container>
             {/* <img src={Admin}/> */}
@@ -30,7 +29,6 @@ const Home: NextPage = () => {
             </Button>
         </Container>  
       </Card>
-    </>
   )
 }
 

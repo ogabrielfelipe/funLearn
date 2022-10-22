@@ -4,6 +4,8 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRGuest } from "../../../utils/canSSRGuest";
 
+import Link from 'next/link'
+
 import BackgroundSistema from '../../../assets/BackgroundSistema.svg';
 
 import { Card, Container, Button } from "./styles";
@@ -34,6 +36,9 @@ export default function LoginTeacher(){
             <Card>
                 <Container>
                     {/* <img src={BackgroundSistema}/> */}
+
+                    <Link href='/'> Voltar </Link>
+
                     <h1> Tela de Login do Professor </h1>
                     <form onSubmit={handleLogin}>
                         <input 

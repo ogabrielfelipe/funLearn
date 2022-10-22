@@ -3,6 +3,9 @@ import { useContext } from "react"
 import Router from "next/router";
 import { setupAPIClient } from "../../../services/api";
 
+import Link from 'next/link'
+
+import { Button } from "./styles";
 
 export default function HomeAdministrator(){
 
@@ -10,7 +13,11 @@ export default function HomeAdministrator(){
     
     return (
         <>
-            <h1> Tela inicial do Administrador </h1>        
+            <h1> Tela inicial do Administrador </h1>
+
+            <Button>
+                <Link href='/'> Voltar  </Link>
+            </Button> 
         </>
     )
 }

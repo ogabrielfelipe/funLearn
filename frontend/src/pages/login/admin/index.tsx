@@ -5,7 +5,11 @@ import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
 import { canSSRGuest } from "../../../utils/canSSRGuest";
 
+import Link from 'next/link'
 
+import BackgroundSistema from '../../../assets/BackgroundSistema.svg';
+
+import { Card, Container, Button } from "./styles";
 
 export default function LoginAdmin(){
 
@@ -30,25 +34,35 @@ export default function LoginAdmin(){
     }
     return (
         <>
-            <h1> Tela de Login do Administrador </h1>
-            <form onSubmit={handleLogin}>
-                <input 
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Username"
-                />
-                <input 
-                    type="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder="Password"
-                />
+            <Card>
+                <Container>
+                    {/* <img src={BackgroundSistema}/> */}
 
-                <input 
-                    type="submit"
-                />
-            </form>
+                    <Button>
+                        <Link href='/'> Voltar  </Link>
+                    </Button>
+                    
+                    <h1> Tela de Login do administrador </h1>
+                    <form onSubmit={handleLogin}>
+                        <input 
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Username"
+                        />
+                        <input 
+                            type="password"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            placeholder="Password"
+                        />
+
+                        <input 
+                            type="submit"
+                        />
+                    </form>
+                </Container>  
+            </Card>
         </>
     )
 }

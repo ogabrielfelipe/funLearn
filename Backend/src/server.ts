@@ -51,7 +51,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             break;
         case 'admin not found.':
             return res.status(404).json({
-                error: "Administrador não encontrado."
+                error: "administrador não encontrado."
             })
             break;
 

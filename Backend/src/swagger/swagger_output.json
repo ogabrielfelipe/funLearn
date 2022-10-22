@@ -65,7 +65,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para realizar o login do Administrador. \\n token é enviado no HEADER da resposta.",
+        "description": "Endpoint para realizar o login do administrator. \\n token é enviado no HEADER da resposta.",
         "produces": [
           "application/json"
         ],
@@ -104,7 +104,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para cadastrar um novo usuário administrador.",
+        "description": "Endpoint para cadastrar um novo usuário administrator.",
         "produces": [
           "application/json"
         ],
@@ -126,7 +126,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário administrador cadastrada com sucesso.",
+            "description": "Usuário administrator cadastrada com sucesso.",
             "schema": {
               "$ref": "#/definitions/AddAdministrator"
             }
@@ -146,7 +146,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para alterar o cadastro do Administrador.",
+        "description": "Endpoint para alterar o cadastro do administrator.",
         "produces": [
           "application/json"
         ],
@@ -167,13 +167,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário administrador alterado com sucesso.",
+            "description": "Usuário administrator alterado com sucesso.",
             "schema": {
               "$ref": "#/definitions/AdministratorChangeRes"
             }
           },
           "400": {
-            "description": "Administrador não encontrado."
+            "description": "administrator não encontrado."
           },
           "401": {
             "description": "Não autorizado."
@@ -190,7 +190,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para buscar os detalhes do cadastro do administrador. Busca só é efetuada somente com usuários administradores.",
+        "description": "Endpoint para buscar os detalhes do cadastro do administrator. Busca só é efetuada somente com usuários administratores.",
         "produces": [
           "application/json"
         ],
@@ -203,7 +203,7 @@
           {
             "name": "adminID",
             "in": "query",
-            "description": " Deverá ser preenchido com o identificador do Administrador;",
+            "description": " Deverá ser preenchido com o identificador do administrator;",
             "type": "string"
           }
         ],
@@ -218,7 +218,7 @@
             "description": "Identificador do registro é necessário. \n Usuário não tem permissão para buscar os dados."
           },
           "404": {
-            "description": "Usuário Administrador não encontrado"
+            "description": "Usuário administrator não encontrado"
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
@@ -231,7 +231,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para listar cadastro de todos ox administradores ou filtrar pelo nome. Busca só é efetuada somente com usuários administradores.",
+        "description": "Endpoint para listar cadastro de todos ox administratores ou filtrar pelo nome. Busca só é efetuada somente com usuários administratores.",
         "produces": [
           "application/json"
         ],
@@ -244,7 +244,7 @@
           {
             "name": "name",
             "in": "body",
-            "description": " Deverá ser preenchido com o nome do Administrador, caso queira listar todos deixar o campo com aspas vazias.",
+            "description": " Deverá ser preenchido com o nome do administrator, caso queira listar todos deixar o campo com aspas vazias.",
             "schema": {
               "$ref": "#/definitions/FindAdministratorsReq"
             }
@@ -396,7 +396,7 @@
         "tags": [
           "Teacher"
         ],
-        "description": "Endpoint para buscar os detalhes do cadastro do Professor. Para usuários Professores so poderá buscar os detalhes do cadastro do mesmo. Para Usuários Administradores poderá ver os detalhes de todos os cadastros.",
+        "description": "Endpoint para buscar os detalhes do cadastro do Professor. Para usuários Professores so poderá buscar os detalhes do cadastro do mesmo. Para Usuários administratores poderá ver os detalhes de todos os cadastros.",
         "produces": [
           "application/json"
         ],
@@ -437,7 +437,7 @@
         "tags": [
           "Teacher"
         ],
-        "description": "Endpoint para listar cadastro de todos os professores ou filtrar pelo nome. Busca só é efetuada somente com usuários administradores.",
+        "description": "Endpoint para listar cadastro de todos os professores ou filtrar pelo nome. Busca só é efetuada somente com usuários administratores.",
         "produces": [
           "application/json"
         ],
@@ -585,7 +585,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário administrador alterado com sucesso.",
+            "description": "Usuário administrator alterado com sucesso.",
             "schema": {
               "$ref": "#/definitions/studentChangeRes"
             }
@@ -703,7 +703,7 @@
         "tags": [
           "student"
         ],
-        "description": "Endpoint para listar todos os estudentes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administradores.",
+        "description": "Endpoint para listar todos os estudentes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administratores.",
         "produces": [
           "application/json"
         ],

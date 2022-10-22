@@ -57,7 +57,13 @@ DIR_TEMP_IMPORT="tmp/import/"
 DIR_IMAGEASK="ImagesAsk/"
 ```
 
-- Após a criação e configuração do arquivo .env, é necessário executar o seguinte comando para criar as tabelas no banco de dados:
+- Após a criação e configuração do arquivo .env, é necessário executar o seguinte comando para instalar o prisma/cli:
+
+```bash
+yarn add @prisma/cli
+```
+
+- Depois é necessário executar o seguinte comando para criar as tabelas no banco de dados:
 
 ```bash
 yarn prisma db push
@@ -100,6 +106,12 @@ funLearn.zip or git clone https://github.com/ogabrielfelipe/funLearn.git
 
 ```bash
 cd funLearn && cd Frontend/
+```
+
+- Instalando concurrently
+
+```bash
+yarn add concurrently
 ```
 
 - Instalando as dependências

@@ -1,10 +1,21 @@
-import DashboardProfessor from '../../../assets/Dashboard Professor.svg';
+import { canSSRAuth } from "../../../utils/canSSRAuth"
+import { AuthContext } from "../../../contexts/AuthContext";
+import { useContext } from "react"
+import Router from "next/router";
+import { api } from "../../../services/apiClient";
+
+import Link from 'next/link'
+
+import { Button } from "./styles";
 
 export default function HomeTeacher(){
     return (
         <>
-            <h1> Tela inicial do Professor! </h1>
-            <img src={DashboardProfessor}/>     
+            <h1> Tela inicial do Professor! </h1> 
+
+            <Button>
+                <Link href='/'> Voltar  </Link>
+            </Button>    
         </>
     )
 }

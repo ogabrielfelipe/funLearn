@@ -37,7 +37,9 @@ export default function LoginStudant(){
                 <Container>
                     {/* <img src={BackgroundSistema}/> */}
 
-                    <Link href='/'> Voltar </Link>
+                    <Button>
+                        <Link href='/'> Voltar  </Link>
+                    </Button>
 
                     <h1> Tela de Login do Aluno </h1>
                     <form onSubmit={handleLogin}>

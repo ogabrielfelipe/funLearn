@@ -4,7 +4,9 @@ import { useContext } from "react"
 import Router from "next/router";
 import { api } from "../../../services/apiClient";
 
-import DashboardAdministrador from '../../../assets/Dashboard Administrador.svg';
+import Link from 'next/link'
+
+import { Button } from "./styles";
 
 export default function HomeAdministrator(){
 
@@ -12,8 +14,11 @@ export default function HomeAdministrator(){
     
     return (
         <>
-            <h1> Tela inicial do Administrador </h1>        
-            <img src={DashboardAdministrador}/>
+            <h1> Tela inicial do Administrador </h1>
+
+            <Button>
+                <Link href='/'> Voltar  </Link>
+            </Button> 
         </>
     )
 }

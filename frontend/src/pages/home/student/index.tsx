@@ -7,6 +7,7 @@ import { api } from "../../../services/apiClient";
 import Link from 'next/link'
 
 import { Button } from "./styles";
+import { setupAPIClient } from "../../../services/api";
 
 export default function HomeStudent(){
     return (

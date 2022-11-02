@@ -1,26 +1,72 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+
+:root{
+  --cl-white: #FFFFFF;
 }
 
-a {
+
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+button{
+  cursor: pointer;
+}
+a{
   color: inherit;
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+body{
+  background-color: var(--bg-primary);
+  /*
+  &::-webkit-scrollbar{
+    width: .6rem;
+  }
+  &::-webkit-scrollbar-track{
+    background-color: var(--bg-list-primary);
+  }
+  &::-webkit-scrollbar-thumb{
+    background-color: var(--bg-btn-primary);
+    border-radius: .5rem;
+  }*/
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+main{
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url('../public/assets/BackgroundSistema.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+body, input, textarea, select{
+  font: 400 1rem;
+  font-family: 'Cabin', sans-serif;
+}
+
+button{
+  font: 400 .9rem;
+  font-family: 'Bungee','Cabin', sans-serif;
+
+}
+
+
+
+@media (max-width: 720){
+  html{
+      font-size: 87.5%; 
   }
-  body {
-    color: white;
-    background: black;
+}
+
+@media (max-width: 1080){
+  html{
+      font-size: 93.75%;
   }
 }

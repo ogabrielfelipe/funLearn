@@ -1,37 +1,40 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
 import BackgroundSistema from '../assets/BackgroundSistema.svg';
 import Admin from '../assets/Header_Login.svg';
 import Student from '../assets/Student.svg';
 import Teacher from '../assets/Teacher.svg';
 
-import { Card, Container, Button } from "./styles";
+import { Container, Imagem, Button, CardStudent, CardTeacher, CardAdmin } from "./styles";
 
 const Home: NextPage = () => {
   return (
     <>
-      <Card>
-        <Container>
-            {/* <img src={Admin}/> */}
+      {/* <Container> */}
+        <Imagem>
+          {/* <h1>Bem Vindo ao Funlearn</h1> */}
 
-            <Button>
-              <Link href='/login/admin'> Login administrador </Link>
-            </Button>
+          <CardAdmin>
+            <Link href="/login/admin"> Login administrador </Link>
+          </CardAdmin>
+
+          <br />
+          <CardTeacher>
+            <Link href="/login/teacher"> Login Professor </Link>
+          </CardTeacher>
+
+          <br />
           
-            <Button>
-              <Link href='/login/teacher'> Login Professor </Link>
-            </Button>
-
-            <Button>
-              <Link href='/login/student'> Login Aluno </Link>
-            </Button>
-        </Container>  
-      </Card>
+          <CardStudent>
+            <Link href="/login/student"> Login Aluno </Link>
+          </CardStudent>
+        </Imagem>
+      {/* </Container> */}
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

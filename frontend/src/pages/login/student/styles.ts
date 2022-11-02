@@ -23,7 +23,7 @@ export const Container = styled.button`
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    background: #C8FCFF;
+    background: #fff;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
 `
 
@@ -34,4 +34,20 @@ export const Button = styled.button`
     background: #fff;
     border-radius: .6rem;
     transition: .2s all;
+`
+
+export const Imagem = styled.button`
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-image: url('../../../assets/BackgroundSistema.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    font-family: 'Bungee', cursive;
 `

@@ -4,13 +4,17 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRGuest } from "../../../utils/canSSRGuest";
 
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 
-import BackgroundSistema from "../../../assets/BackgroundSistema.svg";
+import logo from "../../../../public/assets/logo.svg";
+import Student from "../../../../public/assets/Student.svg";
 
-import { Card, Container, Button, Imagem } from "./styles";
+import { Card, Container, Button, Header, Content } from "./styles";
 
-export default function Loginstudent() {
+const Loginstudent: NextPage = () => {
   const { signIn } = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
@@ -28,30 +32,52 @@ export default function Loginstudent() {
     await signIn(data);
   }
   return (
-    <Imagem>
-      <Container>
-        <Button>
-          <Link href="/"> Voltar </Link>
-        </Button>
+    <>
+      <Head>
+        <title>FunLearn</title>
+      </Head>
 
-        <h1> Tela de Login do Aluno </h1>
-        <form onSubmit={handleLogin}>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
+      <Card>
+        <Header>
+          <Button>
+            <Link href="/"> Voltar </Link>
+          </Button>
 
-          <input type="submit" />
-        </form>
-      </Container>
-    </Imagem>
+          <Link href="/">
+            <a>
+              <Image src={logo} alt={"Logo do Sistema."} />
+            </a>
+          </Link>
+        </Header>
+
+        <Content>
+          <Container>
+            <Image
+              src={Student}
+              alt={"Botão para realizar login como estudante."}
+            />
+            <h1> Bem Vindo ao Módulo Aluno </h1>
+            <form onSubmit={handleLogin}>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Numero de Matricula"
+              />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Senha"
+              />
+
+              <input type="submit" />
+            </form>
+          </Container>
+        </Content>
+      </Card>
+    </>
   );
-}
+};
+
+export default Loginstudent;

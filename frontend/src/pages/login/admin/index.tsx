@@ -5,11 +5,15 @@ import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
 import { canSSRGuest } from "../../../utils/canSSRGuest";
 
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 
-import BackgroundSistema from "../../../assets/BackgroundSistema.svg";
+import logo from "../../../../public/assets/logo.svg";
+import Admin from "../../../../public/assets/Administrator.svg";
 
-import { Imagem, Card, Container, Button } from "./styles";
+import { Card, Container, Button, Header, Content } from "./styles";
 
 export default function LoginAdmin() {
   const { signIn } = useContext(AuthContext);
@@ -29,30 +33,50 @@ export default function LoginAdmin() {
     await signIn(data);
   }
   return (
-    <Imagem>
-      <Container>
-        <Button>
-          <Link href="/"> Voltar </Link>
-        </Button>
+    <>
+      <Head>
+        <title>FunLearn</title>
+      </Head>
 
-        <h1> Tela de Login do administrador </h1>
-        <form onSubmit={handleLogin}>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-          />
+      <Card>
+        <Header>
+          <Button>
+            <Link href="/"> Voltar </Link>
+          </Button>
 
-          <input type="submit" />
-        </form>
-      </Container>
-    </Imagem>
+          <Link href="/">
+            <a>
+              <Image src={logo} alt={"Logo do Sistema."} />
+            </a>
+          </Link>
+        </Header>
+
+        <Content>
+          <Container>
+            <Image
+              src={Admin}
+              alt={"Botão para realizar login como administrador."}
+            />
+            <h1> Bem Vindo ao Módulo Professor </h1>
+            <form onSubmit={handleLogin}>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Nome de usuário"
+              />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Senha"
+              />
+
+              <input type="submit" />
+            </form>
+          </Container>
+        </Content>
+      </Card>
+    </>
   );
 }

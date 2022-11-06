@@ -1,13 +1,8 @@
 import styled from "styled-components"
 
-export const Card = styled.button`
-    width: 90vw;
-    height: 90vh;
+export const Card = styled.main`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
 `
 
 export const Container = styled.button`
@@ -28,26 +23,28 @@ export const Container = styled.button`
 `
 
 export const Button = styled.button`
-    margin-top: 5rem;
-    padding: 16px 30px;
-    color: #ffffff;
-    background: #fff;
-    border-radius: .6rem;
-    transition: .2s all;
+    position: absolute;
+    width: 97px;
+    height: 78px;
+    left: 1418px;
+    top: 12.58px;
+
+    background: #8870FF;
+    color: #fff;
 `
 
-export const Imagem = styled.button`
-    width: 100vw;
-    height: 100vh;
-
+export const Header = styled.header`
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem;
+
+    margin-bottom: 5rem;
+
+`
+
+export const Content = styled.section`
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-
-    background-image: url('../../../assets/BackgroundSistema.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    font-family: 'Bungee', cursive;
 `

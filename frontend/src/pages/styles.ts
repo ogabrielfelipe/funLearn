@@ -17,7 +17,6 @@ export const Header = styled.header`
 `
 
 export const ContainerButtons = styled.section`
-
     width: 100vw;
     height: calc(100vh - 9rem);
 
@@ -29,7 +28,6 @@ export const ContainerButtons = styled.section`
     gap: 20rem;
 
 `
-
 
 export const CardAdmin = styled.button`
     width: 100vw;
@@ -89,19 +87,4 @@ export const Button = styled.button`
     background: #fff;
     border-radius: .6rem;
     transition: .2s all;
-`
-export const Imagem = styled.button`
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    background-image: url('./assets/BackgroundSistema.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    font-family: 'Bungee', cursive;
 `

@@ -8,7 +8,6 @@ import admin from "../../public/assets/Administrator.svg"
 import Student from '../../public/assets/Student.svg';
 import Teacher from '../../public/assets/Teacher.svg';
 
-
 import { Container, Header, ContainerButtons } from "./styles";
 
 const Home: NextPage = () => {
@@ -31,7 +30,6 @@ const Home: NextPage = () => {
           </Link>
         </Header>
 
-
         <ContainerButtons>
           <Link href="/login/student">
             <a>
@@ -44,8 +42,6 @@ const Home: NextPage = () => {
               <Image src={Teacher} alt={"Botão para realizar login como Professor."}/>
             </a>
           </Link>
-
-
         </ContainerButtons>
       </Container>
     </>

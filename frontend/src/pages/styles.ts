@@ -12,7 +12,7 @@ export const Header = styled.header`
     justify-content: space-between;
     margin: 1rem;
 
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 
 `
 
@@ -27,6 +27,21 @@ export const ContainerButtons = styled.section`
     flex-wrap: wrap;
     gap: 20rem;
 
+`
+
+export const ContainerLogo = styled.div`
+    width: 8rem;
+    height: auto;
+`
+
+export const ContainerBtnAdmin = styled.div`
+    width: 15rem;
+    height: auto;
+`
+
+export const ContainerBtnUser = styled.div`
+    width: 18rem;
+    height: auto;
 `
 
 export const CardAdmin = styled.button`

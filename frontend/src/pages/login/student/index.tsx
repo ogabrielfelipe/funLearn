@@ -9,10 +9,11 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
-import logo from "../../../../public/assets/logo.svg";
-import Student from "../../../../public/assets/Student.svg";
+import Logo from "../../../../public/assets/logo.svg";
+import VoltarImg from "../../../../public/assets/buttonVoltar.svg"
+import StudentSemTexto from "../../../../public/assets/StudantSemTexto.svg";
 
-import { Card, Container, Button, Header, Content } from "./styles";
+import {Container, Header, ContainerLogo, ContainerBtnAdmin, ContainerForm, ContainerCaricatura, TitleLogin } from "./styles";
 
 const Loginstudent: NextPage = () => {
   const { signIn } = useContext(AuthContext);
@@ -34,9 +35,42 @@ const Loginstudent: NextPage = () => {
   return (
     <>
       <Head>
-        <title>FunLearn</title>
+        <title>Login Estudante - FunLearn</title>
       </Head>
 
+
+      <Container>
+        <Header>
+          <ContainerLogo> 
+            <Link href="/">
+              <a>
+                <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
+              </a>
+            </Link>
+          </ContainerLogo>
+
+          <ContainerBtnAdmin> 
+            <Link href="/">
+              <a>
+                <Image src={VoltarImg} layout="responsive" alt={"Botão para realizar login como administrador."}/>
+              </a>
+            </Link>
+          </ContainerBtnAdmin>
+        </Header>
+
+        <ContainerForm>
+            <ContainerCaricatura>
+              <Image src={StudentSemTexto} layout="responsive"  alt={"Caricatura de estudante."}/>
+            </ContainerCaricatura>
+            
+            <TitleLogin>
+              Bem vindo ao módulo Aluno
+            </TitleLogin>
+
+        </ContainerForm>
+
+      </Container>
+{/* 
       <Card>
         <Header>
           <Button>
@@ -76,6 +110,8 @@ const Loginstudent: NextPage = () => {
           </Container>
         </Content>
       </Card>
+
+      */}
     </>
   );
 };

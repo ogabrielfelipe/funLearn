@@ -8,7 +8,7 @@ import admin from "../../public/assets/Administrator.svg"
 import Student from '../../public/assets/Student.svg';
 import Teacher from '../../public/assets/Teacher.svg';
 
-import { Container, Header, ContainerButtons } from "./styles";
+import { Container, Header, ContainerButtons, ContainerLogo, ContainerBtnAdmin, ContainerBtnUser } from "./styles";
 
 const Home: NextPage = () => {
   return (
@@ -17,31 +17,40 @@ const Home: NextPage = () => {
         <title>FunLearn</title>
       </Head> 
       <Container>
-        <Header> 
-          <Link href="/">
-            <a>
-              <Image src={logo} alt={"Logo do Sistema."}/>
-            </a>
-          </Link>
-          <Link href="/login/admin">
-            <a>
-              <Image src={admin} alt={"Botão para realizar login como administrador."}/>
-            </a>
-          </Link>
+        <Header>
+          <ContainerLogo> 
+            <Link href="/">
+              <a>
+                <Image src={logo} layout="responsive"  alt={"Logo do Sistema."}/>
+              </a>
+            </Link>
+          </ContainerLogo>
+
+          <ContainerBtnAdmin> 
+            <Link href="/login/admin">
+              <a>
+                <Image src={admin} layout="responsive" alt={"Botão para realizar login como administrador."}/>
+              </a>
+            </Link>
+          </ContainerBtnAdmin>
         </Header>
 
         <ContainerButtons>
-          <Link href="/login/student">
-            <a>
-              <Image src={Student} alt={"Botão para realizar login como estudante."}/>
-            </a>
-          </Link>
+          <ContainerBtnUser>
+            <Link href="/login/student">
+              <a>
+                <Image src={Student} alt={"Botão para realizar login como estudante."}/>
+              </a>
+            </Link>
+          </ContainerBtnUser>
 
-          <Link href="/login/teacher">
-            <a>
-              <Image src={Teacher} alt={"Botão para realizar login como Professor."}/>
-            </a>
-          </Link>
+          <ContainerBtnUser>
+            <Link href="/login/teacher">
+              <a>
+                <Image src={Teacher} alt={"Botão para realizar login como Professor."}/>
+              </a>
+            </Link>
+          </ContainerBtnUser>
         </ContainerButtons>
       </Container>
     </>

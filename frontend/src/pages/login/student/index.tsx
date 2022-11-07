@@ -13,7 +13,9 @@ import Logo from "../../../../public/assets/logo.svg";
 import VoltarImg from "../../../../public/assets/buttonVoltar.svg"
 import StudentSemTexto from "../../../../public/assets/StudantSemTexto.svg";
 
-import {Container, Header, ContainerLogo, ContainerBtnAdmin, ContainerForm, ContainerCaricatura, TitleLogin } from "./styles";
+import {Container, Form, Header, ContainerLogo, ContainerBtnAdmin, ContainerForm, ContainerCaricatura, TitleLogin } from "./styles";
+import { InputFrom } from "../../../components/Input";
+import { ButtonConfirm } from "../../../components/Button";
 
 const Loginstudent: NextPage = () => {
   const { signIn } = useContext(AuthContext);
@@ -66,6 +68,23 @@ const Loginstudent: NextPage = () => {
             <TitleLogin>
               Bem vindo ao módulo Aluno
             </TitleLogin>
+
+            <Form>
+              <InputFrom 
+                title="Número da Matrícula:"
+                placeholder="Matrícula"
+                type="text"
+              />
+              <InputFrom 
+                title="Senha do Aluno:"
+                placeholder="Senha"
+                type="password"
+              />
+
+              <ButtonConfirm type="submit">
+                Entrar
+              </ButtonConfirm>
+            </Form>
 
         </ContainerForm>
 

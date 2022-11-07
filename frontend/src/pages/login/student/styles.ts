@@ -39,7 +39,7 @@ export const ContainerCaricatura = styled.div`
     width: 13rem;
     height: auto;
 
-    margin-top: -100%;
+    margin-top: -25%;
 `
 export const TitleLogin = styled.strong`
     font-size: 2rem;
@@ -50,8 +50,6 @@ export const TitleLogin = styled.strong`
 
     margin-top: 2rem;
     color: #8870FF;
-
-
 ` 
 
 
@@ -78,7 +76,23 @@ export const ContainerForm = styled.div`
     align-items: center;
 
     padding: 0 .6rem;
+    gap: 1.5rem;
 `
+
+export const Form = styled.form`
+    width: 80%;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    align-items: center;
+
+`
+
+
 
 /*
 export const Card = styled.main`

@@ -15,7 +15,7 @@ import StudentSemTexto from "../../../../public/assets/StudantSemTexto.svg";
 
 import {Container, Form, Header, ContainerLogo, ContainerBtnAdmin, ContainerForm, ContainerCaricatura, TitleLogin } from "./styles";
 import { InputFrom } from "../../../components/Input";
-import { ButtonConfirm } from "../../../components/Button";
+import { ButtonConfirmBlue } from "../../../components/Button";
 
 const Loginstudent: NextPage = () => {
   const { signIn } = useContext(AuthContext);
@@ -69,68 +69,30 @@ const Loginstudent: NextPage = () => {
               Bem vindo ao módulo Aluno
             </TitleLogin>
 
-            <Form>
+            <Form onSubmit={handleLogin}>
               <InputFrom 
                 title="Número da Matrícula:"
                 placeholder="Matrícula"
                 type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
               <InputFrom 
                 title="Senha do Aluno:"
                 placeholder="Senha"
                 type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
 
-              <ButtonConfirm type="submit">
+              <ButtonConfirmBlue type="submit">
                 Entrar
-              </ButtonConfirm>
+              </ButtonConfirmBlue>
             </Form>
 
         </ContainerForm>
 
       </Container>
-{/* 
-      <Card>
-        <Header>
-          <Button>
-            <Link href="/"> Voltar </Link>
-          </Button>
-
-          <Link href="/">
-            <a>
-              <Image src={logo} alt={"Logo do Sistema."} />
-            </a>
-          </Link>
-        </Header>
-
-        <Content>
-          <Container>
-            <Image
-              src={Student}
-              alt={"Botão para realizar login como estudante."}
-            />
-            <h1> Bem Vindo ao Módulo Aluno </h1>
-            <form onSubmit={handleLogin}>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Numero de Matricula"
-              />
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Senha"
-              />
-
-              <input type="submit" />
-            </form>
-          </Container>
-        </Content>
-      </Card>
-
-      */}
     </>
   );
 };

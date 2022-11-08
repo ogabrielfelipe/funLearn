@@ -1,11 +1,11 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import { Button } from "./styles";
+import { Button, ButtonP } from "./styles";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
     children: ReactNode,
 }
 
-function ButtonConfirm( { children, ...rest }:ButtonProps ){
+function ButtonConfirmBlue( { children, ...rest }:ButtonProps ){
     return (
         <Button {...rest}>
             {children}
@@ -13,4 +13,12 @@ function ButtonConfirm( { children, ...rest }:ButtonProps ){
     )
 }
 
-export { ButtonConfirm }
+function ButtonConfirmPink( { children, ...rest }:ButtonProps ){
+    return (
+        <ButtonP {...rest}>
+            {children}
+        </ButtonP>
+    )
+}
+
+export { ButtonConfirmBlue, ButtonConfirmPink }

@@ -7,13 +7,16 @@ import { AuthProvider } from '../contexts/AuthContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
+//Responsável pela loading de paginas
+import NextNProgress from 'nextjs-progressbar';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
       <ToastContainer 
         autoClose={3000} 
         position="top-right"
-        theme='light'
+        theme="colored"
         hideProgressBar
         newestOnTop={false}
         closeOnClick
@@ -21,6 +24,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         pauseOnFocusLoss
         draggable
         pauseOnHover
+      />
+
+      <NextNProgress
+        startPosition={0.3} 
+        stopDelayMs={200} 
+        height={5} 
+        showOnShallow={true}
       />
 
       <Component {...pageProps} />

@@ -56,7 +56,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             break;
 
         case 'username incorrect.':
-            return res.status(401).json({
+            return res.status(403).json({
                 error: "Nome do usuário Incorreto."
             })
             break;
@@ -85,8 +85,8 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             break;
 
         case 'Password incorrect.':
-            return res.status(401).json({
-                error: "Senha incorreta"
+            return res.status(503).json({
+                error: "Senha incorreta."
             })
             break;
         
@@ -107,7 +107,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             })
             break;
         case 'register incorrect.':
-            return res.status(401).json({
+            return res.status(403).json({
                 error: "Número da matrícula incorreta."
             })
             break;

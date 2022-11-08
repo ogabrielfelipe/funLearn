@@ -9,10 +9,13 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 
-import logo from "../../../../public/assets/logo.svg";
-import Teacher from "../../../../public/assets/Teacher.svg";
+import Logo from "../../../../public/assets/logo.svg";
+import VoltarImg from "../../../../public/assets/buttonVoltarTeacher.svg"
+import TeacherSemTexto from "../../../../public/assets/TeacherSemTexto.svg";
 
-import { Card, Container, Button, Header, Content } from "./styles";
+import {Container, Form, Header, ContainerLogo, ContainerBtnAdmin, ContainerForm, ContainerCaricatura, TitleLogin } from "./styles";
+import { InputFrom } from "../../../components/Input";
+import { ButtonConfirmBlue, ButtonConfirmPink } from "../../../components/Button";
 
 export default function LoginTeacher() {
   const { signIn } = useContext(AuthContext);
@@ -37,45 +40,58 @@ export default function LoginTeacher() {
         <title>FunLearn</title>
       </Head>
 
-      <Card>
+      <Container>
         <Header>
-          <Button>
-            <Link href="/"> Voltar </Link>
-          </Button>
+          <ContainerLogo> 
+            <Link href="/">
+              <a>
+                <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
+              </a>
+            </Link>
+          </ContainerLogo>
 
-          <Link href="/">
-            <a>
-              <Image src={logo} alt={"Logo do Sistema."} />
-            </a>
-          </Link>
+          <ContainerBtnAdmin> 
+            <Link href="/">
+              <a>
+                <Image src={VoltarImg} layout="responsive" alt={"Botão para voltar a tela inicial."}/>
+              </a>
+            </Link>
+          </ContainerBtnAdmin>
         </Header>
 
-        <Content>
-          <Container>
-            <Image
-              src={Teacher}
-              alt={"Botão para realizar login como professor."}
-            />
-            <h1> Bem Vindo ao Módulo Professor </h1>
-            <form onSubmit={handleLogin}>
-              <input
+        <ContainerForm>
+            <ContainerCaricatura>
+              <Image src={TeacherSemTexto} layout="responsive"  alt={"Caricatura de professor."}/>
+            </ContainerCaricatura>
+            
+            <TitleLogin>
+              Bem vindo ao módulo Professor
+            </TitleLogin>
+
+            <Form onSubmit={handleLogin}>
+              <InputFrom 
+                title="Número de Usuário:"
+                placeholder="Usuário"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Nome de usuário"
               />
-              <input
+              <InputFrom 
+                title="Senha:"
+                placeholder="Senha"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Senha"
               />
 
-              <input type="submit" />
-            </form>
-          </Container>
-        </Content>
-      </Card>
+              <ButtonConfirmPink type="submit">
+                Entrar
+              </ButtonConfirmPink>
+            </Form>
+
+        </ContainerForm>
+
+      </Container>
     </>
   );
 }

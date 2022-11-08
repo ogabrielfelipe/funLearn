@@ -60,7 +60,7 @@ router.get('/', new HomePage().handle)
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // ----------- Administrator -----------
-router.post('/administrator/auth/session', isAuthenticated, new AuthSessionAdministratorController().handle )
+router.post('/administrator/auth/session',isAuthenticated, new AuthSessionAdministratorController().handle )
 router.post('/administrator/auth', new AuthAdministratorController().handle)
 router.post('/administrator', isAuthenticated, new CreateAdministratorController().handle)
 router.put('/administrator', isAuthenticated, new ChangeAdministratorController().handle)
@@ -68,7 +68,7 @@ router.get('/administrator', isAuthenticated, new FindAdministratorController().
 router.get('/adminstrators', isAuthenticated, new FindManyAdministratorController().handle)
 
 // ----------- Teacher -----------
-router.post('/teacher/auth/session', new AuthSessionTeacherController().handle)
+router.post('/teacher/auth/session', isAuthenticated, new AuthSessionTeacherController().handle)
 router.post('/teacher/auth', new AuthTeacherController().handle)
 router.post('/teacher', isAuthenticated, new CreateTeacherController().handle)
 router.put('/teacher', isAuthenticated, new ChangeTeacherController().handle)
@@ -76,7 +76,7 @@ router.get('/teacher', isAuthenticated, new FindTeacherController().handle)
 router.get('/teachers', isAuthenticated, new FindManyTeacherController().handle)
 
 // ----------- student -----------
-router.post('/student/auth/session', isAuthenticated, new AuthSessionStudentController().handle)
+router.post('/student/auth/session', new AuthSessionStudentController().handle)
 router.post('/student/auth', new AuthStudentController().handle)
 router.post('/student', isAuthenticated, new CreateStudentController().handle)
 router.post('/student/many', isAuthenticated, upload.single('file') , new CreateManyStudentController().handle)

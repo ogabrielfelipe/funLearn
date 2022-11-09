@@ -5,7 +5,11 @@ import { setupAPIClient } from "../../../services/api";
 
 import Link from 'next/link'
 
-import { Button } from "./styles";
+import Head from "next/head";
+import { HeaderAuth } from "../../../components/Header";
+
+import { Button, Container } from "./styles";
+
 
 export default function HomeAdministrator(){
 
@@ -13,11 +17,13 @@ export default function HomeAdministrator(){
     
     return (
         <>
-            <h1> Tela inicial do Administrador </h1>
+            <Head>
+                <title>Home Administrador - FunLearn</title>
+            </Head>
+            <HeaderAuth teacher={false}/>
+            <Container>
 
-            <Button>
-                <Link href='/'> Voltar  </Link>
-            </Button> 
+            </Container>
         </>
     )
 }

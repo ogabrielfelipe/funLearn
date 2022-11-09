@@ -40,25 +40,26 @@ export default function LoginTeacher() {
         <title>FunLearn</title>
       </Head>
 
+      <Header>
+        <ContainerLogo> 
+          <Link href="/">
+            <a>
+              <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
+            </a>
+          </Link>
+        </ContainerLogo>
+
+        <ContainerBtnAdmin> 
+          <Link href="/">
+            <a>
+              <Image src={VoltarImg} layout="responsive" alt={"Botão para voltar a tela inicial."}/>
+            </a>
+          </Link>
+        </ContainerBtnAdmin>
+      </Header>
+
+
       <Container>
-        <Header>
-          <ContainerLogo> 
-            <Link href="/">
-              <a>
-                <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
-              </a>
-            </Link>
-          </ContainerLogo>
-
-          <ContainerBtnAdmin> 
-            <Link href="/">
-              <a>
-                <Image src={VoltarImg} layout="responsive" alt={"Botão para voltar a tela inicial."}/>
-              </a>
-            </Link>
-          </ContainerBtnAdmin>
-        </Header>
-
         <ContainerForm>
             <ContainerCaricatura>
               <Image src={TeacherSemTexto} layout="responsive"  alt={"Caricatura de professor."}/>

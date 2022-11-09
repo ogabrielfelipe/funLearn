@@ -42,8 +42,7 @@ export default function LoginAdmin() {
         <title>FunLearn</title>
       </Head>
 
-      <Container>
-        <Header>
+      <Header>
           <ContainerLogo> 
             <Link href="/">
               <a>
@@ -61,6 +60,7 @@ export default function LoginAdmin() {
           </ContainerBtnAdmin>
         </Header>
 
+      <Container>
         <ContainerForm>
             <ContainerCaricatura>
               <Image src={AdminSemTexto} layout="responsive"  alt={"Caricatura de estudante."}/>

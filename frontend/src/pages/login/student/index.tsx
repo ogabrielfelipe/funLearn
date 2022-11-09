@@ -40,33 +40,32 @@ const Loginstudent: NextPage = () => {
         <title>Login Estudante - FunLearn</title>
       </Head>
 
+      <Header>
+        <ContainerLogo> 
+          <Link href="/">
+            <a>
+              <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
+            </a>
+          </Link>
+        </ContainerLogo>
+
+        <ContainerBtnAdmin> 
+          <Link href="/">
+            <a>
+              <Image src={VoltarImg} layout="responsive" alt={"Botão para realizar login como administrador."}/>
+            </a>
+          </Link>
+        </ContainerBtnAdmin>
+      </Header>
 
       <Container>
-        <Header>
-          <ContainerLogo> 
-            <Link href="/">
-              <a>
-                <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
-              </a>
-            </Link>
-          </ContainerLogo>
-
-          <ContainerBtnAdmin> 
-            <Link href="/">
-              <a>
-                <Image src={VoltarImg} layout="responsive" alt={"Botão para realizar login como administrador."}/>
-              </a>
-            </Link>
-          </ContainerBtnAdmin>
-        </Header>
-
         <ContainerForm>
             <ContainerCaricatura>
               <Image src={StudentSemTexto} layout="responsive"  alt={"Caricatura de estudante."}/>
             </ContainerCaricatura>
             
             <TitleLogin>
-              Bem vindo ao módulo Aluno
+              Bem vindo ao módulo do Estudante
             </TitleLogin>
 
             <Form onSubmit={handleLogin}>

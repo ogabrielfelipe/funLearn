@@ -22,6 +22,9 @@ a{
 
 body{
   background-color: var(--bg-primary);
+  background-image: url('../public/assets/BackgroundSistema.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
   /*
   &::-webkit-scrollbar{
     width: .6rem;
@@ -35,14 +38,6 @@ body{
   }*/
 }
 
-main{
-  width: 100vw;
-  height: 100vh;
-
-  background-image: url('../public/assets/BackgroundSistema.svg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 
 
 

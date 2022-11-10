@@ -28,7 +28,7 @@ export default function HomeAdministrator(){
     )
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async (ctx: any) => {
     const api = setupAPIClient(ctx);
     try{
         const userLog = await api.post('/administrator/auth/session')

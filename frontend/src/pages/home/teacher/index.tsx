@@ -4,24 +4,31 @@ import { useContext } from "react"
 import Router from "next/router";
 import { api } from "../../../services/apiClient";
 
+import { setupAPIClient } from "../../../services/api";
+
 import Link from 'next/link'
 
-import { Button } from "./styles";
-import { setupAPIClient } from "../../../services/api";
+import Head from "next/head";
+import { HeaderAuth } from "../../../components/Header";
+
+import { Container } from "./styles";
+
 
 export default function HomeTeacher(){
     return (
         <>
-            <h1> Tela inicial do Professor! </h1> 
+            <Head>
+                <title>Home Teacher - FunLearn</title>
+            </Head>
+            <HeaderAuth teacher={true}/>
+            <Container>
 
-            <Button>
-                <Link href='/'> Voltar  </Link>
-            </Button>    
+            </Container>  
         </>
     )
 }
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async (ctx: any) => {
     const api = setupAPIClient(ctx);
     try{
         const userLog = await api.post('/teacher/auth/session')

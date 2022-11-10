@@ -1,5 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
+import { destroyCookie, setCookie, parseCookies } from 'nookies'
+
 import { BtnCadastros, BtnDashboard, ContainerBtnAdmin, ContainerLogo, ContainerMenu, ContainerOptions, Header, Option } from "./styles"
 
 
@@ -14,6 +16,19 @@ interface HeaderProps{
 }
 
 function HeaderAuth( { teacher }: HeaderProps){
+    const cookies = parseCookies()
+    
+    function handleClickDashboard(){
+        if (cookies["@nextauth.type"] === "administrator"){
+            Router.push('/home/administrator')
+        }else if (cookies["@nextauth.type"] === "teacher"){
+            Router.push('/home/teacher')
+        }else{
+            Router.push('#')
+        }
+    }
+
+
     return (
         <>
             <Header>
@@ -26,7 +41,7 @@ function HeaderAuth( { teacher }: HeaderProps){
                 </ContainerLogo>
 
                 <ContainerMenu>
-                    <BtnDashboard>
+                    <BtnDashboard onClick={handleClickDashboard}>
                         <span>Painel de Controle</span>
                     </BtnDashboard>
                     <BtnCadastros>

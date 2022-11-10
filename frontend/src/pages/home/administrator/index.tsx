@@ -8,7 +8,7 @@ import Link from 'next/link'
 import Head from "next/head";
 import { HeaderAuth } from "../../../components/Header";
 
-import { Button, Container } from "./styles";
+import { Container } from "./styles";
 
 
 export default function HomeAdministrator(){

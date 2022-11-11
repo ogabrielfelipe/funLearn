@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 
 export const Header = styled.header`
     background-color: var(--cl-white);
@@ -60,11 +60,8 @@ export const ContainerOptions = styled.div`
     top: 3.5rem;
     gap: .6rem;
 
+    transition: all 2s ease-out;
 
-    :hover{
-        display: flex;
-        flex-direction: column;
-    }
 
 `
 
@@ -88,14 +85,13 @@ export const BtnCadastros = styled.div`
 
     gap: .6rem;
 
-    
-
-    &:hover ${ContainerOptions} {
+    :hover ${ContainerOptions} {
         display: flex;
         flex-direction: column;
-
     }
 `
+
+
 export const Option = styled.div`
     background-image: url(/assets/OptionDropDown.svg);
     background-repeat: no-repeat;
@@ -113,6 +109,7 @@ export const Option = styled.div`
         filter: brightness(1.2);
     }
 `
+
 
 export const ContainerBtnAdmin = styled.div`
     width: 8rem;

@@ -1,22 +1,23 @@
 import Head from "next/head";
-import { ContentItems } from "../../components/ContentItems";
-import { HeaderAuth } from "../../components/Header";
+import { ContentItems } from "../../../components/ContentItems";
+import { HeaderAuth } from "../../../components/Header";
 import { Container } from "../styles";
 
 
 
-export default function Turma(){
+export default function AddTeam(){
     return (
         <>
-            <Head>
-                <title> Turma - FunLearn </title>
+             <Head>
+                <title> Cadastro de Turma - FunLearn </title>
             </Head>
             <HeaderAuth teacher={false}/>
             <Container>
                 <ContentItems 
-                    title="Visualizar Turmas"
+                    title="Cadastro de Turmas"
                 >
-                    
+
+
                 </ContentItems>
             </Container>
         </>

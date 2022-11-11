@@ -33,11 +33,7 @@ function HeaderAuth( { teacher }: HeaderProps){
         <>
             <Header>
                 <ContainerLogo> 
-                    <Link href={"#"}>
-                    <a>
-                        <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
-                    </a>
-                    </Link>
+                    <Image src={Logo} layout="responsive"  alt={"Logo do Sistema."}/>
                 </ContainerLogo>
 
                 <ContainerMenu>
@@ -50,7 +46,7 @@ function HeaderAuth( { teacher }: HeaderProps){
                             <CaretDown size={24} weight="bold" style={{paddingLeft: "10"}} />
                         </ContainerMenu>
                         <ContainerOptions>
-                            <Option onClick={() => Router.push("/turma")}>
+                            <Option onClick={() => Router.push("/team")}>
                                 <span>Turmas</span>
                             </Option>                  
                             <Option>

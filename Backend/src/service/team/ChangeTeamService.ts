@@ -9,7 +9,6 @@ interface TeamRequest{
 
 class ChangeTeamService{
     async execute( { id, name, teacherID, active }:TeamRequest ){
-
         const team = await prismaClient.team.findUnique({
             where:{
                 id: id
@@ -20,17 +19,19 @@ class ChangeTeamService{
             throw new Error('team not found.')
         }
 
-        const teacher = await prismaClient.teacher.findUnique({
-            where:{
-                id: teacherID
+        if (teacherID != ""){
+            const teacher = await prismaClient.teacher.findUnique({
+                where:{
+                    id: teacherID
+                }
+            })
+    
+            if (!teacher){
+                throw new Error('teacher not found.')
             }
-        })
-
-        if (!teacher){
-            throw new Error('teacher not found.')
-        }
-        if (!teacher.active){
-            throw new Error('teacher inative.')
+            if (!teacher.active){
+                throw new Error('teacher inative.')
+            }
         }
 
         const changeTeam = await prismaClient.team.update({

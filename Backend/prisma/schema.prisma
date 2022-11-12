@@ -27,7 +27,7 @@ model Administrator {
 }
 
 model Teacher {
-  id       String  @id @default(uuid())
+  id       String  @id @unique @default(uuid())
   name     String  @db.VarChar(155)
   username String  @unique @db.VarChar(50)
   password String  @db.VarChar(155)

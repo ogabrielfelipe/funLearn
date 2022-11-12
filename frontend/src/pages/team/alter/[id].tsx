@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonConfirmBlue, ButtonConfirmPink } from "../../../components/Button";
@@ -10,7 +10,7 @@ import { LoadingManager } from "../../../components/Loading";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
 import { Container } from "../styles";
-import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "./styles";
+import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../add/styles";
 
 type TeamProps = {
     id: string,
@@ -37,7 +37,10 @@ interface FindTeacherProps {
 }
 
 
-export default function AddTeam( {teachers}: FindTeacherProps){
+export default function AlterTeam( {teachers}: FindTeacherProps){
+    const apiClient = setupAPIClient();
+    const router = useRouter();
+    const { id } = router.query;
     const [teacherList, setTeacherList] = useState(teachers || [])
 
     const [nameTeam, setNameTeam] = useState("");
@@ -45,6 +48,25 @@ export default function AddTeam( {teachers}: FindTeacherProps){
     const [teamActive, setTeamActive] = useState("1");
 
     const [loading, setLoading] = useState(false);
+
+    useEffect(() =>{
+        async function LoadingTeam(){
+            setLoading(true);
+            await apiClient.get(`/team?teamID=${id}`)
+            .then(resp => {
+                setLoading(false);
+                setNameTeam(resp.data.name)
+                setTeacherSelected(resp.data.teacher.id)
+                setTeamActive(resp.data.active === true ? "1": "0")
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(err)
+
+            })
+        }
+        LoadingTeam()
+    }, [])
     
     function handleTeacherSelected(e){
         setTeacherSelected(e.target.value)
@@ -71,24 +93,24 @@ export default function AddTeam( {teachers}: FindTeacherProps){
 
 
         let data = {
+            ident: id,
             name: nameTeam,
             teacherID: teacherSelected,
             active: teamActive === "1"? true : false
         }
 
-        const apiClient = setupAPIClient();
-        await apiClient.post('/team', data)
+        await apiClient.put('/team', data)
         .then(resp => {
             if (resp.status === 200){
                 setLoading(false);
-                toast.success("Turma Cadastrada com sucesso!");
+                toast.success("Turma Alterada com sucesso!");
                 Router.push("/team")
             }
         })
         .catch(err => {
             setLoading(false);
             console.log(err)
-            toast.error("Não foi possível realizar o cadastro, Motivo: "+err.response.data.error);
+            toast.error("Não foi possível realizar a alteração, Motivo: "+err.response.data.error);
         })
 
 

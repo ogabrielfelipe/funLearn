@@ -25,11 +25,11 @@ class ChangeTeamController{
             }
          */
 
-        const { id, name, active, teacherID } = req.body;
+        const { ident, name, active, teacherID } = req.body;
 
         const changeTeam = new ChangeTeamService();
         const result = await changeTeam.execute({
-            id: id,
+            id: ident,
             name: name,
             active: active,
             teacherID: teacherID

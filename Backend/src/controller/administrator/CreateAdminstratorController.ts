@@ -22,8 +22,6 @@ class CreateAdministratorController{
                 requerid: true,
                 schema: { $ref: "#/definitions/Administrator" }                
             }
-
-
          */
 
         const { name, username, password } = req.body;

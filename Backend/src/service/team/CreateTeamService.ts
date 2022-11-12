@@ -10,13 +10,11 @@ interface TeamRequest{
 
 class CreateTeamService{
     async execute( {name, active, teacherID}: TeamRequest ){
-
         const teacher = await prismaClient.teacher.findFirst({
             where:{
                 id: teacherID
             }
         })
-
         if (!teacher){
             throw new Error('teacher not found.')
         }

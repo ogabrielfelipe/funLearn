@@ -11,15 +11,19 @@ type ListViewItems = {
 interface ListViewProps{
     names: ListViewItems[];
 
-    handleEdit: () => void;
-    handleDelete: () => void;
+    handleEdit: (identItem: string) => void;
+    handleDelete: (identItem: string) => void;
 }
 
 
-function ListView( { names }: ListViewProps ){
+function ListView( { names, handleEdit, handleDelete  }: ListViewProps ){
 
-    function handleAlter(e){
-        console.log(e.target.parentElement.childNodes[1].textContent)
+    function onClickAlter(identItem: string){
+        handleEdit(identItem)
+    }
+
+    function onClickDelete(identItem: string){
+        handleDelete(identItem)
     }
 
 
@@ -37,8 +41,8 @@ function ListView( { names }: ListViewProps ){
                             <TextList>{name.name1}</TextList>
                             <TextList>{name.name2}</TextList>
                             <ContentBtn>
-                                <Btn  onClick={handleAlter}><PencilLine size={25} weight="regular" /><span id={name.id} hidden>{name.id}</span></Btn>
-                                <Btn><Trash size={25} weight="regular" /><span hidden>{name.id}</span></Btn>
+                                <Btn onClick={() => onClickAlter(name.id)}><PencilLine size={25} weight="regular" /><span id={name.id} hidden>{name.id}</span></Btn>
+                                <Btn onClick={() => onClickDelete(name.id)}><Trash size={25} weight="regular" /><span hidden>{name.id}</span></Btn>
                             </ContentBtn>
                         </ContentList>
                     )

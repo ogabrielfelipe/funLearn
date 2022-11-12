@@ -25,7 +25,7 @@ export const Content = styled.div`
 
 `
 
-export const ContainerIpntBut = styled.div`
+export const ContainerIpntBut = styled.form`
 
     display: flex;
     flex-direction: row;

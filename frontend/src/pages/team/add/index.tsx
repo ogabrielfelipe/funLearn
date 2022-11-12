@@ -11,7 +11,7 @@ import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
 import { Container } from "../styles";
 import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "./styles";
-import { destroyCookie, setCookie, parseCookies } from 'nookies'
+import { parseCookies } from 'nookies'
 
 type TeamProps = {
     id: string,

@@ -11,6 +11,7 @@ import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
 import { Container } from "../styles";
 import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../add/styles";
+import { parseCookies } from "nookies";
 
 type TeamProps = {
     id: string,
@@ -44,7 +45,14 @@ export default function AlterTeam( {teachers}: FindTeacherProps){
     const [teacherList, setTeacherList] = useState(teachers || [])
 
     const [nameTeam, setNameTeam] = useState("");
-    const [teacherSelected, setTeacherSelected] = useState("0");
+
+    var teacherSelectedPosition = "0";
+    const cookies = parseCookies()
+    if (cookies["@nextauth.type"] === "teacher"){
+        teacherSelectedPosition = cookies["@nextauth.user"]
+    }
+
+    const [teacherSelected, setTeacherSelected] = useState(teacherSelectedPosition);
     const [teamActive, setTeamActive] = useState("1");
 
     const [loading, setLoading] = useState(false);
@@ -217,7 +225,7 @@ export const getServerSideProps = canSSRAuth( async (ctx) => {
 
             return {
                 props:{
-                    teachers: res.data
+                    teachers: [res.data]
                 }
             }
         }else{

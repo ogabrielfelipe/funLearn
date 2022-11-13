@@ -17,56 +17,51 @@ import { LoadingManager } from "../../components/Loading";
 import { toast } from "react-toastify";
 
 
-type ListTeamsProps = {
+type ListAdministratorProps = {
     id: string,
     name: string,
-    teacherID: string,
-    active: boolean,
-    teacher: {
-      id: string,
-      name: string,
-      active: boolean
-    }
+    username: string,
+    password: boolean,
 }
 
 type ListView = {
     id: string,
     name1: string,
-    name2: string,
+    name2: boolean,
 }
 
 interface ListTeams{
-    listTeams: ListTeamsProps[]
+    listAdministrator: ListAdministratorProps[]
 }
 
-export default function Turma({ listTeams }: ListTeams){
+export default function Turma({ listAdministrator }: ListTeams){
     const apiClient = setupAPIClient();
-    const [teams, setTeams] = useState(listTeams || [])
+    const [administrators, setAdministrators] = useState(listAdministrator || [])
     const [visibleModal, setVisibleModal] = useState(false)
-    const [teamToDelete, setTeamToDelete] = useState("")
+    const [administratorToDelete, setAdministratorToDelete] = useState("")
     const [loading, setLoading] = useState(false);
 
 
     const [filterName, setFilterName] = useState("")
 
     var listTeamFor = Array<ListView>();
-    teams.forEach((t, i) => {
+    administrators.forEach((t, i) => {
         listTeamFor.push({
             id: t.id,
             name1: t.name,
-            name2: t.active ? "Ativo" : "Inativo"
+            name2: t.password,
         })
         
     })
     const [listTeamsConv, setListTeamsConv] = useState(listTeamFor|| []);
 
     async function handleAlterTeam(identiTeam: string){
-        Router.push(`/team/alter/${identiTeam}`)
+        Router.push(`/administrator/alter/${identiTeam}`)
     }
 
     async function handleDeleteTeam(identiTeam: string){
         setVisibleModal(true)
-        setTeamToDelete(identiTeam);
+        setAdministratorToDelete(identiTeam);
     }
 
 
@@ -74,7 +69,7 @@ export default function Turma({ listTeams }: ListTeams){
         e.preventDefault();
 
         if (filterName === ""){
-            setListTeamsConv(listTeamFor)
+            setListAdministratorConv(listAdministratorFor)
             return;
         }
 
@@ -89,29 +84,29 @@ export default function Turma({ listTeams }: ListTeams){
             }
         })
 
-        setListTeamsConv(listConv)
+        setListAdministratorConv(listConv)
     }
 
     return (
         <>
             <Head>
-                <title> Turma - FunLearn </title>
+                <title> Administrador - FunLearn </title>
             </Head>
             <HeaderAuth teacher={false}/>
             <Container>
                 <ContentItems 
-                    title="Visualizar Turmas"
+                    title="Visualizar Administrador"
                 >
                     <Content>
-                        <ButtonConfirmBlue onClick={() => { Router.push("/team/add") }}>
+                        <ButtonConfirmBlue onClick={() => { Router.push("/administrator/add") }}>
                             Novo
                         </ButtonConfirmBlue>
 
                         <ContainerIpntBut onSubmit={handleFilterName}>
                             <ContainerInput>
                                 <InputFrom 
-                                    title="Pesquisar pelo nome da Turma:"
-                                    placeholder="Nome da Turma"   
+                                    title="Pesquisar pelo nome do Administrador:"
+                                    placeholder="Nome do Administrador"   
                                     value={filterName}
                                     onChange={(e) => setFilterName(e.target.value)}                             
                                 />
@@ -125,9 +120,9 @@ export default function Turma({ listTeams }: ListTeams){
 
                     <ContainerList>
                         <ListView 
-                            names={listTeamsConv}
-                            handleEdit={handleAlterTeam}
-                            handleDelete={handleDeleteTeam}
+                            names={listAdministratorConv}
+                            handleEdit={handleAlterAdministrator}
+                            handleDelete={handleDeleteAdministrator}
                         />
                             
                     </ContainerList>
@@ -139,15 +134,15 @@ export default function Turma({ listTeams }: ListTeams){
             {visibleModal === true ? (
                 <ModalConfirmation 
                     title="Confirmação de Inativar"
-                    description="Deseja realmente inativar essa turma?"
+                    description="Deseja realmente inativar esse administrador?"
                     msgBtnConfirm="Desejo Inativar"
                     msgBtnCancel="Não quero Inativar"
                     handleDeleteRegis={async () => { 
                         setVisibleModal(false)
                         setLoading(true)
-                        console.log(teamToDelete)
+                        console.log(administratorToDelete)
                         let data = {
-                            ident: teamToDelete,
+                            ident: administratorToDelete,
                             name: "",
                             teacherID: "",
                             active: false
@@ -166,19 +161,19 @@ export default function Turma({ listTeams }: ListTeams){
                                         listTeamFor.push({
                                             id: t.id,
                                             name1: t.name,
-                                            name2: t.active ? "Ativo" : "Inativo"
+                                            name2: t.password,
                                         })                                        
                                     })
                                     setListTeamsConv(listTeamFor);
                                 })
                                 setLoading(false)
-                                toast.success("Turma Inativada com sucesso!");                                
+                                toast.success("Administrator Inativado com sucesso!");                                
                             }
                         })  
                         .catch(err => {
                             setLoading(false)
                             console.log(err)
-                            toast.error("Não foi possível inativar a turma, Motivo: " + err.response.data.error);
+                            toast.error("Não foi possível inativar o administrator, Motivo: " + err.response.data.error);
                         })
                     }}
                     handleNotDeleteRegis={() => { setVisibleModal(false) }}
@@ -203,7 +198,7 @@ export default function Turma({ listTeams }: ListTeams){
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
     const apiClient = setupAPIClient(ctx);
-    const res = await apiClient.get('/teams', {
+    const res = await apiClient.get('/administrators', {
         data: {
             name: ""
         }
@@ -211,7 +206,7 @@ export const getServerSideProps = canSSRAuth( async (ctx: any) => {
 
     return {
         props:{
-            listTeams: res.data
+            listAdministrator: res.data
         }
     }
     

@@ -49,20 +49,20 @@ function HeaderAuth( { teacher }: HeaderProps){
                             <Option onClick={() => Router.push("/team")}>
                                 <span>Turmas</span>
                             </Option>                  
-                            <Option>
+                            <Option onClick={() => Router.push("/student")}>
                                 <span>Alunos</span>
                             </Option>                
                             {!teacher ? (
-                                <Option>
+                                <Option onClick={() => Router.push("/teacher")}>
                                     <span>Professor</span>
                                 </Option>  
                             ) : ( <></> ) }  
                                     
-                            <Option>
+                            <Option onClick={() => Router.push("/ask")}>
                                 <span>Perguntas</span>
                             </Option>     
                             {!teacher ? (
-                                <Option>
+                                 <Option onClick={() => Router.push("/administrator")}>
                                     <span style={{fontSize: "14px"}}>Administrador</span>
                                 </Option>  
                             ) : ( <></> ) }       

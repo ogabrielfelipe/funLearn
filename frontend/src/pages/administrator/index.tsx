@@ -22,19 +22,20 @@ type ListAdministratorProps = {
     name: string,
     username: string,
     password: boolean,
+    active: boolean
 }
 
 type ListView = {
     id: string,
     name1: string,
-    name2: boolean,
+    name2: string,
 }
 
-interface ListTeams{
+interface ListAdministrators{
     listAdministrator: ListAdministratorProps[]
 }
 
-export default function Turma({ listAdministrator }: ListTeams){
+export default function Turma({ listAdministrator }: ListAdministrators){
     const apiClient = setupAPIClient();
     const [administrators, setAdministrators] = useState(listAdministrator || [])
     const [visibleModal, setVisibleModal] = useState(false)
@@ -44,24 +45,24 @@ export default function Turma({ listAdministrator }: ListTeams){
 
     const [filterName, setFilterName] = useState("")
 
-    var listTeamFor = Array<ListView>();
+    var listAdministratorFor = Array<ListView>();
     administrators.forEach((t, i) => {
-        listTeamFor.push({
+        listAdministratorFor.push({
             id: t.id,
             name1: t.name,
-            name2: t.password,
+            name2: t.active ? "Ativo" : "Inativo"
         })
         
     })
-    const [listTeamsConv, setListTeamsConv] = useState(listTeamFor|| []);
+    const [listAdministratorConv, setListAdministratorConv] = useState(listAdministratorFor|| []);
 
-    async function handleAlterTeam(identiTeam: string){
-        Router.push(`/administrator/alter/${identiTeam}`)
+    async function handleAlterAdministrator(identiAdministrator: string){
+        Router.push(`/administrator/alter/${identiAdministrator}`)
     }
 
-    async function handleDeleteTeam(identiTeam: string){
+    async function handleDeleteAdministrator(identiAdministrator: string){
         setVisibleModal(true)
-        setAdministratorToDelete(identiTeam);
+        setAdministratorToDelete(identiAdministrator);
     }
 
 
@@ -75,7 +76,7 @@ export default function Turma({ listAdministrator }: ListTeams){
 
         var listConv = Array<ListView>();
 
-        listTeamFor.forEach( (list, index) => {
+        listAdministratorFor.forEach( (list, index) => {
             var name = list.name1.split(" "); 
             for (var i = 0; i < name.length; i++){
                 if (name[i] === filterName){
@@ -144,14 +145,14 @@ export default function Turma({ listAdministrator }: ListTeams){
                         let data = {
                             ident: administratorToDelete,
                             name: "",
-                            teacherID: "",
+                            password: "",
                             active: false
                         }
 
-                        await apiClient.put('/team', data)
+                        await apiClient.put('/administrator', data)
                         .then( async resp => {
                             if (resp.status === 200){ 
-                                await apiClient.get('/teams', {
+                                await apiClient.get('/administrators', {
                                     data: {
                                         name: ""
                                     }
@@ -161,10 +162,10 @@ export default function Turma({ listAdministrator }: ListTeams){
                                         listTeamFor.push({
                                             id: t.id,
                                             name1: t.name,
-                                            name2: t.password,
+                                            name2: t.active,
                                         })                                        
                                     })
-                                    setListTeamsConv(listTeamFor);
+                                    setListAdministratorConv(listAdministratorFor);
                                 })
                                 setLoading(false)
                                 toast.success("Administrator Inativado com sucesso!");                                

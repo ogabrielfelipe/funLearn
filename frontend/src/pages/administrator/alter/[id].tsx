@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonConfirmBlue, ButtonConfirmPink } from "../../../components/Button";
@@ -32,6 +32,9 @@ interface FindAdministratorProps {
 
 
 export default function AddTeam( {administrators}: FindAdministratorProps){
+    const apiClient = setupAPIClient();
+    const router = useRouter();
+    const { id } = router.query;
     const [administratorList, setAdministratorList] = useState(administrators || [])
 
     const [nameAdministrator, setNameAdministrator] = useState("");
@@ -47,6 +50,25 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
 
     const [loading, setLoading] = useState(false);
     
+    useEffect(() =>{
+        async function LoadingAdministrator(){
+            setLoading(true);
+            await apiClient.get(`/administrator?administratorID=${id}`)
+            .then(resp => {
+                setLoading(false);
+                setNameAdministrator(resp.data.name)
+                setAdministratorSelected(resp.data.teacher.id)
+                setAdministratorActive(resp.data.active === true ? "1": "0")
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(err)
+
+            })
+        }
+        LoadingAdministrator()
+    }, [])
+
     function handleAdministratorSelected(e: any){
         setAdministratorSelected(e.target.value)
     }
@@ -61,7 +83,7 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
 
         if (administratorSelected === "0"){
             setLoading(false);
-            toast.warn(" Nenhum administrator selecionado! ")
+            toast.warn(" Nenhum administrador selecionado! ")
             return;
         }
         if (nameAdministrator === ""){
@@ -82,14 +104,14 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
         .then(resp => {
             if (resp.status === 200){
                 setLoading(false);
-                toast.success("Administrador Cadastrado com sucesso!");
+                toast.success("Administrador Atualizado com sucesso!");
                 Router.push("/administrator")
             }
         })
         .catch(err => {
             setLoading(false);
             console.log(err)
-            toast.error("Não foi possível realizar o cadastro, Motivo: "+err.response.data.error);
+            toast.error("Não foi possível realizar a alteração, Motivo: "+err.response.data.error);
         })
 
 
@@ -174,7 +196,7 @@ export const getServerSideProps = canSSRAuth( async (ctx) => {
     const typeUser = ctx.req.cookies['@nextauth.type'];
     try{    
         if (typeUser === "administrator"){
-            const res = await apiClient.get('/teachers', {
+            const res = await apiClient.get('/administrators', {
                 data: {
                     name: ""
                 }
@@ -185,7 +207,7 @@ export const getServerSideProps = canSSRAuth( async (ctx) => {
                     teachers: res.data
                 }
             }
-        }else if (typeUser === "administrator"){
+        }else if (typeUser === "teacher"){
 
             const idUser = ctx.req.cookies['@nextauth.user'];
             const res = await apiClient.get('/administrator', {

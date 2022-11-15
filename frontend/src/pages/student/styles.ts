@@ -84,3 +84,12 @@ export const ContentFormModel = styled.form`
     justify-content: center;
     align-items: center;
 `
+
+
+export const TextMsg = styled.span`
+    padding: 1rem;
+    border-radius: .6rem;
+    border: 0;
+    border 1px solid #9684A3;
+    border-style: dashed;
+`

@@ -16,7 +16,7 @@ import { canSSRAuth } from "../../utils/canSSRAuth";
 import { Container } from "../styles";
 import { OptionSelect } from "../team/add/styles";
 import { ContainerList, ContainerInput, Content, ContainerIpntBut } from "../team/styles";
-import { ContainerBtn, ContainerModal, ContentFormModel, ContentModel, Description, LabelInputFile, Title } from "./styles";
+import { ContainerBtn, ContainerModal, ContentFormModel, ContentModel, Description, LabelInputFile, TextMsg, Title } from "./styles";
 
 
 type TeamStudantsProps = {
@@ -70,6 +70,7 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
     const [passImport, setPassImport] = useState("");
     const [teamSelected, setTeamSelected] = useState("0");
     const [fileImport, setFileImport] = useState(null);
+    const [nameFileImport, setNameFileImport] = useState("");
 
 
     const [filterName, setFilterName] = useState("")
@@ -123,32 +124,53 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
 
     async function handleFileImport(e: FormEvent){
         e.preventDefault();
+        setLoading(true)
 
         if (!fileImport){
             toast.warn("Por favor, importe o arquivo")
         }
         console.log(fileImport)
 
-        const data = new FormData();
+        const dataForm = new FormData();
+        dataForm.append("file", fileImport)
+        dataForm.append("password", passImport)
+        dataForm.append("teamID", teamSelected)
 
-        data.append("file", fileImport)
-        data.append("password", passImport)
-        data.append("teamID", teamSelected)
+        console.log(dataForm)
 
-        console.log(data)
-
-        await apiClient.post("/student/many")
-        .then(resp => {
-            console.log(resp)
+        await apiClient.post("/student/many", dataForm)
+        .then( async resp => {
+            toast.success("Cadastro efetuado com sucesso, total cadastrado: "+resp.data.description.count+" Alunos.")
+            await apiClient.get("/students")
+            .then(resp => {
+                setLoading(false)
+                var listStudantFor = Array<ListView>();
+                resp.data.forEach((s, i) => {
+                    listStudantFor.push({
+                        id: s.id,
+                        name1: s.name,
+                        name2: s.teams.filter((value) => {
+                            if (value.team.active === true){
+                                return value.team.name;
+                            }
+                        })[0].team.name
+                    })  
+                })
+                setVisubleModelImport(false)
+                setListStudantsConv(listStudantFor)
+            })
         })
         .catch(err => {
+            setLoading(false)
             console.log(err)
+            toast.success("Não foi possível importar os dados dos alunos.")
         })
 
     }
 
     function handleFileSelected(e){
         setFileImport(e.target.files[0])
+        setNameFileImport(e.target.files[0].name)
     }
 
     
@@ -217,6 +239,7 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
                                 />
                                 <span>Importar Arquivo</span>
                             </LabelInputFile>
+                            <TextMsg hidden={!nameFileImport}>Arquivo: {nameFileImport}</TextMsg>
                             <InputFrom 
                                 title="Senha Padrão:"
                                 type={"password"}

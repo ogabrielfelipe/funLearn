@@ -21,7 +21,6 @@ type ListAdministratorProps = {
     id: string,
     name: string,
     username: string,
-    password: boolean,
     active: boolean
 }
 
@@ -199,7 +198,7 @@ export default function Turma({ listAdministrator }: ListAdministrators){
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
     const apiClient = setupAPIClient(ctx);
-    const res = await apiClient.get('/administrators', {
+    const res = await apiClient.get('/adminstrators', {
         data: {
             name: ""
         }

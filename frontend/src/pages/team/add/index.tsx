@@ -54,11 +54,11 @@ export default function AddTeam( {teachers}: FindTeacherProps){
 
     const [loading, setLoading] = useState(false);
     
-    function handleTeacherSelected(e){
+    function handleTeacherSelected(e: any){
         setTeacherSelected(e.target.value)
     }
 
-    function handleTeamActive(e){
+    function handleTeamActive(e: any){
         setTeamActive(e.target.value)
     }
 

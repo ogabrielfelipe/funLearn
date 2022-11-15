@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import Image from "next/image"
 import Link from "next/link"
 import { destroyCookie, setCookie, parseCookies } from 'nookies'
@@ -9,7 +10,6 @@ import Logo from "../../../public/assets/logo.svg";
 import VoltarImg from "../../../public/assets/Exit.svg"
 import { CaretDown } from "phosphor-react";
 import Router from "next/router";
-
 
 interface HeaderProps{
     teacher: boolean ;
@@ -45,10 +45,10 @@ function HeaderAuth( { teacher }: HeaderProps){
                             <span>Cadastros</span>
                             <CaretDown size={24} weight="bold" style={{paddingLeft: "10"}} />
                         </ContainerMenu>
-                        <ContainerOptions>
-                            <Option onClick={() => Router.push("/team")}>
-                                <span>Turmas</span>
-                            </Option>                  
+                        <ContainerOptions>                           
+                                <Option onClick={() => Router.push("/team")}>
+                                    <span>Turmas</span>
+                                </Option>                
                             <Option onClick={() => Router.push("/student")}>
                                 <span>Alunos</span>
                             </Option>                

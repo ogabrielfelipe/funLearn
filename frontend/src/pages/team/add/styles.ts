@@ -16,6 +16,7 @@ export const ContentInputForm = styled.div`
     padding: 3rem;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: .6rem;
 `
 

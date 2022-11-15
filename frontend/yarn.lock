@@ -1872,6 +1872,18 @@ react-is@^16.13.1, react-is@^16.7.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-shadow@^16.3.1:
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react-shadow/-/react-shadow-16.3.2.tgz#a431a7101b0e222dbc669c4070ab395f42dbb675"
+  integrity sha512-NxFoBvEg2WD3V25jgiWgIltpDfs2XBCbDyi63jEM6Gch8g8r2cqJxSWy2GfG666EfOpRR5Zsrhu0Qn5yze1PrA==
+
+react-styled-shadow-dom@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-styled-shadow-dom/-/react-styled-shadow-dom-1.0.0.tgz#81e238b436b0324b0431fbc5c0277570c5037a0f"
+  integrity sha512-I5NTFRIUCz8v0cX0bocVhq6p2N9Qlyzr2Ym+jbTsnqjz/lBg39acT4HKrrEvmnJAP3Kv1wb9DEhJlX36DvobBQ==
+  dependencies:
+    react-shadow "^16.3.1"
+
 react-toastify@^9.0.8:
   version "9.0.8"
   resolved "https://registry.npmjs.org/react-toastify/-/react-toastify-9.0.8.tgz"

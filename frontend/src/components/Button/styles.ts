@@ -7,6 +7,12 @@ export const Button = styled.button`
     background-color: #8870FF;
     border-radius: 0.6rem;
     color: #FFFFFF;
+
+    transition: all .2s linear;
+
+    :active{
+        filter: brightness(1.5);
+    }
 `
 
 export const ButtonP = styled.button`

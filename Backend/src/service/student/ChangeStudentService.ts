@@ -19,7 +19,7 @@ class ChangeStudentService {
   }: studentChangeRequest) {
     // verificação e busca na table student
 
-    const student = await prismaClient.student.findUnique({
+    const student = await prismaClient.student.findFirst({
       where: {
         id: studentID,
       },

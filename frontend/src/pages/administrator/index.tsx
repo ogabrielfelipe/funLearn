@@ -204,6 +204,7 @@ export const getServerSideProps = canSSRAuth( async (ctx: any) => {
         }
     })
 
+
     return {
         props:{
             listAdministrator: res.data

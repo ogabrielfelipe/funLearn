@@ -98,15 +98,11 @@ export default function AddTeam( {teachers}: FindTeacherProps){
             console.log(err)
             toast.error("Não foi possível realizar o cadastro, Motivo: "+err.response.data.error);
         })
-
-
-        
-
     }
 
     return (
         <>
-             <Head>
+            <Head>
                 <title> Cadastro de Turma - FunLearn </title>
             </Head>
             <HeaderAuth teacher={false}/>

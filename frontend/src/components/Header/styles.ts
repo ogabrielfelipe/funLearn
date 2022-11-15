@@ -60,9 +60,32 @@ export const ContainerOptions = styled.div`
     top: 3.5rem;
     gap: .6rem;
 
-    transition: all 2s ease-out;
+`
+
+export const Option = styled.div`
+    background-image: url(/assets/OptionDropDown.svg);
+    background-repeat: no-repeat;
+    width: 11.75rem;
+    height: 2.9rem;
 
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+
+    transition: all 0.2s linear ;
+
+    :hover{
+        filter: brightness(1.2);
+    }
+
+    :active{
+        filter: brightness(1.5);
+    }
+
+    
 `
 
 export const BtnCadastros = styled.div`
@@ -82,33 +105,16 @@ export const BtnCadastros = styled.div`
     color: var(--cl-white);
     user-select: none;
 
-
     gap: .6rem;
 
     :hover ${ContainerOptions} {
         display: flex;
         flex-direction: column;
+
     }
 `
 
 
-export const Option = styled.div`
-    background-image: url(/assets/OptionDropDown.svg);
-    background-repeat: no-repeat;
-    width: 11.75rem;
-    height: 2.9rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
-    cursor: pointer;
-
-    :active{
-        filter: brightness(1.2);
-    }
-`
 
 
 export const ContainerBtnAdmin = styled.div`

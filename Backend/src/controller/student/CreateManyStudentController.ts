@@ -30,6 +30,7 @@ class CreateManyStudentController{
          */
 
         const { password, teamID } = req.body;
+        console.log(password, teamID, req.file)
 
         const file = req.file;
 

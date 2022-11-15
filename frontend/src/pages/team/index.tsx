@@ -60,11 +60,11 @@ export default function Turma({ listTeams }: ListTeams){
     })
     const [listTeamsConv, setListTeamsConv] = useState(listTeamFor|| []);
 
-    async function handleAlterTeam(identiTeam: string){
+    function handleAlterTeam(identiTeam: string){
         Router.push(`/team/alter/${identiTeam}`)
     }
 
-    async function handleDeleteTeam(identiTeam: string){
+    function handleDeleteTeam(identiTeam: string){
         setVisibleModal(true)
         setTeamToDelete(identiTeam);
     }

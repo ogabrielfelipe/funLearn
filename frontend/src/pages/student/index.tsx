@@ -145,11 +145,11 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
             .then(resp => {
                 setLoading(false)
                 var listStudantFor = Array<ListView>();
-                resp.data.forEach((s, i) => {
+                resp.data.forEach((s: any, i: any) => {
                     listStudantFor.push({
                         id: s.id,
                         name1: s.name,
-                        name2: s.teams.filter((value) => {
+                        name2: s.teams.filter((value: any) => {
                             if (value.team.active === true){
                                 return value.team.name;
                             }
@@ -168,7 +168,7 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
 
     }
 
-    function handleFileSelected(e){
+    function handleFileSelected(e: any){
         setFileImport(e.target.files[0])
         setNameFileImport(e.target.files[0].name)
     }
@@ -318,7 +318,7 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
                                         listTeamFor.push({
                                             id: s.id,
                                             name1: s.name,
-                                            name2: s.teams.filter((value) => {
+                                            name2: s.teams.filter((value: any) => {
                                                 if (value.team.active === true){
                                                     return value.team.name;
                                                 }

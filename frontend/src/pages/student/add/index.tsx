@@ -44,10 +44,10 @@ export default function AddStudant( { teams }: AddStudantProps ){
 
     const [teamSelected, setTeamSelected] = useState("0");
     const [studentActive, setStudentActive] = useState("1");
-    function handleTeamSelected(e){
+    function handleTeamSelected(e: any){
         setTeamSelected(e.target.value)
     }
-    function handleStudentActive(e){
+    function handleStudentActive(e: any){
         setStudentActive(e.target.value)
     }
 
@@ -190,7 +190,7 @@ export default function AddStudant( { teams }: AddStudantProps ){
 }
 
 
-export const getServerSideProps = canSSRAuth( async (ctx) => {
+export const getServerSideProps = canSSRAuth( async (ctx: any) => {
     const apiClient = setupAPIClient(ctx);
     const res = await apiClient.get('/teams', {
         data: {

@@ -14,11 +14,6 @@ import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "./st
 import { parseCookies } from 'nookies'
 import { Password } from "phosphor-react";
 
-type AdminProps = {
-    name: string,
-    username: string,
-    password: boolean
-  }
 
 type AdministratorProps = {
     id: string,
@@ -37,7 +32,7 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
 
     const [nameAdministrator, setNameAdministrator] = useState("");
 
-    const [userAdministrator, setUserAdministrator] = useState("");
+    const [userAdministrator, setUserAdministrator] = useState<any>();
 
     const [passwordAdministrator, setPasswordAdministrator] = useState("");
 
@@ -47,7 +42,7 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
         administratorSelectedPosition = cookies["@nextauth.user"]
     }
 
-    const [administratorSelected, setAdministratorSelected] = useState(administratorSelectedPosition);
+    const [administratorSelected, setAdministratorSelected] = useState("0");
     const [administratorActive, setAdministratorActive] = useState("1");
 
     const [loading, setLoading] = useState(false);
@@ -75,15 +70,21 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
             return;
         }
 
+        if (passwordAdministrator === ""){
+            setLoading(false);
+            toast.warn("Por favor, informe uma senha para realizar o cadastro.")
+            return;
+        }
 
         let data = {
             name: nameAdministrator,
-            userAdministrator: userAdministrator,
+            register: userAdministrator,
             password: passwordAdministrator,
+            active: administratorActive === "1"? true : false,
         }
 
         const apiClient = setupAPIClient();
-        await apiClient.post('/administrator', data)
+        await apiClient.post('/adminstrator', data)
         .then(resp => {
             if (resp.status === 200){
                 setLoading(false);
@@ -96,10 +97,6 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
             console.log(err)
             toast.error("Não foi possível realizar o cadastro, Motivo: "+err.response.data.error);
         })
-
-
-        
-
     }
 
     return (
@@ -132,7 +129,7 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
 
                             <InputFrom 
                                 title="Senha:"
-                                type={"text"}
+                                type={"password"}
                                 placeholder="Senha"
                                 value={passwordAdministrator    }
                                 onChange={(e) => setPasswordAdministrator(e.target.value)}
@@ -167,9 +164,18 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
 }
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
+    const apiClient = setupAPIClient(ctx);
+    const res = await apiClient.get('/adminstrators', {
+        data: {
+            name: ""
+        }
+    })
 
     return {
-        props:{}
+        props:{
+            listAdministrator: res.data
+        }
     }
+    
     
 } )

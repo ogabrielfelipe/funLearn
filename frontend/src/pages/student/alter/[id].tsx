@@ -47,10 +47,10 @@ export default function AlterStudent( { teams }: AlterStudentProps ){
 
     const [teamSelected, setTeamSelected] = useState("0");
     const [studentActive, setStudentActive] = useState("1");
-    function handleTeamSelected(e){
+    function handleTeamSelected(e: any){
         setTeamSelected(e.target.value)
     }
-    function handleStudentActive(e){
+    function handleStudentActive(e: any){
         setStudentActive(e.target.value)
     }
 
@@ -63,7 +63,7 @@ export default function AlterStudent( { teams }: AlterStudentProps ){
                 setLoading(false);
                 setNameStudent(resp.data.name)
                 setRegisterStudent(Number(resp.data.register))
-                setTeamSelected(resp.data.teams.filter((value) => {
+                setTeamSelected(resp.data.teams.filter((value: any) => {
                     if (value.team.active){
                         return value.team.id
                     }
@@ -214,7 +214,7 @@ export default function AlterStudent( { teams }: AlterStudentProps ){
 }
 
 
-export const getServerSideProps = canSSRAuth( async (ctx) => {
+export const getServerSideProps = canSSRAuth( async (ctx: any) => {
     const apiClient = setupAPIClient(ctx);
     const res = await apiClient.get('/teams', {
         data: {

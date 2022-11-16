@@ -13,11 +13,6 @@ import { Container } from "../styles";
 import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../add/styles";
 import { parseCookies } from 'nookies'
 
-type AdminProps = {
-    name: string,
-    username: string,
-    password: boolean
-  }
 
 type AdministratorProps = {
     id: string,
@@ -35,6 +30,7 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
     const apiClient = setupAPIClient();
     const router = useRouter();
     const { id } = router.query;
+
     const [administratorList, setAdministratorList] = useState(administrators || [])
 
     const [nameAdministrator, setNameAdministrator] = useState("");
@@ -57,11 +53,11 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
     useEffect(() =>{
         async function LoadingAdministrator(){
             setLoading(true);
-            await apiClient.get(`/administrator?administratorID=${id}`)
+            await apiClient.get(`/adminstrator?administratorID=${id}`)
             .then(resp => {
                 setLoading(false);
                 setNameAdministrator(resp.data.name)
-                setAdministratorSelected(resp.data.teacher.id)
+                setAdministratorSelected(resp.data.administrator.id)
                 setAdministratorActive(resp.data.active === true ? "1": "0")
             })
             .catch(err => {
@@ -96,15 +92,22 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
             return;
         }
 
+        if (passwordAdministrator === ""){
+            setLoading(false);
+            toast.warn("Por favor, informe uma senha para realizar o cadastro.")
+            return;
+        }
 
         let data = {
+            id: id,
             administratorID: administratorSelected,
             password: passwordAdministrator,
-            active: administratorActive === "1"? true : false
+            active: administratorActive === "1"? true : false,
+            register: null
         }
 
         const apiClient = setupAPIClient();
-        await apiClient.post('/administrator', data)
+        await apiClient.post('/adminstrator', data)
         .then(resp => {
             if (resp.status === 200){
                 setLoading(false);
@@ -117,21 +120,17 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
             console.log(err)
             toast.error("Não foi possível realizar a alteração, Motivo: "+err.response.data.error);
         })
-
-
-        
-
     }
 
     return (
         <>
             <Head>
-                <title> Atualizar o Administrador - FunLearn </title>
+                <title> Alteração do Cadastro do Administrador - FunLearn </title>
             </Head>
             <HeaderAuth teacher={false}/>
             <Container>
                 <ContentItems 
-                    title="Cadastro de Administradores"
+                    title="Alteração do Administrador"
                 >
                     <ContentForm onSubmit={handleRegisterAdministrator}>
                         <ContentInputForm>
@@ -153,7 +152,7 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
 
                             <InputFrom 
                                 title="Senha:"
-                                type={"text"}
+                                type={"password"}
                                 placeholder="Senha"
                                 value={passwordAdministrator    }
                                 onChange={(e) => setPasswordAdministrator(e.target.value)}
@@ -188,9 +187,18 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
 }
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
+    const apiClient = setupAPIClient(ctx);
+    const res = await apiClient.get('/adminstrators', {
+        data: {
+            name: ""
+        }
+    })
 
     return {
-        props:{}
+        props:{
+            listAdministrator: res.data
+        }
     }
+    
     
 } )

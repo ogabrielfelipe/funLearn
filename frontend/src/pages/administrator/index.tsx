@@ -151,17 +151,17 @@ export default function Turma({ listAdministrator }: ListAdministrators){
                         await apiClient.put('/administrator', data)
                         .then( async resp => {
                             if (resp.status === 200){ 
-                                await apiClient.get('/administrators', {
+                                await apiClient.get('/adminstrators', {
                                     data: {
                                         name: ""
                                     }
                                 }).then( res => {
-                                    var listTeamFor = Array<ListView>();
+                                    var listAdministratorFor = Array<ListView>();
                                     res.data.forEach((t: any, i: any) => {
-                                        listTeamFor.push({
+                                        listAdministratorFor.push({
                                             id: t.id,
                                             name1: t.name,
-                                            name2: t.active,
+                                            name2: t.username,
                                         })                                        
                                     })
                                     setListAdministratorConv(listAdministratorFor);
@@ -203,7 +203,6 @@ export const getServerSideProps = canSSRAuth( async (ctx: any) => {
             name: ""
         }
     })
-
 
     return {
         props:{

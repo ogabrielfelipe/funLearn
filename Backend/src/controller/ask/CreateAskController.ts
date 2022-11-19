@@ -34,6 +34,7 @@ class CreateAskController{
 
         const image = req.file
         let answerConverter = JSON.parse(answer)
+        console.log(answerConverter)
 
         const createAskService = new CreateAskService();
         const result = await createAskService.execute({
@@ -41,7 +42,7 @@ class CreateAskController{
             level: level,
             image: image?.filename,
             active: Boolean(active),
-            answer: answerConverter['data']
+            answer: answerConverter
         })
 
          /* #swagger.responses[403] = { 

@@ -126,7 +126,7 @@ router.get('/asks', isAuthenticated, new FindManyAskController().handle)
 
 */
 
-router.use('/ask/image', isAuthenticated, express.static(process.env['DIR_IMAGEASK'] as string))
+router.use('/ask/image', express.static(process.env['DIR_IMAGEASK'] as string))
 
 /* #swagger.responses[404] = { 
     description: 'Imagem não encontrada.' 

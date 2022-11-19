@@ -67,11 +67,25 @@ class ChangeImageOnAskController{
             return res.status(200).json(result)
         }else{
 
+            //--- Função para realizar a alteração cadastral da imagem
+            const changeImagenOnAsk = new ChangeImageOnAskService();
+            result = await changeImagenOnAsk.execute({
+                askID: askID,
+                image: !image?.filename ? "" : image?.filename as string
+            })
+
+
+            /* #swagger.responses[200] = { 
+                description: 'Imagem alterada com sucesso.',
+                schema: { $ref: "#/definitions/Ask2" }   
+            } */
+            return res.status(200).json(result)
+
             /* #swagger.responses[404] = { 
                 description: 'Imagem não encontrada. \nPergunta não encontrada.' 
             } */
 
-            return res.status(404).json({error: "Image not found."})
+            //return res.status(404).json({error: "Image not found."})
         }
 
         /* #swagger.responses[500] = { 

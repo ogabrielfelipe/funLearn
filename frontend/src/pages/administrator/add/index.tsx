@@ -134,6 +134,15 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
                                 value={passwordAdministrator    }
                                 onChange={(e) => setPasswordAdministrator(e.target.value)}
                             />
+
+                            <SelectForm
+                                title="Administrador Ativo:"
+                                value={administratorActive}
+                                onChange={handleAdministratorActive}
+                            >   
+                                <OptionSelect value={1}>Sim</OptionSelect>
+                                <OptionSelect value={0}>Não</OptionSelect>
+                            </SelectForm>
                         </ContentInputForm>
 
                         <ContentButton>

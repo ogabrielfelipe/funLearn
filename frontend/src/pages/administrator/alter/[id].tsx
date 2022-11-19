@@ -87,28 +87,29 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
         //     toast.warn(" Nenhum administrador selecionado! ")
         //     return;
         // }
+
         if (nameAdministrator === ""){
             setLoading(false);
             toast.warn("Por favor, informe o nome do administrador.")
             return;
         }
 
-        if (passwordAdministrator === ""){
-            setLoading(false);
-            toast.warn("Por favor, informe uma senha para realizar o cadastro.")
-            return;
-        }
+        // if (passwordAdministrator === ""){
+        //     setLoading(false);
+        //     toast.warn("Por favor, informe uma senha para realizar o cadastro.")
+        //     return;
+        // }
 
         let data = {
             id: id,
-            administratorID: administratorSelected,
+            name: nameAdministrator,
+            username: userAdministrator,
             password: passwordAdministrator,
             active: administratorActive === "1"? true : false,
-            register: null
         }
 
         const apiClient = setupAPIClient();
-        await apiClient.post('/adminstrator', data)
+        await apiClient.post('/administrator', data)
         .then(resp => {
             if (resp.status === 200){
                 setLoading(false);
@@ -158,6 +159,15 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
                                 value={passwordAdministrator    }
                                 onChange={(e) => setPasswordAdministrator(e.target.value)}
                             />
+
+                            <SelectForm
+                                title="Administrador Ativo:"
+                                value={administratorActive}
+                                onChange={handleAdministratorActive}
+                            >   
+                                <OptionSelect value={1}>Sim</OptionSelect>
+                                <OptionSelect value={0}>Não</OptionSelect>
+                            </SelectForm>
                         </ContentInputForm>
 
                         <ContentButton>

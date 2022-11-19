@@ -1,5 +1,5 @@
 import { AuthContext } from "../../../contexts/AuthContext";
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import Router from "next/router";
 import { setupAPIClient } from "../../../services/api";
 
@@ -13,8 +13,6 @@ import { Container, Content } from "./styles";
 
 export default function HomeAdministrator(){
 
-    const { user } = useContext(AuthContext)
-    
     return (
         <>
             <Head>

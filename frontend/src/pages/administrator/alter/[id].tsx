@@ -53,10 +53,11 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
     useEffect(() =>{
         async function LoadingAdministrator(){
             setLoading(true);
-            await apiClient.get(`/adminstrator?administratorID=${id}`)
+            await apiClient.get(`/administrator?adminID=${id}`)
             .then(resp => {
                 setLoading(false);
                 setNameAdministrator(resp.data.name)
+                setUserAdministrator(resp.data.username)
                 setAdministratorSelected(resp.data.administrator.id)
                 setAdministratorActive(resp.data.active === true ? "1": "0")
             })
@@ -187,17 +188,9 @@ export default function AddTeam( {administrators}: FindAdministratorProps){
 }
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
-    const apiClient = setupAPIClient(ctx);
-    const res = await apiClient.get('/adminstrators', {
-        data: {
-            name: ""
-        }
-    })
-
+   
     return {
-        props:{
-            listAdministrator: res.data
-        }
+        props:{ }
     }
     
     

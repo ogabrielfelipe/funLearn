@@ -142,7 +142,7 @@ export default function Turma({ listAdministrator }: ListAdministrators){
                         setLoading(true)
                         console.log(administratorToDelete)
                         let data = {
-                            ident: administratorToDelete,
+                            id: administratorToDelete,
                             name: "",
                             password: "",
                             active: false
@@ -161,7 +161,7 @@ export default function Turma({ listAdministrator }: ListAdministrators){
                                         listAdministratorFor.push({
                                             id: t.id,
                                             name1: t.name,
-                                            name2: t.username,
+                                            name2: t.active ? "Ativo" : "Inativo",
                                         })                                        
                                     })
                                     setListAdministratorConv(listAdministratorFor);

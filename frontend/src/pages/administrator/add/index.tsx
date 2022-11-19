@@ -78,13 +78,13 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
 
         let data = {
             name: nameAdministrator,
-            register: userAdministrator,
+            username: userAdministrator,
             password: passwordAdministrator,
             active: administratorActive === "1"? true : false,
         }
 
         const apiClient = setupAPIClient();
-        await apiClient.post('/adminstrator', data)
+        await apiClient.post('/administrator', data)
         .then(resp => {
             if (resp.status === 200){
                 setLoading(false);

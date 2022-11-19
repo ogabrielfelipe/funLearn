@@ -1,7 +1,10 @@
-import { InputHTMLAttributes, ReactNode, SelectHTMLAttributes } from "react";
-import { Container, Input, Select } from "./styles"
+import { InputHTMLAttributes, ReactNode, SelectHTMLAttributes, TextareaHTMLAttributes, useState } from "react";
+import { Container, ContainerPass, Input, Select, TextArea } from "./styles"
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
+    title: string;
+}
+interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>{
     title: string;
 }
 
@@ -12,16 +15,31 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement>{
 
 function InputFrom( { title, ...rest }:InputProps ){
 
-    return (
-        
+    return (        
         <Container>
             <span>{title}</span>
-            <Input {...rest} />
+            <Input 
+                {...rest} 
+            />
         </Container>
         
     )
 
 }
+
+function InputTextArea({ title, ...rest }:TextAreaProps){
+
+    return (        
+        <Container>
+            <span>{title}</span>
+            <TextArea 
+                {...rest} 
+            />
+        </Container>
+        
+    )
+}
+
 
 function SelectForm( { title, children, ...rest }: SelectProps ){
 
@@ -41,4 +59,4 @@ function SelectForm( { title, children, ...rest }: SelectProps ){
 
 
 
-export { InputFrom, SelectForm }
+export { InputFrom, SelectForm, InputTextArea }

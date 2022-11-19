@@ -3,7 +3,6 @@ import styled from "styled-components"
 export const ContentForm = styled.form`
     width: calc(100% - 10rem);
     height: 100%;
-    padding: 3rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -13,7 +12,8 @@ export const ContentForm = styled.form`
 export const ContentInputForm = styled.div`
     width: 25rem;
     height: auto;
-    padding: 3rem;
+    padding: 2rem;
+    margin-left: 3rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -33,5 +33,13 @@ export const ContentButton = styled.div`
 
     align-self: flex-end;
     align-items: flex-end;
+
+    
+    position: fixed;
+    right: 7%;
+
+    margin: .6rem;
+    margin-bottom: 1rem;
+
 
 `

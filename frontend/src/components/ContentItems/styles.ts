@@ -21,7 +21,7 @@ export const Title = styled.strong`
     font-size: 2rem;
     font-family: 'Bungee','Cabin', sans-serif;
     text-align: center;
-    margin: 1rem;
+    margin: .5rem;
 
     display: flex;
     flex-direction: column;

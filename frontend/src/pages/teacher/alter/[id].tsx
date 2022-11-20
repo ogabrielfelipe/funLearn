@@ -13,10 +13,10 @@ import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../.
 import { Container } from "../../team/styles";
 
 
-type teamsFindProps = {    
+type teachersFindProps = {    
     id: string,
     name: string,
-    teacherID: string,
+    username: string,
     active: boolean,
     teacher: {
         "id": string,
@@ -27,29 +27,28 @@ type teamsFindProps = {
 }
 
 interface AlterTeacherProps {
-    teams: teamsFindProps[]
+    teachers: teachersFindProps[]
 }
 
 
-
-export default function AlterStudent( { teams }: AlterTeacherProps ){
+export default function AlterTeacher( { teachers }: AlterTeacherProps ){
     const apiClient = setupAPIClient();
     const router = useRouter();
     const { id } = router.query;
 
-    const [teamList, setTeamList] = useState(teams || [])
+    const [teamList, setTeamList] = useState(teachers || [])
     const [loading, setLoading] = useState(false);
 
 
     const [nameTeacher, setNameTeacher] = useState("");
-    const [registerTeacher, setRegisterTeacher] = useState<any>();
+    const [userTeacher, setUserTeacher] = useState<any>();
     const [passTeacher, setNPassTeacher] = useState("");
 
-    const [teamSelected, setTeamSelected] = useState("0");
+    const [teacherSelected, setTeacherSelected] = useState("0");
     const [teacherActive, setTeacherActive] = useState("1");
     
-    function handleTeamSelected(e: any){
-        setTeamSelected(e.target.value)
+    function handleTeacherSelected(e: any){
+        setTeacherSelected(e.target.value)
     }
     function handleTeacherActive(e: any){
         setTeacherActive(e.target.value)
@@ -57,18 +56,14 @@ export default function AlterStudent( { teams }: AlterTeacherProps ){
 
 
     useEffect(() =>{
-        async function LoadingStudent(){
+        async function LoadingTeacher(){
             setLoading(true);
             await apiClient.get(`/teacher?teacherID=${id}`)
             .then(resp => {
                 setLoading(false);
                 setNameTeacher(resp.data.name)
-                setRegisterTeacher(Number(resp.data.register))
-                setTeamSelected(resp.data.teams.filter((value: any) => {
-                    if (value.team.active){
-                        return value.team.id
-                    }
-                })[0].team.id)
+                setUserTeacher(resp.data.username)
+                setTeacherSelected(resp.data.teacher.id)
                 setTeacherActive(resp.data.active === true ? "1": "0")
             })
             .catch(err => {
@@ -77,11 +72,11 @@ export default function AlterStudent( { teams }: AlterTeacherProps ){
 
             })
         }
-        LoadingStudent()
+        LoadingTeacher()
     }, [])
 
 
-    async function handleRegisterTeam(e: FormEvent){
+    async function handleRegisterTeacher(e: FormEvent){
         e.preventDefault();
         setLoading(true);
 
@@ -94,7 +89,7 @@ export default function AlterStudent( { teams }: AlterTeacherProps ){
         let data = {
             id: id,
             name: nameTeacher,
-            teamID: teamSelected,
+            username: userTeacher,
             active: teacherActive === "1"? true : false,
             password: passTeacher,
         }
@@ -125,21 +120,21 @@ export default function AlterStudent( { teams }: AlterTeacherProps ){
                 <ContentItems 
                     title="Alteração do Professor"
                 >
-                    <ContentForm onSubmit={handleRegisterTeam}>
+                    <ContentForm onSubmit={handleRegisterTeacher}>
                         <ContentInputForm>
                             <InputFrom 
-                                title="Nome do Aluno:"
+                                title="Nome Completo:"
                                 type={"text"}
                                 placeholder="Nome"
                                 value={nameTeacher}
                                 onChange={(e) => setNameTeacher(e.target.value)}
                             />
                             <InputFrom 
-                                title="Matrícula do Aluno:"
-                                type={"number"}
-                                placeholder="Matrícula"
-                                value={registerTeacher}
-                                onChange={(e) => setRegisterTeacher(Number(e.target.value))}
+                                title="Nome de Usuário:"
+                                type={"text"}
+                                placeholder="Usuário"
+                                value={userTeacher}
+                                onChange={(e) => setUserTeacher(Number(e.target.value))}
                                 disabled
                             />
                             <InputFrom 
@@ -149,20 +144,6 @@ export default function AlterStudent( { teams }: AlterTeacherProps ){
                                 value={passTeacher}
                                 onChange={(e) => setNPassTeacher(e.target.value)}
                             />
-
-                            <SelectForm
-                                title="Selecione uma Turma"
-                                placeholder="Turma"
-                                value={teamSelected}
-                                onChange={handleTeamSelected}
-                            >   
-                                <OptionSelect value={0} selected>Turma</OptionSelect>
-                                {teamList.map((team, index) => {
-                                    return (
-                                        <OptionSelect key={team.id} value={team.id} hidden={!team.active}>{team.name}</OptionSelect>
-                                    )
-                                })}
-                            </SelectForm>
 
                             <SelectForm
                                 title="Professor Ativo:"
@@ -205,7 +186,7 @@ export default function AlterStudent( { teams }: AlterTeacherProps ){
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
     const apiClient = setupAPIClient(ctx);
-    const res = await apiClient.get('/teams', {
+    const res = await apiClient.get('/teachers', {
         data: {
             name: ""
         }
@@ -213,7 +194,7 @@ export const getServerSideProps = canSSRAuth( async (ctx: any) => {
 
     return {
         props:{
-            teams: res.data
+            teachers: res.data
         }
     }
 })

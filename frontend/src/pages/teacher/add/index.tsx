@@ -13,44 +13,39 @@ import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../.
 import { Container } from "../../team/styles";
 
 
-type teamsFindProps = {    
+type teachersFindProps = {    
     id: string,
     name: string,
-    teacherID: string,
+    password: string,
     active: boolean,
-    teacher: {
-        "id": string,
-        "name": string,
-        "active": boolean
-    }
-      
 }
 
 interface AddTeacherProps {
-    teams: teamsFindProps[]
+    teachers: teachersFindProps[]
 }
 
 
 
-export default function AddTeacher( { teams }: AddTeacherProps ){
+export default function AddTeacher( { teachers }: AddTeacherProps ){
 
-    const [teamList, setTeamList] = useState(teams || [])
+    const [teamList, setTeamList] = useState(teachers || [])
     const [loading, setLoading] = useState(false);
 
 
     const [nameTeacher, setNameTeacher] = useState("");
-    const [registerTeacher, setRegisterTeacher] = useState<any>();
+    const [userTeacher, setUserTeacher] = useState<any>();
     const [passTeacher, setNPassTeacher] = useState("");
 
     const [teamSelected, setTeamSelected] = useState("0");
     const [teacherActive, setTeacherActive] = useState("1");
+
     function handleTeamSelected(e: any){
         setTeamSelected(e.target.value)
     }
+
     function handleTeacherActive(e: any){
         setTeacherActive(e.target.value)
     }
-
 
     async function handleRegisterTeam(e: FormEvent){
         e.preventDefault();
@@ -71,10 +66,9 @@ export default function AddTeacher( { teams }: AddTeacherProps ){
 
         let data = {
             name: nameTeacher,
-            teamID: teamSelected,
             active: teacherActive === "1"? true : false,
             password: passTeacher,
-            register: registerTeacher
+            username: userTeacher
         }
 
         const apiClient = setupAPIClient();
@@ -97,28 +91,28 @@ export default function AddTeacher( { teams }: AddTeacherProps ){
     return (
         <>
             <Head>
-                <title> Cadastro de Aluno - FunLearn </title>
+                <title> Cadastro do Professor - FunLearn </title>
             </Head>
             <HeaderAuth teacher={false}/>
             <Container>
                 <ContentItems 
-                    title="Cadastro de Professor"
+                    title="Cadastro do Professor"
                 >
                     <ContentForm onSubmit={handleRegisterTeam}>
                         <ContentInputForm>
                             <InputFrom 
-                                title="Nome do Professor:"
+                                title="Nome Completo:"
                                 type={"text"}
                                 placeholder="Nome"
                                 value={nameTeacher}
                                 onChange={(e) => setNameTeacher(e.target.value)}
                             />
                             <InputFrom 
-                                title="Matrícula do Aluno:"
-                                type={"number"}
-                                placeholder="Matrícula"
-                                value={registerTeacher}
-                                onChange={(e) => setRegisterTeacher(Number(e.target.value))}
+                                title="Nome de Usuário:"
+                                type={"text"}
+                                placeholder="Usuário"
+                                value={userTeacher}
+                                onChange={(e) => setUserTeacher(Number(e.target.value))}
                             />
                             <InputFrom 
                                 title="Senha:"
@@ -127,20 +121,6 @@ export default function AddTeacher( { teams }: AddTeacherProps ){
                                 value={passTeacher}
                                 onChange={(e) => setNPassTeacher(e.target.value)}
                             />
-
-                            <SelectForm
-                                title="Selecione uma Turma"
-                                placeholder="Turma"
-                                value={teamSelected}
-                                onChange={handleTeamSelected}
-                            >   
-                                <OptionSelect value={0} selected>Turma</OptionSelect>
-                                {teamList.map((team, index) => {
-                                    return (
-                                        <OptionSelect key={team.id} value={team.id} hidden={!team.active}>{team.name}</OptionSelect>
-                                    )
-                                })}
-                            </SelectForm>
 
                             <SelectForm
                                 title="Professor Ativo:"
@@ -183,7 +163,7 @@ export default function AddTeacher( { teams }: AddTeacherProps ){
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
     const apiClient = setupAPIClient(ctx);
-    const res = await apiClient.get('/teams', {
+    const res = await apiClient.get('/teachers', {
         data: {
             name: ""
         }
@@ -191,7 +171,7 @@ export const getServerSideProps = canSSRAuth( async (ctx: any) => {
 
     return {
         props:{
-            teams: res.data
+            listTeachers: res.data
         }
     }
 })

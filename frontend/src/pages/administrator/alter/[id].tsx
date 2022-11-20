@@ -26,7 +26,7 @@ interface FindAdministratorProps {
 }
 
 
-export default function AddTeam( {administrators}: FindAdministratorProps){
+export default function AlterAdministrator( {administrators}: FindAdministratorProps){
     const apiClient = setupAPIClient();
     const router = useRouter();
     const { id } = router.query;

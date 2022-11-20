@@ -33,16 +33,11 @@ type TeachersProps = {
     active: boolean,
     teams: TeamTeachersProps[]
 }
-type ListTeamsProps = {
+type ListTeachersProps = {
     id: string,
     name: string,
-    teacherID: string,
+    useername: string,
     active: boolean,
-    teacher: {
-      id: string,
-      name: string,
-      active: boolean
-    }
 }
 
 type ListView = {
@@ -54,7 +49,7 @@ type ListView = {
 
 interface TeachersFindProps {
     listTeachers: TeachersProps[]
-    listTeams   : ListTeamsProps[]
+    listTeams   : ListTeachersProps[]
 }
 
 
@@ -64,13 +59,12 @@ export default function Studant( { listTeachers, listTeams }: TeachersFindProps 
     const [teams, setTeams] = useState(listTeams|| []);
     const [visibleModal, setVisibleModal] = useState(false)
     
-    const [teamToDelete, setTeamToDelete] = useState("")
+    const [teacherToDelete, setTeacherToDelete] = useState("")
     const [loading, setLoading] = useState(false);
 
     const [passImport, setPassImport] = useState("");
-    const [teamSelected, setTeamSelected] = useState("0");
+    const [teacherSelected, setTeacherSelected] = useState("0");
     const [fileImport, setFileImport] = useState(null);
-    const [nameFileImport, setNameFileImport] = useState("");
 
 
     const [filterName, setFilterName] = useState("")
@@ -80,11 +74,7 @@ export default function Studant( { listTeachers, listTeams }: TeachersFindProps 
         listTeachersFor.push({
             id: t.id,
             name1: t.name,
-            name2: t.teams.filter((value) => {
-                if (value.team.active === true){
-                    return value.team.name;
-                }
-            })[0].team.name
+            name2: t.active ? "Ativo" : "Inativo"
         })  
     })
     const [listTeachersConv, setListTeachersConv] = useState(listTeachersFor|| []);
@@ -113,18 +103,17 @@ export default function Studant( { listTeachers, listTeams }: TeachersFindProps 
     }
 
 
-    function handleAlterTeam(identiTeam: string){
-        Router.push(`/teacher/alter/${identiTeam}`)
+    function handleAlterTeacher(identiTeacher: string){
+        Router.push(`/teacher/alter/${identiTeacher}`)
     }
 
-    function handleDeleteTeam(identiTeam: string){
+    function handleDeleteTeacher(identiTeacher: string){
         setVisibleModal(true)
-        setTeamToDelete(identiTeam);
+        setTeacherToDelete(identiTeacher);
     }
 
     function handleFileSelected(e: any){
         setFileImport(e.target.files[0])
-        setNameFileImport(e.target.files[0].name)
     }
 
     
@@ -164,8 +153,8 @@ export default function Studant( { listTeachers, listTeams }: TeachersFindProps 
                     <ContainerList>
                         <ListView 
                             names={listTeachersConv}
-                            handleEdit={handleAlterTeam}
-                            handleDelete={handleDeleteTeam}
+                            handleEdit={handleAlterTeacher}
+                            handleDelete={handleDeleteTeacher}
                         />
                             
                     </ContainerList>
@@ -182,21 +171,12 @@ export default function Studant( { listTeachers, listTeams }: TeachersFindProps 
                     handleDeleteRegis={async () => { 
                         setVisibleModal(false)
                         setLoading(true)
-                        console.log(teamToDelete)
+                        console.log(teacherToDelete)
                         let data = {
-                            teacherID: teamToDelete,
+                            id: teacherToDelete,
                             name: "",
                             password: "",
-                            active: false,
-                            teamID: teachers.filter((value) => {
-                                if (value.id === teamToDelete){
-                                    return value.teams
-                                }
-                            })[0].teams.filter((value) => {
-                                if (value.team.active){
-                                    return value.team.id
-                                }
-                            })[0].team.id
+                            active: false
                         }
 
                         await apiClient.put('/teacher', data)
@@ -207,19 +187,15 @@ export default function Studant( { listTeachers, listTeams }: TeachersFindProps 
                                         name: ""
                                     }
                                 }).then( res => {
-                                    var listTeamFor = Array<ListView>();
+                                    var listTeacherFor = Array<ListView>();
                                     res.data.forEach((t: any, i: any) => {
-                                        listTeamFor.push({
+                                        listTeacherFor.push({
                                             id: t.id,
                                             name1: t.name,
-                                            name2: t.teams.filter((value: any) => {
-                                                if (value.team.active === true){
-                                                    return value.team.name;
-                                                }
-                                                })[0].team.name
+                                            name2: t.active ? "Ativo" : "Inativo",
                                         })                                        
                                     })
-                                    setListTeachersConv(listTeamFor);
+                                    setListTeachersConv(listTeacherFor);
                                 })
                                 setLoading(false)
                                 toast.success("Professor Inativado com sucesso!");                                

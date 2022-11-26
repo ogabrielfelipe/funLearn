@@ -7,7 +7,7 @@ generator client {
 
 generator erd {
   provider = "prisma-erd-generator"
-  output   = "../Documentation/ERD.png"
+  output   = "../Documentation/ERD.pdf"
   theme    = "neutral"
 }
 
@@ -33,6 +33,7 @@ model Teacher {
   password String  @db.VarChar(155)
   active   Boolean @default(true)
   team     Team[]
+  themes   Theme[]
 
   @@map("teacher")
 }
@@ -45,9 +46,20 @@ model Team {
   teacherID String
   teacher   Teacher @relation(fields: [teacherID], references: [id])
 
-  students StudentsOnTeams[]
+  students   StudentsOnTeams[]
+  themes TeamsOnThemes[]
 
   @@map("team")
+}
+
+model StudentsOnTeams {
+  studentID String
+  student   Student @relation(fields: [studentID], references: [id])
+  teamID    String
+  team      Team    @relation(fields: [teamID], references: [id])
+
+  @@id([studentID, teamID])
+  @@map("students_on_teams")
 }
 
 model Student {
@@ -63,14 +75,31 @@ model Student {
   @@map("student")
 }
 
-model StudentsOnTeams {
-  studentID String
-  student   Student @relation(fields: [studentID], references: [id])
-  teamID    String
-  team      Team    @relation(fields: [teamID], references: [id])
+model Theme {
+  id          String @id @default(uuid())
+  name        String @db.VarChar(155)
+  description String @db.VarChar(512)
 
-  @@id([studentID, teamID])
-  @@map("students_on_teams")
+  ask   Ask[]
+  teams TeamsOnThemes[]
+
+  teacherID String
+  teacher   Teacher @relation(fields: [teacherID], references: [id])
+
+  @@map("theme")
+}
+
+model TeamsOnThemes {
+  teamID String
+  team   Team   @relation(fields: [teamID], references: [id])
+
+  themeID String
+  theme   Theme  @relation(fields: [themeID], references: [id])
+
+  visible Boolean @default(true)
+
+  @@id([teamID, themeID])
+  @@map("teams_on_themes")
 }
 
 model Position {
@@ -94,10 +123,24 @@ model Ask {
   image    String  @db.VarChar(155)
   level    Level   @default(INITIAL)
 
+  themeID String
+  theme   Theme  @relation(fields: [themeID], references: [id])
+
   position Position[]
   answer   Answer[]
+  tip      Tip[]
 
   @@map("ask")
+}
+
+model Tip {
+  id   String @id @default(uuid())
+  name String
+
+  askID String
+  ask   Ask    @relation(fields: [askID], references: [id])
+
+  @@map("tip")
 }
 
 enum Level {

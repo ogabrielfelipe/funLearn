@@ -53,6 +53,17 @@ button{
 }
 
 
+.teste-s{
+  background-color: "#9684A3";
+  color: '#FFFFFF';
+  border-radius: .6rem .6rem 0 0;         
+}
+
+.teste-s:hover{
+  background-color: "#8870FF";
+  outline: none;
+}
+
 
 @media (max-width: 720){
   html{

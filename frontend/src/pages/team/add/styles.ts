@@ -20,6 +20,16 @@ export const ContentInputForm = styled.div`
     gap: .6rem;
 `
 
+export const ContentInputForm2 = styled.div`
+    width: 25rem;
+    height: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: .6rem;
+`
+
 export const OptionSelect = styled.option`
     font-family: 'Cabin', sans-serif;
     color: #000000;

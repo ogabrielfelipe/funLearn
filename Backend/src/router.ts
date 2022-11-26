@@ -40,6 +40,8 @@ import { DeleteImageOnAskController } from './controller/ask/DeleteImageOnAskCon
 import { AuthSessionAdministratorController } from './controller/administrator/AuthSessionAdministratorController';
 import { AuthSessionStudentController } from './controller/student/AuthSessionStudentController';
 import { AuthSessionTeacherController } from './controller/teacher/AuthSessionTeacherController';
+import { CreateThemeController } from './controller/theme/CreateThemeController';
+import { FindThemesController } from './controller/theme/FindThemesController';
 
 const path = require('path')
 const router = Router();
@@ -146,6 +148,12 @@ router.delete('/ask/image', isAuthenticated, new DeleteImageOnAskController().ha
 router.post('/answer', isAuthenticated, new CreateAnswerController().handle)
 router.put('/answer', isAuthenticated, new ChangeAnswerController().handle)
 router.delete('/answer', isAuthenticated, new DeleteAnswerController().handle)
+
+
+// -------------- Theme --------------
+router.post('/theme', isAuthenticated, new CreateThemeController().handle)
+router.get('/themes', isAuthenticated, new FindThemesController().handle)
+
 
 
 export default router

@@ -2,15 +2,20 @@ import prismaClient from "../../prisma";
 
 interface TeamsRequest{
     name: string,
-
+    user: {
+        id: string,
+        type: string
+    } 
 }
 
 class FindTeamsService{
-    async execute( { name }: TeamsRequest ){
+    async execute( { name, user }: TeamsRequest ){
+        
 
         const teams = await prismaClient.team.findMany({
             where:{
                 ...(!name ? {} : { name: { contains: `%${name}%` }}),
+                ...(user.type === 'teacher' ? {teacherID : user.id} : {})
             },
             select:{
                 id: true,

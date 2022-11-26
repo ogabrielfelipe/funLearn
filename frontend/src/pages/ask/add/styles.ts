@@ -11,7 +11,7 @@ export const ContentSelects = styled.div`
 `
 
 export const ContentImport = styled.label`
-    height: 10rem;
+    height: 6rem;
     background-color: #D9D9D9;
     border-radius: .6rem;
 
@@ -20,7 +20,7 @@ export const ContentImport = styled.label`
     justify-content: center;
     cursor: pointer;
 
-    width: 100%;
+    width: 104%;
 `
 export const ContentText = styled.div`
     display: flex;
@@ -38,7 +38,7 @@ export const ContentText = styled.div`
 `
 
 export const ContainerListAsk = styled.div`
-    height: 10rem;
+    height: 6.5rem;
     overflow-x: auto;
 
     display: flex;

@@ -30,7 +30,9 @@ class CreateAskController{
         const { question,
             active,
             level,
-            answer } = req.body
+            answer,
+            themeID
+        } = req.body
 
         const image = req.file
         let answerConverter = JSON.parse(answer)
@@ -42,7 +44,8 @@ class CreateAskController{
             level: level,
             image: image?.filename,
             active: Boolean(active),
-            answer: answerConverter
+            answer: answerConverter,
+            themeID: themeID
         })
 
          /* #swagger.responses[403] = { 

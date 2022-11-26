@@ -17,10 +17,11 @@ interface AskRequest{
     image: string | undefined | null;
     level: Level;
     answer: AnswerProps[];
+    themeID: string;
 }
 
 class CreateAskService{
-    async execute( { question, active, image, level, answer }:AskRequest ){
+    async execute( { question, active, image, level, answer, themeID }:AskRequest ){
 
         if (answer.length != 4){
             throw new Error('number of questions different from 4.')
@@ -42,6 +43,7 @@ class CreateAskService{
                 active: active,
                 level: level,
                 image: typeof image != "string" ? "": image,
+                themeID: themeID
             },
             select: {
                 id: true,

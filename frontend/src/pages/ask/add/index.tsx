@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Router from "next/router";
 import { PencilLine, Trash, UploadSimple } from "phosphor-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonConfirmBlue, ButtonConfirmPink } from "../../../components/Button";
 import { ContentItems } from "../../../components/ContentItems";
@@ -12,9 +12,13 @@ import { LoadingManager } from "../../../components/Loading";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
 import { Container } from "../../styles";
-import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../../team/add/styles";
+import { ContentButton, ContentForm, ContentInputForm, ContentInputForm2, OptionSelect } from "../../team/add/styles";
 import { ContainerList } from "../../team/styles";
 import { BtnAsk, ContainerListAsk, ContentImport, ContentSelects, ContentText, List } from "./styles";
+
+
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 
 type AnswaerProps = {
@@ -22,6 +26,18 @@ type AnswaerProps = {
     description: string;
     correct: boolean;
 }
+
+type TipsProps = {
+    id: string;
+    name: string;
+    visible: boolean;
+}
+
+type ThemesProps = {
+    id: string;
+    name: string;
+}
+
 
 
 export default function AddAsk(){
@@ -137,7 +153,6 @@ export default function AddAsk(){
             }
         })
     }
-
     function handleDeleteAnswer(e, id: string){
         e.preventDefault();
 
@@ -152,6 +167,7 @@ export default function AddAsk(){
     const [avatarUrl, setAvatarUrl] = useState("");
     const [imageAvatar, setImageAvatar] = useState<File | null>(null);
 
+    
     function handleFile(e: ChangeEvent<HTMLInputElement>) {
         if (!e.target.files) {
           return;
@@ -171,6 +187,52 @@ export default function AddAsk(){
           setAvatarUrl(URL.createObjectURL(e.target.files[0]));
         }
     }
+
+
+    // Manager Tips
+    const [tips, setTips] = useState("")
+    const [tipsVisible, setTipsVisible] = useState("1")
+    const [listTips, setListTips] = useState<TipsProps[]>(Array())
+    function handleSelectTipsVisible(e){
+        setTipsVisible(e.target.value)
+    }
+    function handleAddTips(e){
+        e.preventDefault();
+
+        
+
+    } 
+
+
+    // Populate themes
+    const [listThemes, setListThemes] = useState<ThemesProps[]>(Array())
+    const [themeSelected, setThemeSelected] = useState("")
+
+    useEffect(() => {
+        async function getThemes(){
+            const apiClient = setupAPIClient();
+            await apiClient.get('/themes', {
+                data: {
+                    name: ""
+                }
+            })
+            .then(resp => {
+                let theme= Array<ThemesProps>()
+                console.log(resp.data)
+                resp.data.forEach(t => {
+                    theme.push({
+                        id: t.id,
+                        name: t.name
+                    })
+                });
+                setListThemes(theme)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
+        getThemes()
+    }, [])
 
 
     //Register Ask
@@ -197,6 +259,7 @@ export default function AddAsk(){
         dataForm.append("image", imageAvatar)
         dataForm.append("level", askLevel)
         dataForm.append("answer", JSON.stringify(data))
+        dataForm.append("themeID", themeSelected)
 
         
         const apiClient = setupAPIClient();
@@ -212,6 +275,7 @@ export default function AddAsk(){
         })
 
     }
+
 
     return (
         <>
@@ -231,6 +295,17 @@ export default function AddAsk(){
                                 value={askDescription}
                                 onChange={(e) => setAskDescription(e.target.value)}
                             />
+                            <SelectForm
+                                title="Selecione um Tema:"
+                                value={themeSelected}
+                                onChange={(e) => setThemeSelected(e.target.value)}
+                            >   
+                                {listThemes.map(theme => {
+                                    return (
+                                        <OptionSelect key={theme.id} value={theme.id}>{theme.name}</OptionSelect>
+                                    )
+                                })}
+                            </SelectForm>
 
                             <ContentSelects>
                                 <SelectForm
@@ -285,55 +360,120 @@ export default function AddAsk(){
                             
                         </ContentInputForm>
 
-                        <ContentInputForm>
-                            <InputTextArea 
-                                title="Resposta:"
-                                placeholder="Resposta"
-                                value={answerDescription}
-                                onChange={(e) => setAnswerDescription(e.target.value)}
-                            />
-                            <ContentSelects>
-                                <div 
-                                    style={{marginRight: "1rem" }}
-                                >
-                                    <SelectForm
-                                        title="Resposta Correta:"
-                                        value={answerCorrect}
-                                        onChange={handleSelectAnswerCorrect}
-                                    >   
-                                        <OptionSelect value={0} selected>Não</OptionSelect>
-                                        <OptionSelect value={1}>Sim</OptionSelect>
-                                    </SelectForm>
-                                </div>
-                                
 
-                                <ButtonConfirmBlue onClick={handleAddAnswer}>
-                                    Adicionar
-                                </ButtonConfirmBlue>
-                            </ContentSelects>
+                        
 
-                            <ContainerListAsk>
+                        <Tabs style={{
+                        }}>
+                            <TabList >
+                            <Tab >Respostas</Tab>
+                            <Tab >Dicas</Tab>
+                            </TabList>
 
-                                {listAnswer.map((l, i) => {
-                                    return (
-                                    <List key={l.id}>
-                                        <span hidden>{l.id}</span>
-                                        <span>{l.description.length > 20 ? l.description.slice(0, 15)+"..." :  l.description}</span>
-                                        <span>{l.correct? "Correta" : "Incorreta"}</span>
-                                        <div>
-                                            <BtnAsk onClick={(e) => {handleAlterAnswer(e, l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
-                                            <BtnAsk onClick={(e) => {handleDeleteAnswer(e, l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                            <TabPanel style={{
+                            }}>
+                                <ContentInputForm2>
+                                    <InputTextArea 
+                                        title="Resposta:"
+                                        placeholder="Resposta"
+                                        value={answerDescription}
+                                        onChange={(e) => setAnswerDescription(e.target.value)}
+                                    />
+                                    <ContentSelects>
+                                        <div 
+                                            style={{marginRight: "1rem" }}
+                                        >
+                                            <SelectForm
+                                                title="Resposta Correta:"
+                                                value={answerCorrect}
+                                                onChange={handleSelectAnswerCorrect}
+                                            >   
+                                                <OptionSelect value={0} selected>Não</OptionSelect>
+                                                <OptionSelect value={1}>Sim</OptionSelect>
+                                            </SelectForm>
                                         </div>
-                                    </List>
-                                    )
-                                })}
+                                        
 
-                                
-                                    
-                            </ContainerListAsk>
+                                        <ButtonConfirmBlue onClick={handleAddAnswer}>
+                                            Adicionar
+                                        </ButtonConfirmBlue>
+                                    </ContentSelects>
+
+                                    <ContainerListAsk>
+                                        {listAnswer.map((l, i) => {
+                                            return (
+                                            <List key={l.id}>
+                                                <span hidden>{l.id}</span>
+                                                <span>{l.description.length > 20 ? l.description.slice(0, 15)+"..." :  l.description}</span>
+                                                <span>{l.correct? "Correta" : "Incorreta"}</span>
+                                                <div>
+                                                    <BtnAsk onClick={(e) => {handleAlterAnswer(e, l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
+                                                    <BtnAsk onClick={(e) => {handleDeleteAnswer(e, l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                                                </div>
+                                            </List>
+                                            )
+                                        })}
+
+                                        
+                                            
+                                    </ContainerListAsk>
+                                </ContentInputForm2>
+
+                            </TabPanel>
 
 
-                        </ContentInputForm>
+                            <TabPanel>
+
+                                <ContentInputForm2>
+                                    <InputTextArea 
+                                        title="Dica:"
+                                        placeholder="Dica"
+                                        value={tips}
+                                        onChange={(e) => setTips(e.target.value)}
+                                    />
+                                    <ContentSelects>
+                                        <div 
+                                            style={{marginRight: "1rem" }}
+                                        >
+                                            <SelectForm
+                                                title="Dica Visível:"
+                                                value={tipsVisible}
+                                                onChange={handleSelectTipsVisible}
+
+                                            >   
+                                                <OptionSelect value={1} selected>Sim</OptionSelect>
+                                                <OptionSelect value={0}>Não</OptionSelect>
+                                            </SelectForm>
+                                        </div>
+                                        
+
+                                        <ButtonConfirmBlue type="button" onClick={handleAddTips}>
+                                            Adicionar
+                                        </ButtonConfirmBlue>
+                                    </ContentSelects>
+
+                                    <ContainerListAsk>
+                                        {listAnswer.map((l, i) => {
+                                            return (
+                                            <List key={l.id}>
+                                                <span hidden>{l.id}</span>
+                                                <span>{l.description.length > 20 ? l.description.slice(0, 15)+"..." :  l.description}</span>
+                                                <span>{l.correct? "Correta" : "Incorreta"}</span>
+                                                <div>
+                                                    <BtnAsk onClick={(e) => {handleAlterAnswer(e, l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
+                                                    <BtnAsk onClick={(e) => {handleDeleteAnswer(e, l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                                                </div>
+                                            </List>
+                                            )
+                                        })}
+
+                                        
+                                            
+                                    </ContainerListAsk>
+                                </ContentInputForm2>
+                                        
+                            </TabPanel>
+                        </Tabs>
 
                         <ContentButton>
                             <ButtonConfirmPink type="button" onClick={() => Router.push('/ask') }>
@@ -364,10 +504,7 @@ export default function AddAsk(){
 
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
-    
     return {
-        props:{ }
+        props:{}
     }
-    
-    
 } )

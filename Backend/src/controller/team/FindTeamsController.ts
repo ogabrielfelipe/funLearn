@@ -25,7 +25,8 @@ class FindTeamsController{
         
         const findTeams = new FindTeamsService()
         const result = await findTeams.execute({
-            name: name
+            name: name,
+            user: req.user
         })
 
         /* #swagger.responses[500] = { 

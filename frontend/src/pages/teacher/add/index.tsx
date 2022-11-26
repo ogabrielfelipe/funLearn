@@ -33,7 +33,7 @@ export default function AddTeacher( { teachers }: AddTeacherProps ){
 
 
     const [nameTeacher, setNameTeacher] = useState("");
-    const [userTeacher, setUserTeacher] = useState<any>();
+    const [userTeacher, setUserTeacher] = useState("");
     const [passTeacher, setNPassTeacher] = useState("");
 
     const [teamSelected, setTeamSelected] = useState("0");
@@ -112,7 +112,7 @@ export default function AddTeacher( { teachers }: AddTeacherProps ){
                                 type={"text"}
                                 placeholder="Usuário"
                                 value={userTeacher}
-                                onChange={(e) => setUserTeacher(Number(e.target.value))}
+                                onChange={(e) => setUserTeacher(e.target.value)}
                             />
                             <InputFrom 
                                 title="Senha:"

@@ -10,21 +10,24 @@ interface ThemesRequest{
     name: string;
     description: string;
     teacherID: string;
+    active: boolean;
     teams: TeamOnThemeRequest[];
 }
 
 class CreateThemeService{
-    async execute( { name, description, teacherID, teams }: ThemesRequest ){        
+    async execute( { name, description, teacherID, teams, active }: ThemesRequest ){        
         const createTheme = await prismaClient.theme.create({
             data: {
                 name: name,
                 description: description,
-                teacherID: teacherID
+                teacherID: teacherID,
+                active: active
             },
             select:{
                 id:true,
                 name: true,
                 description: true,
+                active,
                 teacher: {
                     select:{
                         id: true,

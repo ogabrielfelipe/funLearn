@@ -79,6 +79,7 @@ model Theme {
   id          String @id @default(uuid())
   name        String @db.VarChar(155)
   description String @db.VarChar(512)
+  active      Boolean
 
   ask   Ask[]
   teams TeamsOnThemes[]

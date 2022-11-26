@@ -5,7 +5,7 @@ import { CreateThemeService } from "../../service/theme/CreateThemeService";
 
 class CreateThemeController{
     async handle(req: Request, res: Response){
-        const { name, description, teacherID, teams } = req.body
+        const { name, description, teacherID, teams, active } = req.body
 
 
         const createTheme = new CreateThemeService();
@@ -13,9 +13,9 @@ class CreateThemeController{
             name: name,
             description: description,
             teacherID: teacherID,
-            teams:teams
+            teams:teams,
+            active: active
         })
-        console.log(result);
         return res.status(200).json(result)
     }
 }

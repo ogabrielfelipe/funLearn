@@ -45,6 +45,10 @@ import { FindThemesController } from './controller/theme/FindThemesController';
 import { ChangeTipController } from './controller/tip/ChangeTipController';
 import { CreateTipController } from './controller/tip/CreateTipController';
 import { DeleteTipController } from './controller/tip/DeleteTipController';
+import { ChangeThemeController } from './controller/theme/ChangeThemeController';
+import { FindThemeController } from './controller/theme/FindThemeController';
+import { DisconnectTeamController } from './controller/theme/DisconnectTeamController';
+import { ConnectTeamController } from './controller/theme/ConnectTeamController';
 
 const path = require('path')
 const router = Router();
@@ -155,8 +159,12 @@ router.delete('/answer', isAuthenticated, new DeleteAnswerController().handle)
 
 // -------------- Theme --------------
 router.post('/theme', isAuthenticated, new CreateThemeController().handle)
+router.put('/theme', isAuthenticated, new ChangeThemeController().handle)
 router.get('/themes', isAuthenticated, new FindThemesController().handle)
+router.get('/theme', isAuthenticated, new FindThemeController().handle)
 
+router.post('/theme/connectTeam', isAuthenticated, new ConnectTeamController().handle)
+router.delete('/theme/disconnectTeam', isAuthenticated, new DisconnectTeamController().handle)
 
 
 // -------------- Tip --------------

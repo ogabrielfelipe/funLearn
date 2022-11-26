@@ -48,21 +48,28 @@ function HeaderAuth(){
                                 </Option>                
                             <Option onClick={() => Router.push("/student")}>
                                 <span>Alunos</span>
-                            </Option>                
-                            {cookies["@nextauth.type"] !== "teacher" ? (
+                            </Option>             
+
+                            {cookies["@nextauth.type"] == "administrator" && (
                                 <Option onClick={() => Router.push("/teacher")}>
                                     <span>Professor</span>
                                 </Option>  
-                            ) : ( <></> ) }  
+                            ) }   
                                     
                             <Option onClick={() => Router.push("/ask")}>
                                 <span>Perguntas</span>
-                            </Option>     
-                            {cookies["@nextauth.type"] !== "teacher" ? (
-                                 <Option onClick={() => Router.push("/administrator")}>
+                            </Option>  
+
+
+                            {cookies["@nextauth.type"] == "administrator" && (
+                                <Option onClick={() => Router.push("/administrator")}>
                                     <span style={{fontSize: "14px"}}>Administrador</span>
                                 </Option>  
-                            ) : ( <></> ) }       
+                            )}
+
+                            <Option onClick={() => Router.push("/theme")}>
+                                <span>Temas</span>
+                            </Option>     
                         </ContainerOptions>
                     </BtnCadastros>
                 </ContainerMenu>

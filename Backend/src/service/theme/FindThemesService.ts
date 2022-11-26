@@ -22,6 +22,7 @@ class FindThemesService{
                id: true,
                name: true,
                description: true,
+               active: true,
                teams:{
                 select:{
                     team:{

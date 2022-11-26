@@ -11,11 +11,8 @@ import VoltarImg from "../../../public/assets/Exit.svg"
 import { CaretDown } from "phosphor-react";
 import Router from "next/router";
 
-interface HeaderProps{
-    teacher: boolean ;
-}
 
-function HeaderAuth( { teacher }: HeaderProps){
+function HeaderAuth(){
     const cookies = parseCookies()
     
     function handleClickDashboard(){
@@ -52,7 +49,7 @@ function HeaderAuth( { teacher }: HeaderProps){
                             <Option onClick={() => Router.push("/student")}>
                                 <span>Alunos</span>
                             </Option>                
-                            {!teacher ? (
+                            {cookies["@nextauth.type"] !== "teacher" ? (
                                 <Option onClick={() => Router.push("/teacher")}>
                                     <span>Professor</span>
                                 </Option>  
@@ -61,7 +58,7 @@ function HeaderAuth( { teacher }: HeaderProps){
                             <Option onClick={() => Router.push("/ask")}>
                                 <span>Perguntas</span>
                             </Option>     
-                            {!teacher ? (
+                            {cookies["@nextauth.type"] !== "teacher" ? (
                                  <Option onClick={() => Router.push("/administrator")}>
                                     <span style={{fontSize: "14px"}}>Administrador</span>
                                 </Option>  

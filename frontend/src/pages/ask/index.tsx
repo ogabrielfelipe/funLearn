@@ -83,7 +83,7 @@ export default function Ask( { listAsks }: AsksProps){
         <Head>
                 <title> Perguntas - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Visualizar Perguntas"

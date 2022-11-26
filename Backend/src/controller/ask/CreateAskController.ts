@@ -22,7 +22,8 @@ class CreateAskController{
                     active: Deverá ser preenchido com o status da pergunta, se está ativa ou não; \n
                     image: Deverá ser informado uma imagem, para ilustrar (Não é obrigatório); \n
                     level: Deverá ser informado o nível da pergunta, podendo ser Iniciante, Intermediária ou avançada; \n
-                    answer: Deverá ser preenchido com um JSON de nome DATA contendo uma lista de 4 perguntas, sendo uma delas verdadeira e o restante falsas.",
+                    answer: Deverá ser preenchido com uma lista de 4 perguntas, sendo uma delas verdadeira e o restante falsas.",
+                    answer: Deverá ser preenchido com uma lista contendo as dicas.",
                 schema: { $ref: "#/definitions/Ask" }        
             }
          */
@@ -31,12 +32,16 @@ class CreateAskController{
             active,
             level,
             answer,
+            tip,
             themeID
         } = req.body
 
         const image = req.file
         let answerConverter = JSON.parse(answer)
+        let tipConverter = JSON.parse(tip)
+
         console.log(answerConverter)
+        console.log(tipConverter)
 
         const createAskService = new CreateAskService();
         const result = await createAskService.execute({
@@ -45,6 +50,7 @@ class CreateAskController{
             image: image?.filename,
             active: Boolean(active),
             answer: answerConverter,
+            tip: tipConverter,
             themeID: themeID
         })
 

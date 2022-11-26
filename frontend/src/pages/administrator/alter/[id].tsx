@@ -129,7 +129,7 @@ export default function AlterAdministrator( {administrators}: FindAdministratorP
             <Head>
                 <title> Alteração do Cadastro do Administrador - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Alteração do Administrador"

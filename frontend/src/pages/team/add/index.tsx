@@ -105,7 +105,7 @@ export default function AddTeam( {teachers}: FindTeacherProps){
             <Head>
                 <title> Cadastro de Turma - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Cadastro de Turmas"

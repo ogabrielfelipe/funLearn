@@ -10,7 +10,9 @@ class FindAskService{
                 id: askID
             },
             include:{
-                answer: true
+                answer: true,
+                theme: true,
+                tip: true
             }
         })
 

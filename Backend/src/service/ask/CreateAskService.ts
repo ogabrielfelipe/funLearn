@@ -2,6 +2,7 @@ import { Level } from "@prisma/client";
 import prismaClient from "../../prisma";
 import { CreateAnswerService } from "../answer/CreateAnswerService";
 import { DeleteAnswerService } from "../answer/DeleteAnswerService";
+import { CreateTipService } from "../tip/CreateTipService";
 
 
 
@@ -10,6 +11,11 @@ type AnswerProps = {
     description: string,
     correct: boolean
 }
+type TipProps = {
+    id: string | null;
+    name: string;
+    visible: boolean;
+}
 
 interface AskRequest{
     question: string;
@@ -17,11 +23,12 @@ interface AskRequest{
     image: string | undefined | null;
     level: Level;
     answer: AnswerProps[];
+    tip: TipProps[];
     themeID: string;
 }
 
 class CreateAskService{
-    async execute( { question, active, image, level, answer, themeID }:AskRequest ){
+    async execute( { question, active, image, level, answer, tip, themeID }:AskRequest ){
 
         if (answer.length != 4){
             throw new Error('number of questions different from 4.')
@@ -71,6 +78,20 @@ class CreateAskService{
                 })
             }
 
+            const createTip = new CreateTipService();
+
+            for (let i = 0; i < tip.length; i++) {
+                await createTip.execute({
+                    name: tip[i].name,
+                    visible: tip[i].visible,
+                    askID: createAsk.id
+                })
+                .catch(async err => {
+                    console.log(err);
+                    throw new Error(err as string);
+                })
+            }
+
         }
         
 
@@ -79,7 +100,9 @@ class CreateAskService{
                 id: createAsk.id
             },
             include:{
-                answer: true
+                answer: true,
+                tip: true,
+                theme: true
             }
         })
     }

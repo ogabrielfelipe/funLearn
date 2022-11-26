@@ -190,19 +190,75 @@ export default function AddAsk(){
 
 
     // Manager Tips
-    const [tips, setTips] = useState("")
-    const [tipsVisible, setTipsVisible] = useState("1")
-    const [listTips, setListTips] = useState<TipsProps[]>(Array())
+    const [idTip, setIdTip] = useState("")
+    const [nameTip, setNameTip] = useState("")
+    const [tipVisible, setTipVisible] = useState("1")
+    const [listTips, setListTips] = useState(Array<TipsProps>())
+
     function handleSelectTipsVisible(e){
-        setTipsVisible(e.target.value)
+        setTipVisible(e.target.value)
     }
     function handleAddTips(e){
         e.preventDefault();
 
-        
+        if (idTip){
+
+            let tipByID = listTips.filter((value) => {
+                return value.id === idTip
+            })
+
+            let othersTip = listTips.filter((value) => {
+                return value.id != idTip
+            })
+
+
+            tipByID[0].name = nameTip;
+            tipByID[0].visible = tipVisible === "1" ? true : false
+
+            othersTip.push(tipByID[0])
+            setListTips(othersTip)
+
+            setIdTip("")
+            setNameTip("")
+            setTipVisible("1")
+            return;
+        }
+
+
+        let idRandom = String(Math.floor(Math.random() * (100000 - 10000 + 1) ) + 10000)
+
+        let lisAuxTips = Array<TipsProps>()
+        lisAuxTips.push({
+            id: idRandom.toString(),
+            name: nameTip,
+            visible: tipVisible === "1" ? true : false
+        }, ...listTips)
+
+
+        setListTips(lisAuxTips)
+
+        setIdTip("")
+        setNameTip("")
+        setTipVisible("1")
 
     } 
-
+    function handleAlterTip(idTip: string){
+        listTips.filter((value) => {
+            if (value.id === idTip){
+                setIdTip(value.id)
+                setNameTip(value.name)
+                setTipVisible(value.visible? "1": "0")
+                return value
+            }
+        })
+    }
+    function handleDeleteTip(idTip: string){
+        setListTips(
+            listTips.filter((value) => {
+                return value.id != idTip
+            })
+        )
+    }
 
     // Populate themes
     const [listThemes, setListThemes] = useState<ThemesProps[]>(Array())
@@ -210,6 +266,7 @@ export default function AddAsk(){
 
     useEffect(() => {
         async function getThemes(){
+            setLoading(true)
             const apiClient = setupAPIClient();
             await apiClient.get('/themes', {
                 data: {
@@ -226,8 +283,10 @@ export default function AddAsk(){
                     })
                 });
                 setListThemes(theme)
+                setLoading(false)
             })
             .catch(err => {
+                setLoading(false)
                 console.log(err)
             })
         }
@@ -246,19 +305,25 @@ export default function AddAsk(){
 
         const dataForm = new FormData();
 
-        let data = listAnswer.map(l => {
+        let dataAnswer = listAnswer.map(l => {
                 return {
                     description: l.description,
                     correct: l.correct
                 }
             })
-        
+        let dataTip = listTips.map(i => {
+            return {
+                name: i.name,
+                visible: i.visible
+            }
+        })
 
         dataForm.append("question", askDescription)
         dataForm.append("active", askActive === "1"? String(true) : String(false))
         dataForm.append("image", imageAvatar)
         dataForm.append("level", askLevel)
-        dataForm.append("answer", JSON.stringify(data))
+        dataForm.append("answer", JSON.stringify(dataAnswer))
+        dataForm.append("tip", JSON.stringify(dataTip))
         dataForm.append("themeID", themeSelected)
 
         
@@ -282,7 +347,7 @@ export default function AddAsk(){
         <Head>
                 <title> Cadastro de Pergunta - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Cadastro de Pergunta"
@@ -356,8 +421,7 @@ export default function AddAsk(){
                                             <span>Enviar Imagem</span>
                                         </ContentText>
                                     )}
-                            </ContentImport>
-                            
+                            </ContentImport>                            
                         </ContentInputForm>
 
 
@@ -418,18 +482,16 @@ export default function AddAsk(){
                                             
                                     </ContainerListAsk>
                                 </ContentInputForm2>
-
                             </TabPanel>
 
 
                             <TabPanel>
-
                                 <ContentInputForm2>
                                     <InputTextArea 
                                         title="Dica:"
                                         placeholder="Dica"
-                                        value={tips}
-                                        onChange={(e) => setTips(e.target.value)}
+                                        value={nameTip}
+                                        onChange={(e) => setNameTip(e.target.value)}
                                     />
                                     <ContentSelects>
                                         <div 
@@ -437,7 +499,7 @@ export default function AddAsk(){
                                         >
                                             <SelectForm
                                                 title="Dica Visível:"
-                                                value={tipsVisible}
+                                                value={tipVisible}
                                                 onChange={handleSelectTipsVisible}
 
                                             >   
@@ -453,15 +515,15 @@ export default function AddAsk(){
                                     </ContentSelects>
 
                                     <ContainerListAsk>
-                                        {listAnswer.map((l, i) => {
+                                        {listTips.map((l, i) => {
                                             return (
                                             <List key={l.id}>
                                                 <span hidden>{l.id}</span>
-                                                <span>{l.description.length > 20 ? l.description.slice(0, 15)+"..." :  l.description}</span>
-                                                <span>{l.correct? "Correta" : "Incorreta"}</span>
+                                                <span>{l.name.length > 20 ? l.name.slice(0, 15)+"..." :  l.name}</span>
+                                                <span>{l.visible? "Visível" : "Invível"}</span>
                                                 <div>
-                                                    <BtnAsk onClick={(e) => {handleAlterAnswer(e, l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
-                                                    <BtnAsk onClick={(e) => {handleDeleteAnswer(e, l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                                                    <BtnAsk type="button" onClick={(e) => {e.preventDefault(); handleAlterTip(l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
+                                                    <BtnAsk type="button" onClick={(e) => {e.preventDefault(); handleDeleteTip(l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
                                                 </div>
                                             </List>
                                             )

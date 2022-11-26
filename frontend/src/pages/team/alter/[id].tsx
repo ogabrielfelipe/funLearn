@@ -131,7 +131,7 @@ export default function AlterTeam( {teachers}: FindTeacherProps){
              <Head>
                 <title> Cadastro de Turma - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Alteração da Turma"

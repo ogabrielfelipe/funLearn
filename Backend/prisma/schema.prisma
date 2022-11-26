@@ -46,8 +46,8 @@ model Team {
   teacherID String
   teacher   Teacher @relation(fields: [teacherID], references: [id])
 
-  students   StudentsOnTeams[]
-  themes TeamsOnThemes[]
+  students StudentsOnTeams[]
+  themes   TeamsOnThemes[]
 
   @@map("team")
 }
@@ -134,8 +134,9 @@ model Ask {
 }
 
 model Tip {
-  id   String @id @default(uuid())
-  name String
+  id      String  @id @default(uuid())
+  name    String
+  visible Boolean @default(true)
 
   askID String
   ask   Ask    @relation(fields: [askID], references: [id])

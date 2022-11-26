@@ -18,7 +18,7 @@ export default function HomeAdministrator(){
             <Head>
                 <title>Home Administrador - FunLearn</title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <Content> 
                     <strong> Total de Perguntas Cadastradas </strong>

@@ -108,7 +108,7 @@ export default function AddStudant( { teams }: AddStudantProps ){
             <Head>
                 <title> Cadastro de Aluno - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Cadastro de Aluno"

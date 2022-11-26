@@ -24,13 +24,14 @@ class ChangeAskController{
             }
          */
 
-        const { askID, question, active } = req.body;
+        const { askID, question, active, themeID } = req.body;
 
         const changeAsk = new ChangeAskService();
         const result = await changeAsk.execute({
             id: askID,
             question: question,
-            active: active
+            active: active,
+            themeID: themeID
         })
 
 

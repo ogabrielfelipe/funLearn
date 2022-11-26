@@ -179,7 +179,7 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
             <Head>
                 <title> Aluno - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                         title="Visualizar Alunos"

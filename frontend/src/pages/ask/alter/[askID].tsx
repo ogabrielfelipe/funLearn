@@ -11,16 +11,29 @@ import { InputTextArea, SelectForm } from "../../../components/Input";
 import { LoadingManager } from "../../../components/Loading";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
-import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../../team/add/styles";
+import { ContentButton, ContentForm, ContentInputForm, ContentInputForm2, OptionSelect } from "../../team/add/styles";
 import { Container } from "../../team/styles";
 import { BtnAsk, ContainerListAsk, ContentImport, ContentSelects, ContentText, List } from "../add/styles";
-import { btnAskImg } from "./styles"
+
+
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 type AnswaerProps = {
     id: string;
     description: string;
     correct: boolean;
 }
+type TipsProps = {
+    id: string;
+    name: string;
+    visible: boolean;
+}
+type ThemesProps = {
+    id: string;
+    name: string;
+}
+
 
 
 export default function AlterAsk(){
@@ -260,6 +273,160 @@ export default function AlterAsk(){
     }
 
 
+    // Manager Tips
+    const [idTip, setIdTip] = useState("")
+    const [nameTip, setNameTip] = useState("")
+    const [tipVisible, setTipVisible] = useState("1")
+    const [listTips, setListTips] = useState(Array<TipsProps>())
+    function handleSelectTipsVisible(e){
+        setTipVisible(e.target.value)
+    }
+    async function handleAddTips(e){
+        e.preventDefault();
+        setLoading(true)
+
+        if (idTip){
+            setLoading(false)
+
+            let tipByID = listTips.filter((value) => {
+                return value.id === idTip
+            })
+
+            let othersTip = listTips.filter((value) => {
+                return value.id != idTip
+            })
+
+            let data = {
+                id: idTip,
+                name: nameTip,
+                correct: tipVisible === "0"? false: true
+            }
+
+            await apiClient.put('/tip', data)
+            .then(resp => {
+                console.log(resp.data)
+
+                tipByID[0].name = resp.data.name;
+                tipByID[0].visible = resp.data.visible
+
+                othersTip.push(tipByID[0])
+                setListTips(othersTip)
+
+                setIdTip("")
+            setNameTip("")
+            setTipVisible("1")
+                setLoading(false)
+            })
+            .catch(err =>{
+                console.log(err)
+                
+                setIdTip("")
+                setNameTip("")
+                setTipVisible("1")
+                setLoading(false)
+            })
+
+
+            tipByID[0].name = nameTip;
+            tipByID[0].visible = tipVisible === "1" ? true : false
+
+            othersTip.push(tipByID[0])
+            setListTips(othersTip)
+
+            setIdTip("")
+            setNameTip("")
+            setTipVisible("1")
+            return;
+        }
+
+        let data = {
+            askID: askID,
+            name: nameTip,
+            visible: tipVisible === "1" ? true : false
+        }
+
+        apiClient.post('/tip', data)
+        .then(resp => {
+
+            let lisAuxTips = Array<TipsProps>()
+            lisAuxTips.push({
+                id: resp.data.id,
+                name: resp.data.name,
+                visible: resp.data.visible
+            }, ...listTips)
+                        
+            setListTips(lisAuxTips)
+            setLoading(false)
+            toast.success("Dica Cadastrada com sucesso!")
+        })
+        .catch(err => {
+            setLoading(false)
+            toast.error("Não foi possível cadastrar a dica.")
+            console.log(err)
+            
+
+        })
+
+        setIdTip("")
+        setNameTip("")
+        setTipVisible("1")
+
+    } 
+
+    function handleAlterTip(idTip: string){
+        listTips.filter((value) => {
+            if (value.id === idTip){
+                setIdTip(value.id)
+                setNameTip(value.name)
+                setTipVisible(value.visible? "1": "0")
+                return value
+            }
+        })
+    }
+
+    async function handleDeleteTip(idTip: string){
+        setListTips(
+            listTips.filter((value) => {
+                return value.id != idTip
+            })
+        )
+
+        setLoading(true)
+        await apiClient.delete(`/tip?id=${idTip}`)
+        .then( async resp => {
+            await apiClient.get(`/ask?askID=${askID}`)
+            .then(resp2 => {
+                let lisAuxTips = Array<TipsProps>()
+                resp2.data.tip.forEach((t, i) => {
+                    lisAuxTips.push({
+                        id: t.id,
+                        name: t.name,
+                        visible: t.visible
+                    })
+                })
+
+                setLoading(false)
+                toast.success("Dica excluida com sucesso!")
+                setListTips(lisAuxTips)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false)
+            })
+
+        })
+        .catch(err => {
+            setLoading(false)
+            toast.error("Não foi possível excluir a dica!")
+            console.log(err)
+        })
+    }
+
+     // Populate themes
+     const [listThemes, setListThemes] = useState<ThemesProps[]>(Array())
+     const [themeSelected, setThemeSelected] = useState("")
+
+
     //Register Ask
     const [askDescription, setAskDescription] = useState("");
     const [askActive, setAskActive] = useState("1");
@@ -272,7 +439,8 @@ export default function AlterAsk(){
         let data = {
             askID: askID,
             question: askDescription,
-            active: askActive === "1"? true : false
+            active: askActive === "1"? true : false,
+            themeID: themeSelected
         }
         
         
@@ -299,6 +467,7 @@ export default function AlterAsk(){
                 setAskDescription(resp.data.question)
                 setAskLevel(resp.data.level)
                 setAskActive(resp.data.active? "1" : "0")
+                setThemeSelected(resp.data.theme.id)
                 if (resp.data.image){
                     setAvatarUrl(`http://localhost:3333/ask/image/${resp.data.image}`)
                 }
@@ -314,14 +483,53 @@ export default function AlterAsk(){
                 })
                 setListAnswer(listAnswerFor)
 
+
+                let lisAuxTips = Array<TipsProps>()
+                resp.data.tip.forEach((t, i) => {
+                    lisAuxTips.push({
+                        id: t.id,
+                        name: t.name,
+                        visible: t.visible
+                    })
+                })
+
+                setListTips(lisAuxTips)
+
             })
             .catch(err => {
                 console.log(err)
             })
 
         }
-
         getAskByID(askID)
+
+
+        async function getThemes(){
+            setLoading(true)
+            const apiClient = setupAPIClient();
+            await apiClient.get('/themes', {
+                data: {
+                    name: ""
+                }
+            })
+            .then(resp => {
+                let theme= Array<ThemesProps>()
+                console.log(resp.data)
+                resp.data.forEach(t => {
+                    theme.push({
+                        id: t.id,
+                        name: t.name
+                    })
+                });
+                setListThemes(theme)
+                setLoading(false)
+            })
+            .catch(err => {
+                setLoading(false)
+                console.log(err)
+            })
+        }
+        getThemes()
     }, [askID])
 
 
@@ -330,7 +538,7 @@ export default function AlterAsk(){
             <Head>
                 <title> Alterar de Pergunta - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Alterar de Pergunta"
@@ -343,6 +551,17 @@ export default function AlterAsk(){
                                 value={askDescription}
                                 onChange={(e) => setAskDescription(e.target.value)}
                             />
+                            <SelectForm
+                                title="Selecione um Tema:"
+                                value={themeSelected}
+                                onChange={(e) => setThemeSelected(e.target.value)}
+                            >   
+                                {listThemes.map(theme => {
+                                    return (
+                                        <OptionSelect key={theme.id} value={theme.id}>{theme.name}</OptionSelect>
+                                    )
+                                })}
+                            </SelectForm>
 
                             <ContentSelects>
                                 <SelectForm
@@ -410,59 +629,116 @@ export default function AlterAsk(){
                                         </>
                                     )}
                                 
-                            </ContentImport>
-                            
+                            </ContentImport>                            
                         </ContentInputForm>
 
-                        <ContentInputForm>
-                            <InputTextArea 
-                                title="Resposta:"
-                                placeholder="Resposta"
-                                value={answerDescription}
-                                onChange={(e) => setAnswerDescription(e.target.value)}
-                            />
-                            <ContentSelects>
-                                <div 
-                                    style={{marginRight: "1rem" }}
-                                >
-                                    <SelectForm
-                                        title="Resposta Correta:"
-                                        value={answerCorrect}
-                                        onChange={handleSelectAnswerCorrect}
-                                    >   
-                                        <OptionSelect value={0} selected>Não</OptionSelect>
-                                        <OptionSelect value={1}>Sim</OptionSelect>
-                                    </SelectForm>
-                                </div>
-                                
 
-                                <ButtonConfirmBlue onClick={handleAddAnswer}>
-                                    Adicionar
-                                </ButtonConfirmBlue>
-                            </ContentSelects>
+                        <Tabs >
+                            <TabList >
+                            <Tab >Respostas</Tab>
+                            <Tab >Dicas</Tab>
+                            </TabList>
 
-                            <ContainerListAsk>
-
-                                {listAnswer.map((l, i) => {
-                                    return (
-                                    <List key={l.id}>
-                                        <span hidden>{l.id}</span>
-                                        <span>{l.description.length > 20 ? l.description.slice(0, 15)+"..." :  l.description}</span>
-                                        <span>{l.correct? "Correta" : "Incorreta"}</span>
-                                        <div>
-                                            <BtnAsk onClick={(e) => {handleAlterAnswer(e, l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
-                                            <BtnAsk onClick={(e) => {handleDeleteAnswer(e, l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                            <TabPanel style={{
+                            }}>
+                                <ContentInputForm2>
+                                    <InputTextArea 
+                                        title="Resposta:"
+                                        placeholder="Resposta"
+                                        value={answerDescription}
+                                        onChange={(e) => setAnswerDescription(e.target.value)}
+                                    />
+                                    <ContentSelects>
+                                        <div 
+                                            style={{marginRight: "1rem" }}
+                                        >
+                                            <SelectForm
+                                                title="Resposta Correta:"
+                                                value={answerCorrect}
+                                                onChange={handleSelectAnswerCorrect}
+                                            >   
+                                                <OptionSelect value={0} selected>Não</OptionSelect>
+                                                <OptionSelect value={1}>Sim</OptionSelect>
+                                            </SelectForm>
                                         </div>
-                                    </List>
-                                    )
-                                })}
+                                        
 
-                                
-                                    
-                            </ContainerListAsk>
+                                        <ButtonConfirmBlue onClick={handleAddAnswer}>
+                                            Adicionar
+                                        </ButtonConfirmBlue>
+                                    </ContentSelects>
+
+                                    <ContainerListAsk>
+                                        {listAnswer.map((l, i) => {
+                                            return (
+                                            <List key={l.id}>
+                                                <span hidden>{l.id}</span>
+                                                <span>{l.description.length > 20 ? l.description.slice(0, 15)+"..." :  l.description}</span>
+                                                <span>{l.correct? "Correta" : "Incorreta"}</span>
+                                                <div>
+                                                    <BtnAsk onClick={(e) => {handleAlterAnswer(e, l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
+                                                    <BtnAsk onClick={(e) => {handleDeleteAnswer(e, l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                                                </div>
+                                            </List>
+                                            )
+                                        })}
+
+                                        
+                                            
+                                    </ContainerListAsk>
+                                </ContentInputForm2>
+                            </TabPanel>
 
 
-                        </ContentInputForm>
+                            <TabPanel>
+                                <ContentInputForm2>
+                                    <InputTextArea 
+                                        title="Dica:"
+                                        placeholder="Dica"
+                                        value={nameTip}
+                                        onChange={(e) => setNameTip(e.target.value)}
+                                    />
+                                    <ContentSelects>
+                                        <div 
+                                            style={{marginRight: "1rem" }}
+                                        >
+                                            <SelectForm
+                                                title="Dica Visível:"
+                                                value={tipVisible}
+                                                onChange={handleSelectTipsVisible}
+
+                                            >   
+                                                <OptionSelect value={1} selected>Sim</OptionSelect>
+                                                <OptionSelect value={0}>Não</OptionSelect>
+                                            </SelectForm>
+                                        </div>
+                                        
+
+                                        <ButtonConfirmBlue type="button" onClick={handleAddTips}>
+                                            Adicionar
+                                        </ButtonConfirmBlue>
+                                    </ContentSelects>
+
+                                    <ContainerListAsk>
+                                        {listTips.map((l, i) => {
+                                            return (
+                                            <List key={l.id}>
+                                                <span hidden>{l.id}</span>
+                                                <span>{l.name.length > 20 ? l.name.slice(0, 15)+"..." :  l.name}</span>
+                                                <span>{l.visible? "Visível" : "Invível"}</span>
+                                                <div>
+                                                    <BtnAsk type="button" onClick={(e) => {e.preventDefault(); handleAlterTip(l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
+                                                    <BtnAsk type="button" onClick={(e) => {e.preventDefault(); handleDeleteTip(l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                                                </div>
+                                            </List>
+                                            )
+                                        })}
+    
+                                    </ContainerListAsk>
+                                </ContentInputForm2>
+                                        
+                            </TabPanel>
+                        </Tabs>
 
                         <ContentButton>
                             <ButtonConfirmPink type="button" onClick={() => Router.push('/ask') }>

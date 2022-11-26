@@ -104,7 +104,7 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
             <Head>
                 <title> Cadastro de Administrador - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Cadastro de Administradores"

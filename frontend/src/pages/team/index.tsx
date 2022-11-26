@@ -97,7 +97,7 @@ export default function Turma({ listTeams }: ListTeams){
             <Head>
                 <title> Turma - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Visualizar Turmas"

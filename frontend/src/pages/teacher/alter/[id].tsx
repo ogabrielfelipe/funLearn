@@ -115,7 +115,7 @@ export default function AlterTeacher( { teachers }: AlterTeacherProps ){
             <Head>
                 <title> Alteração do Cadastro do Professor - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Alteração do Professor"

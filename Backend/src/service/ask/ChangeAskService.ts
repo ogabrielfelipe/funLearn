@@ -5,10 +5,11 @@ interface AskRequest{
     id: string;
     question: string;
     active: boolean | null;
+    themeID: string;
 }
 
 class ChangeAskService{
-    async execute( {id, question, active }:AskRequest ){
+    async execute( {id, question, active, themeID }:AskRequest ){
         
         const ask = await prismaClient.ask.findUnique({
             where:{
@@ -41,6 +42,15 @@ class ChangeAskService{
             throw new Error('Question has more than one correct alternative.')
         }
 
+        const theme = await prismaClient.theme.findUnique({
+            where: {
+                id: themeID
+            }
+        })
+        if (!theme) {
+            throw new Error('theme not found')
+        }
+
 
         const changeAsk = await prismaClient.ask.update({
             where:{
@@ -49,6 +59,7 @@ class ChangeAskService{
             data:{
                 question: question != "" ? question : ask.question,
                 active: active != null ? active : ask.active,
+                themeID: theme.id
             },
             include:{
                 answer: true

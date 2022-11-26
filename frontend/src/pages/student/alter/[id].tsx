@@ -131,7 +131,7 @@ export default function AlterStudent( { teams }: AlterStudentProps ){
             <Head>
                 <title> Alteração do Cadastro do Aluno - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Alteração do Aluno"

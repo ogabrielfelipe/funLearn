@@ -93,7 +93,7 @@ export default function AddTeacher( { teachers }: AddTeacherProps ){
             <Head>
                 <title> Cadastro do Professor - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Cadastro do Professor"

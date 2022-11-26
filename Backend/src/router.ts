@@ -42,6 +42,9 @@ import { AuthSessionStudentController } from './controller/student/AuthSessionSt
 import { AuthSessionTeacherController } from './controller/teacher/AuthSessionTeacherController';
 import { CreateThemeController } from './controller/theme/CreateThemeController';
 import { FindThemesController } from './controller/theme/FindThemesController';
+import { ChangeTipController } from './controller/tip/ChangeTipController';
+import { CreateTipController } from './controller/tip/CreateTipController';
+import { DeleteTipController } from './controller/tip/DeleteTipController';
 
 const path = require('path')
 const router = Router();
@@ -154,6 +157,12 @@ router.delete('/answer', isAuthenticated, new DeleteAnswerController().handle)
 router.post('/theme', isAuthenticated, new CreateThemeController().handle)
 router.get('/themes', isAuthenticated, new FindThemesController().handle)
 
+
+
+// -------------- Tip --------------
+router.post('/tip', isAuthenticated, new CreateTipController().handle)
+router.put('/tip', isAuthenticated, new ChangeTipController().handle)
+router.delete('/tip', isAuthenticated, new DeleteTipController().handle)
 
 
 export default router

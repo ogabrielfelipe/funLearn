@@ -92,7 +92,7 @@ export default function Turma({ listAdministrator }: ListAdministrators){
             <Head>
                 <title> Administrador - FunLearn </title>
             </Head>
-            <HeaderAuth teacher={false}/>
+            <HeaderAuth/>
             <Container>
                 <ContentItems 
                     title="Visualizar Administrador"

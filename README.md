@@ -125,3 +125,6 @@ yarn or yarn install
 ```bash
 yarn dev
 ```
+> Usuário padrão (Adminstrador):
+- Usuário: admin
+- Senha: funLearn

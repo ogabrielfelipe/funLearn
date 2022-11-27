@@ -16,7 +16,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import { BtnAsk, ContainerListAsk, ContentSelects, List } from "../../ask/add/styles";
 import { ButtonConfirmBlue, ButtonConfirmPink } from "../../../components/Button";
-import { PencilLine, Trash } from "phosphor-react";
+import { Eye, EyeSlash, PencilLine, Trash } from "phosphor-react";
 
 
 type TeacherProps = {
@@ -128,25 +128,14 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
         setTeamSelectedVisible("1")
     }
 
-    function handleAlterTeam(teamID: string){
 
-        listTeamSelecteds.filter(value => {
-            if (value.id === teamID) {
-                setTeamSelected(value.id);
-                setTeamSelectedVisible(value.visible ? "1" : "0");
-                return value
-            }
-        })
-        setModeAlter(true)
-
-    }
-
-    async function handleDeleteTeam(teamID: string){
+    async function handleDeleteTeam(teamID: string, visible: boolean) {
         setLoading(true)
         const apiClient = setupAPIClient();
         let data = {
             teamID: teamID, 
-            themeID: themeID
+            themeID: themeID,
+            visible: !visible,
         }
         await apiClient.delete('/theme/disconnectTeam', {
             data
@@ -354,7 +343,7 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
                                                 <span>{l.name.length > 20 ? l.name.slice(0, 15)+"..." :  l.name}</span>
                                                 <span>{l.visible? "Visível" : "Invisível"}</span>
                                                 <div>
-                                                    <BtnAsk onClick={(e) => { e.preventDefault(); handleDeleteTeam(l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
+                                                    <BtnAsk onClick={(e) => { e.preventDefault(); handleDeleteTeam(l.id, l.visible)}}>{l.visible ? ( <Eye size={22} weight="regular" /> ) : ( <EyeSlash size={22} weight="regular" /> )} </BtnAsk>
                                                 </div>
                                             </List>
                                             )

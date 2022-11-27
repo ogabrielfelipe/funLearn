@@ -262,7 +262,7 @@ export default function AddAsk(){
 
     // Populate themes
     const [listThemes, setListThemes] = useState<ThemesProps[]>(Array())
-    const [themeSelected, setThemeSelected] = useState("")
+    const [themeSelected, setThemeSelected] = useState("0")
 
     useEffect(() => {
         async function getThemes(){
@@ -365,6 +365,7 @@ export default function AddAsk(){
                                 value={themeSelected}
                                 onChange={(e) => setThemeSelected(e.target.value)}
                             >   
+                                <OptionSelect value={0}>Selecione um Tema</OptionSelect>
                                 {listThemes.map(theme => {
                                     return (
                                         <OptionSelect key={theme.id} value={theme.id}>{theme.name}</OptionSelect>

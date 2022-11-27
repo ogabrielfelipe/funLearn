@@ -69,20 +69,21 @@ model Student {
   password String  @db.VarChar(155)
   active   Boolean @default(true)
 
-  teams    StudentsOnTeams[]
-  position Position[]
+  teams     StudentsOnTeams[]
+  positions Position[]
 
   @@map("student")
 }
 
 model Theme {
-  id          String @id @default(uuid())
-  name        String @db.VarChar(155)
-  description String @db.VarChar(512)
+  id          String  @id @default(uuid())
+  name        String  @db.VarChar(155)
+  description String  @db.VarChar(512)
   active      Boolean
 
-  ask   Ask[]
-  teams TeamsOnThemes[]
+  ask       Ask[]
+  teams     TeamsOnThemes[]
+  positions Position[]
 
   teacherID String
   teacher   Teacher @relation(fields: [teacherID], references: [id])
@@ -104,17 +105,42 @@ model TeamsOnThemes {
 }
 
 model Position {
-  id       String  @id @default(uuid())
-  finish   Boolean @default(true)
-  pointing Int
-  score    Int
+  id           String  @id @default(uuid())
+  started      Boolean
+  finished     Boolean
+  finishedTime Boolean
+  finishedOver Boolean
+  score        BigInt
+  life         Int
 
-  askID     String
-  ask       Ask     @relation(fields: [askID], references: [id])
+  dateInitial DateTime
+  dateFinish  DateTime
+
+  punctuation Punctuation[]
+
   studentID String
   student   Student @relation(fields: [studentID], references: [id])
+  themeID   String
+  theme     Theme   @relation(fields: [themeID], references: [id])
 
   @@map("position")
+}
+
+model Punctuation {
+  id      String  @id @default(uuid())
+  point   Int
+  right   Boolean
+  tip     Int
+  attempt Int
+  time    String
+
+  askID String
+  ask   Ask    @relation(fields: [askID], references: [id])
+
+  positionID String
+  position   Position @relation(fields: [positionID], references: [id])
+
+  @@map("punctuation")
 }
 
 model Ask {
@@ -127,9 +153,9 @@ model Ask {
   themeID String
   theme   Theme  @relation(fields: [themeID], references: [id])
 
-  position Position[]
-  answer   Answer[]
-  tip      Tip[]
+  answer      Answer[]
+  tip         Tip[]
+  punctuation Punctuation[]
 
   @@map("ask")
 }

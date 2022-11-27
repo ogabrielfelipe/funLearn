@@ -40,8 +40,12 @@ class CreateAskController{
         let answerConverter = JSON.parse(answer)
         let tipConverter = JSON.parse(tip)
 
-        console.log(answerConverter)
-        console.log(tipConverter)
+        console.log(question,
+            active,
+            level,
+            answer,
+            tip,
+            themeID)
 
         const createAskService = new CreateAskService();
         const result = await createAskService.execute({
@@ -53,7 +57,6 @@ class CreateAskController{
             tip: tipConverter,
             themeID: themeID
         })
-
          /* #swagger.responses[403] = { 
             description: 'Número de alternativas diferente de 4.\nDeve haver uma resposta correta.\nTipo do campo description incorreto.\nTipo do campo correct incorreto.' 
         } */

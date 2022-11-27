@@ -56,6 +56,7 @@ class CreateAskService{
                 id: true,
             }
         })
+        console.log(createAsk)
 
         if (createAsk){
             const createAnswer = new CreateAnswerService();

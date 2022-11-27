@@ -60,12 +60,35 @@
         }
       }
     },
+    "/administrator/auth/session": {
+      "post": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
     "/administrator/auth": {
       "post": {
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para realizar o login do administrator. \\n token é enviado no HEADER da resposta.",
+        "description": "Endpoint para realizar o login do Administrador. \\n token é enviado no HEADER da resposta.",
         "produces": [
           "application/json"
         ],
@@ -104,7 +127,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para cadastrar um novo usuário administrator.",
+        "description": "Endpoint para cadastrar um novo usuário administrador.",
         "produces": [
           "application/json"
         ],
@@ -126,7 +149,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário administrator cadastrada com sucesso.",
+            "description": "Usuário administrador cadastrada com sucesso.",
             "schema": {
               "$ref": "#/definitions/AddAdministrator"
             }
@@ -146,7 +169,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para alterar o cadastro do administrator.",
+        "description": "Endpoint para alterar o cadastro do administrador.",
         "produces": [
           "application/json"
         ],
@@ -190,7 +213,7 @@
         "tags": [
           "Administrator"
         ],
-        "description": "Endpoint para buscar os detalhes do cadastro do administrator. Busca só é efetuada somente com usuários administratores.",
+        "description": "Endpoint para buscar os detalhes do cadastro do administrator. Busca só é efetuada somente com usuários administradores.",
         "produces": [
           "application/json"
         ],
@@ -203,7 +226,7 @@
           {
             "name": "adminID",
             "in": "query",
-            "description": " Deverá ser preenchido com o identificador do administrator;",
+            "description": " Deverá ser preenchido com o identificador do administrador;",
             "type": "string"
           }
         ],
@@ -265,6 +288,29 @@
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/teacher/auth/session": {
+      "post": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
           }
         }
       }
@@ -396,7 +442,7 @@
         "tags": [
           "Teacher"
         ],
-        "description": "Endpoint para buscar os detalhes do cadastro do Professor. Para usuários Professores so poderá buscar os detalhes do cadastro do mesmo. Para Usuários administratores poderá ver os detalhes de todos os cadastros.",
+        "description": "Endpoint para buscar os detalhes do cadastro do Professor. Para usuários Professores so poderá buscar os detalhes do cadastro do mesmo. Para Usuários administradores poderá ver os detalhes de todos os cadastros.",
         "produces": [
           "application/json"
         ],
@@ -471,6 +517,26 @@
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/student/auth/session": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Token não encontrado"
           }
         }
       }
@@ -956,22 +1022,14 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "question, active, image, level, answer",
-            "in": "body",
-            "description": " question: Deverá ser preenchido com enunciado da pergunta; \n   active: Deverá ser preenchido com o status da pergunta, se está ativa ou não; \n   image: Deverá ser informado uma imagem, para ilustrar (Não é obrigatório); \n   level: Deverá ser informado o nível da pergunta, podendo ser Iniciante, Intermediária ou avançada; \n   answer: Deverá ser preenchido com um JSON de nome DATA contendo uma lista de 4 perguntas, sendo uma delas verdadeira e o restante falsas.",
-            "schema": {
-              "$ref": "#/definitions/Ask"
-            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Pergunta cadastrada com sucesso.",
             "schema": {
               "$ref": "#/definitions/AskResp"
-            }
+            },
+            "description": "Pergunta cadastrada com sucesso."
           },
           "401": {
             "description": "Não autorizado."
@@ -1223,9 +1281,6 @@
           "200": {
             "description": "Busca efetuada com sucesso e exibe a imagem."
           },
-          "401": {
-            "description": "Não autorizado."
-          },
           "404": {
             "description": "Imagem não encontrada."
           }
@@ -1351,6 +1406,322 @@
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/theme": {
+      "post": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "teacherID": {
+                  "example": "any"
+                },
+                "teams": {
+                  "example": "any"
+                },
+                "active": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      },
+      "put": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "teacherID": {
+                  "example": "any"
+                },
+                "active": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      },
+      "get": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
+    "/themes": {
+      "get": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
+    "/theme/connectTeam": {
+      "post": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "teamID": {
+                  "example": "any"
+                },
+                "themeID": {
+                  "example": "any"
+                },
+                "visible": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
+    "/theme/disconnectTeam": {
+      "delete": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "teamID": {
+                  "example": "any"
+                },
+                "themeID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
+    "/tip": {
+      "post": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "askID": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "visible": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      },
+      "put": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "name": {
+                  "example": "any"
+                },
+                "visible": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "description": "Middleware para autenticação do usuário",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
           }
         }
       }

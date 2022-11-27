@@ -34,29 +34,6 @@ class FindStudentService{
                             }
                         }
                     }
-                },
-                position:{
-                    select:{
-                        id: true,
-                        finish: true,
-                        pointing: true,
-                        score: true,
-                        ask:{
-                            select: {
-                                id: true,
-                                image: true,
-                                active: true,
-                                level: true,
-                                answer:{
-                                    select:{
-                                        id: true,
-                                        description: true,
-                                        correct: true
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
         })

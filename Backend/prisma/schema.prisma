@@ -52,16 +52,6 @@ model Team {
   @@map("team")
 }
 
-model StudentsOnTeams {
-  studentID String
-  student   Student @relation(fields: [studentID], references: [id])
-  teamID    String
-  team      Team    @relation(fields: [teamID], references: [id])
-
-  @@id([studentID, teamID])
-  @@map("students_on_teams")
-}
-
 model Student {
   id       String  @id @default(uuid())
   name     String  @db.VarChar(155)
@@ -74,6 +64,18 @@ model Student {
 
   @@map("student")
 }
+
+
+model StudentsOnTeams {
+  studentID String
+  student   Student @relation(fields: [studentID], references: [id])
+  teamID    String
+  team      Team    @relation(fields: [teamID], references: [id])
+
+  @@id([studentID, teamID])
+  @@map("students_on_teams")
+}
+
 
 model Theme {
   id          String  @id @default(uuid())

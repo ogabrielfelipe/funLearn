@@ -27,6 +27,7 @@ type TeamProps = {
     id: string,
     name: string,
     active: string,
+    teacher: TeacherProps
 }
 
 interface ThemeProps{
@@ -36,7 +37,9 @@ interface ThemeProps{
 
 export default function AddTheme( { listTeachers, listTeams }:ThemeProps ){
     const [loading, setLoading] = useState(false);
-    const [teams, setTeams] = useState(listTeams || []);
+    const [teams, setTeams] = useState<TeamProps[]>(listTeams || []);
+    const [teamsByTeacher, setTeamsByTeacher] = useState<TeamProps[]>([]);
+
     const [teachers, setTeachers] = useState(listTeachers || []);
 
     const [nameTheme, setNameTheme] = useState("")
@@ -187,6 +190,18 @@ export default function AddTheme( { listTeachers, listTeams }:ThemeProps ){
          
     }
 
+    function handleSelectedTeacher(e){
+        e.preventDefault();
+        setTeacherSelected(e.target.value);
+
+        setTeamsByTeacher(teams.filter(value => {
+            if(value.teacher.id === e.target.value){
+                return value
+            }
+        }))
+
+    }
+
 
     return(
         <>
@@ -216,7 +231,7 @@ export default function AddTheme( { listTeachers, listTeams }:ThemeProps ){
                             <SelectForm
                                 title="Professor:"
                                 value={teacherSelected}
-                                onChange={(e) => setTeacherSelected(e.target.value)}
+                                onChange={handleSelectedTeacher}
                             >   
                                 <OptionSelect value="0" selected>Selecione o Professor</OptionSelect>
                                 {teachers.map(t => {
@@ -253,7 +268,7 @@ export default function AddTheme( { listTeachers, listTeams }:ThemeProps ){
                                         onChange={(e) => setTeamSelected(e.target.value)}
                                     >   
                                         <OptionSelect value="0" selected>Selecione a turma</OptionSelect>
-                                        {teams.map(t => {
+                                        {teamsByTeacher.map(t => {
                                             return (
                                                 <OptionSelect value={t.id} key={t.id}>{t.name}</OptionSelect>
                                             )

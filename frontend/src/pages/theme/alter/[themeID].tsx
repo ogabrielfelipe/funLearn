@@ -28,6 +28,7 @@ type TeamProps = {
     id: string,
     name: string,
     active: string,
+    teacher: TeacherProps
 }
 
 interface ThemeProps{
@@ -43,7 +44,8 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
 
 
     const [loading, setLoading] = useState(false);
-    const [teams, setTeams] = useState(listTeams || []);
+    const [teams, setTeams] = useState<TeamProps[]>(listTeams || []);
+    const [teamsByTeacher, setTeamsByTeacher] = useState<TeamProps[]>([]);
     const [teachers, setTeachers] = useState(listTeachers || []);
 
     const [nameTheme, setNameTheme] = useState("")
@@ -205,6 +207,23 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
          
     }
 
+
+
+    function handleSelectedTeacher(e){
+        e.preventDefault();
+        setTeacherSelected(e.target.value);
+
+        setTeamsByTeacher(teams.filter(value => {
+            if(value.teacher.id === e.target.value){
+                return value
+            }
+        }))
+
+    }
+
+
+
+
     useEffect(() => {
         async function getTheme(id: string){
             setLoading(true)
@@ -215,7 +234,14 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
                 console.log(data);
                 setNameTheme(data.name)
                 setDescriptionTheme(data.description)
+                
                 setTeacherSelected(data.teacher.id)
+                setTeamsByTeacher(teams.filter(value => {
+                    if(value.teacher.id === data.teacher.id){
+                        return value
+                    }
+                }))
+
                 setThemeActiveSelected(data.active ? "1" : "0")
 
 
@@ -273,7 +299,7 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
                             <SelectForm
                                 title="Professor:"
                                 value={teacherSelected}
-                                onChange={(e) => setTeacherSelected(e.target.value)}
+                                onChange={handleSelectedTeacher}
                             >   
                                 <OptionSelect value="0" selected>Selecione o Professor</OptionSelect>
                                 {teachers.map(t => {
@@ -309,7 +335,7 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
                                         onChange={(e) => setTeamSelected(e.target.value)}
                                     >   
                                         <OptionSelect value="0" selected>Selecione a turma</OptionSelect>
-                                        {teams.map(t => {
+                                        {teamsByTeacher.map(t => {
                                             return (
                                                 <OptionSelect value={t.id} key={t.id}>{t.name}</OptionSelect>
                                             )

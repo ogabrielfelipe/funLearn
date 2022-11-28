@@ -109,7 +109,7 @@ export default function AlterAdministrator( {administrators}: FindAdministratorP
         }
 
         const apiClient = setupAPIClient();
-        await apiClient.post('/administrator', data)
+        await apiClient.put('/administrator', data)
         .then(resp => {
             if (resp.status === 200){
                 setLoading(false);
@@ -198,10 +198,16 @@ export default function AlterAdministrator( {administrators}: FindAdministratorP
 }
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
-   
+    const apiClient = setupAPIClient(ctx);
+    const res = await apiClient.get('/adminstrators', {
+        data: {
+            name: ""
+        }
+    })
+
     return {
-        props:{ }
+        props:{
+            adminstrators: res.data
+        }
     }
-    
-    
-} )
+})

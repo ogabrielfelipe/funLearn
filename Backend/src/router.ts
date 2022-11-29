@@ -49,6 +49,7 @@ import { ChangeThemeController } from './controller/theme/ChangeThemeController'
 import { FindThemeController } from './controller/theme/FindThemeController';
 import { DisconnectTeamController } from './controller/theme/DisconnectTeamController';
 import { ConnectTeamController } from './controller/theme/ConnectTeamController';
+import { CountItemsController } from './controller/administrator/CountItemsController';
 
 const path = require('path')
 const router = Router();
@@ -75,6 +76,7 @@ router.post('/administrator', isAuthenticated, new CreateAdministratorController
 router.put('/administrator', isAuthenticated, new ChangeAdministratorController().handle)
 router.get('/administrator', isAuthenticated, new FindAdministratorController().handle)
 router.get('/adminstrators', isAuthenticated, new FindManyAdministratorController().handle)
+router.get('/administrator/countItems', isAuthenticated, new CountItemsController().handle)
 
 // ----------- Teacher -----------
 router.post('/teacher/auth/session', isAuthenticated, new AuthSessionTeacherController().handle)

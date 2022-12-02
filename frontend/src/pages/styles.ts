@@ -27,79 +27,56 @@ export const ContainerButtons = styled.section`
     flex-wrap: wrap;
     gap: 20rem;
 
+    @media (max-width: 400px) {
+        gap: 2rem;
+        scale: .8;
+    }
+
+    @media (max-width: 450px) {
+        margin-top: 1rem;
+        gap: 5rem;
+        scale: .9;
+    }
+
+    @media (max-width: 920px) {
+        margin-top: 1rem;
+        scale: .9;
+    }
+
 `
 
 export const ContainerLogo = styled.div`
     width: 8rem;
     height: auto;
+
+    @media (max-width: 450px) {
+        width: 5rem;
+        height: auto;
+    }
 `
 
 export const ContainerBtnAdmin = styled.div`
     width: 15rem;
     height: auto;
+
+    @media (max-width: 450px) {
+        width: 10rem;
+        height: auto;
+    }
 `
 
 export const ContainerBtnUser = styled.div`
     width: 18rem;
     height: auto;
-`
 
-export const CardAdmin = styled.button`
-    width: 100vw;
-    height: 13vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @media (max-width: 450px) {
+        width: 15rem;
+        height: auto;
+    }
 
-    background-image: url('../assets/Header_login.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    /*background-color: rgba(200, 252, 255, 1);*/
-
-    font-family: 'Bungee', cursive;
-`
-
-export const CardStudent = styled.button`
-    width: 20vw;
-    height: 33vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    background-image: url('./assets/Student.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    /*background-color: rgba(200, 252, 255, 1);*/
-
-    font-family: 'Bungee', cursive;
-`
-
-export const CardTeacher = styled.button`
-    width: 20vw;
-    height: 38vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    background-image: url('../assets/Teacher.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    /*background-color: rgba(200, 252, 255, 1);*/
-
-    font-family: 'Bungee', cursive;
-`
-
-export const Button = styled.button`
-    margin-top: 5rem;
-    padding: 16px 30px;
-    color: #ffffff;
-    background: #fff;
-    border-radius: .6rem;
-    transition: .2s all;
+    @media (max-width: 920px) {
+        width: 17rem;
+        height: auto;
+    }
 `

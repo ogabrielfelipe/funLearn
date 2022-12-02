@@ -12,6 +12,15 @@ export const Container = styled.main`
     width: 100%;
     height: calc(100vh - 5rem);
 
+
+    @media (max-width: 490px){
+        scale: .9;
+    }
+
+    @media (max-width: 420px){
+        scale: .75;
+    }
+
 `
 export const Header = styled.header`
     display: flex;

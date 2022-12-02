@@ -14,7 +14,7 @@ import { LoadingManager } from "../../../components/Loading";
 
 export default function HomeAdministrator(){
     const apiClient = setupAPIClient();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const [countAsks, setCountAsks] = useState('00');
     const [countTeachers, setCountTeachers] = useState('00');

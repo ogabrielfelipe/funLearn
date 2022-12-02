@@ -1,12 +1,14 @@
 import Image from "next/image"
-import Loading from "../../../public/assets/loading.gif"
+import LoadingCloud from "../../../public/assets/loading-cloud.gif";
+import LottieFilesLoading from "../LottieFiles/Loading";
+
 import { ContainerLoading, ContentSpinner } from "./styles"
 
 function LoadingManager(){
     return (
         <ContainerLoading>
             <ContentSpinner>
-                <Image src={Loading}  layout={"responsive"} alt={"Imagem de carregamento de informações"} />
+                <LottieFilesLoading />
             </ContentSpinner>
         </ContainerLoading>
     )

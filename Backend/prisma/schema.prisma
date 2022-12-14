@@ -52,7 +52,6 @@ model Team {
   @@map("team")
 }
 
-
 model Student {
   id       String  @id @default(uuid())
   name     String  @db.VarChar(155)
@@ -66,7 +65,6 @@ model Student {
   @@map("student")
 }
 
-
 model StudentsOnTeams {
   studentID String
   student   Student @relation(fields: [studentID], references: [id])
@@ -76,7 +74,6 @@ model StudentsOnTeams {
   @@id([studentID, teamID])
   @@map("students_on_teams")
 }
-
 
 model TeamsOnThemes {
   teamID String
@@ -90,7 +87,6 @@ model TeamsOnThemes {
   @@id([teamID, themeID])
   @@map("teams_on_themes")
 }
-
 
 model Theme {
   id          String  @id @default(uuid())
@@ -108,7 +104,6 @@ model Theme {
   @@map("theme")
 }
 
-
 model Position {
   id           String  @id @default(uuid())
   started      Boolean
@@ -121,7 +116,7 @@ model Position {
   dateInitial DateTime
   dateFinish  DateTime
 
-  punctuation Punctuation[]
+  game Game[]
 
   studentID String
   student   Student @relation(fields: [studentID], references: [id])
@@ -131,7 +126,7 @@ model Position {
   @@map("position")
 }
 
-model Punctuation {
+model Game {
   id      String  @id @default(uuid())
   point   Int
   right   Boolean
@@ -145,7 +140,7 @@ model Punctuation {
   positionID String
   position   Position @relation(fields: [positionID], references: [id])
 
-  @@map("punctuation")
+  @@map("game")
 }
 
 model Ask {
@@ -158,9 +153,9 @@ model Ask {
   themeID String
   theme   Theme  @relation(fields: [themeID], references: [id])
 
-  answer      Answer[]
-  tip         Tip[]
-  punctuation Punctuation[]
+  answer Answer[]
+  tip    Tip[]
+  game   Game[]
 
   @@map("ask")
 }

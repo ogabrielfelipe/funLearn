@@ -8,7 +8,7 @@ class SendFileModelCreatestudentController {
     // #swagger.method = 'get'
     // #swagger.description = 'Endpoint para fazer o download do modelo de importação dos alunos.'
     // #swagger.produces = ["application/json"]
-    // #swagger.tags = ['student']
+    // #swagger.tags = ['Student']
 
     const path = require("path");
     var modeloCriacao = path.resolve(

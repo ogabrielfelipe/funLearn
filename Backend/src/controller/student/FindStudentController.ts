@@ -12,7 +12,7 @@ class FindStudentController{
         // #swagger.method = 'get'
         // #swagger.description = 'Endpoint para buscar os detalhes do cadastro do aluno.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['student']
+        // #swagger.tags = ['Student']
 
         /*
             #swagger.parameters['studentID'] = {

@@ -12,7 +12,7 @@ class ChangestudentController{
         // #swagger.method = 'put'
         // #swagger.description = 'Endpoint para alterar o cadastro do Aluno.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['student']
+        // #swagger.tags = ['Student']
 
         /*
             #swagger.parameters['studentID', 'name', 'password', 'teamID', 'active'] = {

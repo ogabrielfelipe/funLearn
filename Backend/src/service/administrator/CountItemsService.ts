@@ -1,7 +1,6 @@
 import prismaClient from "../../prisma"
 
 
-
 class CountItemsService{
     async execute(){
         const count = await prismaClient.$queryRaw`
@@ -13,7 +12,6 @@ class CountItemsService{
                     (SELECT COUNT(*)  FROM administrator) as count_administrators
                 FROM student
         `
-        console.log(count)
         return count
     }
 }

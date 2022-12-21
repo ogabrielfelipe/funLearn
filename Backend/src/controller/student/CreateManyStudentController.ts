@@ -11,7 +11,7 @@ class CreateManyStudentController{
         // #swagger.method = 'post'
         // #swagger.description = 'Endpoint para cadastrar usuários Estudentes através da importação de arquivo.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['student']
+        // #swagger.tags = ['Student']
 
         /*
             #swagger.parameters['name', 'teamID'] = {

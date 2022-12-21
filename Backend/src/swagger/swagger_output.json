@@ -17,7 +17,7 @@
       "description": "Endpoints"
     },
     {
-      "name": "student",
+      "name": "Student",
       "description": "Endpoints"
     },
     {
@@ -35,6 +35,18 @@
     },
     {
       "name": "Home",
+      "description": "Endpoint"
+    },
+    {
+      "name": "Game",
+      "description": "Endpoint"
+    },
+    {
+      "name": "Tip",
+      "description": "Endpoint"
+    },
+    {
+      "name": "Theme",
       "description": "Endpoint"
     }
   ],
@@ -62,7 +74,13 @@
     },
     "/administrator/auth/session": {
       "post": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Administrator"
+        ],
+        "description": "Endpoint para autenticar o usuário administrador.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -72,13 +90,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Ok."
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
-            "description": "Token não encontrado"
+            "description": "Administrador não encontrado. \nToken não encontrado."
           }
         }
       }
@@ -292,9 +310,15 @@
         }
       }
     },
-    "/teacher/auth/session": {
-      "post": {
-        "description": "Middleware para autenticação do usuário",
+    "/administrator/countItems": {
+      "get": {
+        "tags": [
+          "Administrator"
+        ],
+        "description": "Endpoint para buscar os totais de registros no banco de dados.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -304,13 +328,48 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/countItems"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/teacher/auth/session": {
+      "post": {
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Endpoint para autenticar o usuário professor.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok."
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Professor não encontrado. \nToken não encontrado."
           }
         }
       }
@@ -523,7 +582,13 @@
     },
     "/student/auth/session": {
       "post": {
-        "description": "",
+        "tags": [
+          "Student"
+        ],
+        "description": "Endpoint para autenticar o usuário estudante.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -533,10 +598,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Ok"
           },
           "404": {
-            "description": "Token não encontrado"
+            "description": "Estudante não encontrado. \nToken não encontrado."
           }
         }
       }
@@ -544,7 +609,7 @@
     "/student/auth": {
       "post": {
         "tags": [
-          "student"
+          "Student"
         ],
         "description": "Endpoint para realizar o login do aluno. Token e o tipo de login é enviado no HEADER da resposta.",
         "produces": [
@@ -583,7 +648,7 @@
     "/student": {
       "post": {
         "tags": [
-          "student"
+          "Student"
         ],
         "description": "Endpoint para cadastrar um novo usuário Estudente.",
         "produces": [
@@ -628,7 +693,7 @@
       },
       "put": {
         "tags": [
-          "student"
+          "Student"
         ],
         "description": "Endpoint para alterar o cadastro do Aluno.",
         "produces": [
@@ -672,7 +737,7 @@
       },
       "get": {
         "tags": [
-          "student"
+          "Student"
         ],
         "description": "Endpoint para buscar os detalhes do cadastro do aluno.",
         "produces": [
@@ -713,7 +778,7 @@
     "/student/many": {
       "post": {
         "tags": [
-          "student"
+          "Student"
         ],
         "description": "Endpoint para cadastrar usuários Estudentes através da importação de arquivo.",
         "produces": [
@@ -767,7 +832,7 @@
     "/students": {
       "get": {
         "tags": [
-          "student"
+          "Student"
         ],
         "description": "Endpoint para listar todos os estudentes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administratores.",
         "produces": [
@@ -810,7 +875,7 @@
     "/student/modelo-criacao": {
       "get": {
         "tags": [
-          "student"
+          "Student"
         ],
         "description": "Endpoint para fazer o download do modelo de importação dos alunos.",
         "produces": [
@@ -1022,14 +1087,22 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "question, active, image, level, answer",
+            "in": "body",
+            "description": " question: Deverá ser preenchido com enunciado da pergunta; \n   active: Deverá ser preenchido com o status da pergunta, se está ativa ou não; \n   image: Deverá ser informado uma imagem, para ilustrar (Não é obrigatório); \n   level: Deverá ser informado o nível da pergunta, podendo ser Iniciante, Intermediária ou avançada; \n   answer: Deverá ser preenchido com uma lista de 4 perguntas, sendo uma delas verdadeira e o restante falsas.,   answer: Deverá ser preenchido com uma lista contendo as dicas.",
+            "schema": {
+              "$ref": "#/definitions/Ask"
+            }
           }
         ],
         "responses": {
           "200": {
+            "description": "Pergunta cadastrada com sucesso.",
             "schema": {
               "$ref": "#/definitions/AskResp"
-            },
-            "description": "Pergunta cadastrada com sucesso."
+            }
           },
           "401": {
             "description": "Não autorizado."
@@ -1412,7 +1485,13 @@
     },
     "/theme": {
       "post": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Theme"
+        ],
+        "description": "Endpoint para cadastrar um tema.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1420,39 +1499,30 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": " name, description, teacherID, teams, active",
             "in": "body",
+            "description": " name: Deverá ser preenchido com o nome do tema; \n   description: Deverá ser preenchido com a descrição do tema; \n   teacherID: Deverá ser preenchido com o identificador do professor; \n   teams: Deverá ser preenchido com uma lista de turmas a serem vinculadas; \n   active: Deverá ser preenchido informando se o tema está ativo ou não.",
+            "requerid": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "teacherID": {
-                  "example": "any"
-                },
-                "teams": {
-                  "example": "any"
-                },
-                "active": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/CreateTheme"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Tema cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/CreateThemeRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       },
@@ -1607,6 +1677,9 @@
                 },
                 "themeID": {
                   "example": "any"
+                },
+                "visible": {
+                  "example": "any"
                 }
               }
             }
@@ -1627,7 +1700,13 @@
     },
     "/tip": {
       "post": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Tip"
+        ],
+        "description": "Endpoint para cadastrar uma dica para uma pergunta.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1635,38 +1714,41 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "name, askID, visible",
             "in": "body",
+            "description": " name: Deverá ser preenchido com a descrição da dica; \n   askID: Deverá ser preenchido com o identificador da pergunta; \n   visible: Deverá ser preenchido informando se a dica está visível ou não (true ou falso).",
+            "requerid": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "askID": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                },
-                "visible": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/CreateTip"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Dica cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/CreateTipRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
-            "description": "Token não encontrado"
+            "description": "Pergunta não encontrada. \nToken não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       },
       "put": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Tip"
+        ],
+        "description": "Endpoint para alterar o cadastro de uma dica.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1674,54 +1756,116 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "name, id, visible",
             "in": "body",
+            "description": " name: Deverá ser preenchido com a descrição da dica; \n   id: Deverá ser preenchido com o identificador da dica; \n   visible: Deverá ser preenchido informando se a dica está visível ou não (true ou falso).",
+            "requerid": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                },
-                "visible": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/ChangeTip"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Dica alterada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/ChangeTipRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
-            "description": "Token não encontrado"
+            "description": "Dica não encontrada. \nToken não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       },
       "delete": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Tip"
+        ],
+        "description": "Endpoint para excluir o cadastro da dica.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": " id: Deverá ser preenchido com identificador da dica.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTip"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Dica excluida com sucesso."
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/game/start": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para Iniciar o QUIZZ.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "themeID, studentID",
+            "in": "body",
+            "description": " themeID: Deverá ser preenchido com o identificador do tema proposto; \n   studentID: Deverá ser preenchido com o identificador do aluno que iniciará o jogo.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/StartGame"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Abertura do QUIZZ cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/StartGameRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno.\n "
+          },
+          "404": {
+            "description": "Tema não encontrado. \nEstudante não encontrado. \n "
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
           }
         }
       }
@@ -2168,6 +2312,38 @@
           "username",
           "active"
         ]
+      }
+    },
+    "countItems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "count_students": {
+            "type": "string",
+            "example": "2"
+          },
+          "count_themes": {
+            "type": "string",
+            "example": "1"
+          },
+          "count_asks": {
+            "type": "string",
+            "example": "1"
+          },
+          "count_teachers": {
+            "type": "string",
+            "example": "2"
+          },
+          "count_teams": {
+            "type": "string",
+            "example": "3"
+          },
+          "count_administrators": {
+            "type": "string",
+            "example": "2"
+          }
+        }
       }
     },
     "student": {
@@ -2923,6 +3099,237 @@
           "level": {
             "type": "string",
             "example": "INITIAL"
+          }
+        }
+      }
+    },
+    "StartGame": {
+      "type": "object",
+      "properties": {
+        "themeID": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "studentID": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        }
+      }
+    },
+    "StartGameRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "c3a57b01-6bd4-4415-967e-a84f553e1768"
+        },
+        "dateInitial": {
+          "type": "string",
+          "example": "20/12/2022 21:26:52"
+        },
+        "started": {
+          "type": "boolean",
+          "example": true
+        },
+        "student": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "eb83fc87-0692-46de-9e23-472a979c4b37"
+            },
+            "name": {
+              "type": "string",
+              "example": "Esther Ribeiro"
+            }
+          }
+        },
+        "theme": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "e28a18e5-efb9-4a1e-98c8-b48ab418d390"
+            },
+            "name": {
+              "type": "string",
+              "example": "INSERT sql"
+            }
+          }
+        }
+      }
+    },
+    "CreateTip": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Descrição da dica."
+        },
+        "askID": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "visible": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "CreateTipRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "name": {
+          "type": "string",
+          "example": "Descrição da dica."
+        }
+      }
+    },
+    "ChangeTip": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "name": {
+          "type": "string",
+          "example": "Descrição da dica."
+        },
+        "visible": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "ChangeTipRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "031dd41f-15f2-490b-9eb4-99779b43480c"
+        },
+        "name": {
+          "type": "string",
+          "example": "Descrição da dica."
+        },
+        "visible": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "CreateTheme": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Introdução a Banco de Dados 2"
+        },
+        "description": {
+          "type": "string",
+          "example": "Descrição do Banco de Dados1"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "35dd2aa2-db19-4863-95c0-7880e0c25144"
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "teamID": {
+                "type": "string",
+                "example": "e7748402-2c19-4226-b666-f88e14188021"
+              },
+              "visible": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "CreateThemeRes": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "theme": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "924db79f-f2d1-4924-8b22-b29889fb7b80"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Introdução a Banco de Dados 2"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "Descrição do Banco de Dados1"
+                },
+                "active": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "teacher": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "76664920-f191-456e-a148-370ca4a27b33"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Lucas Ribeiro"
+                    }
+                  }
+                }
+              }
+            },
+            "connectTeams": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "example": 1
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "team": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "da6236ae-1325-4c86-bf0e-df83dd2c8212"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "1° ano - Informatica"
+                          },
+                          "active": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

@@ -205,6 +205,14 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             break;
 
 
+        case 'user is not a student.':
+            return res.status(403).json({
+                error: "Usuário da requisição não é um aluno."
+            })
+            break;
+    
+
+
         default:
             return res.status(500).json({
                 status: "Error",

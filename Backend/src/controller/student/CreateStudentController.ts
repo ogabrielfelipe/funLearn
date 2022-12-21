@@ -11,7 +11,7 @@ class CreateStudentController{
         // #swagger.method = 'post'
         // #swagger.description = 'Endpoint para cadastrar um novo usuário Estudente.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['student']
+        // #swagger.tags = ['Student']
 
         /*
             #swagger.parameters['name', 'register', 'password', 'active', 'teamID'] = {

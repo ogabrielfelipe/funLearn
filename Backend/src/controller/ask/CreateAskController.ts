@@ -22,7 +22,7 @@ class CreateAskController{
                     active: Deverá ser preenchido com o status da pergunta, se está ativa ou não; \n
                     image: Deverá ser informado uma imagem, para ilustrar (Não é obrigatório); \n
                     level: Deverá ser informado o nível da pergunta, podendo ser Iniciante, Intermediária ou avançada; \n
-                    answer: Deverá ser preenchido com uma lista de 4 perguntas, sendo uma delas verdadeira e o restante falsas.",
+                    answer: Deverá ser preenchido com uma lista de 4 perguntas, sendo uma delas verdadeira e o restante falsas.,
                     answer: Deverá ser preenchido com uma lista contendo as dicas.",
                 schema: { $ref: "#/definitions/Ask" }        
             }

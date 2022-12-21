@@ -12,7 +12,7 @@ class FindManyStudentController{
         // #swagger.method = 'get'
         // #swagger.description = 'Endpoint para listar todos os estudentes. Este Endpoint pega o usuário da requisição e filtra somente os alunos que estão vinculados as turma do professor que está efetuando a busca, essa funcionalidade fica suspensa para os usuáruios administratores.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['student']
+        // #swagger.tags = ['Student']
 
          /*
             #swagger.parameters['name'] = {

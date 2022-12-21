@@ -107,14 +107,14 @@ model Theme {
 model Position {
   id           String  @id @default(uuid())
   started      Boolean
-  finished     Boolean
-  finishedTime Boolean
-  finishedOver Boolean
-  score        BigInt
-  life         Int
+  finished     Boolean?
+  finishedTime Boolean?
+  finishedOver Boolean?
+  score        BigInt?
+  life         Int?
 
   dateInitial DateTime
-  dateFinish  DateTime
+  dateFinish  DateTime?
 
   game Game[]
 

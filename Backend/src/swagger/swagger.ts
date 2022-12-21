@@ -22,7 +22,7 @@ const doc = {
             "description": "Endpoints" 
         },
         {
-            "name": "student",
+            "name": "Student",
             "description": "Endpoints" 
         },
         {
@@ -39,6 +39,18 @@ const doc = {
         },
         {
             "name": "Home",
+            "description": "Endpoint" 
+        },
+        {
+            "name": "Game",
+            "description": "Endpoint" 
+        },
+        {
+            "name": "Tip",
+            "description": "Endpoint" 
+        },
+        {
+            "name": "Theme",
             "description": "Endpoint" 
         }
     ],
@@ -156,6 +168,17 @@ const doc = {
             $username: "fulano",
             $active: true
         },],
+
+        countItems:[
+            {
+              "count_students": "2",
+              "count_themes": "1",
+              "count_asks": "1",
+              "count_teachers": "2",
+              "count_teams": "3",
+              "count_administrators": "2"
+            }
+          ],
 
 //-------------------- ## MODEL EstudentE ## --------------------
         student:{
@@ -385,6 +408,85 @@ const doc = {
         }],
 
 
+
+        // --------------------- GAME --------------------------------
+
+        StartGame:{
+            themeID: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            studentID: "031dd41f-15f2-490b-9eb4-99779b43480c",
+        },
+        StartGameRes: {
+            "id": "c3a57b01-6bd4-4415-967e-a84f553e1768",
+            "dateInitial": "20/12/2022 21:26:52",
+            "started": true,
+            "student": {
+              "id": "eb83fc87-0692-46de-9e23-472a979c4b37",
+              "name": "Esther Ribeiro"
+            },
+            "theme": {
+              "id": "e28a18e5-efb9-4a1e-98c8-b48ab418d390",
+              "name": "INSERT sql"
+            }
+        },
+
+        // --------------------- TIP --------------------------------
+        CreateTip:{
+            name: "Descrição da dica.",
+            askID: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            visible: true
+        },
+        CreateTipRes:{
+            id: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            name: "Descrição da dica."
+        },
+        ChangeTip:{
+            id: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            name: "Descrição da dica.",
+            visible: true
+        },
+        ChangeTipRes:{
+            id: "031dd41f-15f2-490b-9eb4-99779b43480c",
+            name: "Descrição da dica.",
+            visible: true
+        },
+        // --------------------- THEME --------------------------------
+        CreateTheme:{
+            "name": "Introdução a Banco de Dados 2",
+            "description": "Descrição do Banco de Dados1",
+            "teacherID": "35dd2aa2-db19-4863-95c0-7880e0c25144",
+            "teams": [
+              {
+              "teamID": "e7748402-2c19-4226-b666-f88e14188021",
+              "visible": true
+              }
+            ]
+        },
+        CreateThemeRes:{
+            "data": {
+              "theme": {
+                "id": "924db79f-f2d1-4924-8b22-b29889fb7b80",
+                "name": "Introdução a Banco de Dados 2",
+                "description": "Descrição do Banco de Dados1",
+                "active": true,
+                "teacher": {
+                  "id": "76664920-f191-456e-a148-370ca4a27b33",
+                  "name": "Lucas Ribeiro"
+                }
+              },
+              "connectTeams": {
+                "total": 1,
+                "data": [
+                  {
+                    "team": {
+                      "id": "da6236ae-1325-4c86-bf0e-df83dd2c8212",
+                      "name": "1° ano - Informatica",
+                      "active": true
+                    }
+                  }
+                ]
+              }
+            }
+          }
     }
 }
 

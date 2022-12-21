@@ -12,7 +12,7 @@ class AuthStudentController{
         // #swagger.method = 'post'
         // #swagger.description = 'Endpoint para realizar o login do aluno. Token e o tipo de login é enviado no HEADER da resposta.'
         // #swagger.produces = ["application/json"]
-        // #swagger.tags = ['student']
+        // #swagger.tags = ['Student']
 
         /*
             #swagger.parameters['register', 'password'] = {

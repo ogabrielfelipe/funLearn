@@ -1,0 +1,275 @@
+{
+    "tema": "Linguagem de Manipulação de dados (DML)",
+    "perguntas": [
+        {
+            "descricao": "O comando abaixo pode ser considerado qual subgrupo do SQL? ` CREATE TABLE Persons ( PersonID int, LastName varchar(255), FirstName varchar(255), Address varchar(255),City varchar(255) ); ` " ,
+            "nivel": "Intermediaria",
+            "respostas": [
+                {
+                    "a": "DDL (Data Definition Language) Linguagem de Definição da dados.",
+                    "correta": true
+                },
+                {
+                    "b": "DML (Data Manipulation Language) Linguagem de Manipulação de dados.",
+                    "correta": false 
+                },
+                {
+                    "c": "DCL (Data Control Language ) Linguagem para Controle dos dados.",
+                    "correta": false 
+                },
+                {
+                    "d": "TCL (Transaction Control Language) Linguagem de Controle de transição.",
+                    "correta": false 
+                }
+            ],
+            "dicas": [ ]
+        },
+        {
+            "descricao": "O comando abaixo pode ser considerado qual subgrupo do SQL? `  SELECT CustomerName, City, Country FROM Customers; ` " ,
+            "nivel": "Intermediaria",
+            "respostas": [
+                {
+                    "a": "DDL (Data Definition Language) Linguagem de Definição da dados.",
+                    "correta": false
+                },
+                {
+                    "b": "DML (Data Manipulation Language) Linguagem de Manipulação de dados.",
+                    "correta": true 
+                },
+                {
+                    "c": "DCL (Data Control Language ) Linguagem para Controle dos dados.",
+                    "correta": false 
+                },
+                {
+                    "d": "TCL (Transaction Control Language) Linguagem de Controle de transição.",
+                    "correta": false 
+                }
+            ],
+            "dicas": [ ]
+        },
+        {
+            "descricao": "Pode ser considerado um comando do subgrupo DML?" ,
+            "nivel": "Intermediaria",
+            "respostas": [
+                {
+                    "a": "` SELECT COUNT(ProductID) FROM Products; `",
+                    "correta": true
+                },
+                {
+                    "b": "` CREATE DATABASE Product; `",
+                    "correta": false 
+                },
+                {
+                    "c": "` ALTER TABLE Customers DROP COLUMN Email; `",
+                    "correta": false 
+                },
+                {
+                    "d": "`TRUNCATE TABLE books;`",
+                    "correta": false 
+                }
+            ],
+            "dicas": [ 
+                
+                "Pode ser utilizado para realizar uma busca de dados."
+                
+            ]
+        },
+        {
+            "descricao": "O que é DML(Data Manipulation Language)?" ,
+            "nivel": "iniciante",
+            "respostas": [
+                {
+                    "a": "É um subconjunto de SQL usado para gerenciar dados em um banco de dados.",
+                    "correta": true
+                },
+                {
+                    "b": "É um subconjunto de SQL que serve para a criar a estrutura dos dados da tabela.",
+                    "correta": false 
+                },
+                {
+                    "c": "Este subconjunto pode ser utilizado para criar e remover as permissões dos usuários.",
+                    "correta": false 
+                },
+                {
+                    "d": " É um subconjunto de SQL usado para gerenciar transações em um banco de dados.",
+                    "correta": false 
+                }
+            ],
+            "dicas": [ 
+                "Um dos principais comandos que está ligado ao DML é o comando de SELECT e INSERT.",
+                "Você pode inserir dados em seu banco de dados usando DML."
+            ]
+            
+        },
+        {
+            "descricao": "Assinale a opção correta." ,
+            "nivel": "iniciante",
+            "respostas": [
+                {
+                    "a": "Programação de domínio é a associação de um domínio de valores possíveis a determinados atributos.",
+                    "correta": false
+                },
+                {
+                    "b": "Uma Linguagem de Manipulação de Dados (DML) principal requer que o usuário especifique que dados prioritários são necessários.",
+                    "correta": false 
+                },
+                {
+                    "c": "Restrição dimensional é a associação dimensional a certos tipos de atributos.",
+                    "correta": false 
+                },
+                {
+                    "d": "Uma Linguagem de Manipulação de Dados (DML) procedural requer que o usuário especifique que dados são necessários e como obtê-los.",
+                    "correta": true 
+                }
+            ],
+            "dicas": [ ]
+            
+        },
+        {
+            "descricao": "Qual declaração SQL é utilizada para selecionar um dado da tabela?" ,
+            "nivel": "iniciante",
+            "respostas": [
+                {
+                    "a": "GET",
+                    "correta": false
+                },
+                {
+                    "b": "OPEN",
+                    "correta": false 
+                },
+                {
+                    "c": "SELECT",
+                    "correta": true 
+                },
+                {
+                    "d": "EXTRACT",
+                    "correta": false 
+                }
+            ],
+            "dicas": [ ]
+            
+        },
+        {
+            "descricao": "Uma expressão geral DDL (Linguagem de Definição da dados) e uma DML (Linguagem de Manipulação de dados) são, respectivamente: " ,
+            "nivel": "Iniciante",
+            "respostas": [
+                {
+                    "a": "Drop e Insert Into.",
+                    "correta": true
+                },
+                {
+                    "b": "Create e Alter.",
+                    "correta": false
+                },
+                {
+                    "c": "Update e Select.",
+                    "correta": false
+                },
+                {
+                    "d": "Update e Drop.",
+                    "correta": false
+                }
+            ],
+            "dicas": [ ]
+        }, 
+        {
+            "descricao": "Por que é necessário confirmar alterações após executar um conjunto de instruções SQL?" ,
+            "nivel": "iniciante",
+            "respostas": [
+                {
+                    "a": "GET",
+                    "correta": false
+                },
+                {
+                    "b": "OPEN",
+                    "correta": false 
+                },
+                {
+                    "c": "SELECT",
+                    "correta": true 
+                },
+                {
+                    "d": "EXTRACT",
+                    "correta": false 
+                }
+            ],
+            "dicas": [
+                "O comando que é utilizado para confirmar é o commit.",
+                "Ao finalizar o processo sem utilizar o comando commit, as informações se perdem."
+             ]
+            
+        }, 
+        {
+            "descricao": "Por que é necessário confirmar alterações após executar um conjunto de instruções SQL?" ,
+            "nivel": "Difícil",
+            "respostas": [
+                {
+                    "a": "A confirmação de alterações garante que as alterações sejam realmente salvas no banco de dados.",
+                    "correta": true
+                },
+                {
+                    "b": "Não é necessário confirmar, pois as alterações são salvas no banco de dados.",
+                    "correta": false
+                },
+                {
+                    "c": "A confirmação de alteração impede que futuras mudanças no banco de dados ocorram.",
+                    "correta": false
+                },
+                {
+                    "d": "A confirmação de alterações não garante que as alterações sejam realmente salvas no banco de dados.",
+                    "correta": false
+                }
+            ],
+            "dicas": [ ]
+        }, 
+        {
+            "descricao": " Para um banco de dados SQL, dois comandos que pertencem à categoria Data Manipulation Language (DML). Assinale-os." ,
+            "nivel": "Dificil",
+            "respostas": [
+                {
+                    "a": "ALTER e INSERT",
+                    "correta": false
+                },
+                {
+                    "b": "MODIFY e ALTER",
+                    "correta": false 
+                },
+                {
+                    "c": "UPDATE e MODIFY",
+                    "correta": false 
+                },
+                {
+                    "d": "NSERT e UPDATE",
+                    "correta": true 
+                }
+            ],
+            "dicas": [ ]
+            
+        }, 
+        {
+            "descricao": "Considere as linguagens de manipulação (DML) e definição (DDL) de dados da SQL. As cláusulas CONSTRAINT, DISTINCT, FOREIGN KEY, HAVING e RENAME são corretas e respectivamente utilizadas no âmbito da:" ,
+            "nivel": "Dificil",
+            "respostas": [
+                {
+                    "a": "DDL, DML, DDL, DML, DDL",
+                    "correta": true
+                },
+                {
+                    "b": "DML, DML, DDL, DML, DDL",
+                    "correta": false 
+                },
+                {
+                    "c": "DML, DDL, DDL, DML, DML",
+                    "correta": false 
+                },
+                {
+                    "d": "DDL, DDL, DML, DDL, DDL",
+                    "correta": true 
+                }
+            ],
+            "dicas": [ ]
+            
+        }
+
+    ]
+}

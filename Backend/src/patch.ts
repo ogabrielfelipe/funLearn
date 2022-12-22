@@ -2,7 +2,7 @@
 // @ts-ignore: Unreachable code error                              <-- BigInt does not have `toJSON` method
 
 
-//  Converte o valor de BigInt em string, utilizado para retornar o resuldado da persistência no bando de dados
+//  Convert o valor de BigInt em string, utilizado para retornar o resuldado da persistência no bando de dados
 
 
 BigInt.prototype.toJSON=function(){
@@ -10,7 +10,7 @@ BigInt.prototype.toJSON=function(){
 }
 
 
-//Converte a data para o TimeZone do Brasil 
+//Convert a data para o TimeZone do Brasil 
 
 Date.prototype.toJSON=function(){
     return this.toLocaleString('pt-BR', {

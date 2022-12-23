@@ -5,7 +5,6 @@ import { DeleteAnswerService } from "../answer/DeleteAnswerService";
 import { CreateTipService } from "../tip/CreateTipService";
 
 
-
 type AnswerProps = {
     id: string | null;
     description: string,
@@ -56,7 +55,6 @@ class CreateAskService{
                 id: true,
             }
         })
-        console.log(createAsk)
 
         if (createAsk){
             const createAnswer = new CreateAnswerService();

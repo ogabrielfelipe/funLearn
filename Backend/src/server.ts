@@ -224,6 +224,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 })
 
 import os from 'os';
+import { ImportAsksController } from './controller/ask/ImportAsksControler';
 
 const networkInfo = os.networkInterfaces();
 
@@ -241,6 +242,15 @@ if (platform == "linux"){
     //networkInfo['Ethernet Instance 0']![1].address
 }
 
+
+
+/**
+ * interface para importação de perguntas, deve configurala antes de utilizar! 
+ const importAsk = new ImportAsksController()
+ importAsk.handle();
+
+
+*/
 
 
 app.listen(3333, () => {

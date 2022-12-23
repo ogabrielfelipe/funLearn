@@ -7,7 +7,7 @@ class FindAskService{
 
         const ask = await prismaClient.ask.findUnique({
             where:{
-                id: askID
+                id: askID,
             },
             include:{
                 answer: true,

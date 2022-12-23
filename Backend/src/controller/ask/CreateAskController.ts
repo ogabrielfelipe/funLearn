@@ -40,13 +40,7 @@ class CreateAskController{
         let answerConverter = JSON.parse(answer)
         let tipConverter = JSON.parse(tip)
 
-        console.log(question,
-            active,
-            level,
-            answer,
-            tip,
-            themeID)
-
+        
         const createAskService = new CreateAskService();
         const result = await createAskService.execute({
             question: question,

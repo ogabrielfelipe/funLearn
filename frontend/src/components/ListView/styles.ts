@@ -36,7 +36,7 @@ export const ContentList = styled.div`
 
 export const TextList = styled.span`
     font-size: 1.1rem;
-    width: 15rem;
+    width: 25rem;
 `
 
 export const ContentBtn = styled.div`

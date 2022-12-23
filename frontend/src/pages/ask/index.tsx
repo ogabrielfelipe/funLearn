@@ -40,7 +40,7 @@ export default function Ask( { listAsks }: AsksProps){
     asks.forEach((t, i) => {
         listTeamFor.push({
             id: t.id,
-            name1: t.question,
+            name1: t.question.length > 100 ? t.question.slice(0, 80)+'...': t.question ,
             name2: t.active ? "Ativo" : "Inativo"
         })
         

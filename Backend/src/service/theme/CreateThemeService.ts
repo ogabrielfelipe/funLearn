@@ -85,8 +85,8 @@ class CreateThemeService{
                         id: createTheme.id
                     }
                 })
-
-                return err
+                console.log(err);
+                return false
             }
         }
     }

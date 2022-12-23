@@ -28,7 +28,8 @@ class FindManyAskController{
 
         const findManyAsk = new FindManyAskService();
         const result = await findManyAsk.execute({
-            question: question
+            question: question,
+            user: req.user
         })
 
         /* #swagger.responses[500] = { 

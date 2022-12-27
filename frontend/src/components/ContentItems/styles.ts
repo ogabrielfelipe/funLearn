@@ -15,6 +15,11 @@ export const Container = styled.div`
 
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 920px) {
+        width: 170vw;
+        height: calc(100vh - 5rem);
+    }
 `
 
 export const Title = styled.strong`

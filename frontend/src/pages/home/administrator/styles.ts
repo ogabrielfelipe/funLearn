@@ -13,6 +13,22 @@ export const Container = styled.main`
 
     gap: 2rem;
 
+    @media (max-width: 400px) {
+        gap: 2rem;
+        scale: .8;
+    }
+
+    @media (max-width: 450px) {
+        margin-top: 1rem;
+        gap: 5rem;
+        scale: .9;
+    }
+
+    @media (max-width: 920px) {
+        margin-top: 1rem;
+        scale: .9;
+    }
+
 `
 
 export const Content = styled.div`

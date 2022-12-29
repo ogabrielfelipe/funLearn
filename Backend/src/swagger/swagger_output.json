@@ -3119,41 +3119,78 @@
     "StartGameRes": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "example": "c3a57b01-6bd4-4415-967e-a84f553e1768"
-        },
-        "dateInitial": {
-          "type": "string",
-          "example": "20/12/2022 21:26:52"
-        },
-        "started": {
-          "type": "boolean",
-          "example": true
-        },
-        "student": {
+        "initialDatas": {
           "type": "object",
           "properties": {
             "id": {
               "type": "string",
-              "example": "eb83fc87-0692-46de-9e23-472a979c4b37"
+              "example": "5f7fe44b-4ea5-421f-a07d-28d31a7ac700"
             },
-            "name": {
+            "dateInitial": {
               "type": "string",
-              "example": "Esther Ribeiro"
+              "example": "28/12/2022 22:49:51"
+            },
+            "started": {
+              "type": "boolean",
+              "example": true
+            },
+            "student": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "b3008250-1dd7-4501-aafe-818f8f14df75"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Rute"
+                }
+              }
+            },
+            "theme": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Linguagem de Manipulação de dados (DML)"
+                }
+              }
             }
           }
         },
-        "theme": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "example": "e28a18e5-efb9-4a1e-98c8-b48ab418d390"
-            },
-            "name": {
-              "type": "string",
-              "example": "INSERT sql"
+        "ListAsks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "level": {
+                "type": "string",
+                "example": "ADVANCED"
+              },
+              "total": {
+                "type": "number",
+                "example": 3
+              },
+              "asks": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d"
+                    },
+                    "level": {
+                      "type": "string",
+                      "example": "ADVANCED"
+                    }
+                  }
+                }
+              }
             }
           }
         }

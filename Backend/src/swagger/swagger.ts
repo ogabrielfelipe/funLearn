@@ -416,18 +416,80 @@ const doc = {
             studentID: "031dd41f-15f2-490b-9eb4-99779b43480c",
         },
         StartGameRes: {
-            "id": "c3a57b01-6bd4-4415-967e-a84f553e1768",
-            "dateInitial": "20/12/2022 21:26:52",
-            "started": true,
-            "student": {
-              "id": "eb83fc87-0692-46de-9e23-472a979c4b37",
-              "name": "Esther Ribeiro"
+            "initialDatas": {
+              "id": "5f7fe44b-4ea5-421f-a07d-28d31a7ac700",
+              "dateInitial": "28/12/2022 22:49:51",
+              "started": true,
+              "student": {
+                "id": "b3008250-1dd7-4501-aafe-818f8f14df75",
+                "name": "Rute"
+              },
+              "theme": {
+                "id": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+                "name": "Linguagem de Manipulação de dados (DML)"
+              }
             },
-            "theme": {
-              "id": "e28a18e5-efb9-4a1e-98c8-b48ab418d390",
-              "name": "INSERT sql"
-            }
-        },
+            "ListAsks": [
+              {
+                "level": "INITIAL",
+                "total": 4,
+                "asks": [
+                  {
+                    "id": "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4",
+                    "level": "INITIAL"
+                  },
+                  {
+                    "id": "55d03711-594d-4cd4-b7f6-53668eccb452",
+                    "level": "INITIAL"
+                  },
+                  {
+                    "id": "325dd53c-99c4-4f94-a6a0-e983d4f6ec7d",
+                    "level": "INITIAL"
+                  },
+                  {
+                    "id": "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
+                    "level": "INITIAL"
+                  }
+                ]
+              },
+              {
+                "level": "INTERMEDIARY",
+                "total": 3,
+                "asks": [
+                  {
+                    "id": "726ab7a7-6ae5-4e68-9cf7-089b699a9baa",
+                    "level": "INTERMEDIARY"
+                  },
+                  {
+                    "id": "6753a791-9627-4cba-b819-5c5398506275",
+                    "level": "INTERMEDIARY"
+                  },
+                  {
+                    "id": "1dba071a-7830-4da0-ab28-689b394c4ccb",
+                    "level": "INTERMEDIARY"
+                  }
+                ]
+              },
+              {
+                "level": "ADVANCED",
+                "total": 3,
+                "asks": [
+                  {
+                    "id": "5b5d88ab-9474-4154-842e-8e536a703710",
+                    "level": "ADVANCED"
+                  },
+                  {
+                    "id": "50e32eb6-46e4-488f-987d-cb40c2ed09e7",
+                    "level": "ADVANCED"
+                  },
+                  {
+                    "id": "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
+                    "level": "ADVANCED"
+                  }
+                ]
+              }
+            ]
+          },
 
         // --------------------- TIP --------------------------------
         CreateTip:{

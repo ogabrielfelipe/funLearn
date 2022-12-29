@@ -2,10 +2,17 @@ import { Request, Response } from "express";
 import { StartGameService } from "../../service/game/StartGameService";
 
 import moment from "moment-timezone";
+import GameConfig from "../../../configGame.json"
+import { FindAskSortedByThemeService } from "../../service/ask/FindAskSortedByThemeService";
 
 
 // Observação: SOMENTE ALUNO PODERÁ ACESSAR ESSA API
 
+enum Level {
+    INITIAL = "INITIAL",
+    INTERMEDIARY = "INTERMEDIARY",
+    ADVANCED = "ADVANCED",
+}
 
 class StartGameController{
     async handle(req: Request, res: Response){
@@ -43,6 +50,21 @@ class StartGameController{
         })
 
 
+        const findAskByTheme = new FindAskSortedByThemeService()
+        let listAsks = Array()
+        for (var level in GameConfig.level) {
+            var asks = await findAskByTheme.execute({
+                themeID: themeID,
+                level: GameConfig.level[level].description as Level,
+                quantity: GameConfig.level[level].quantityAsks
+            })
+
+            listAsks.push( { level: GameConfig.level[level].description, total: asks.length , asks: asks  } )
+
+        }
+
+
+
             /* #swagger.responses[403] = { 
                 description: 'Usuário da requisição não é um aluno.\n ' 
             } */
@@ -61,7 +83,7 @@ class StartGameController{
                 schema: { $ref: "#/definitions/StartGameRes" }   
             } */
 
-        return res.status(200).json(result);
+        return res.status(200).json({ "initialDatas": result, "ListAsks":listAsks});
 
     }
 }

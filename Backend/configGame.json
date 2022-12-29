@@ -18,5 +18,20 @@
             "3": 700,
             "used-tip": 35
         }
-    }
+    },
+    "level":[
+        {
+            "description": "INITIAL",
+            "quantityAsks": 4
+        },
+        {
+            "description": "INTERMEDIARY",
+            "quantityAsks": 3
+        },
+        {
+            "description": "ADVANCED",
+            "quantityAsks": 3
+        }
+    ]
+    
 }

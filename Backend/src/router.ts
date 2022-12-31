@@ -51,6 +51,8 @@ import { DisconnectTeamController } from './controller/theme/DisconnectTeamContr
 import { ConnectTeamController } from './controller/theme/ConnectTeamController';
 import { CountItemsController } from './controller/administrator/CountItemsController';
 import { StartGameController } from './controller/game/StartGameController';
+import { FindAskGameController } from './controller/game/FindAskGameController';
+import { CheckAnswerCorrectController } from './controller/game/CheckAnswerCorrectController';
 
 const path = require('path')
 const router = Router();
@@ -178,6 +180,9 @@ router.delete('/tip', isAuthenticated, new DeleteTipController().handle)
 
 // -------------- Game --------------
 router.post('/game/start', isAuthenticated, new StartGameController().handle)
+router.get('/game/ask/find/:askID', isAuthenticated, new FindAskGameController().handle)
+router.get('/game/answer/check', isAuthenticated, new CheckAnswerCorrectController().handle)
+
 
 
 

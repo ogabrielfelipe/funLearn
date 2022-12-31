@@ -9,12 +9,14 @@ interface StartGameRequest{
     userRequest: {
         id: string;
         type: string;
-    }
+    },
+    score: number,
+    life: number,
 }
 
 
 class StartGameService{
-    async execute( { themeID, studentID, dataInitial, userRequest }:StartGameRequest ) {
+    async execute( { themeID, studentID, dataInitial, userRequest, score, life }:StartGameRequest ) {
 
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
@@ -52,12 +54,23 @@ class StartGameService{
                 started: true,
                 studentID: student.id,
                 themeID: theme.id,
-                dateInitial: dataInitial
+                dateInitial: dataInitial,
+                finished: false,
+                finishedOver: false,
+                finishedTime: false,
+                score: score,
+                life: life
             },
             select: {
                 id: true,
                 dateInitial: true,
+                dateFinish: true,
                 started: true,
+                finished: true,
+                finishedOver: true,
+                finishedTime: true,
+                life: true,
+                score: true,
                 student: {
                     select: {
                         id: true,

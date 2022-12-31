@@ -31,6 +31,7 @@ class FindAskSortedByThemeService{
             where: {
                 themeID: themeID,
                 level: level,
+                active: true,
             },
             select: {
                 id: true,

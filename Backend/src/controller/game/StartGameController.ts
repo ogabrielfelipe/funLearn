@@ -46,7 +46,9 @@ class StartGameController{
             studentID: studentID,
             dataInitial: DateTimePTBR.format(),
             themeID: themeID,
-            userRequest: req.user
+            userRequest: req.user,
+            score: GameConfig.game.scoreMin,
+            life: GameConfig.game.life,
         })
 
 

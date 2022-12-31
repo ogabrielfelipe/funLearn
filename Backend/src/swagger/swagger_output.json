@@ -1869,6 +1869,105 @@
           }
         }
       }
+    },
+    "/game/ask/find/{askID}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para buscar uma pergunta do QUIZZ.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "askID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "askID",
+            "in": "params",
+            "required": true,
+            "type": "string",
+            "description": " askID: Deverá ser preenchido com o identificador da pergunta proposto.",
+            "requerid": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindAskGameRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno.\n "
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
+    "/game/answer/check": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para Iniciar o QUIZZ.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "askID, answerID, positionID, attempt, tip, time",
+            "in": "body",
+            "description": " askID: Deverá ser preenchido com o identificador da pergunta; \n   answerID: Deverá ser preenchido com o identificador da resposta selecionada; \n   positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n   attempt: Deverá ser preenchido com o número de tentativas que foi utilizada para responder; \n   tip: Deverá ser preenchido com o número de dicas que foram utilziadas; \n   time: Deverá ser preenchido com o tempo utilizado para responder a pergunta.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/CheckAnswer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro salvo com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/CheckAnswerRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno.\n "
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -3124,15 +3223,36 @@
           "properties": {
             "id": {
               "type": "string",
-              "example": "5f7fe44b-4ea5-421f-a07d-28d31a7ac700"
+              "example": "f1ada8bf-efcc-4c48-8e40-76631a3ff804"
             },
             "dateInitial": {
               "type": "string",
-              "example": "28/12/2022 22:49:51"
+              "example": "30/12/2022 19:41:08"
             },
+            "dateFinish": {},
             "started": {
               "type": "boolean",
               "example": true
+            },
+            "finished": {
+              "type": "boolean",
+              "example": false
+            },
+            "finishedOver": {
+              "type": "boolean",
+              "example": false
+            },
+            "finishedTime": {
+              "type": "boolean",
+              "example": false
+            },
+            "life": {
+              "type": "number",
+              "example": 3
+            },
+            "score": {
+              "type": "string",
+              "example": "0"
             },
             "student": {
               "type": "object",
@@ -3193,6 +3313,105 @@
               }
             }
           }
+        }
+      }
+    },
+    "FindAskGameRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4"
+        },
+        "level": {
+          "type": "string",
+          "example": "INITIAL"
+        },
+        "question": {
+          "type": "string",
+          "example": "O que é DML(Data Manipulation Language)?"
+        },
+        "image": {
+          "type": "string",
+          "example": ""
+        },
+        "tip": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "f46b80c2-426a-4059-b4fe-2a93a9908339"
+              },
+              "name": {
+                "type": "string",
+                "example": "Um dos principais comandos que está ligado ao DML é o comando de SELECT e INSERT."
+              }
+            }
+          }
+        },
+        "answer": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "a31e6f30-caf0-488b-adcf-dda873f3bccf"
+              },
+              "description": {
+                "type": "string",
+                "example": "É um subconjunto de SQL usado para gerenciar dados em um banco de dados."
+              }
+            }
+          }
+        }
+      }
+    },
+    "CheckAnswer": {
+      "type": "object",
+      "properties": {
+        "askID": {
+          "type": "string",
+          "example": "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4"
+        },
+        "answerID": {
+          "type": "string",
+          "example": "a31e6f30-caf0-488b-adcf-dda873f3bccf"
+        },
+        "positionID": {
+          "type": "string",
+          "example": "f1ada8bf-efcc-4c48-8e40-76631a3ff804"
+        },
+        "time": {
+          "type": "string",
+          "example": "2"
+        },
+        "attempt": {
+          "type": "number",
+          "example": 1
+        },
+        "tip": {
+          "type": "number",
+          "example": 0
+        }
+      }
+    },
+    "CheckAnswerRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "ff9275cb-e4d6-43a8-847d-40183afb9c56"
+        },
+        "point": {
+          "type": "number",
+          "example": 500
+        },
+        "right": {
+          "type": "boolean",
+          "example": true
         }
       }
     },

@@ -1,36 +1,66 @@
 {
-    "punctuation":{
-        "initial":{
-            "1": 500,
-            "2": 350,
-            "3": 200,
-            "used-tip": 15
-        },
-        "intermediary":{
-            "1": 750,
-            "2": 600,
-            "3": 450,
-            "used-tip": 25
-        },
-        "advanced":{
-            "1": 1000,
-            "2": 850,
-            "3": 700,
-            "used-tip": 35
-        }
+    "game":{
+        "life": 3,
+        "scoreMax": 7250,
+        "scoreMin": 0
     },
     "level":[
         {
             "description": "INITIAL",
-            "quantityAsks": 4
+            "quantityAsks": 4,
+            "punctuation": [
+                {
+                    "attempt": 1,
+                    "point": 500
+                },
+                {
+                    "attempt": 2,
+                    "point": 350
+                },
+                {
+                    "attempt": 3,
+                    "point": 200
+                }
+            ],
+            "used-tip": 15
         },
         {
             "description": "INTERMEDIARY",
-            "quantityAsks": 3
+            "quantityAsks": 3,
+            "punctuation": [
+                {
+                    "attempt": 1,
+                    "point": 750
+                },
+                {
+                    "attempt": 2,
+                    "point": 600
+                },
+                {
+                    "attempt": 3,
+                    "point": 450
+                }
+            ],
+            "used-tip": 25
         },
         {
             "description": "ADVANCED",
-            "quantityAsks": 3
+            "quantityAsks": 3,
+            "punctuation": [
+                {
+                    "attempt": 1,
+                    "point": 1000
+                },
+                {
+                    "attempt": 2,
+                    "point": 850
+                },
+                {
+                    "attempt": 3,
+                    "point": 700
+                }
+            ],
+            "used-tip": 35
         }
     ]
     

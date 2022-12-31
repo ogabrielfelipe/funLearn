@@ -416,80 +416,134 @@ const doc = {
             studentID: "031dd41f-15f2-490b-9eb4-99779b43480c",
         },
         StartGameRes: {
-            "initialDatas": {
-              "id": "5f7fe44b-4ea5-421f-a07d-28d31a7ac700",
-              "dateInitial": "28/12/2022 22:49:51",
-              "started": true,
-              "student": {
-                "id": "b3008250-1dd7-4501-aafe-818f8f14df75",
-                "name": "Rute"
+            initialDatas: {
+              id: "f1ada8bf-efcc-4c48-8e40-76631a3ff804",
+              dateInitial: "30/12/2022 19:41:08",
+              dateFinish: null,
+              started: true,
+              finished: false,
+              finishedOver: false,
+              finishedTime: false,
+              life: 3,
+              score: "0",
+              student: {
+                id: "b3008250-1dd7-4501-aafe-818f8f14df75",
+                name: "Rute"
               },
               "theme": {
-                "id": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
-                "name": "Linguagem de Manipulação de dados (DML)"
+                id: "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+                name: "Linguagem de Manipulação de dados (DML)"
               }
             },
-            "ListAsks": [
+            ListAsks: [
               {
-                "level": "INITIAL",
-                "total": 4,
-                "asks": [
+                level: "INITIAL",
+                total: 4,
+                asks: [
                   {
-                    "id": "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4",
-                    "level": "INITIAL"
+                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
+                    level: "INITIAL"
                   },
                   {
-                    "id": "55d03711-594d-4cd4-b7f6-53668eccb452",
-                    "level": "INITIAL"
+                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
+                    level: "INITIAL"
                   },
                   {
-                    "id": "325dd53c-99c4-4f94-a6a0-e983d4f6ec7d",
-                    "level": "INITIAL"
+                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
+                    level: "INITIAL"
                   },
                   {
-                    "id": "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
-                    "level": "INITIAL"
+                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
+                    level: "INITIAL"
                   }
                 ]
               },
               {
-                "level": "INTERMEDIARY",
-                "total": 3,
-                "asks": [
+                level: "INTERMEDIARY",
+                total: 3,
+                asks: [
                   {
-                    "id": "726ab7a7-6ae5-4e68-9cf7-089b699a9baa",
-                    "level": "INTERMEDIARY"
+                    id: "1dba071a-7830-4da0-ab28-689b394c4ccb",
+                    level: "INTERMEDIARY"
                   },
                   {
-                    "id": "6753a791-9627-4cba-b819-5c5398506275",
-                    "level": "INTERMEDIARY"
+                    id: "1dba071a-7830-4da0-ab28-689b394c4ccb",
+                    level: "INTERMEDIARY"
                   },
                   {
-                    "id": "1dba071a-7830-4da0-ab28-689b394c4ccb",
-                    "level": "INTERMEDIARY"
+                    id: "1dba071a-7830-4da0-ab28-689b394c4ccb",
+                    level: "INTERMEDIARY"
                   }
                 ]
               },
               {
-                "level": "ADVANCED",
-                "total": 3,
-                "asks": [
+                level: "ADVANCED",
+                total: 3,
+                asks: [
                   {
-                    "id": "5b5d88ab-9474-4154-842e-8e536a703710",
-                    "level": "ADVANCED"
+                    id: "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
+                    level: "ADVANCED"
                   },
                   {
-                    "id": "50e32eb6-46e4-488f-987d-cb40c2ed09e7",
-                    "level": "ADVANCED"
+                    id: "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
+                    level: "ADVANCED"
                   },
                   {
-                    "id": "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
-                    "level": "ADVANCED"
+                    id: "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
+                    level: "ADVANCED"
                   }
                 ]
               }
             ]
           },
+        FindAskGameRes:{
+            id: "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4",
+            level: "INITIAL",
+            question: "O que é DML(Data Manipulation Language)?",
+            image: "",
+            tip: [
+              {
+                id: "07f989b9-674c-4cf4-a06c-1655baf8f33e",
+                name: "Você pode inserir dados em seu banco de dados usando DML."
+              },
+              {
+                id: "f46b80c2-426a-4059-b4fe-2a93a9908339",
+                name: "Um dos principais comandos que está ligado ao DML é o comando de SELECT e INSERT."
+              }
+            ],
+            answer: [
+              {
+                id: "46d1fe20-af4d-4744-ad8a-ddf247e24387",
+                description: " É um subconjunto de SQL usado para gerenciar transações em um banco de dados."
+              },
+              {
+                id: "945bbdd1-486b-438c-9f5e-fdec500f71db",
+                description: "Este subconjunto pode ser utilizado para criar e remover as permissões dos usuários."
+              },
+              {
+                id: "9c6990a2-1d2e-40ec-83c1-a63b40265df3",
+                description: "É um subconjunto de SQL que serve para a criar a estrutura dos dados da tabela."
+              },
+              {
+                id: "a31e6f30-caf0-488b-adcf-dda873f3bccf",
+                description: "É um subconjunto de SQL usado para gerenciar dados em um banco de dados."
+              }
+            ]
+          },
+        CheckAnswer: { 
+            "askID": "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4", 
+            "answerID": "a31e6f30-caf0-488b-adcf-dda873f3bccf", 
+            "positionID": "f1ada8bf-efcc-4c48-8e40-76631a3ff804", 
+            "time": "2",
+            "attempt": 1, 
+            "tip": 0
+        },
+        CheckAnswerRes: {
+            "id": "ff9275cb-e4d6-43a8-847d-40183afb9c56",
+            "point": 500,
+            "right": true
+          },
+        
 
         // --------------------- TIP --------------------------------
         CreateTip:{

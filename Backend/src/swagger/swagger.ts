@@ -706,7 +706,53 @@ const doc = {
             "teamID": "da6236ae-1325-4c86-bf0e-df83dd2c8212",
             "themeID": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5",
             "visible": true
+        },
+        FindThemesByStudentRes: [
+          {
+            "theme": {
+              "id": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+              "name": "Linguagem de Manipulação de dados (DML)",
+              "description": "DML fornece comandos para que os usuários consigam manipular dados em um banco de dados. A manipulação envolve inserir, recuperar, excluir e atualizar dados em tabelas de banco de dados."
+            },
+            "team": {
+              "id": "a4aa0c99-d08a-497f-9d1c-24ff6e5d295d",
+              "name": "3° ano - Informatica",
+              "teacher": {
+                "id": "ca76239a-3372-4fc1-966e-2fba48c5a8bc",
+                "name": "Gabriel Vieira"
+              }
+            }
           }
+        ],
+        FinishGame:{ 
+          "positionID": "a3b043d5-8555-4222-a4bc-a5972ad2650b",
+          "typeFinish": "FINISHED",
+          "attempt": 3
+        },
+        FinishGameRes: {
+          "id": "c8d32602-8761-4cdf-8c36-6cd343576e10",
+          "started": true,
+          "finished": true,
+          "finishedTime": false,
+          "finishedOver": false,
+          "score": "0",
+          "life": 3,
+          "dateInitial": "31/12/2022 11:35:45",
+          "dateFinish": "31/12/2022 11:36:08",
+          "studentID": "b3008250-1dd7-4501-aafe-818f8f14df75",
+          "themeID": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+        },
+        RemoveLifeRes: {
+          "id": "c146b7b6-a285-41d3-a67f-6e5d02f2f797",
+          "dateFinish": "31/12/2022 11:21:28 || null" ,
+          "dateInitial": "31/12/2022 11:21:17",
+          "finished": false,
+          "finishedOver": "true || false",
+          "finishedTime": false,
+          "life": 0,
+          "score": "0",
+          "started": true
+        }
 
     }
 }

@@ -16,8 +16,8 @@ class FindThemeController{
         // #swagger.tags = ['Theme']
 
         /*
-            #swagger.parameters[ 'themeID'] = {
-                in: 'params',
+            #swagger.parameters['themeID'] = {
+                in: 'path',
                 description: " themeID: Deverá ser preenchido com o identificador da turma.",
                 requerid: true        
             }

@@ -210,7 +210,13 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
                 error: "Usuário da requisição não é um aluno."
             })
             break;
-    
+            
+        case 'Position not found.':
+            return res.status(404).json({
+                error: "Posição não encontrada."
+            })
+            break;
+
 
 
         default:

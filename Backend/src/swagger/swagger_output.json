@@ -1627,18 +1627,13 @@
             "name": "themeID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": " themeID: Deverá ser preenchido com o identificador da turma.",
+            "requerid": true
           },
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
-          },
-          {
-            "name": " themeID",
-            "in": "params",
-            "description": " themeID: Deverá ser preenchido com o identificador da turma.",
-            "requerid": true,
             "type": "string"
           }
         ],
@@ -1921,7 +1916,7 @@
         }
       }
     },
-    "/game/ask/find/{askID}": {
+    "/game/find/ask/{askID}": {
       "get": {
         "tags": [
           "Game"
@@ -1935,20 +1930,14 @@
             "name": "askID",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": " askID: Deverá ser preenchido com o identificador da pergunta proposto.",
+            "requerid": true
           },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "askID",
-            "in": "params",
-            "required": true,
-            "type": "string",
-            "description": " askID: Deverá ser preenchido com o identificador da pergunta proposto.",
-            "requerid": true
           }
         ],
         "responses": {
@@ -2003,6 +1992,140 @@
             "description": "Registro salvo com sucesso. \nSe o jogo for finalizado irá retornar o exemplo abaixo, caso contrário, retorna vazio \"{}\".",
             "schema": {
               "$ref": "#/definitions/CheckAnswerRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno.\n "
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
+    "/game/find/themes": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para buscar todos os temas vinculado ao aluno logado.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindThemesByStudentRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno.\n "
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
+    "/game/removeLife/{positionID}": {
+      "delete": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para remover ou finalizar, caso não tenha mais vida.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "positionID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " positionID: Deverá ser preenchido com o identificador do jogo.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/CheckAnswer"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Vida removida com sucesso ou jogo finalizado.",
+            "schema": {
+              "$ref": "#/definitions/RemoveLifeRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno.\n "
+          },
+          "404": {
+            "description": "Jogo não encontrado.\nToken não encontrado "
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
+    "/game/finish": {
+      "delete": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para Finalizar o QUIZZ.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "positionID, typeFinish, attempt",
+            "in": "body",
+            "description": " positionID: Deverá ser preenchido com o identificador do jogo; \n   typeFinish: Deverá ser preenchido com o tipo de finalização; \n   positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n   attempt: Deverá ser preenchido com o número de tentativas que foi utilizada para responder.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/FinishGame"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jogo Finalizado com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FinishGameRes"
             }
           },
           "401": {
@@ -3912,6 +4035,164 @@
           "example": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5"
         },
         "visible": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "FindThemesByStudentRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "theme": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+              },
+              "name": {
+                "type": "string",
+                "example": "Linguagem de Manipulação de dados (DML)"
+              },
+              "description": {
+                "type": "string",
+                "example": "DML fornece comandos para que os usuários consigam manipular dados em um banco de dados. A manipulação envolve inserir, recuperar, excluir e atualizar dados em tabelas de banco de dados."
+              }
+            }
+          },
+          "team": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "a4aa0c99-d08a-497f-9d1c-24ff6e5d295d"
+              },
+              "name": {
+                "type": "string",
+                "example": "3° ano - Informatica"
+              },
+              "teacher": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "ca76239a-3372-4fc1-966e-2fba48c5a8bc"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Gabriel Vieira"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "FinishGame": {
+      "type": "object",
+      "properties": {
+        "positionID": {
+          "type": "string",
+          "example": "a3b043d5-8555-4222-a4bc-a5972ad2650b"
+        },
+        "typeFinish": {
+          "type": "string",
+          "example": "FINISHED"
+        },
+        "attempt": {
+          "type": "number",
+          "example": 3
+        }
+      }
+    },
+    "FinishGameRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "c8d32602-8761-4cdf-8c36-6cd343576e10"
+        },
+        "started": {
+          "type": "boolean",
+          "example": true
+        },
+        "finished": {
+          "type": "boolean",
+          "example": true
+        },
+        "finishedTime": {
+          "type": "boolean",
+          "example": false
+        },
+        "finishedOver": {
+          "type": "boolean",
+          "example": false
+        },
+        "score": {
+          "type": "string",
+          "example": "0"
+        },
+        "life": {
+          "type": "number",
+          "example": 3
+        },
+        "dateInitial": {
+          "type": "string",
+          "example": "31/12/2022 11:35:45"
+        },
+        "dateFinish": {
+          "type": "string",
+          "example": "31/12/2022 11:36:08"
+        },
+        "studentID": {
+          "type": "string",
+          "example": "b3008250-1dd7-4501-aafe-818f8f14df75"
+        },
+        "themeID": {
+          "type": "string",
+          "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+        }
+      }
+    },
+    "RemoveLifeRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "c146b7b6-a285-41d3-a67f-6e5d02f2f797"
+        },
+        "dateFinish": {
+          "type": "string",
+          "example": "31/12/2022 11:21:28 || null"
+        },
+        "dateInitial": {
+          "type": "string",
+          "example": "31/12/2022 11:21:17"
+        },
+        "finished": {
+          "type": "boolean",
+          "example": false
+        },
+        "finishedOver": {
+          "type": "string",
+          "example": "true || false"
+        },
+        "finishedTime": {
+          "type": "boolean",
+          "example": false
+        },
+        "life": {
+          "type": "number",
+          "example": 0
+        },
+        "score": {
+          "type": "string",
+          "example": "0"
+        },
+        "started": {
           "type": "boolean",
           "example": true
         }

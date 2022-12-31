@@ -53,6 +53,9 @@ import { CountItemsController } from './controller/administrator/CountItemsContr
 import { StartGameController } from './controller/game/StartGameController';
 import { FindAskGameController } from './controller/game/FindAskGameController';
 import { CheckAnswerCorrectController } from './controller/game/CheckAnswerCorrectController';
+import { FindThemesByStudentController } from './service/game/FindThemesByStudentController';
+import { RemoveLifeGameController } from './controller/game/RemoveLifeGameController';
+import { FinishedGameController } from './controller/game/FinishedGameController';
 
 const path = require('path')
 const router = Router();
@@ -180,9 +183,11 @@ router.delete('/tip', isAuthenticated, new DeleteTipController().handle)
 
 // -------------- Game --------------
 router.post('/game/start', isAuthenticated, new StartGameController().handle)
-router.get('/game/ask/find/:askID', isAuthenticated, new FindAskGameController().handle)
+router.get('/game/find/ask/:askID', isAuthenticated, new FindAskGameController().handle)
 router.get('/game/answer/check', isAuthenticated, new CheckAnswerCorrectController().handle)
-
+router.get('/game/find/themes', isAuthenticated, new FindThemesByStudentController().handle)
+router.delete('/game/removeLife/:positionID', isAuthenticated, new RemoveLifeGameController().handle)
+router.delete('/game/finish', isAuthenticated, new FinishedGameController().handle)
 
 
 

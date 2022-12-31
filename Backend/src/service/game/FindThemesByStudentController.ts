@@ -1,34 +1,22 @@
 import { Request, Response } from "express";
-import { FindAskGameService } from "../../service/ask/FindAskGameService";
+import { FindThemesByStudentService } from "../theme/FindThemesByStudentService";
 
 
 
-class FindAskGameController{
+class FindThemesByStudentController{
     async handle(req: Request, res: Response){
-
 
         // #swagger.start
 
-        // #swagger.path = '/game/find/ask/:askID'
+        // #swagger.path = '/game/find/themes'
         // #swagger.method = 'get'
-        // #swagger.description = 'Endpoint para buscar uma pergunta do QUIZZ.'
+        // #swagger.description = 'Endpoint para buscar todos os temas vinculado ao aluno logado.'
         // #swagger.produces = ["application/json"]
         // #swagger.tags = ['Game']
 
-        /*
-            #swagger.parameters['askID'] = {
-                in: 'path',
-                description: " askID: Deverá ser preenchido com o identificador da pergunta proposto.",
-                requerid: true    
-            }
-         */
 
-
-        const askID = req.params.askID;
-
-        const findAsk = new FindAskGameService();
-        const result = await findAsk.execute({
-            askID: askID,
+        const findThemesByStudent = new FindThemesByStudentService();
+        const result = await findThemesByStudent.execute({
             userRequest: req.user
         })
 
@@ -42,13 +30,12 @@ class FindAskGameController{
             } */
             /* #swagger.responses[200] = { 
                 description: 'Busca efetuada com sucesso.',
-                schema: { $ref: "#/definitions/FindAskGameRes" }   
+                schema: { $ref: "#/definitions/FindThemesByStudentRes" }   
             } */
-
 
         return res.status(200).json(result);
 
     }
 }
 
-export { FindAskGameController }
+export { FindThemesByStudentController }

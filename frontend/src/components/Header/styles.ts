@@ -10,6 +10,10 @@ export const Header = styled.header`
     box-shadow: 0 4px 9px rgba(0,0,0, 0.20);
 
     padding: 0 1.5rem;
+
+    @media (max-width: 650px) {
+        width: 32rem;
+    }
 `
 
 export const ContainerLogo = styled.div`
@@ -24,7 +28,6 @@ export const ContainerMenu = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
 `
 export const BtnDashboard = styled.div`
     background-image: url(/assets/FundoDashboard.svg);

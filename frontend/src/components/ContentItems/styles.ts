@@ -17,7 +17,7 @@ export const Container = styled.div`
     flex-direction: column;
 
     @media (max-width: 920px) {
-        width: 170vw;
+        width: 95vw;
         height: calc(100vh - 5rem);
     }
 `

@@ -14,7 +14,6 @@ enum TypeFinish {
 }
 
 
-
 class CheckAnswerCorrectController{
     async handle(req: Request, res: Response){
 
@@ -109,7 +108,7 @@ class CheckAnswerCorrectController{
         })
 
 
-        let finishedGame;
+        let finishedGame = {};
         if (attempt === GameConfig.game.life && !answer.correct){
             let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
             const finishedGameOver = new FinishedGameOverService();
@@ -134,11 +133,11 @@ class CheckAnswerCorrectController{
 
         } */
         /* #swagger.responses[200] = { 
-            description: 'Registro salvo com sucesso.',
+            description: 'Registro salvo com sucesso. \nSe o jogo for finalizado irá retornar o exemplo abaixo, caso contrário, retorna vazio "{}".',
             schema: { $ref: "#/definitions/CheckAnswerRes" }   
         } */
 
-        return res.status(200).json( attempt < GameConfig.game.life ? positionGame : { positionGame, finishedGame })
+        return res.status(200).json({ positionGame, finishedGame })
 
 
     }

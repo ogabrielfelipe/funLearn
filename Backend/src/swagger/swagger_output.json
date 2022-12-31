@@ -1949,7 +1949,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Registro salvo com sucesso.",
+            "description": "Registro salvo com sucesso. \nSe o jogo for finalizado irá retornar o exemplo abaixo, caso contrário, retorna vazio \"{}\".",
             "schema": {
               "$ref": "#/definitions/CheckAnswerRes"
             }
@@ -3401,17 +3401,71 @@
     "CheckAnswerRes": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "string",
-          "example": "ff9275cb-e4d6-43a8-847d-40183afb9c56"
+        "positionGame": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "9718690d-cf81-4212-b6ba-d1850c435a4a"
+            },
+            "point": {
+              "type": "number",
+              "example": 0
+            },
+            "right": {
+              "type": "boolean",
+              "example": false
+            }
+          }
         },
-        "point": {
-          "type": "number",
-          "example": 500
-        },
-        "right": {
-          "type": "boolean",
-          "example": true
+        "finishedGame": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "f1ada8bf-efcc-4c48-8e40-76631a3ff804"
+            },
+            "started": {
+              "type": "boolean",
+              "example": true
+            },
+            "finished": {
+              "type": "boolean",
+              "example": false
+            },
+            "finishedTime": {
+              "type": "boolean",
+              "example": false
+            },
+            "finishedOver": {
+              "type": "boolean",
+              "example": true
+            },
+            "score": {
+              "type": "string",
+              "example": "2100"
+            },
+            "life": {
+              "type": "number",
+              "example": 3
+            },
+            "dateInitial": {
+              "type": "string",
+              "example": "30/12/2022 19:41:08"
+            },
+            "dateFinish": {
+              "type": "string",
+              "example": "31/12/2022 09:51:54"
+            },
+            "studentID": {
+              "type": "string",
+              "example": "b3008250-1dd7-4501-aafe-818f8f14df75"
+            },
+            "themeID": {
+              "type": "string",
+              "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+            }
+          }
         }
       }
     },

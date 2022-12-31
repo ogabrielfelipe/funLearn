@@ -539,10 +539,25 @@ const doc = {
             "tip": 0
         },
         CheckAnswerRes: {
-            "id": "ff9275cb-e4d6-43a8-847d-40183afb9c56",
-            "point": 500,
-            "right": true
-          },
+            "positionGame": {
+              "id": "9718690d-cf81-4212-b6ba-d1850c435a4a",
+              "point": 0,
+              "right": false
+            },
+            "finishedGame": {
+              "id": "f1ada8bf-efcc-4c48-8e40-76631a3ff804",
+              "started": true,
+              "finished": false,
+              "finishedTime": false,
+              "finishedOver": true,
+              "score": "2100",
+              "life": 3,
+              "dateInitial": "30/12/2022 19:41:08",
+              "dateFinish": "31/12/2022 09:51:54",
+              "studentID": "b3008250-1dd7-4501-aafe-818f8f14df75",
+              "themeID": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+            }
+        },
         
 
         // --------------------- TIP --------------------------------

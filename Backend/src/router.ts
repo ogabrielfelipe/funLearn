@@ -166,7 +166,7 @@ router.delete('/answer', isAuthenticated, new DeleteAnswerController().handle)
 router.post('/theme', isAuthenticated, new CreateThemeController().handle)
 router.put('/theme', isAuthenticated, new ChangeThemeController().handle)
 router.get('/themes', isAuthenticated, new FindThemesController().handle)
-router.get('/theme', isAuthenticated, new FindThemeController().handle)
+router.get('/theme/:themeID', isAuthenticated, new FindThemeController().handle)
 
 router.post('/theme/connectTeam', isAuthenticated, new ConnectTeamController().handle)
 router.delete('/theme/disconnectTeam', isAuthenticated, new DisconnectTeamController().handle)

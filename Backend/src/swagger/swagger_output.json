@@ -22,32 +22,32 @@
     },
     {
       "name": "Team",
-      "description": "Endpoint"
+      "description": "Endpoints"
     },
     {
       "name": "Ask",
-      "description": "Endpoint"
+      "description": "Endpoints"
     },
     null,
     {
       "name": "Answer",
-      "description": "Endpoint"
+      "description": "Endpoints"
     },
     {
       "name": "Home",
-      "description": "Endpoint"
+      "description": "Endpoints"
     },
     {
       "name": "Game",
-      "description": "Endpoint"
+      "description": "Endpoints"
     },
     {
       "name": "Tip",
-      "description": "Endpoint"
+      "description": "Endpoints"
     },
     {
       "name": "Theme",
-      "description": "Endpoint"
+      "description": "Endpoints"
     }
   ],
   "schemes": [
@@ -1527,7 +1527,13 @@
         }
       },
       "put": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Theme"
+        ],
+        "description": "Endpoint para alterar o cadastro de um tema.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1535,90 +1541,135 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": " id, name, description, teacherID, active",
             "in": "body",
+            "description": " id: Deverá ser preenchido com o identificador da turma; \n    name: Deverá ser preenchido com o nome do tema; \n   description: Deverá ser preenchido com a descrição do tema; \n   teacherID: Deverá ser preenchido com o identificador do professor; \n   active: Deverá ser preenchido informando se o tema está ativo ou não.",
+            "requerid": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "teacherID": {
-                  "example": "any"
-                },
-                "active": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/ChangeTheme"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Tema alterada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/ChangeThemeRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
-            "description": "Token não encontrado"
-          }
-        }
-      },
-      "get": {
-        "description": "Middleware para autenticação do usuário",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+            "description": "Turma não encontrada."
           },
-          "401": {
-            "description": "Não autorizado."
-          },
-          "404": {
-            "description": "Token não encontrado"
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
     },
     "/themes": {
       "get": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Theme"
+        ],
+        "description": "Endpoint para buscar todos os temas por Professor, caso o usuário da requisição for administrador o parâmetro para filtrar por professor é desativado.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": " name",
+            "in": "body",
+            "description": " name: Deve ser preenchido com o nome do tema, função (LIKE %_%). \nCaso queira listar todos só deixar vazio.",
+            "requerid": true,
+            "schema": {
+              "$ref": "#/definitions/FindThemeMany"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindThemeManyRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
+          }
+        }
+      }
+    },
+    "/theme/{themeID}": {
+      "get": {
+        "tags": [
+          "Theme"
+        ],
+        "description": "Endpoint para buscar detalhadamente um tema.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "themeID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": " themeID",
+            "in": "params",
+            "description": " themeID: Deverá ser preenchido com o identificador da turma.",
+            "requerid": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindThemeRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
     },
     "/theme/connectTeam": {
       "post": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Theme"
+        ],
+        "description": "Endpoint para vincular uma turma no tema proposto.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1626,40 +1677,43 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": " teamID, themeID, visible",
             "in": "body",
+            "description": " teamID: Deverá ser preenchido com o identificador da turma; \n    themeID: Deverá ser preenchido com o identificador do tema; \n   visible: Deverá ser preenchido com a situação de visualização do tema (true: Visível, false: Invisível).",
+            "requerid": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "teamID": {
-                  "example": "any"
-                },
-                "themeID": {
-                  "example": "any"
-                },
-                "visible": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/ConnectTeam"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Turma vinculada com tema com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/ConnectTeamRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
     },
     "/theme/disconnectTeam": {
       "delete": {
-        "description": "Middleware para autenticação do usuário",
+        "tags": [
+          "Theme"
+        ],
+        "description": "Endpoint para desvincular a turma do tema proposto.",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "authorization",
@@ -1667,33 +1721,30 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": " teamID, themeID, visible",
             "in": "body",
+            "description": " teamID: Deverá ser preenchido com o identificador da turma; \n    themeID: Deverá ser preenchido com o identificador do tema; \n   visible: Deverá ser preenchido com a situação de visualização do tema (true: Visível, false: Invisível).",
+            "requerid": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "teamID": {
-                  "example": "any"
-                },
-                "themeID": {
-                  "example": "any"
-                },
-                "visible": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/ConnectTeam"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Turma desvinculada do tema com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/ConnectTeamRes"
+            }
           },
           "401": {
             "description": "Não autorizado."
           },
           "404": {
             "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados ou erros internos."
           }
         }
       }
@@ -3548,6 +3599,10 @@
           "type": "string",
           "example": "35dd2aa2-db19-4863-95c0-7880e0c25144"
         },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
         "teams": {
           "type": "array",
           "items": {
@@ -3641,6 +3696,224 @@
               }
             }
           }
+        }
+      }
+    },
+    "ChangeTheme": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5"
+        },
+        "name": {
+          "type": "string",
+          "example": "Introdução a Banco de Dados 2"
+        },
+        "description": {
+          "type": "string",
+          "example": "Descrição do Banco de Dados1"
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "76664920-f191-456e-a148-370ca4a27b33"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "ChangeThemeRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5"
+        },
+        "name": {
+          "type": "string",
+          "example": "Introdução a Banco de Dados 2"
+        },
+        "description": {
+          "type": "string",
+          "example": "Descrição do Banco de Dados1"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "teacherID": {
+          "type": "string",
+          "example": "76664920-f191-456e-a148-370ca4a27b33"
+        }
+      }
+    },
+    "FindThemeRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5"
+        },
+        "name": {
+          "type": "string",
+          "example": "Introdução a Banco de Dados 2"
+        },
+        "description": {
+          "type": "string",
+          "example": "Descrição do Banco de Dados1"
+        },
+        "active": {
+          "type": "boolean",
+          "example": true
+        },
+        "teacher": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "76664920-f191-456e-a148-370ca4a27b33"
+            },
+            "name": {
+              "type": "string",
+              "example": "Lucas Ribeiro"
+            }
+          }
+        },
+        "teams": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "team": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "da6236ae-1325-4c86-bf0e-df83dd2c8212"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "1° ano - Informatica"
+                  }
+                }
+              },
+              "visible": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "FindThemeMany": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Introdução a Banco de Dados 2"
+        }
+      }
+    },
+    "FindThemeManyRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+          },
+          "name": {
+            "type": "string",
+            "example": "Linguagem de Manipulação de dados (DML)"
+          },
+          "description": {
+            "type": "string",
+            "example": "DML fornece comandos para que os usuários consigam manipular dados em um banco de dados. A manipulação envolve inserir, recuperar, excluir e atualizar dados em tabelas de banco de dados."
+          },
+          "active": {
+            "type": "boolean",
+            "example": true
+          },
+          "teams": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "team": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "a4aa0c99-d08a-497f-9d1c-24ff6e5d295d"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "3° ano - Informatica"
+                    },
+                    "active": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "teacher": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "ca76239a-3372-4fc1-966e-2fba48c5a8bc"
+              },
+              "name": {
+                "type": "string",
+                "example": "Gabriel Vieira"
+              },
+              "active": {
+                "type": "boolean",
+                "example": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "ConnectTeam": {
+      "type": "object",
+      "properties": {
+        "teamID": {
+          "type": "string",
+          "example": "76664920-f191-456e-a148-370ca4a27b33"
+        },
+        "themeID": {
+          "type": "string",
+          "example": "76664920-f191-456e-a148-370ca4a27b33"
+        },
+        "visible": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "ConnectTeamRes": {
+      "type": "object",
+      "properties": {
+        "teamID": {
+          "type": "string",
+          "example": "da6236ae-1325-4c86-bf0e-df83dd2c8212"
+        },
+        "themeID": {
+          "type": "string",
+          "example": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5"
+        },
+        "visible": {
+          "type": "boolean",
+          "example": true
         }
       }
     }

@@ -27,31 +27,31 @@ const doc = {
         },
         {
             "name": "Team",
-            "description": "Endpoint" 
+            "description": "Endpoints" 
         },
         {
             "name": "Ask",
-            "description": "Endpoint" 
+            "description": "Endpoints" 
         },,
         {
             "name": "Answer",
-            "description": "Endpoint" 
+            "description": "Endpoints" 
         },
         {
             "name": "Home",
-            "description": "Endpoint" 
+            "description": "Endpoints" 
         },
         {
             "name": "Game",
-            "description": "Endpoint" 
+            "description": "Endpoints" 
         },
         {
             "name": "Tip",
-            "description": "Endpoint" 
+            "description": "Endpoints" 
         },
         {
             "name": "Theme",
-            "description": "Endpoint" 
+            "description": "Endpoints" 
         }
     ],
     securityDefinitions: {},
@@ -180,7 +180,7 @@ const doc = {
             }
           ],
 
-//-------------------- ## MODEL EstudentE ## --------------------
+//-------------------- ## MODEL STUDENT ## --------------------
         student:{
             name: "Barbara M. Dalton",
             register: 120998977234,
@@ -585,6 +585,7 @@ const doc = {
             "name": "Introdução a Banco de Dados 2",
             "description": "Descrição do Banco de Dados1",
             "teacherID": "35dd2aa2-db19-4863-95c0-7880e0c25144",
+            "active": true,
             "teams": [
               {
               "teamID": "e7748402-2c19-4226-b666-f88e14188021",
@@ -617,7 +618,96 @@ const doc = {
                 ]
               }
             }
+        },
+        ChangeTheme:{
+            "id": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5",
+            "name": "Introdução a Banco de Dados 2",
+            "description": "Descrição do Banco de Dados1",
+            "teacherID": "76664920-f191-456e-a148-370ca4a27b33",
+            "active": true
+        },
+        ChangeThemeRes: {
+            "id": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5",
+            "name": "Introdução a Banco de Dados 2",
+            "description": "Descrição do Banco de Dados1",
+            "active": true,
+            "teacherID": "76664920-f191-456e-a148-370ca4a27b33"
+        },
+        FindThemeRes: {
+            "id": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5",
+            "name": "Introdução a Banco de Dados 2",
+            "description": "Descrição do Banco de Dados1",
+            "active": true,
+            "teacher": {
+              "id": "76664920-f191-456e-a148-370ca4a27b33",
+              "name": "Lucas Ribeiro"
+            },
+            "teams": [
+              {
+                "team": {
+                  "id": "da6236ae-1325-4c86-bf0e-df83dd2c8212",
+                  "name": "1° ano - Informatica"
+                },
+                "visible": true
+              }
+            ]
+        },
+        FindThemeMany:{
+            "name": "Introdução a Banco de Dados 2",
+        },
+        FindThemeManyRes: [
+            {
+              "id": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5",
+              "name": "Introdução a Banco de Dados 2",
+              "description": "Descrição do Banco de Dados1",
+              "active": true,
+              "teams": [
+                {
+                  "team": {
+                    "id": "da6236ae-1325-4c86-bf0e-df83dd2c8212",
+                    "name": "1° ano - Informatica",
+                    "active": true
+                  }
+                }
+              ],
+              "teacher": {
+                "id": "76664920-f191-456e-a148-370ca4a27b33",
+                "name": "Lucas Ribeiro",
+                "active": true
+              }
+            },
+            {
+              "id": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+              "name": "Linguagem de Manipulação de dados (DML)",
+              "description": "DML fornece comandos para que os usuários consigam manipular dados em um banco de dados. A manipulação envolve inserir, recuperar, excluir e atualizar dados em tabelas de banco de dados.",
+              "active": true,
+              "teams": [
+                {
+                  "team": {
+                    "id": "a4aa0c99-d08a-497f-9d1c-24ff6e5d295d",
+                    "name": "3° ano - Informatica",
+                    "active": true
+                  }
+                }
+              ],
+              "teacher": {
+                "id": "ca76239a-3372-4fc1-966e-2fba48c5a8bc",
+                "name": "Gabriel Vieira",
+                "active": true
+              }
+            }
+        ],
+        ConnectTeam:{
+            "teamID": "76664920-f191-456e-a148-370ca4a27b33",
+            "themeID": "76664920-f191-456e-a148-370ca4a27b33",
+            "visible": true
+        },
+        ConnectTeamRes:{
+            "teamID": "da6236ae-1325-4c86-bf0e-df83dd2c8212",
+            "themeID": "1e2e3bdb-414b-4acb-8d33-28caf06b44b5",
+            "visible": true
           }
+
     }
 }
 

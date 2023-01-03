@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useContext } from 'react'
 import Image from "next/image"
 import Link from "next/link"
 import { destroyCookie, setCookie, parseCookies } from 'nookies'
@@ -89,11 +89,22 @@ function HeaderAuth(){
 
 
 function HeaderStudent(){
+    function singOut(){
+        try{
+            destroyCookie(undefined, '@nextauth.token')
+            destroyCookie(undefined, '@nextauth.type')
+            destroyCookie(undefined, '@nextauth.user')
+            Router.push('/')
+        }catch{
+            console.log('erro ao deslogar')
+        }
+    }
+
     return (
         <>
             <HeaderS>
                 <Image src={Logo} alt={'Logo ao do Sistema'} width={120}/>
-                <ButtonStudenTertiary style={{width: '8rem'}}>
+                <ButtonStudenTertiary style={{width: '8rem'}} onClick={singOut}>
                     Sair
                 </ButtonStudenTertiary>
             </HeaderS>

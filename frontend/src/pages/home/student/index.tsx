@@ -9,9 +9,11 @@ import { setupAPIClient } from "../../../services/api";
 import Link from 'next/link'
 
 import Head from "next/head";
-import { HeaderAuth } from "../../../components/Header";
+import { HeaderAuth, HeaderStudent } from "../../../components/Header";
 
 import { Container } from "./styles";
+import { ButtonStudenTertiary, ButtonStudentPrimary, ButtonStudentSecondary } from "../../../components/Button";
+import { Header } from "../../../components/Header/styles";
 
 export default function HomeStudent(){
     return (
@@ -19,10 +21,10 @@ export default function HomeStudent(){
             <Head>
                 <title>Home Student - FunLearn</title>
             </Head>
+            <HeaderStudent /> 
 
-            <h1>Tela Inicial do Aluno!</h1>
             
-            <Container></Container>          
+
         </>
     )
 }

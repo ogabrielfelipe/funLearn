@@ -125,3 +125,16 @@ export const ContainerBtnAdmin = styled.div`
 
     height: auto;
 `
+
+
+
+export const HeaderS = styled.div`
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+
+    align-items: center;
+
+`

@@ -358,6 +358,9 @@ export default function Studant( { listStudants, listTeams }: StudantsFindProps 
 }
 
 export const getServerSideProps = canSSRAuth( async (ctx: any) => {
+
+    console.log(ctx)
+
     const apiClient = setupAPIClient(ctx);
     const res = await apiClient.get('/students', {
         data: {

@@ -3,13 +3,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { destroyCookie, setCookie, parseCookies } from 'nookies'
 
-import { BtnCadastros, BtnDashboard, ContainerBtnAdmin, ContainerLogo, ContainerMenu, ContainerOptions, Header, Option } from "./styles"
+import { BtnCadastros, BtnDashboard, ContainerBtnAdmin, ContainerLogo, ContainerMenu, ContainerOptions, Header, HeaderS, Option } from "./styles"
 
 
 import Logo from "../../../public/assets/logo.svg";
 import VoltarImg from "../../../public/assets/Exit.svg"
 import { CaretDown } from "phosphor-react";
 import Router from "next/router";
+import { ButtonStudenTertiary } from '../Button'
 
 
 function HeaderAuth(){
@@ -86,4 +87,20 @@ function HeaderAuth(){
     )
 }
 
-export { HeaderAuth }
+
+function HeaderStudent(){
+    return (
+        <>
+            <HeaderS>
+                <Image src={Logo} alt={'Logo ao do Sistema'} width={120}/>
+                <ButtonStudenTertiary style={{width: '8rem'}}>
+                    Sair
+                </ButtonStudenTertiary>
+            </HeaderS>
+                
+        </>
+    )
+}
+
+
+export { HeaderAuth, HeaderStudent }

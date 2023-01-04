@@ -10,20 +10,14 @@ import Link from 'next/link'
 
 import Head from "next/head";
 import Image from "next/image";
-import { HeaderAuth, HeaderStudent } from "../../../components/Header";
+import { HeaderStudent } from "../../../components/Header";
 
-import { Container } from "./styles";
+import { Container, Content, ContentLottie, TitleTheme, DescriptionTheme } from "./styles";
 import { ButtonStudenTertiary, ButtonStudentPrimary, ButtonStudentSecondary } from "../../../components/Button";
-import { Header } from "../../../components/Header/styles";
 
-import { ButtonConfirmBlue } from "../../../components/Button";
-
-import TemaDoQuizz from "../../../../public/assets/Tema do Quizz.svg";
-import Frame from "../../../../public/assets/Frame.svg";
-import CaretLeft from "../../../../public/assets/CaretLeft.svg";
-import CaretRight from "../../../../public/assets/CaretRight.svg";
-import Description from "../../../../public/assets/Descrição.svg";
-import ArrowCounterClockwise from "../../../../public/assets/ArrowCounterClockwise.svg";
+import { AnimationTheme1 } from "../../../components/LottieFiles/ModuleStudent";
+import Carousel from "nuka-carousel/lib/carousel";
+import { CaretLeft, CaretRight } from "phosphor-react";
 
 export default function HomeStudent(){
     return (
@@ -34,23 +28,59 @@ export default function HomeStudent(){
             <HeaderStudent /> 
 
             <Container>
-                <Image src={TemaDoQuizz} layout="responsive"  alt={"Tema do Quizz."}/>
-                {/* <strong> TEMA DO QUIZZ</strong> */}
+                <Carousel
+                    autoplay={false}
+                    animation={"fade"}
+                    wrapAround={true}
+                    withoutControls={false}
+                    speed={2000}
+                    defaultControlsConfig={{
+                        pagingDotsStyle: {
+                            opacity: 0,
+                          },
+                        nextButtonText: <CaretRight size={45} color={"#000000"} />,
+                        prevButtonText: <CaretLeft size={45} color={"#000000"} />,
+                        prevButtonStyle: {
+                          backgroundColor: "transparent",
+                          opacity: 0.7,
+                        },
+                        nextButtonStyle: {
+                          backgroundColor: "transparent",
+                          opacity: 0.7,
+                        },
+                      }}
+                >
+                    <Content>
+                        <TitleTheme>Tema do QUIZZ 1</TitleTheme>
+                        <ContentLottie>
+                            <AnimationTheme1 />
+                        </ContentLottie>
+                            
+                        <DescriptionTheme> Descrição do tema </DescriptionTheme>
+                        
+                        <ButtonStudentPrimary>
+                            Começar
+                        </ButtonStudentPrimary>
+                    </Content>       
+                    
 
-                <Image src={Frame} layout="responsive"  alt={"Frame do Quizz."}/>
+                    <Content>
+                        <TitleTheme>Tema do QUIZZ 2</TitleTheme>
+                        <ContentLottie>
+                            <AnimationTheme1 />
+                        </ContentLottie>
+                            
+                        <DescriptionTheme> Descrição do tema </DescriptionTheme>
+                        
+                        <ButtonStudentPrimary>
+                            Começar
+                        </ButtonStudentPrimary>
+                    </Content>     
+                </Carousel>
 
-                <Image src={CaretLeft} layout="responsive" />
 
-                <Image src={CaretRight} layout="responsive"  />
 
-                <Image src={Description} layout="responsive"  />
-                {/* <strong>Descrição do que é o quizz a ser respondido</strong> */}
-
-                <ButtonConfirmBlue type="submit">
-                    Começar
-                </ButtonConfirmBlue>
-
-                <Image src={ArrowCounterClockwise} layout="responsive"/>
+                                
             </Container>
         </>
     )

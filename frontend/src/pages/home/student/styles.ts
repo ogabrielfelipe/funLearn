@@ -51,7 +51,7 @@ export const DescriptionTheme = styled.span`
 
 export const SideBar = styled.nav`
     position: fixed;
-    top: calc(50% - 20rem);
+    top: calc(50% - 15rem);
     height: 25rem;
     width: 15rem;
 `
@@ -61,8 +61,8 @@ export const BtnSideBar = styled.span`
     height: 2rem;
     background-color: #FF0000;
     cursor: pointer;
-
     
+    display: ${hamburguerOpen ? 'inline' : 'none'};
 `
 
 export const Classification = styled.div`

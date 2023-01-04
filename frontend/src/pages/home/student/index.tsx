@@ -1,15 +1,15 @@
 import { canSSRAuth } from "../../../utils/canSSRAuth"
 import { AuthContext } from "../../../contexts/AuthContext";
-import { useContext } from "react"
+import { useState, useContext } from "react"
 import Router from "next/router";
 import { api } from "../../../services/apiClient";
 
 import { setupAPIClient } from "../../../services/api";
 
 import Link from 'next/link'
-
 import Head from "next/head";
 import Image from "next/image";
+
 import { HeaderStudent } from "../../../components/Header";
 
 import { Container, Content, ContentLottie, TitleTheme, DescriptionTheme, SideBar, BtnSideBar, Classification } from "./styles";
@@ -20,7 +20,12 @@ import Carousel from "nuka-carousel/lib/carousel";
 import { CaretLeft, CaretRight } from "phosphor-react";
 
 export default function HomeStudent(){
-    
+    const [hamburguerOpen, setHamburguerOpen] = useState(false);
+
+    const toggleHamburguer = () =>{
+        setHamburguerOpen(!hamburguerOpen);
+    }
+
     return (
         <>
             <Head>
@@ -29,7 +34,7 @@ export default function HomeStudent(){
             <HeaderStudent /> 
 
             <SideBar>
-                <BtnSideBar>
+                <BtnSideBar onClick={toggleHamburguer} >
                     teste
                 </BtnSideBar>
                 <Classification>

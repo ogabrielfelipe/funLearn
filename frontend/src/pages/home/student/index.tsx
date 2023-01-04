@@ -12,7 +12,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { HeaderStudent } from "../../../components/Header";
 
-import { Container, Content, ContentLottie, TitleTheme, DescriptionTheme } from "./styles";
+import { Container, Content, ContentLottie, TitleTheme, DescriptionTheme, SideBar, BtnSideBar, Classification } from "./styles";
 import { ButtonStudenTertiary, ButtonStudentPrimary, ButtonStudentSecondary } from "../../../components/Button";
 
 import { AnimationTheme1 } from "../../../components/LottieFiles/ModuleStudent";
@@ -20,12 +20,22 @@ import Carousel from "nuka-carousel/lib/carousel";
 import { CaretLeft, CaretRight } from "phosphor-react";
 
 export default function HomeStudent(){
+    
     return (
         <>
             <Head>
                 <title>Home Student - FunLearn</title>
             </Head>
             <HeaderStudent /> 
+
+            <SideBar>
+                <BtnSideBar>
+                    teste
+                </BtnSideBar>
+                <Classification>
+
+                </Classification>
+            </SideBar>
 
             <Container>
                 <Carousel

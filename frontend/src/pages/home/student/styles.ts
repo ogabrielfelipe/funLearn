@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 export const Container = styled.main`
 
-    width: 50%;
+    max-width: 50vw;
     height: 80vh;    
 
     display: flex;
@@ -13,12 +13,14 @@ export const Container = styled.main`
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+
+    top: -3.5rem;
+
 `
 
 export const Content = styled.div`
     position: relative;
-    height: 80vh;
-    
+    height: 100vh;    
     
     display: flex;
     justify-content: center;
@@ -29,7 +31,7 @@ export const Content = styled.div`
 `
 
 export const ContentLottie = styled.div`
-    max-width: 30rem;
+    max-width: 20rem;
 `
 
 export const TitleTheme = styled.strong`
@@ -47,26 +49,3 @@ export const DescriptionTheme = styled.span`
 
 `
 
-
-
-export const SideBar = styled.nav`
-    position: fixed;
-    top: calc(50% - 15rem);
-    height: 25rem;
-    width: 15rem;
-`
-
-export const BtnSideBar = styled.span`
-    width: 5rem;
-    height: 2rem;
-    background-color: #FF0000;
-    cursor: pointer;
-    
-    display: ${hamburguerOpen ? 'inline' : 'none'};
-`
-
-export const Classification = styled.div`
-    width: 100%;
-    height: 25rem;
-    background-color: blue;
-`

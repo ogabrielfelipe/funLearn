@@ -52,7 +52,7 @@ export default function HomeStudent(){
                 <div id="sidebarElement" className={styles.elements}>
 
                     <strong className={styles.titleFont} id="titleClassification">
-                        Classificação da Turma
+                        Classificação da Turma  
                     </strong>
 
                     <div className={styles.contentStudents}>

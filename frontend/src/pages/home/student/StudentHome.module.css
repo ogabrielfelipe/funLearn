@@ -24,7 +24,7 @@
 
     position: relative;
     top: 50%;
-    left: 100% ;
+    left: 100%;
 
     width: 5rem;
     height: 2.5rem;
@@ -38,6 +38,13 @@
 
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5);
 }
+
+@media(max-width: 650px){
+    .btnClassification{
+        width: 4rem;
+    }
+}
+
 .btnClassificationRotate{
     transform: rotate(-180deg);
 }

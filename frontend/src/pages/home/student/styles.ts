@@ -2,7 +2,6 @@ import styled from "styled-components"
 
 
 export const Container = styled.main`
-
     max-width: 50vw;
     height: 80vh;    
 
@@ -35,17 +34,18 @@ export const ContentLottie = styled.div`
 `
 
 export const TitleTheme = styled.strong`
-font: 400 12rem;
-font-family: 'Bungee','Cabin', sans-serif;
-font-size: 3rem;
+    font: 400 12rem;
+    font-family: 'Bungee','Cabin', sans-serif;
+    font-size: 3rem;
     
+    @media(max-width: 650px){
+        font-size: 2rem;
+    }
 `
 
 export const DescriptionTheme = styled.span`
   font: 400 1rem;
   font-family: 'Cabin', sans-serif;
   font-size: 1.5rem;
-
-
 `
 

@@ -12,7 +12,6 @@ import { HeaderStudent } from "../../../components/Header";
 import { Container, Content, ContentLottie, TitleTheme, DescriptionTheme} from "./styles";
 import styles from  "./StudentHome.module.css"
 
-
 import { ButtonStudentPrimary } from "../../../components/Button";
 
 import { AnimationTheme1 } from "../../../components/LottieFiles/ModuleStudent";
@@ -22,6 +21,7 @@ import { CaretCircleRight, CaretDoubleRight, CaretLeft, CaretRight } from "phosp
 import FirstPosition from "../../../../public/assets/firstPosition.svg"
 import SecondPosition from "../../../../public/assets/SecondPosition.svg"
 import ThirdPosition from "../../../../public/assets/ThirdPosition.svg"
+import Router from "next/router";
 
 export default function HomeStudent(){
     const [hamburguerOpen, setHamburguerOpen] = useState(false);
@@ -112,7 +112,7 @@ export default function HomeStudent(){
                             
                         <DescriptionTheme> Descrição do tema </DescriptionTheme>
                         
-                        <ButtonStudentPrimary>
+                        <ButtonStudentPrimary onClick={() => Router.push("/game")}>
                             Começar
                         </ButtonStudentPrimary>
                     </Content>       
@@ -126,7 +126,7 @@ export default function HomeStudent(){
                             
                         <DescriptionTheme> Descrição do tema </DescriptionTheme>
                         
-                        <ButtonStudentPrimary>
+                        <ButtonStudentPrimary onClick={() => Router.push("/game")}>
                             Começar
                         </ButtonStudentPrimary>
                     </Content>     

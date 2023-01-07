@@ -57,7 +57,7 @@ class FinishedGameOverService{
                 id: positionID
             },
             data: {
-                dateFinish: dateFinished,
+                dateFinalization: dateFinished,
                 ...(typeFinish === "GAMEOVER" ? {finishedOver: finished} : typeFinish === "TIME" ? {finishedTime: finished} : {finished: finished}),
                 life: life,
                 score: score,

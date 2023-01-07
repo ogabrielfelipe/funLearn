@@ -34,8 +34,7 @@ class FindAskSortedByThemeService{
                 active: true,
             },
             select: {
-                id: true,
-                level: true
+                id: true
             }
         })
 

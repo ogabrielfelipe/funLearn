@@ -38,6 +38,16 @@ class FindThemesByStudentService{
                     id: true,
                     name: true,
                     description: true,
+                    positions:{
+                        select:{
+                            id: true,
+                            dateInitial: true,
+                            dateFinalization: true,
+                            finished: true,
+                            finishedOver: true,
+                            finishedTime: true,
+                        }
+                    }
                 }
             },
             team:{

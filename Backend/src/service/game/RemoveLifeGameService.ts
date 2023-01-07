@@ -57,14 +57,14 @@ class RemoveLifeGameService{
                     id: positionID
                 },
                 data: {
-                    dateFinish: DateTimePTBR.format(),
+                    dateFinalization: DateTimePTBR.format(),
                     finishedOver: true,
                     life: lifePosition,
                     score: score,
                 },
                 select:{
                     id: true,
-                    dateFinish: true,
+                    dateFinalization: true,
                     dateInitial: true,
                     finished: true,
                     finishedOver: true,
@@ -86,7 +86,7 @@ class RemoveLifeGameService{
                 },
                 select:{
                     id: true,
-                    dateFinish: true,
+                    dateFinalization: true,
                     dateInitial: true,
                     finished: true,
                     finishedOver: true,

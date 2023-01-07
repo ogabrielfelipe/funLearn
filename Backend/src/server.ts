@@ -217,6 +217,11 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
             })
             break;
 
+        case 'student already has registration.': 
+            return res.status(403).json({
+                error: "Aluno já possui registro."
+            });
+
 
 
         default:

@@ -3,7 +3,8 @@
         "life": 3,
         "scoreMax": 7250,
         "scoreMin": 0,
-        "timeAnswers": 5
+        "timeAnswers": 5,
+        "timeMax": 50
     },
     "level":[
         {

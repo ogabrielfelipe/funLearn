@@ -6,7 +6,7 @@ interface CheckAnswerCorrectRequest{
     userRequest: {
         id: string;
         type: string;
-    },
+    };
 }
 
 

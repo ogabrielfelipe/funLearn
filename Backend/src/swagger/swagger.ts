@@ -416,86 +416,38 @@ const doc = {
             studentID: "031dd41f-15f2-490b-9eb4-99779b43480c",
         },
         StartGameRes: {
-            initialDatas: {
-              id: "f1ada8bf-efcc-4c48-8e40-76631a3ff804",
-              dateInitial: "30/12/2022 19:41:08",
-              dateFinish: null,
-              started: true,
-              finished: false,
-              finishedOver: false,
-              finishedTime: false,
-              life: 3,
-              score: "0",
-              student: {
-                id: "b3008250-1dd7-4501-aafe-818f8f14df75",
-                name: "Rute"
+            "initialDatas": {
+              "id": "d26334bd-b0dd-482e-9e30-bb8ebe8263b4",
+              "dateInitial": "07/01/2023 12:28:21",
+              "dateFinish": null,
+              "started": true,
+              "finished": false,
+              "finishedOver": false,
+              "finishedTime": false,
+              "life": 3,
+              "score": "0",
+              "student": {
+                "id": "b3008250-1dd7-4501-aafe-818f8f14df75",
+                "name": "Rute"
               },
               "theme": {
-                id: "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
-                name: "Linguagem de Manipulação de dados (DML)"
+                "id": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+                "name": "Linguagem de Manipulação de dados (DML)"
               }
             },
-            ListAsks: [
-              {
-                level: "INITIAL",
-                total: 4,
-                asks: [
-                  {
-                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
-                    level: "INITIAL"
-                  },
-                  {
-                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
-                    level: "INITIAL"
-                  },
-                  {
-                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
-                    level: "INITIAL"
-                  },
-                  {
-                    id: "03f55ff1-8726-4d61-ba22-21e23c92dcbd",
-                    level: "INITIAL"
-                  }
-                ]
-              },
-              {
-                level: "INTERMEDIARY",
-                total: 3,
-                asks: [
-                  {
-                    id: "1dba071a-7830-4da0-ab28-689b394c4ccb",
-                    level: "INTERMEDIARY"
-                  },
-                  {
-                    id: "1dba071a-7830-4da0-ab28-689b394c4ccb",
-                    level: "INTERMEDIARY"
-                  },
-                  {
-                    id: "1dba071a-7830-4da0-ab28-689b394c4ccb",
-                    level: "INTERMEDIARY"
-                  }
-                ]
-              },
-              {
-                level: "ADVANCED",
-                total: 3,
-                asks: [
-                  {
-                    id: "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
-                    level: "ADVANCED"
-                  },
-                  {
-                    id: "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
-                    level: "ADVANCED"
-                  },
-                  {
-                    id: "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d",
-                    level: "ADVANCED"
-                  }
-                ]
-              }
+            "ListAsks": [
+              "d0075fde-17da-423b-8308-e2d3797e3dd0",
+              "1e7a2b6a-a3f8-45ef-9e8b-b40a279a788f",
+              "eb0e3b1d-45c5-4d32-af47-25efb1b4bd28",
+              "83fb6c4d-8001-4331-82a2-c769b3ca2bcd",
+              "e796692f-d7b0-4ab8-ad9c-f32c7f35270d",
+              "902ffb67-203d-4316-a8b8-b5f1e29c8413",
+              "c8515824-cad9-43c2-9c4d-a74750c2d389",
+              "39d1adde-97ba-405c-adb2-77ad0049bec7",
+              "ba6fcded-a199-460b-8a1d-d1a3215a82b8",
+              "625ba578-d8b9-42a8-9a5b-404a89c66988"
             ]
-          },
+        },
         FindAskGameRes:{
             id: "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4",
             level: "INITIAL",
@@ -558,6 +510,42 @@ const doc = {
               "themeID": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
             }
         },
+
+        FindAsksByPositionRes: [
+            {
+                "ask": {
+                "id": "55d03711-594d-4cd4-b7f6-53668eccb452",
+                "level": "INITIAL"
+                },
+                "answered": false,
+                "id": "1e7a2b6a-a3f8-45ef-9e8b-b40a279a788f"
+            },
+        ],
+
+        ReaberturaRes:{
+            "id": "0b483c37-753d-4768-aa3e-9ad57e905d7c",
+            "dateInitial": "07/01/2023 16:04:03",
+            "dateFinalization": "07/01/2023 16:54:03",
+            "started": true,
+            "finished": false,
+            "finishedOver": false,
+            "finishedTime": false,
+            "life": 3,
+            "score": "0",
+            "dateRecommence": "07/01/2023 16:28:30",
+            "dateFinalizationRecommence": "07/01/2023 17:18:30",
+            "qtdRecommence": 3,
+            "recommence": true,
+            "student": {
+              "id": "b3008250-1dd7-4501-aafe-818f8f14df75",
+              "name": "Rute"
+            },
+            "theme": {
+              "id": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+              "name": "Linguagem de Manipulação de dados (DML)"
+            }
+          },
+        
         
 
         // --------------------- TIP --------------------------------

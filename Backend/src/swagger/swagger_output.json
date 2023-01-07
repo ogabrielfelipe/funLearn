@@ -1905,10 +1905,56 @@
             "description": "Não autorizado."
           },
           "403": {
-            "description": "Usuário da requisição não é um aluno.\n "
+            "description": "Usuário da requisição não é um aluno.\n Aluno já possui registro. "
           },
           "404": {
             "description": "Tema não encontrado. \nEstudante não encontrado. \n "
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
+    "/game/recommence/start/{positionID}": {
+      "put": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para recomeçar o QUIZZ.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "positionID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " positionID: Deverá ser preenchido com o identificador do inicio do QUIZZ.",
+            "requerid": true
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reabertura do QUIZZ cadastrada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/ReaberturaRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno. "
+          },
+          "404": {
+            "description": "Posição não encontrada. \nToken não encontrado. \n "
           },
           "500": {
             "description": "Relacionado a erro de persistência no banco de dados."
@@ -2030,6 +2076,52 @@
             "description": "Busca efetuada com sucesso.",
             "schema": {
               "$ref": "#/definitions/FindThemesByStudentRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "403": {
+            "description": "Usuário da requisição não é um aluno.\n "
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
+    "/game/find/askByPosition/{positionID}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para listar todas as perguntas vinculadas ao tema e o estudante.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "positionID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " positionID: Deverá ser preenchido com o identificador do inicio do game (ID da tabela Position).",
+            "requerid": true
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindAsksByPositionRes"
             }
           },
           "401": {
@@ -3397,11 +3489,11 @@
           "properties": {
             "id": {
               "type": "string",
-              "example": "f1ada8bf-efcc-4c48-8e40-76631a3ff804"
+              "example": "d26334bd-b0dd-482e-9e30-bb8ebe8263b4"
             },
             "dateInitial": {
               "type": "string",
-              "example": "30/12/2022 19:41:08"
+              "example": "07/01/2023 12:28:21"
             },
             "dateFinish": {},
             "started": {
@@ -3458,34 +3550,20 @@
         },
         "ListAsks": {
           "type": "array",
+          "example": [
+            "d0075fde-17da-423b-8308-e2d3797e3dd0",
+            "1e7a2b6a-a3f8-45ef-9e8b-b40a279a788f",
+            "eb0e3b1d-45c5-4d32-af47-25efb1b4bd28",
+            "83fb6c4d-8001-4331-82a2-c769b3ca2bcd",
+            "e796692f-d7b0-4ab8-ad9c-f32c7f35270d",
+            "902ffb67-203d-4316-a8b8-b5f1e29c8413",
+            "c8515824-cad9-43c2-9c4d-a74750c2d389",
+            "39d1adde-97ba-405c-adb2-77ad0049bec7",
+            "ba6fcded-a199-460b-8a1d-d1a3215a82b8",
+            "625ba578-d8b9-42a8-9a5b-404a89c66988"
+          ],
           "items": {
-            "type": "object",
-            "properties": {
-              "level": {
-                "type": "string",
-                "example": "ADVANCED"
-              },
-              "total": {
-                "type": "number",
-                "example": 3
-              },
-              "asks": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "example": "0a4820f7-7df8-4762-802a-cd2d3d9e5d3d"
-                    },
-                    "level": {
-                      "type": "string",
-                      "example": "ADVANCED"
-                    }
-                  }
-                }
-              }
-            }
+            "type": "string"
           }
         }
       }
@@ -3638,6 +3716,118 @@
             "themeID": {
               "type": "string",
               "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+            }
+          }
+        }
+      }
+    },
+    "FindAsksByPositionRes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ask": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "55d03711-594d-4cd4-b7f6-53668eccb452"
+              },
+              "level": {
+                "type": "string",
+                "example": "INITIAL"
+              }
+            }
+          },
+          "answered": {
+            "type": "boolean",
+            "example": false
+          },
+          "id": {
+            "type": "string",
+            "example": "1e7a2b6a-a3f8-45ef-9e8b-b40a279a788f"
+          }
+        }
+      }
+    },
+    "ReaberturaRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "0b483c37-753d-4768-aa3e-9ad57e905d7c"
+        },
+        "dateInitial": {
+          "type": "string",
+          "example": "07/01/2023 16:04:03"
+        },
+        "dateFinalization": {
+          "type": "string",
+          "example": "07/01/2023 16:54:03"
+        },
+        "started": {
+          "type": "boolean",
+          "example": true
+        },
+        "finished": {
+          "type": "boolean",
+          "example": false
+        },
+        "finishedOver": {
+          "type": "boolean",
+          "example": false
+        },
+        "finishedTime": {
+          "type": "boolean",
+          "example": false
+        },
+        "life": {
+          "type": "number",
+          "example": 3
+        },
+        "score": {
+          "type": "string",
+          "example": "0"
+        },
+        "dateRecommence": {
+          "type": "string",
+          "example": "07/01/2023 16:28:30"
+        },
+        "dateFinalizationRecommence": {
+          "type": "string",
+          "example": "07/01/2023 17:18:30"
+        },
+        "qtdRecommence": {
+          "type": "number",
+          "example": 3
+        },
+        "recommence": {
+          "type": "boolean",
+          "example": true
+        },
+        "student": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "b3008250-1dd7-4501-aafe-818f8f14df75"
+            },
+            "name": {
+              "type": "string",
+              "example": "Rute"
+            }
+          }
+        },
+        "theme": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+            },
+            "name": {
+              "type": "string",
+              "example": "Linguagem de Manipulação de dados (DML)"
             }
           }
         }

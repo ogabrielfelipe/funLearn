@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { FindThemesByStudentService } from "../theme/FindThemesByStudentService";
+import { FindThemesByStudentService } from "../../service/theme/FindThemesByStudentService";
 
 
 

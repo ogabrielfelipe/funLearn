@@ -6,6 +6,7 @@ interface StartGameRequest{
     themeID: string;
     studentID: string;
     dataInitial: string;
+    dateFinalization: string;
     userRequest: {
         id: string;
         type: string;
@@ -16,7 +17,7 @@ interface StartGameRequest{
 
 
 class StartGameService{
-    async execute( { themeID, studentID, dataInitial, userRequest, score, life }:StartGameRequest ) {
+    async execute( { themeID, studentID, dataInitial, dateFinalization, userRequest, score, life }:StartGameRequest ) {
 
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
@@ -31,7 +32,6 @@ class StartGameService{
                 id: true
             }
         })
-
         if (!theme){
             throw new Error('theme not found.')
         }
@@ -44,10 +44,23 @@ class StartGameService{
                 id: true
             }
         })
-
         if (!student){
             throw new Error('student not found.')
         }
+
+        const verifyStudent = await prismaClient.position.findFirst({
+            where: {
+                studentID: student.id,
+                themeID: theme.id
+            },
+            select: {
+                id: true
+            }
+        })
+        if (verifyStudent){
+            throw new Error('student already has registration.')
+        }
+
 
         const gameStart = await prismaClient.position.create({
             data: {
@@ -55,6 +68,7 @@ class StartGameService{
                 studentID: student.id,
                 themeID: theme.id,
                 dateInitial: dataInitial,
+                dateFinalization: dateFinalization,
                 finished: false,
                 finishedOver: false,
                 finishedTime: false,
@@ -64,7 +78,7 @@ class StartGameService{
             select: {
                 id: true,
                 dateInitial: true,
-                dateFinish: true,
+                dateFinalization: true,
                 started: true,
                 finished: true,
                 finishedOver: true,

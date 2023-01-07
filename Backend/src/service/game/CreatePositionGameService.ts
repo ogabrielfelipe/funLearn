@@ -24,25 +24,24 @@ class CreatePositionGameService{
         }
 
 
-        const game = await prismaClient.game.create({
-            data: {
-                positionID: positionID,
-                askID: askID,
-                tip: tip,
-                attempt: attempt,
-                point: point,
-                right: right,
-                time: time
-            },
-            select: {
-                id: true,
-                point: true,
-                right: true,
-            }
-        })
+        // const game = await prismaClient.game.create({
+        //     data: {
+        //         positionID: positionID,
+        //         askID: askID,
+        //         tip: tip,
+        //         attempt: attempt,
+        //         point: point,
+        //         correct: right,
+        //     },
+        //     select: {
+        //         id: true,
+        //         point: true,
+        //         correct: true,
+        //     }
+        // })
 
 
-        return game
+        return //game
 
 
     }

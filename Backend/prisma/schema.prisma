@@ -105,7 +105,7 @@ model Theme {
 }
 
 model Position {
-  id           String  @id @default(uuid())
+  id           String   @id @default(uuid())
   started      Boolean
   finished     Boolean?
   finishedTime Boolean?
@@ -113,8 +113,13 @@ model Position {
   score        BigInt?
   life         Int?
 
-  dateInitial DateTime
-  dateFinish  DateTime?
+  recommence    Boolean @default(false)
+  qtdRecommence Int     @default(0)
+
+  dateInitial                DateTime
+  dateFinalization           DateTime?
+  dateRecommence             DateTime?
+  dateFinalizationRecommence DateTime?
 
   game Game[]
 
@@ -127,12 +132,14 @@ model Position {
 }
 
 model Game {
-  id      String  @id @default(uuid())
-  point   Int
-  right   Boolean
-  tip     Int
-  attempt Int
-  time    String
+  id               String    @id @default(uuid())
+  point            Int
+  correct          Boolean
+  tip              Int
+  attempt          Int
+  dateCreated      DateTime
+  dateFinalization DateTime?
+  answered         Boolean
 
   askID String
   ask   Ask    @relation(fields: [askID], references: [id])

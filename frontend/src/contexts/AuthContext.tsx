@@ -134,7 +134,6 @@ export function AuthProvider({ children }: AuthProviderProps){
                     password
                 })
             }
-            console.log(response.data)
             const {id, name} = response.data;
             const token = response.headers['x-access-token']
             const typeUser = response.headers['x-access-type']

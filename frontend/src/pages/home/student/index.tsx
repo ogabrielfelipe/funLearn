@@ -1,6 +1,7 @@
 import { canSSRAuth } from "../../../utils/canSSRAuth"
 import { AuthContext } from "../../../contexts/AuthContext";
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react";
+import { destroyCookie, setCookie, parseCookies } from 'nookies'
 
 import { setupAPIClient } from "../../../services/api";
 
@@ -22,11 +23,20 @@ import FirstPosition from "../../../../public/assets/firstPosition.svg"
 import SecondPosition from "../../../../public/assets/SecondPosition.svg"
 import ThirdPosition from "../../../../public/assets/ThirdPosition.svg"
 import Router from "next/router";
+import { LoadingManager } from "../../../components/Loading";
+
+interface HomeStudentProps {
+    userLog: {
+        id: string;
+    }
+}
+
 
 export default function HomeStudent(){
-    const [hamburguerOpen, setHamburguerOpen] = useState(false);
+    const apiClient = setupAPIClient();
+    const [loading, setLoading] = useState(true);
+    const cookies = parseCookies();
     let sidebarObj;
-
     function openClassification(){
         sidebarObj.classList.toggle(styles.moveClassification);
 
@@ -37,6 +47,37 @@ export default function HomeStudent(){
         iconBtnClassification?.classList.toggle(styles.btnClassificationRotate)
 
     }
+
+    const [themes, setThemes] = useState(Array());
+
+    useEffect(() => {
+        async function getThemes(){
+            setLoading(true);
+            await apiClient.get('/game/find/themes')
+            .then(resp => {
+                setThemes(resp.data);
+                setLoading(false);
+
+                console.log(themes)
+            })
+            .catch(err => {
+                console.log(err)
+                setLoading(false);
+            })
+        }
+
+        getThemes();
+
+
+    }, [])
+
+
+    function handleStartGame(themeID: string){
+        console.log("ThemeID: " + themeID);
+
+        console.log(cookies['@nextauth.user']);
+    }
+
 
     return (
         <>
@@ -104,38 +145,46 @@ export default function HomeStudent(){
                         maxWidth: "50vw"
                     }}
                 >
-                    <Content>
-                        <TitleTheme>Tema do QUIZZ 1</TitleTheme>
-                        <ContentLottie>
-                            <AnimationTheme1 />
-                        </ContentLottie>
-                            
-                        <DescriptionTheme> Descrição do tema </DescriptionTheme>
-                        
-                        <ButtonStudentPrimary onClick={() => Router.push("/game")}>
-                            Começar
-                        </ButtonStudentPrimary>
-                    </Content>       
-                    
 
-                    <Content>
-                        <TitleTheme>Tema do QUIZZ 2</TitleTheme>
-                        <ContentLottie>
-                            <AnimationTheme1 />
-                        </ContentLottie>
+                    { themes.map(value => {
+                        return (
+                            <>
                             
-                        <DescriptionTheme> Descrição do tema </DescriptionTheme>
+                                <Content key={value.theme.id}>
+                                    <TitleTheme> { value.theme.name } </TitleTheme>
+                                    <ContentLottie>
+                                        <AnimationTheme1 />
+                                    </ContentLottie>
+                                        
+                                    <DescriptionTheme>{ value.theme.description }</DescriptionTheme>
+                                    
+                                    <ButtonStudentPrimary onClick={() => handleStartGame(value.theme.id)}>
+                                        Começar
+                                    </ButtonStudentPrimary>
+                                </Content>    
                         
-                        <ButtonStudentPrimary onClick={() => Router.push("/game")}>
-                            Começar
-                        </ButtonStudentPrimary>
-                    </Content>     
+                            </>
+                        )
+                    })
+                    }
+                       
+                    
                 </Carousel>
 
 
 
                                 
             </Container>
+
+
+            {loading === true ? (
+                <LoadingManager/>
+                ) : (
+                    <>
+                    </>
+                )
+            }
+
         </>
     )
 }

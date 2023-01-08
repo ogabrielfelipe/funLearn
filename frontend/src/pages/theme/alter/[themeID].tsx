@@ -228,7 +228,7 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
         async function getTheme(id: string){
             setLoading(true)
             const apiClient = setupAPIClient();
-            apiClient.get(`/theme?themeID=${id}`)
+            apiClient.get(`/theme/${id}`)
             .then(resp => {
                 const data = resp.data;
                 console.log(data);

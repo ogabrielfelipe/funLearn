@@ -26,7 +26,7 @@ export const Content = styled.div`
     align-items: center;
     flex-direction: column;
 
-    gap: 1rem;
+    gap: .5rem;
 `
 
 export const ContentLottie = styled.div`
@@ -34,9 +34,10 @@ export const ContentLottie = styled.div`
 `
 
 export const TitleTheme = styled.strong`
-    font: 400 12rem;
+    font: 400 5rem;
     font-family: 'Bungee','Cabin', sans-serif;
-    font-size: 3rem;
+    font-size: 1.5rem;
+    text-align: center;
     
     @media(max-width: 650px){
         font-size: 2rem;
@@ -46,6 +47,7 @@ export const TitleTheme = styled.strong`
 export const DescriptionTheme = styled.span`
   font: 400 1rem;
   font-family: 'Cabin', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
+  text-align: center;
 `
 

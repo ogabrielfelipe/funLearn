@@ -1,7 +1,7 @@
 import { canSSRAuth } from "../../../utils/canSSRAuth"
 import { AuthContext } from "../../../contexts/AuthContext";
 import { useState, useContext, useEffect } from "react";
-import { destroyCookie, setCookie, parseCookies } from 'nookies'
+import { parseCookies } from 'nookies'
 
 import { setupAPIClient } from "../../../services/api";
 
@@ -72,10 +72,32 @@ export default function HomeStudent(){
     }, [])
 
 
-    function handleStartGame(themeID: string){
+    async function handleStartGame(themeID: string){
+        const studentID: string = cookies['@nextauth.user'];
         console.log("ThemeID: " + themeID);
 
-        console.log(cookies['@nextauth.user']);
+        setLoading(true);
+        let data = {
+            themeID: themeID,
+            studentID: studentID
+        }
+        await apiClient.post('/game/start', {
+            data
+        })
+        .then(resp => {
+            if (resp.status === 200) {
+                setLoading(false);
+                Router.push(`/game/${resp.data.initialDatas.id}`)
+            }
+            console.log(resp);
+            setLoading(false);
+        })  
+        .catch(err => {
+            console.log(err);
+            setLoading(false);
+        })
+
+
     }
 
 

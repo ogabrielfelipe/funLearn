@@ -4,7 +4,7 @@ import prismaClient from "../../prisma"
 
 class FindPositionService{
     async execute(positionID: string){
-        const position = await prismaClient.position.findUnique({
+        const position = await prismaClient.position.findFirst({
             where: {
                 id: positionID
             },

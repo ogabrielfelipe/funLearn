@@ -2139,6 +2139,49 @@
         }
       }
     },
+    "/game/find/position/{positionID}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para buscar detalhes da position.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "positionID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " positionID: Deverá ser preenchido com o identificador do inicio do game (ID da tabela Position).",
+            "requerid": true
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/FindPositionRes"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
     "/game/removeLife/{positionID}": {
       "delete": {
         "tags": [
@@ -3796,6 +3839,89 @@
         "dateFinalizationRecommence": {
           "type": "string",
           "example": "07/01/2023 17:18:30"
+        },
+        "qtdRecommence": {
+          "type": "number",
+          "example": 3
+        },
+        "recommence": {
+          "type": "boolean",
+          "example": true
+        },
+        "student": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "b3008250-1dd7-4501-aafe-818f8f14df75"
+            },
+            "name": {
+              "type": "string",
+              "example": "Rute"
+            }
+          }
+        },
+        "theme": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+            },
+            "name": {
+              "type": "string",
+              "example": "Linguagem de Manipulação de dados (DML)"
+            }
+          }
+        }
+      }
+    },
+    "FindPositionRes": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "0b483c37-753d-4768-aa3e-9ad57e905d7c"
+        },
+        "dateInitial": {
+          "type": "string",
+          "example": "07/01/2023 16:04:03"
+        },
+        "dateFinalization": {
+          "type": "string",
+          "example": "07/01/2023 17:48:30"
+        },
+        "started": {
+          "type": "boolean",
+          "example": true
+        },
+        "finished": {
+          "type": "boolean",
+          "example": false
+        },
+        "finishedOver": {
+          "type": "boolean",
+          "example": true
+        },
+        "finishedTime": {
+          "type": "boolean",
+          "example": true
+        },
+        "life": {
+          "type": "number",
+          "example": 3
+        },
+        "score": {
+          "type": "string",
+          "example": "1210"
+        },
+        "dateRecommence": {
+          "type": "string",
+          "example": "07/01/2023 16:28:30"
+        },
+        "dateFinalizationRecommence": {
+          "type": "string",
+          "example": "07/01/2023 18:18:30"
         },
         "qtdRecommence": {
           "type": "number",

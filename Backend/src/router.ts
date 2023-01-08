@@ -58,6 +58,7 @@ import { RemoveLifeGameController } from './controller/game/RemoveLifeGameContro
 import { FinishedGameController } from './controller/game/FinishedGameController';
 import { FindAsksByPositionController } from './controller/game/FindAsksByPositionController';
 import { RecommenceGameController } from './controller/game/RecommeceGameController';
+import { FindPositionController } from './controller/game/FindPositionController';
 
 const path = require('path')
 const router = Router();
@@ -190,9 +191,9 @@ router.get('/game/find/ask/:askID', isAuthenticated, new FindAskGameController()
 router.get('/game/answer/check', isAuthenticated, new CheckAnswerCorrectController().handle)
 router.get('/game/find/themes', isAuthenticated, new FindThemesByStudentController().handle)
 router.get('/game/find/askByPosition/:positionID', isAuthenticated, new FindAsksByPositionController().handle)
+router.get('/game/find/position/:positionID', isAuthenticated, new FindPositionController().handle)
 router.delete('/game/removeLife/:positionID', isAuthenticated, new RemoveLifeGameController().handle)
 router.delete('/game/finish', isAuthenticated, new FinishedGameController().handle)
-
 
 
 

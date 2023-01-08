@@ -545,6 +545,29 @@ const doc = {
               "name": "Linguagem de Manipulação de dados (DML)"
             }
           },
+        FindPositionRes: {
+            "id": "0b483c37-753d-4768-aa3e-9ad57e905d7c",
+            "dateInitial": "07/01/2023 16:04:03",
+            "dateFinalization": "07/01/2023 17:48:30",
+            "started": true,
+            "finished": false,
+            "finishedOver": true,
+            "finishedTime": true,
+            "life": 3,
+            "score": "1210",
+            "dateRecommence": "07/01/2023 16:28:30",
+            "dateFinalizationRecommence": "07/01/2023 18:18:30",
+            "qtdRecommence": 3,
+            "recommence": true,
+            "student": {
+              "id": "b3008250-1dd7-4501-aafe-818f8f14df75",
+              "name": "Rute"
+            },
+            "theme": {
+              "id": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+              "name": "Linguagem de Manipulação de dados (DML)"
+            }
+          },
         
         
 

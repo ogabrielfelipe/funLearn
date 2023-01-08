@@ -24,7 +24,7 @@ class StartGameService{
         }
 
         
-        const theme = await prismaClient.theme.findUnique({
+        const theme = await prismaClient.theme.findFirst({
             where:{
                 id: themeID,
             },
@@ -36,7 +36,7 @@ class StartGameService{
             throw new Error('theme not found.')
         }
 
-        const student = await prismaClient.student.findUnique({
+        const student = await prismaClient.student.findFirst({
             where:{
                 id: studentID
             },

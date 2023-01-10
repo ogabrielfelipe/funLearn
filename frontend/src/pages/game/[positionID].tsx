@@ -5,6 +5,11 @@ import { LoadingManager } from "../../components/Loading";
 import { setupAPIClient } from "../../services/api";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
+import { Life } from "../../components/LottieFiles/Life";
+import { Coin } from "../../components/LottieFiles/Coin";
+import { Lamp } from "../../components/LottieFiles/Lamp";
+import { Time } from "../../components/LottieFiles/Time";
+
 type detailsPositionType = {
     id: string,
     dateInitial: string,
@@ -68,6 +73,8 @@ export default function GameStudent(){
             </Head>
             <main>
                 {detailsPosition?.id}
+
+                
             </main>
 
 

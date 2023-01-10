@@ -236,7 +236,6 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 import os from 'os';
 import { ImportAsksController } from './controller/ask/ImportAsksControler';
-import { connectDB } from './prisma/connectDB';
 
 const networkInfo = os.networkInterfaces();
 

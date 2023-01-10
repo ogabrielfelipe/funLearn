@@ -49,17 +49,28 @@ export default function HomeStudent(){
     }
 
     const [themes, setThemes] = useState(Array());
+    const [classification, setClassification] = useState(Array());
 
     useEffect(() => {
-        async function getThemes(){
+        async function getThemesAndClassification(){
             setLoading(true);
             await apiClient.get('/game/find/themes')
-            .then(resp => {
-                console.log(resp.data)
+            .then(async resp => {
                 setThemes(resp.data);
-                setLoading(false);
 
-                console.log(themes)
+                await apiClient.get(`/game/find/classification/${resp.data[0].team.id}`)
+                .then(resp2 => {
+                    setClassification(resp2.data);
+                    setLoading(false);
+                    console.log(classification)
+                })
+                .catch(err => {
+                    console.log(err)
+                    setLoading(false);
+                })
+
+
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err)
@@ -67,7 +78,9 @@ export default function HomeStudent(){
             })
         }
 
-        getThemes();
+        
+
+        getThemesAndClassification();   
 
 
     }, [])
@@ -77,19 +90,15 @@ export default function HomeStudent(){
         const studentID: string = cookies['@nextauth.user'];
 
         setLoading(true);
-        let data = {
+        await apiClient.post('/game/start', {
             themeID: themeID,
             studentID: studentID
-        }
-        await apiClient.post('/game/start', {
-            data
         })
         .then(resp => {
             if (resp.status === 200) {
                 setLoading(false);
                 Router.push(`/game/${resp.data.initialDatas.id}`)
             }
-            console.log(resp);
             setLoading(false);
         })  
         .catch(err => {
@@ -102,7 +111,6 @@ export default function HomeStudent(){
 
 
     async function handleRecommenceGame(positionID: string){
-        ///game/recommence/start/{positionID}
 
         setLoading(true);
         await apiClient.put(`game/recommence/start/${positionID}`)
@@ -111,7 +119,6 @@ export default function HomeStudent(){
                 setLoading(false);
                 Router.push(`/game/${resp.data.id}`)
             }
-            console.log(resp);
             setLoading(false);
         })  
         .catch(err => {
@@ -119,7 +126,6 @@ export default function HomeStudent(){
             setLoading(false);
         })
 
-        console.log(positionID)
     }
 
 
@@ -141,7 +147,18 @@ export default function HomeStudent(){
                     </strong>
 
                     <div className={styles.contentStudents}>
-                        <div className={styles.positionStudent}>
+                        { classification.map((value, index) => {
+                            return (
+                                <div className={styles.positionStudent} key={value.id}>
+                                    {index === 0 ? <Image width={32} src={FirstPosition} alt={""} /> : index === 1 ? <Image width={32} src={SecondPosition} alt={""} /> : index === 2 ? <Image width={32} src={ThirdPosition} alt={""} /> :  <span className={styles.contentClass}>{index+1}</span> }
+                                    <span style={{fontSize: "1.1rem"}}> {value.nameStudent}</span> <span style={{fontSize: "1.1rem"}}> {value.score}</span>
+                                </div>
+                            )
+                            })
+                        }
+{/**
+ * 
+ *  <div className={styles.positionStudent}>
                             <Image width={32} src={FirstPosition} alt={""} />
                             <span style={{fontSize: "1.1rem"}}>Gabriel F. - 15000</span>
                         </div>
@@ -157,6 +174,8 @@ export default function HomeStudent(){
                             <span>4</span>
                             <span style={{fontSize: "1.1rem"}}> Gabriel F. - 14995</span>
                         </div>
+ */}
+                       
                     </div>
 
                 </div>
@@ -192,8 +211,7 @@ export default function HomeStudent(){
 
                     { themes.map(value => {
                         return (
-                            <>
-                            
+                            <>                            
                                 <Content key={value.theme.id}>
                                     <TitleTheme> { value.theme.name } </TitleTheme>
                                     <ContentLottie>

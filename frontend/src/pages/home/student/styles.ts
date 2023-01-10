@@ -19,7 +19,7 @@ export const Container = styled.main`
 
 export const Content = styled.div`
     position: relative;
-    height: 100vh;    
+    height: 90vh;    
     
     display: flex;
     justify-content: center;
@@ -34,7 +34,6 @@ export const ContentLottie = styled.div`
 `
 
 export const TitleTheme = styled.strong`
-    font: 400 5rem;
     font-family: 'Bungee','Cabin', sans-serif;
     font-size: 1.5rem;
     text-align: center;
@@ -45,9 +44,8 @@ export const TitleTheme = styled.strong`
 `
 
 export const DescriptionTheme = styled.span`
-  font: 400 1rem;
   font-family: 'Cabin', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-align: center;
 `
 

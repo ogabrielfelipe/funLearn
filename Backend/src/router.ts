@@ -59,6 +59,7 @@ import { FinishedGameController } from './controller/game/FinishedGameController
 import { FindAsksByPositionController } from './controller/game/FindAsksByPositionController';
 import { RecommenceGameController } from './controller/game/RecommeceGameController';
 import { FindPositionController } from './controller/game/FindPositionController';
+import { FindClassificationByTeamController } from './controller/game/FindClassificationByTeamController';
 
 const path = require('path')
 const router = Router();
@@ -182,7 +183,7 @@ router.delete('/theme/disconnectTeam', isAuthenticated, new DisconnectTeamContro
 router.post('/tip', isAuthenticated, new CreateTipController().handle)
 router.put('/tip', isAuthenticated, new ChangeTipController().handle)
 router.delete('/tip', isAuthenticated, new DeleteTipController().handle)
-
+    
 
 // -------------- Game --------------
 router.post('/game/start', isAuthenticated, new StartGameController().handle)
@@ -191,6 +192,7 @@ router.get('/game/find/ask/:askID', isAuthenticated, new FindAskGameController()
 router.get('/game/answer/check', isAuthenticated, new CheckAnswerCorrectController().handle)
 router.get('/game/find/themes', isAuthenticated, new FindThemesByStudentController().handle)
 router.get('/game/find/askByPosition/:positionID', isAuthenticated, new FindAsksByPositionController().handle)
+router.get('/game/find/classification/:teamID', isAuthenticated, new FindClassificationByTeamController().handle)
 router.get('/game/find/position/:positionID', isAuthenticated, new FindPositionController().handle)
 router.delete('/game/removeLife/:positionID', isAuthenticated, new RemoveLifeGameController().handle)
 router.delete('/game/finish', isAuthenticated, new FinishedGameController().handle)

@@ -19,6 +19,7 @@ interface StartGameRequest{
 class StartGameService{
     async execute( { themeID, studentID, dataInitial, dateFinalization, userRequest, score, life }:StartGameRequest ) {
 
+
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
         }
@@ -50,13 +51,11 @@ class StartGameService{
 
         const verifyStudent = await prismaClient.position.findFirst({
             where: {
-                studentID: student.id,
-                themeID: theme.id
-            },
-            select: {
-                id: true
+                studentID: studentID,
+                themeID: themeID
             }
         })
+        
         if (verifyStudent){
             throw new Error('student already has registration.')
         }
@@ -65,8 +64,8 @@ class StartGameService{
         const gameStart = await prismaClient.position.create({
             data: {
                 started: true,
-                studentID: student.id,
-                themeID: theme.id,
+                studentID: studentID,
+                themeID: themeID,
                 dateInitial: dataInitial,
                 dateFinalization: dateFinalization,
                 finished: false,

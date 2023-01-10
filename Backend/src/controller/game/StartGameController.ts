@@ -38,16 +38,15 @@ class StartGameController{
 
         const { themeID, studentID } = req.body;
         
-        
         let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
         let date = new Date();
         let DateTimeFinalizationPTBR = moment.tz(date.setMinutes(date.getMinutes() + GameConfig.game.timeMax), "America/Sao_Paulo");
         const startGame = new StartGameService();
         const startPosition = await startGame.execute({
             studentID: studentID,
+            themeID: themeID,
             dataInitial: DateTimePTBR.format(),
             dateFinalization: DateTimeFinalizationPTBR.format(),
-            themeID: themeID,
             userRequest: req.user,
             score: GameConfig.game.scoreMin,
             life: GameConfig.game.life,

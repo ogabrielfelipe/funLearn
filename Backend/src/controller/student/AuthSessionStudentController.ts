@@ -26,7 +26,6 @@ class AuthSessionStudentController{
         const [, token] = authToken.split(" ");
         const { sub, type} = verify(token, process.env.SECRET!) as PayLoad;
 
-        console.log(sub, type);
         
         const prisma = new PrismaClient();
         const admin = await prisma.student.findUnique({

@@ -13,7 +13,7 @@ import { HeaderStudent } from "../../../components/Header";
 import { Container, Content, ContentLottie, TitleTheme, DescriptionTheme} from "./styles";
 import styles from  "./StudentHome.module.css"
 
-import { ButtonStudentPrimary } from "../../../components/Button";
+import { ButtonStudentPrimary, ButtonStudentSecondary } from "../../../components/Button";
 
 import { AnimationTheme1 } from "../../../components/LottieFiles/ModuleStudent";
 import Carousel from "nuka-carousel/lib/carousel";
@@ -55,6 +55,7 @@ export default function HomeStudent(){
             setLoading(true);
             await apiClient.get('/game/find/themes')
             .then(resp => {
+                console.log(resp.data)
                 setThemes(resp.data);
                 setLoading(false);
 
@@ -74,7 +75,6 @@ export default function HomeStudent(){
 
     async function handleStartGame(themeID: string){
         const studentID: string = cookies['@nextauth.user'];
-        console.log("ThemeID: " + themeID);
 
         setLoading(true);
         let data = {
@@ -98,6 +98,28 @@ export default function HomeStudent(){
         })
 
 
+    }
+
+
+    async function handleRecommenceGame(positionID: string){
+        ///game/recommence/start/{positionID}
+
+        setLoading(true);
+        await apiClient.put(`game/recommence/start/${positionID}`)
+        .then(resp => {
+            if (resp.status === 200) {
+                setLoading(false);
+                Router.push(`/game/${resp.data.id}`)
+            }
+            console.log(resp);
+            setLoading(false);
+        })  
+        .catch(err => {
+            console.log(err);
+            setLoading(false);
+        })
+
+        console.log(positionID)
     }
 
 
@@ -179,10 +201,16 @@ export default function HomeStudent(){
                                     </ContentLottie>
                                         
                                     <DescriptionTheme>{ value.theme.description }</DescriptionTheme>
-                                    
-                                    <ButtonStudentPrimary onClick={() => handleStartGame(value.theme.id)}>
-                                        Começar
-                                    </ButtonStudentPrimary>
+                                    {value.theme.positions.length === 0 ? (
+                                        <ButtonStudentPrimary onClick={() => handleStartGame(value.theme.id)}>
+                                            Começar
+                                        </ButtonStudentPrimary>
+
+                                    ) : (
+                                        <ButtonStudentSecondary onClick={() => {handleRecommenceGame(value.theme.positions[0].id)}}>
+                                            Recomeçar
+                                        </ButtonStudentSecondary>
+                                    )}
                                 </Content>    
                         
                             </>

@@ -236,6 +236,7 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 import os from 'os';
 import { ImportAsksController } from './controller/ask/ImportAsksControler';
+import { connectDB } from './prisma/connectDB';
 
 const networkInfo = os.networkInterfaces();
 
@@ -255,15 +256,12 @@ if (platform == "linux"){
 
 
 
-/**
- * interface para importação de perguntas, deve configurala antes de utilizar! 
- const importAsk = new ImportAsksController()
- importAsk.handle();
 
-
-*/
+ // interface para importação de perguntas, deve configurala antes de utilizar! 
+ //const importAsk = new ImportAsksController()
+ //importAsk.handle();
 
 
 app.listen(3333, () => {
-    console.log(`[SERVER] Running at http://${host === "" ? "localhost" : host}:3333`)
+    console.log(`🚀 [SERVER] Running at http://${host === "" ? "localhost" : host}:3333`)
 })

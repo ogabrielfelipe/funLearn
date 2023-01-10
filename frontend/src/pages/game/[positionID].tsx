@@ -40,8 +40,7 @@ export default function GameStudent(){
     const [detailsPosition, setDetailsPosition] = useState<detailsPositionType>();
 
 
-    useEffect(() => {
-        
+    useEffect(() => {        
         async function getPosition(positionID: string){
             setLoading(true);
 

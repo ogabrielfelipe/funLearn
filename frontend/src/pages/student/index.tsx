@@ -12,374 +12,407 @@ import { ModalConfirmation } from "../../components/Modal";
 import { setupAPIClient } from "../../services/api";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-
 import { Container } from "../styles";
 import { OptionSelect } from "../team/add/styles";
-import { ContainerList, ContainerInput, Content, ContainerIpntBut } from "../team/styles";
-import { ContainerBtn, ContainerModal, ContentFormModel, ContentModel, Description, LabelInputFile, TextMsg, Title } from "./styles";
-
+import {
+  ContainerList,
+  ContainerInput,
+  Content,
+  ContainerIpntBut,
+} from "../team/styles";
+import {
+  ContainerBtn,
+  ContainerModal,
+  ContentFormModel,
+  ContentModel,
+  Description,
+  LabelInputFile,
+  TextMsg,
+  Title,
+} from "./styles";
 
 type TeamStudantsProps = {
-    team:{
-      id: string,
-      name: string,
-      active: boolean
-    }
-}
+  team: {
+    id: string;
+    name: string;
+    active: boolean;
+  };
+};
 
 type StudantsProps = {
-    id: string,
-    name: string,
-    active: boolean,
-    teams: TeamStudantsProps[]
-}
+  id: string;
+  name: string;
+  active: boolean;
+  teams: TeamStudantsProps[];
+};
 type ListTeamsProps = {
-    id: string,
-    name: string,
-    teacherID: string,
-    active: boolean,
-    teacher: {
-      id: string,
-      name: string,
-      active: boolean
-    }
-}
+  id: string;
+  name: string;
+  teacherID: string;
+  active: boolean;
+  teacher: {
+    id: string;
+    name: string;
+    active: boolean;
+  };
+};
 
 type ListView = {
-    id: string,
-    name1: string,
-    name2: string,
-}
-
+  id: string;
+  name1: string;
+  name2: string;
+};
 
 interface StudantsFindProps {
-    listStudants: StudantsProps[]
-    listTeams   : ListTeamsProps[]
+  listStudants: StudantsProps[];
+  listTeams: ListTeamsProps[];
 }
 
+export default function Studant({
+  listStudants,
+  listTeams,
+}: StudantsFindProps) {
+  const apiClient = setupAPIClient();
+  const [studants, setStudants] = useState(listStudants || []);
+  const [teams, setTeams] = useState(listTeams || []);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [visubleModelImport, setVisubleModelImport] = useState(false);
+  const [teamToDelete, setTeamToDelete] = useState("");
+  const [loading, setLoading] = useState(false);
 
-export default function Studant( { listStudants, listTeams }: StudantsFindProps ){
-    const apiClient = setupAPIClient();
-    const [studants, setStudants] = useState(listStudants|| []);
-    const [teams, setTeams] = useState(listTeams|| []);
-    const [visibleModal, setVisibleModal] = useState(false)
-    const [visubleModelImport, setVisubleModelImport] = useState(false);
-    const [teamToDelete, setTeamToDelete] = useState("")
-    const [loading, setLoading] = useState(false);
+  const [passImport, setPassImport] = useState("");
+  const [teamSelected, setTeamSelected] = useState("0");
+  const [fileImport, setFileImport] = useState(null);
+  const [nameFileImport, setNameFileImport] = useState("");
 
-    const [passImport, setPassImport] = useState("");
-    const [teamSelected, setTeamSelected] = useState("0");
-    const [fileImport, setFileImport] = useState(null);
-    const [nameFileImport, setNameFileImport] = useState("");
+  const [filterName, setFilterName] = useState("");
 
-
-    const [filterName, setFilterName] = useState("")
-
-    var listStudantFor = Array<ListView>();
-    studants.forEach((s, i) => {
-        listStudantFor.push({
-            id: s.id,
-            name1: s.name,
-            name2: s.teams.filter((value) => {
-                if (value.team.active === true){
-                    return value.team.name;
-                }
-            })[0].team.name
-        })  
-    })
-    const [listStudantsConv, setListStudantsConv] = useState(listStudantFor|| []);
-
-
-    function handleFilterName (e: FormEvent){
-        e.preventDefault();
-
-        if (filterName === ""){
-            setListStudantsConv(listStudantFor)
-            return;
+  var listStudantFor = Array<ListView>();
+  studants.forEach((s, i) => {
+    listStudantFor.push({
+      id: s.id,
+      name1: s.name,
+      name2: s.teams.filter((value) => {
+        if (value.team.active === true) {
+          return value.team.name;
         }
+      })[0].team.name,
+    });
+  });
+  const [listStudantsConv, setListStudantsConv] = useState(
+    listStudantFor || []
+  );
 
-        var listConv = Array<ListView>();
+  function handleFilterName(e: FormEvent) {
+    e.preventDefault();
 
-        listStudantFor.forEach( (list, index) => {
-            var name = list.name1.split(" "); 
-            for (var i = 0; i < name.length; i++){
-                if (name[i] === filterName){
-                    listConv.push(list)
-                }
-            }
-        })
-
-        setListStudantsConv(listConv)
+    if (filterName === "") {
+      setListStudantsConv(listStudantFor);
+      return;
     }
 
+    var listConv = Array<ListView>();
 
-    function handleAlterTeam(identiTeam: string){
-        Router.push(`/student/alter/${identiTeam}`)
-    }
-
-    function handleDeleteTeam(identiTeam: string){
-        setVisibleModal(true)
-        setTeamToDelete(identiTeam);
-    }
-
-    async function handleFileImport(e: FormEvent){
-        e.preventDefault();
-        setLoading(true)
-
-        if (!fileImport){
-            toast.warn("Por favor, importe o arquivo")
+    listStudantFor.forEach((list, index) => {
+      var name = list.name1.split(" ");
+      for (var i = 0; i < name.length; i++) {
+        if (name[i] === filterName) {
+          listConv.push(list);
         }
-        console.log(fileImport)
+      }
+    });
 
-        const dataForm = new FormData();
-        dataForm.append("file", fileImport)
-        dataForm.append("password", passImport)
-        dataForm.append("teamID", teamSelected)
+    setListStudantsConv(listConv);
+  }
 
-        console.log(dataForm)
+  function handleAlterTeam(identiTeam: string) {
+    Router.push(`/student/alter/${identiTeam}`);
+  }
 
-        await apiClient.post("/student/many", dataForm)
-        .then( async resp => {
-            toast.success("Cadastro efetuado com sucesso, total cadastrado: "+resp.data.description.count+" Alunos.")
-            await apiClient.get("/students")
-            .then(resp => {
-                setLoading(false)
-                var listStudantFor = Array<ListView>();
-                resp.data.forEach((s: any, i: any) => {
-                    listStudantFor.push({
-                        id: s.id,
-                        name1: s.name,
-                        name2: s.teams.filter((value: any) => {
-                            if (value.team.active === true){
-                                return value.team.name;
-                            }
-                        })[0].team.name
-                    })  
-                })
-                setVisubleModelImport(false)
-                setListStudantsConv(listStudantFor)
-            })
-        })
-        .catch(err => {
-            setLoading(false)
-            console.log(err)
-            toast.success("Não foi possível importar os dados dos alunos.")
-        })
+  function handleDeleteTeam(identiTeam: string) {
+    setVisibleModal(true);
+    setTeamToDelete(identiTeam);
+  }
 
+  async function handleFileImport(e: FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!fileImport) {
+      toast.warn("Por favor, importe o arquivo");
     }
+    console.log(fileImport);
 
-    function handleFileSelected(e: any){
-        setFileImport(e.target.files[0])
-        setNameFileImport(e.target.files[0].name)
-    }
+    const dataForm = new FormData();
+    dataForm.append("file", fileImport);
+    dataForm.append("password", passImport);
+    dataForm.append("teamID", teamSelected);
 
-    
-    return (
-        <>
-            <Head>
-                <title> Aluno - FunLearn </title>
-            </Head>
-            <HeaderAuth/>
-            <Container>
-                <ContentItems 
-                        title="Visualizar Alunos"
-                    >
-                    <Content>
-                        <div style={{display: "flex", gap: "1rem"}}>
-                            <ButtonConfirmBlue onClick={() => { Router.push("/student/add") }}>
-                                Novo
-                            </ButtonConfirmBlue>
-                            <ButtonConfirmBlue onClick={() => setVisubleModelImport(true)}>
-                                Importar
-                            </ButtonConfirmBlue>
-                        </div>
+    console.log(dataForm);
 
-                        <ContainerIpntBut onSubmit={handleFilterName}>
-                            <ContainerInput>
-                                <InputFrom 
-                                    title="Pesquisar pelo nome do Aluno:"
-                                    placeholder="Nome do Aluno"       
-                                    value={filterName}
-                                    onChange={(e) => setFilterName(e.target.value)}                           
-                                />
-                            </ContainerInput>
+    await apiClient
+      .post("/student/many", dataForm)
+      .then(async (resp) => {
+        toast.success(
+          "Cadastro efetuado com sucesso, total cadastrado: " +
+            resp.data.description.count +
+            " Alunos."
+        );
+        await apiClient.get("/students").then((resp) => {
+          setLoading(false);
+          var listStudantFor = Array<ListView>();
+          resp.data.forEach((s: any, i: any) => {
+            listStudantFor.push({
+              id: s.id,
+              name1: s.name,
+              name2: s.teams.filter((value: any) => {
+                if (value.team.active === true) {
+                  return value.team.name;
+                }
+              })[0].team.name,
+            });
+          });
+          setVisubleModelImport(false);
+          setListStudantsConv(listStudantFor);
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+        toast.success("Não foi possível importar os dados dos alunos.");
+      });
+  }
 
-                            <ButtonConfirmBlue type="submit">
-                                Pesquisar
-                            </ButtonConfirmBlue>
-                        </ContainerIpntBut>
-                    </Content>
+  function handleFileSelected(e: any) {
+    setFileImport(e.target.files[0]);
+    setNameFileImport(e.target.files[0].name);
+  }
 
-                    <ContainerList>
-                        <ListView 
-                            names={listStudantsConv}
-                            handleEdit={handleAlterTeam}
-                            handleDelete={handleDeleteTeam}
-                        />
-                            
-                    </ContainerList>
+  function handleCancelImport() {
+    setVisubleModelImport(false);
+    setTeamSelected("0");
+    setPassImport("");
+    setFileImport(null);
+    setNameFileImport("");
+  }
 
-                </ContentItems>
-            </Container>
+  return (
+    <>
+      <Head>
+        <title> Aluno - FunLearn </title>
+      </Head>
+      <HeaderAuth />
+      <Container>
+        <ContentItems title="Visualizar Alunos">
+          <Content>
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <ButtonConfirmBlue
+                onClick={() => {
+                  Router.push("/student/add");
+                }}
+              >
+                Novo
+              </ButtonConfirmBlue>
+              <ButtonConfirmBlue onClick={() => setVisubleModelImport(true)}>
+                Importar
+              </ButtonConfirmBlue>
+            </div>
 
-
-            {visubleModelImport === true ? (
-                <ContainerModal>
-                    <ContentModel>
-                        <Title>Cadastrar Aluno em Massa</Title>
-        
-                        <Description>Para fazer o cadastro por meio da Importação, deverá baixar <a href="/modelo_criacao_usuario_aluno.xlsx" style={{color: "#8870FF", cursor: "pointer "}} download>o modelo de importação</a>, preencher e, por fim, fazer a importação.</Description>
-
-                        <ContentFormModel onSubmit={handleFileImport}>
-                            <LabelInputFile>
-                                <input 
-                                type="file" 
-                                required
-                                onChange={handleFileSelected}
-                                />
-                                <span>Importar Arquivo</span>
-                            </LabelInputFile>
-                            <TextMsg hidden={!nameFileImport}>Arquivo: {nameFileImport}</TextMsg>
-                            <InputFrom 
-                                title="Senha Padrão:"
-                                type={"password"}
-                                placeholder="Senha"
-                                value={passImport}
-                                onChange={(e) => setPassImport(e.target.value)}
-                            />
-
-                            <SelectForm
-                                title="Selecione uma Turma"
-                                placeholder="Turma"
-                                value={teamSelected}
-                                onChange={(e) => setTeamSelected(e.target.value)}
-                            >   
-                                <OptionSelect value={0} selected>Turma</OptionSelect>
-                                {teams.map((team, index) => {
-                                    return (
-                                        <OptionSelect key={team.id} value={team.id} hidden={!team.active}>{team.name}</OptionSelect>
-                                    )
-                                })}
-                            </SelectForm>
-
-                            <ContainerBtn>
-                                <ButtonConfirmPink onClick={() => setVisubleModelImport(false)}>
-                                    Cancelar
-                                </ButtonConfirmPink>
-                                <ButtonConfirmBlue type="submit">
-                                    Importar
-                                </ButtonConfirmBlue>
-                            </ContainerBtn>
-                        </ContentFormModel>
-                    </ContentModel>
-                </ContainerModal>
-            ): (
-                <>
-                </>
-            )}
-
-
-            {visibleModal === true ? (
-                <ModalConfirmation 
-                    title="Confirmação de Inativar"
-                    description="Deseja realmente inativar essa turma?"
-                    msgBtnConfirm="Desejo Inativar"
-                    msgBtnCancel="Não quero Inativar"
-                    handleDeleteRegis={async () => { 
-                        setVisibleModal(false)
-                        setLoading(true)
-                        console.log(teamToDelete)
-                        let data = {
-                            studantID: teamToDelete,
-                            name: "",
-                            password: "",
-                            active: false,
-                            teamID: studants.filter((value) => {
-                                if (value.id === teamToDelete){
-                                    return value.teams
-                                }
-                            })[0].teams.filter((value) => {
-                                if (value.team.active){
-                                    return value.team.id
-                                }
-                            })[0].team.id
-                        }
-
-                        await apiClient.put('/student', data)
-                        .then( async resp => {
-                            if (resp.status === 200){ 
-                                await apiClient.get('/students', {
-                                    data: {
-                                        name: ""
-                                    }
-                                }).then( res => {
-                                    var listTeamFor = Array<ListView>();
-                                    res.data.forEach((s: any, i: any) => {
-                                        listTeamFor.push({
-                                            id: s.id,
-                                            name1: s.name,
-                                            name2: s.teams.filter((value: any) => {
-                                                if (value.team.active === true){
-                                                    return value.team.name;
-                                                }
-                                                })[0].team.name
-                                        })                                        
-                                    })
-                                    setListStudantsConv(listTeamFor);
-                                })
-                                setLoading(false)
-                                toast.success("Aluno Inativado com sucesso!");                                
-                            }
-                        })  
-                        .catch(err => {
-                            setLoading(false)
-                            console.log(err)
-                            toast.error("Não foi possível inativar o aluno, Motivo: " + err.response.data.error);
-                        })
-                    }}
-                    handleNotDeleteRegis={() => { setVisibleModal(false) }}
+            <ContainerIpntBut onSubmit={handleFilterName}>
+              <ContainerInput>
+                <InputFrom
+                  title="Pesquisar pelo nome do Aluno:"
+                  placeholder="Nome do Aluno"
+                  value={filterName}
+                  onChange={(e) => setFilterName(e.target.value)}
                 />
-            ) : (
-                <>
-                </>
-            )}
+              </ContainerInput>
 
-            {loading === true ? (
-                <LoadingManager/>
-            ) : (
-                <>
-                </>
-            )}
+              <ButtonConfirmBlue type="submit">Pesquisar</ButtonConfirmBlue>
+            </ContainerIpntBut>
+          </Content>
 
+          <ContainerList>
+            <ListView
+              names={listStudantsConv}
+              handleEdit={handleAlterTeam}
+              handleDelete={handleDeleteTeam}
+            />
+          </ContainerList>
+        </ContentItems>
+      </Container>
 
+      {visubleModelImport === true ? (
+        <ContainerModal>
+          <ContentModel>
+            <Title>Cadastrar Aluno em Massa</Title>
 
-        </>
-    )
+            <Description>
+              Para fazer o cadastro por meio da Importação, deverá baixar{" "}
+              <a
+                href="/modelo_criacao_usuario_aluno.xlsx"
+                style={{ color: "#8870FF", cursor: "pointer " }}
+                download
+              >
+                o modelo de importação
+              </a>
+              , preencher e, por fim, fazer a importação.
+            </Description>
+
+            <ContentFormModel onSubmit={handleFileImport}>
+              <LabelInputFile>
+                <input
+                  type="file"
+                  accept=".xlsx"
+                  required
+                  onChange={handleFileSelected}
+                />
+                <span>Importar Arquivo</span>
+              </LabelInputFile>
+              <TextMsg hidden={!nameFileImport}>
+                Arquivo: {nameFileImport}
+              </TextMsg>
+              <InputFrom
+                title="Senha Padrão:"
+                type={"password"}
+                placeholder="Senha"
+                value={passImport}
+                onChange={(e) => setPassImport(e.target.value)}
+              />
+
+              <SelectForm
+                title="Selecione uma Turma"
+                placeholder="Turma"
+                value={teamSelected}
+                onChange={(e) => setTeamSelected(e.target.value)}
+              >
+                <OptionSelect value={0} selected>
+                  Turma
+                </OptionSelect>
+                {teams.map((team, index) => {
+                  return (
+                    <OptionSelect
+                      key={team.id}
+                      value={team.id}
+                      hidden={!team.active}
+                    >
+                      {team.name}
+                    </OptionSelect>
+                  );
+                })}
+              </SelectForm>
+
+              <ContainerBtn>
+                <ButtonConfirmPink onClick={handleCancelImport}>
+                  Cancelar
+                </ButtonConfirmPink>
+                <ButtonConfirmBlue type="submit">Importar</ButtonConfirmBlue>
+              </ContainerBtn>
+            </ContentFormModel>
+          </ContentModel>
+        </ContainerModal>
+      ) : (
+        <></>
+      )}
+
+      {visibleModal === true ? (
+        <ModalConfirmation
+          title="Confirmação de Inativar"
+          description="Deseja realmente inativar essa turma?"
+          msgBtnConfirm="Desejo Inativar"
+          msgBtnCancel="Não quero Inativar"
+          handleDeleteRegis={async () => {
+            setVisibleModal(false);
+            setLoading(true);
+            console.log(teamToDelete);
+            let data = {
+              studantID: teamToDelete,
+              name: "",
+              password: "",
+              active: false,
+              teamID: studants
+                .filter((value) => {
+                  if (value.id === teamToDelete) {
+                    return value.teams;
+                  }
+                })[0]
+                .teams.filter((value) => {
+                  if (value.team.active) {
+                    return value.team.id;
+                  }
+                })[0].team.id,
+            };
+
+            await apiClient
+              .put("/student", data)
+              .then(async (resp) => {
+                if (resp.status === 200) {
+                  await apiClient
+                    .get("/students", {
+                      data: {
+                        name: "",
+                      },
+                    })
+                    .then((res) => {
+                      var listTeamFor = Array<ListView>();
+                      res.data.forEach((s: any, i: any) => {
+                        listTeamFor.push({
+                          id: s.id,
+                          name1: s.name,
+                          name2: s.teams.filter((value: any) => {
+                            if (value.team.active === true) {
+                              return value.team.name;
+                            }
+                          })[0].team.name,
+                        });
+                      });
+                      setListStudantsConv(listTeamFor);
+                    });
+                  setLoading(false);
+                  toast.success("Aluno Inativado com sucesso!");
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+                console.log(err);
+                toast.error(
+                  "Não foi possível inativar o aluno, Motivo: " +
+                    err.response.data.error
+                );
+              });
+          }}
+          handleNotDeleteRegis={() => {
+            setVisibleModal(false);
+          }}
+        />
+      ) : (
+        <></>
+      )}
+
+      {loading === true ? <LoadingManager /> : <></>}
+    </>
+  );
 }
 
-export const getServerSideProps = canSSRAuth( async (ctx: any) => {
+export const getServerSideProps = canSSRAuth(async (ctx: any) => {
+  console.log(ctx);
 
-    console.log(ctx)
+  const apiClient = setupAPIClient(ctx);
+  const res = await apiClient.get("/students", {
+    data: {
+      name: "",
+    },
+  });
+  const resT = await apiClient.get("/teams", {
+    data: {
+      name: "",
+    },
+  });
 
-    const apiClient = setupAPIClient(ctx);
-    const res = await apiClient.get('/students', {
-        data: {
-            name: ""
-        }
-    })
-    const resT = await apiClient.get('/teams', {
-        data: {
-            name: ""
-        }
-    })
-
-    return {
-        props:{
-            listStudants: res.data,
-            listTeams: resT.data,
-
-        }
-    }
-    
-    
-} )
+  return {
+    props: {
+      listStudants: res.data,
+      listTeams: resT.data,
+    },
+  };
+});

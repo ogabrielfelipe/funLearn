@@ -101,8 +101,9 @@ export default function GameStudent(){
 
                 </div>
 
+                {/* Configurar para quando clicar, ele finalizar o QUIZZ e redirecionar para a tela inicial do módulo do estudante */}
                 <ButtonStudenTertiary>
-                    <Link href="/">
+                    <Link href="#">
                         Tela Inicial
                     </Link>
                 </ButtonStudenTertiary>

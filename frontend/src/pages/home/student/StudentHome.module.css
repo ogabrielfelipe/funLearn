@@ -156,3 +156,29 @@ background: transparent;        /* color of the tracking area */
     justify-content: center;
     align-items: center;
 }
+
+.carouselContainer{
+    max-width: 50vw;
+}
+
+@media only screen and (max-width: 480px) {
+    .carouselContainer{
+        max-width: 85vw;
+        height: auto;
+        position: relative;
+        left: 50%;
+
+        transform: translateX(-50%);
+    }
+}
+
+@media only screen and (max-width: 620px) {
+    .carouselContainer{
+        max-width: 80vw;
+        height: auto;
+        position: relative;
+        left: 50%;
+
+        transform: translateX(-50%);
+    }
+}

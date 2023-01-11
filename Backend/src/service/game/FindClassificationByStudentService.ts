@@ -22,7 +22,7 @@ class FindClassificationByStudentService{
             WHERE 
                 te.id = ${teamID}
             GROUP BY stu.id    
-            ORDER BY SUM(p.score), stu.name ASC
+            ORDER BY SUM(p.score) DESC
         `
 
         return students

@@ -3,15 +3,21 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import Coin from '../../../../public/assets/LottieFiles/18089-gold-coin.json'
 
 
-export default function LottieFilesLoading(){
+export default function LottieFilesCoin(){
     return (
         <>
-            <Player
-                src={Coin}
-                loop
-                autoplay
-                speed={2.5}
-            />
+            <div style={{
+                width: '10rem',
+                marginRight: '-30px'
+            }}
+            >
+                <Player
+                    src={Coin}
+                    loop
+                    autoplay
+                    speed={0.5}
+                />
+            </div>
         </>
     )
 }

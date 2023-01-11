@@ -15,6 +15,7 @@ export const Container = styled.main`
 
     top: -3.5rem;
 
+
 `
 
 export const Content = styled.div`
@@ -27,6 +28,10 @@ export const Content = styled.div`
     flex-direction: column;
 
     gap: .5rem;
+
+    @media(max-width: 480px){
+        width: 60vw;
+    }
 `
 
 export const ContentLottie = styled.div`

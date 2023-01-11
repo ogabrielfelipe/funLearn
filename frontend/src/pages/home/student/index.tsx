@@ -15,7 +15,7 @@ import styles from  "./StudentHome.module.css"
 
 import { ButtonStudentPrimary, ButtonStudentSecondary } from "../../../components/Button";
 
-import { AnimationTheme1 } from "../../../components/LottieFiles/ModuleStudent";
+import { AnimationTheme1, AnimationTheme2, AnimationTheme3 } from "../../../components/LottieFiles/ModuleStudent";
 import Carousel from "nuka-carousel/lib/carousel";
 import { CaretCircleRight, CaretDoubleRight, CaretLeft, CaretRight } from "phosphor-react";
 
@@ -204,18 +204,26 @@ export default function HomeStudent(){
                           opacity: 0.7,
                         },
                       }}
-                    style={{
-                        maxWidth: "50vw"
-                    }}
+                    className={styles.carouselContainer}
                 >
 
-                    { themes.map(value => {
+                    { themes.map((value, index) => {
+                        let position = index+1;
+                        position === 4 ? position = 1 : true
                         return (
                             <>                            
                                 <Content key={value.theme.id}>
                                     <TitleTheme> { value.theme.name } </TitleTheme>
                                     <ContentLottie>
-                                        <AnimationTheme1 />
+                                        {position === 1 ? (
+                                            <AnimationTheme1 />
+                                        ) : position === 2 ? (
+                                            <AnimationTheme2 />
+                                        ) : position === 3 ? (
+                                            <AnimationTheme3 />
+                                        ) : (
+                                            <AnimationTheme1 />
+                                        )}
                                     </ContentLottie>
                                         
                                     <DescriptionTheme>{ value.theme.description }</DescriptionTheme>

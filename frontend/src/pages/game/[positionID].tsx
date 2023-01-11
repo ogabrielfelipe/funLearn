@@ -5,10 +5,14 @@ import { LoadingManager } from "../../components/Loading";
 import { setupAPIClient } from "../../services/api";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-import { Life } from "../../components/LottieFiles/Life";
-import { Coin } from "../../components/LottieFiles/Coin";
-import { Lamp } from "../../components/LottieFiles/Lamp";
-import { Time } from "../../components/LottieFiles/Time";
+import LottieFilesLife from "../../components/LottieFiles/Life";
+import Coin  from "../../components/LottieFiles/Coin";
+import Lamp  from "../../components/LottieFiles/Lamp";
+import Time  from "../../components/LottieFiles/Time";
+import { ButtonStudenTertiary, ButtonStudentSecondary, ButtonStudentPrimary } from "../../components/Button";
+
+import styles from './Game.module.css'
+
 
 type detailsPositionType = {
     id: string,
@@ -71,9 +75,73 @@ export default function GameStudent(){
             <Head>
                 <title>{detailsPosition?.theme.name} - FunLearn</title>
             </Head>
-            <main>
-                {detailsPosition?.id}
 
+            <header className={styles.header}>
+                <div className={styles.contentGame}>
+                    <div className={styles.life}>
+                        <LottieFilesLife 
+                            removeLife={false}
+                        />
+                        <LottieFilesLife 
+                            removeLife={false}
+                        />
+                        <LottieFilesLife 
+                            removeLife={true}
+                        />
+                    </div>
+
+                    <div className={styles.contentCoin}>
+                        <Coin/>
+                        <strong className={styles.textCoin}>
+                            1500
+                        </strong>
+                    </div>
+
+
+                </div>
+                
+
+                <ButtonStudenTertiary>
+                    Tela Inicial
+                </ButtonStudenTertiary>
+
+            </header>
+
+            <main>
+                    
+                <div className={styles.container}>
+                    <div className={styles.containerAsk}>
+                        Perguntas
+                    </div>
+
+                    <div className={styles.containerAnswTip}>                        
+                        <div>
+                            <Time />
+                            <Lamp />
+
+                            dicas
+                        </div>
+
+                        <div>
+                            Lista das respostas
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div style={{
+                    position: 'fixed',
+                    right: '5rem',
+                    bottom: '5rem',
+                }}>
+                    <ButtonStudentPrimary>
+                        Próximo
+                    </ButtonStudentPrimary>
+
+                </div>
                 
             </main>
 

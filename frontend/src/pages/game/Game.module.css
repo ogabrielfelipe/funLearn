@@ -1,0 +1,59 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5rem;
+    margin-top: -1.5rem;
+}
+
+.contentGame{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+}
+
+.life{
+    display: flex;
+    flex-direction: row;
+}
+
+.contentCoin{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.textCoin{
+    font-family: 'Bungee','Cabin', sans-serif;
+    font-size: 2rem;
+    color: #FF9400;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 80vh;
+    gap: 2.5rem;
+    margin-top: -1.5rem;
+}
+
+.containerAsk{
+    width: 45%;
+    height: 95%;
+    border-radius: 1rem;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+
+}
+
+.containerAnswTip{
+    width: 45%;
+    height: 95%;
+    background-color: #FFFFFF;
+}

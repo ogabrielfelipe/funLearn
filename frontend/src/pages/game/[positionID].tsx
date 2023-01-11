@@ -5,6 +5,8 @@ import { LoadingManager } from "../../components/Loading";
 import { setupAPIClient } from "../../services/api";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
+import Link from "next/link"
+
 import LottieFilesLife from "../../components/LottieFiles/Life";
 import Coin  from "../../components/LottieFiles/Coin";
 import Lamp  from "../../components/LottieFiles/Lamp";
@@ -97,54 +99,51 @@ export default function GameStudent(){
                         </strong>
                     </div>
 
-
                 </div>
-                
 
                 <ButtonStudenTertiary>
-                    Tela Inicial
+                    <Link href="/">
+                        Tela Inicial
+                    </Link>
                 </ButtonStudenTertiary>
 
             </header>
 
-            <main>
-                    
+            <main> 
                 <div className={styles.container}>
                     <div className={styles.containerAsk}>
                         Perguntas
                     </div>
 
                     <div className={styles.containerAnswTip}>                        
-                        <div>
+                        <div className={styles.contentGame}>
                             <Time />
+                            <strong className={styles.textTimeAndTip}>
+                                04:59
+                            </strong>
+
                             <Lamp />
 
-                            dicas
+                            <strong className={styles.textTimeAndTip}>
+                                Dica
+                            </strong>
                         </div>
 
                         <div>
                             Lista das respostas
                         </div>
-
                     </div>
-
 
                 </div>
 
 
-                <div style={{
-                    position: 'fixed',
-                    right: '5rem',
-                    bottom: '5rem',
-                }}>
+                <div className={styles.btnNext}>
                     <ButtonStudentPrimary>
                         Próximo
                     </ButtonStudentPrimary>
-
                 </div>
                 
             </main>
-
 
 
             {loading === true ? (

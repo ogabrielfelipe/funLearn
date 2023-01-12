@@ -156,3 +156,69 @@
     height: auto !important;
     margin-top: 2rem;
 }
+
+
+.modelTips{
+    width: 40vw;
+    height: 7rem;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 .6rem 0 rgba(0,0,0,0.30);
+    border-radius: .6rem;
+
+    transition: opacity 0.2s ease-in-out;
+    
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5rem;
+
+    opacity: 0;
+    
+    display: flex;
+    flex-direction: row;
+    padding: 0 1rem;
+
+}
+
+.modelTipsClose{
+    opacity: 1;
+}
+
+
+
+.btnCloseModel{
+    background-color: #FF1B1B;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: 'Cabin', sans-serif;
+    font-size: 1.5rem;
+
+    border-radius: 100%;
+
+    position: fixed;
+    right: -10px;
+    top: -10px;
+
+    cursor: pointer;
+
+}
+
+.contentModelTips{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconLamp{
+    position: fixed;
+    left: 0;
+}

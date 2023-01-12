@@ -146,30 +146,18 @@ export default function GameStudent(){
         console.log(answerSelected);
     }
 
-    // function showLife(life: number){
-    //     let listAux = [1,1,1]
-    //     for (var i = 0; i < setupGame.game.life; i++){
-    //         var x = life - i;
-    //         if (x > 0){
-    //             listAux[i] = 1;
-    //         }else{
-    //             listAux[i] = 0;
-    //         }
-    //     }
 
-    //     return (
-    //         listAux.map(value => {
-    //             console.log(value)
-    //             return (
-    //                 <>
-    //                     <LottieFilesLife 
-    //                         removeLife={value === 1 ? true : false}
-    //                     />
-    //                 </>
-    //             )
-    //         })
-    //     )
-    // }
+    function handleShowModelTips(){
+        let model = document.getElementById("modelTips");
+        model?.classList.add(styles.modelTipsClose)
+    }
+
+
+    function handleCloseModelTips(){
+        let model = document.getElementById("modelTips");
+        model?.classList.remove(styles.modelTipsClose)
+    }
+
 
 
     return (
@@ -257,14 +245,16 @@ export default function GameStudent(){
                             {askQuestion}
                         </span>
                         
-                        <div className={styles.contentImageAsk}>
-                            <Image 
-                                src={`http://localhost:3333/ask/image/${askImage}`}
-                                alt={`Imagem referente a pergunta: ${askQuestion}`}
-                                width={1000}
-                                height={400}
-                            />
-                        </div>
+                        {askImage != "" && (
+                            <div className={styles.contentImageAsk}>
+                                <Image 
+                                    src={`http://localhost:3333/ask/image/${askImage}`}
+                                    alt={`Imagem referente a pergunta: ${askQuestion}`}
+                                    width={1000}
+                                    height={400}
+                                />
+                            </div>
+                        )}
                         
                     </div>
 
@@ -276,7 +266,7 @@ export default function GameStudent(){
                             </strong>
 
 
-                            <strong className={styles.textTimeAndTip}>
+                            <strong className={styles.textTimeAndTip} style={{cursor: "pointer"}} onClick={handleShowModelTips}>  
                                 <Lamp />
                                 Dica
                             </strong>
@@ -307,11 +297,11 @@ export default function GameStudent(){
                 </div>
 
 
-                {/* <div className={styles.btnNext}>
+                <div className={styles.btnNext}>
                     <ButtonStudentPrimary>
-                        Próximo
+                        Confirmar
                     </ButtonStudentPrimary>
-                </div> */}
+                </div>
                 
             </main>
 
@@ -323,6 +313,24 @@ export default function GameStudent(){
                     </>
                 )
             }
+
+
+            <div className={styles.modelTips} id={"modelTips"}> 
+                <span className={styles.btnCloseModel} onClick={handleCloseModelTips} >
+                    X
+                </span>
+
+                <div className={styles.contentModelTips}>
+                    <div className={styles.iconLamp}>
+                        <Lamp />
+                    </div>
+
+                    <p>
+                        DICA
+                    </p>
+                </div>
+                
+            </div>
 
         </>
     ) 

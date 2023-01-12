@@ -5,12 +5,12 @@ import LifeRemove from '../../../../public/assets/LottieFiles/cloudRemove.json'
 
 
 interface LifeProps extends HTMLAttributes<HTMLDivElement>{
-    removeLife: boolean,
+    removeLife: boolean
 }
 
 
 
-export default function LottieFilesLife( { removeLife }: LifeProps){
+export default function LottieFilesLife( { removeLife}: LifeProps){
 
     const [removeLifeSt, setRemoveLifeSt] = useState(removeLife);
 
@@ -22,7 +22,6 @@ export default function LottieFilesLife( { removeLife }: LifeProps){
                     marginRight: '-20px'
                 }}
             >
-
             <Player
                 src={ removeLifeSt === true ? LifeRemove : Life  }
                 loop

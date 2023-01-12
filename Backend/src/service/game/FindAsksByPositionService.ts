@@ -22,6 +22,13 @@ class FindAsksByPositionService{
                     studentID: userRequest.id
                 }
             },
+            orderBy: [
+                {
+                    ask: {
+                        level: 'asc'
+                    }
+                }
+            ],
             select: {
                 ask: {
                     select: {

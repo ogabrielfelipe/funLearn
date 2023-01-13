@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import moment from "moment-timezone";
 import { FindAskGameService } from "../../service/ask/FindAskGameService";
 
 
@@ -21,14 +22,24 @@ class FindAskGameController{
                 description: " askID: Deverá ser preenchido com o identificador da pergunta proposto.",
                 requerid: true    
             }
+            #swagger.parameters['gameID'] = {
+                in: 'path',
+                description: " gameID: Deverá ser preenchido com o identificador da game segundo a pergunta.",
+                requerid: true    
+            }
          */
 
 
         const askID = req.params.askID;
+        const gameID = req.params.gameID;
+
+        let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
 
         const findAsk = new FindAskGameService();
         const result = await findAsk.execute({
             askID: askID,
+            gameID: gameID,
+            dateVisualized: DateTimePTBR.format(),
             userRequest: req.user
         })
 

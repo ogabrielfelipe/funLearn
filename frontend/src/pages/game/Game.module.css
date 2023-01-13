@@ -69,8 +69,8 @@
 
 .btnNext{
     position: fixed;
-    right: 5rem;
-    bottom: 5rem;
+    right: 5%;
+    bottom: 5%;
 }
 
 .textTimeAndTip{
@@ -221,4 +221,64 @@
 .iconLamp{
     position: fixed;
     left: 0;
+}
+
+
+.modelTimeOut{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.60);
+
+    transition: opacity 0.2s ease-in-out;
+    
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+
+    opacity: 0;
+    top: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modelTimeOutShow{
+    opacity: 1;
+    top: 0;
+}
+
+.contentModelTimeOut{
+    width: 35vw;
+    height: auto;
+    background-color: #000000;
+    border-radius: .6rem;
+
+    display: flex;
+    flex-direction: column;
+
+}
+.iconModelTimeOut{
+    align-self: center;
+    margin-top: -2.5rem;
+}
+
+.textTimeOut{
+    align-self: center;
+    font-family: 'Bungee','Cabin', sans-serif;
+    font-size: 1.5rem;
+    color: #FCC123;
+    margin: 1rem;
+}
+
+.contentBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 2rem;
 }

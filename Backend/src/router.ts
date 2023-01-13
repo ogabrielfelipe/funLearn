@@ -188,7 +188,7 @@ router.delete('/tip', isAuthenticated, new DeleteTipController().handle)
 // -------------- Game --------------
 router.post('/game/start', isAuthenticated, new StartGameController().handle)
 router.put('/game/recommence/start/:positionID', isAuthenticated, new RecommenceGameController().handle)
-router.get('/game/find/ask/:askID', isAuthenticated, new FindAskGameController().handle)
+router.get('/game/find/ask/:askID/:gameID', isAuthenticated, new FindAskGameController().handle)
 router.get('/game/answer/check', isAuthenticated, new CheckAnswerCorrectController().handle)
 router.get('/game/find/themes', isAuthenticated, new FindThemesByStudentController().handle)
 router.get('/game/find/askByPosition/:positionID', isAuthenticated, new FindAsksByPositionController().handle)

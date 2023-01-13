@@ -18,6 +18,8 @@ import Image from "next/image";
 import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
+import Countdown from 'react-countdown';
+import moment from "moment";
 
 
 type detailsPositionType = {
@@ -70,17 +72,18 @@ export default function GameStudent(){
     const [askLevel, setAskLevel] = useState<string>("");
     const [askQuestion, setAskQuestion] = useState<string>("");
     const [askAnswers, setAskAnswers] = useState<AnswersAsk[]>(Array());
+    const [askDateVisualized, setAskDateVisualized] = useState<number>("");
     const [tip, setTip] = useState<TipAnswer []>(Array());
     
     function handleSelectionFirstAsk( asks: any[] ){
         return asks.find(value => {
-            return value.answered === false;
+            return value.answered === false && !value.timeOut ;
         })
     }
 
-    async function findDatailsAsk(askID: string){
+    async function findDatailsAsk(askID: string, gameID: string){
         setLoading(true);
-        await apiClient.get(`/game/find/ask/${askID}`)
+        await apiClient.get(`/game/find/ask/${askID}/${gameID}`)
         .then(resp => {
             if (resp.status === 200){
                 setAskID(resp.data.id);
@@ -88,6 +91,7 @@ export default function GameStudent(){
                 setAskLevel(resp.data.level);
                 setAskQuestion(resp.data.question);
                 setAskAnswers(resp.data.answer);
+                setAskDateVisualized(Date.parse(resp.data.game[0].dateVisualized))
                 setTip(resp.data.tip);
                 setLoading(false);
             }
@@ -103,8 +107,9 @@ export default function GameStudent(){
         await apiClient.get(`/game/find/askByPosition/${positionID}`)
         .then(resp => {
             setLoading(false);
+            console.log(resp.data)
             let askSelected = handleSelectionFirstAsk(resp.data);
-            findDatailsAsk(askSelected.ask.id)
+            findDatailsAsk(askSelected.ask.id, askSelected.id)
             return;
         })
         .catch(err => {
@@ -113,27 +118,22 @@ export default function GameStudent(){
         })
 
     }
+    async function getPosition(positionID: string){
+        setLoading(true);
+        await apiClient.get(`/game/find/position/${positionID}`)
+        .then(async resp => {
+            setDetailsPosition(resp.data);
+            
+            await findAsksByPositionID(positionID)
 
-    useEffect(() => {        
-        async function getPosition(positionID: string){
-            setLoading(true);
-            await apiClient.get(`/game/find/position/${positionID}`)
-            .then(async resp => {
-                setDetailsPosition(resp.data);
-                
-                await findAsksByPositionID(positionID)
+            setLoading(false);
+        })
+        .catch(err => {
+            console.log(err);
+            setLoading(false);
+        })
+    }
 
-                setLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
-                setLoading(false);
-            })
-        }
-
-        getPosition(positionID as string)
-
-    }, [positionID])
 
 
     async function selectAnswer(answerID: string){
@@ -161,6 +161,30 @@ export default function GameStudent(){
         model?.classList.remove(styles.modelTipsClose)
     }
 
+
+    function handleShowModelTimeOut(){
+        let model = document.getElementById("modelTimeOut");
+        model?.classList.add(styles.modelTimeOutShow)
+    }
+
+
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+          handleShowModelTimeOut();
+          return <span>Tempo Escotado!</span>;
+        } else {
+          // Render a countdown
+          return <span>{minutes}:{seconds}</span>;
+        }
+      };
+
+
+
+    useEffect(() => {        
+        
+        getPosition(positionID as string)
+
+    }, [positionID])
 
     return (
         <>
@@ -229,7 +253,7 @@ export default function GameStudent(){
                 </div>
 
                 {/* Configurar para quando clicar, ele finalizar o QUIZZ e redirecionar para a tela inicial do módulo do estudante */}
-                <ButtonStudenTertiary onClick={() => console.log(firstAsk)}>
+                <ButtonStudenTertiary onClick={handleShowModelTimeOut}>
                     <Link href="#">
                         Tela Inicial
                     </Link>
@@ -264,7 +288,11 @@ export default function GameStudent(){
                         <div className={styles.contentGame}>
                             <strong className={styles.textTimeAndTip}>
                                 <Time />
-                                04:59
+                                <Countdown
+                                    date={askDateVisualized + setupGame.game.timeOut}
+                                    renderer={renderer}
+                                    autoStart
+                                />
                             </strong>
 
 
@@ -335,6 +363,26 @@ export default function GameStudent(){
                 
             </div>
 
+
+            <div className={styles.modelTimeOut} id={"modelTimeOut"}>
+                <div className={styles.contentModelTimeOut}>
+                    <div className={styles.iconModelTimeOut}>
+                        <Time />
+                    </div>
+                    <div className={styles.textTimeOut}> 
+                        <span>Tempo escotado!!!</span>
+                    </div>
+
+                    <div className={styles.contentBtn}>
+                        <ButtonStudentSecondary>
+                            Finalizar
+                        </ButtonStudentSecondary>
+                        <ButtonStudentPrimary>
+                            Tentar Novamente
+                        </ButtonStudentPrimary>
+                    </div>
+                </div>
+            </div>
         </>
     ) 
 

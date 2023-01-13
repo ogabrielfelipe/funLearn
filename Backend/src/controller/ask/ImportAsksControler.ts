@@ -6,7 +6,7 @@ import { CreateThemeService } from '../../service/theme/CreateThemeService';
 class ImportAsksController{
     async handle(){ 
         
-        const theacherID = "6563738f-fec4-4b17-a5f1-e5d0f25bf089";
+        const theacherID = "64287ef4-3b22-4e25-abd3-c4c241135d80";
 
         const createTheme = new CreateThemeService();
         const resultCreateTheme = await createTheme.execute({

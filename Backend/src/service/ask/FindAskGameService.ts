@@ -1,20 +1,34 @@
 import prismaClient from "../../prisma";
 
 interface FindAskGameRequest{
+    gameID: string;
     askID: string;
+    dateVisualized: string;
     userRequest: {
         id: string;
         type: string;
-    },
+    };
 }
 
 
 class FindAskGameService{
-    async execute( {askID, userRequest}: FindAskGameRequest ){
+    async execute( {gameID, askID, dateVisualized, userRequest}: FindAskGameRequest ){
 
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
         }
+
+        prismaClient.game.update({
+            where:{
+                id: gameID
+            },
+            data: {
+                dateVisualized: dateVisualized
+            }
+        }).then(() => {
+
+        })
+        
 
 
         const ask = await prismaClient.ask.findUnique({
@@ -26,6 +40,17 @@ class FindAskGameService{
                 level: true,
                 question: true,
                 image: true,
+                game: {
+                    where:{
+                        id: gameID,
+                    },
+                    select:{
+                        dateVisualized: true,
+                        timeOut: true,
+                        dateCreated: true,
+                        dateFinalization: true,
+                    }
+                },
                 tip: {
                     where: {
                         visible: true,

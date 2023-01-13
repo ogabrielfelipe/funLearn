@@ -13,7 +13,5 @@ BigInt.prototype.toJSON=function(){
 //Convert a data para o TimeZone do Brasil 
 
 Date.prototype.toJSON=function(){
-    return this.toLocaleString('pt-BR', {
-        timeZone: 'America/Sao_Paulo',
-    })
+    return this.toLocaleString()
 }

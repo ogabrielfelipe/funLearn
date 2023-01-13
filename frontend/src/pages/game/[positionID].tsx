@@ -42,19 +42,22 @@ type detailsPositionType = {
       id: string,
       name: string
     }
-  }
+}
 
 type AnswersAsk = {
     description: string,
     id: string
 }
 
+type TipAnswer = {
+    name: string,
+    id: string
+}
 
 export default function GameStudent(){
     const apiClient = setupAPIClient();
     const router = useRouter();
     const { positionID } = router.query;
-
 
     const [loading, setLoading] = useState(true);
     const [detailsPosition, setDetailsPosition] = useState<detailsPositionType>();
@@ -67,14 +70,14 @@ export default function GameStudent(){
     const [askLevel, setAskLevel] = useState<string>("");
     const [askQuestion, setAskQuestion] = useState<string>("");
     const [askAnswers, setAskAnswers] = useState<AnswersAsk[]>(Array());
-
-
+    const [tip, setTip] = useState<TipAnswer []>(Array());
     
     function handleSelectionFirstAsk( asks: any[] ){
         return asks.find(value => {
             return value.answered === false;
         })
     }
+
     async function findDatailsAsk(askID: string){
         setLoading(true);
         await apiClient.get(`/game/find/ask/${askID}`)
@@ -85,6 +88,7 @@ export default function GameStudent(){
                 setAskLevel(resp.data.level);
                 setAskQuestion(resp.data.question);
                 setAskAnswers(resp.data.answer);
+                setTip(resp.data.tip);
                 setLoading(false);
             }
         })
@@ -146,7 +150,6 @@ export default function GameStudent(){
         console.log(answerSelected);
     }
 
-
     function handleShowModelTips(){
         let model = document.getElementById("modelTips");
         model?.classList.add(styles.modelTipsClose)
@@ -157,7 +160,6 @@ export default function GameStudent(){
         let model = document.getElementById("modelTips");
         model?.classList.remove(styles.modelTipsClose)
     }
-
 
 
     return (
@@ -327,6 +329,7 @@ export default function GameStudent(){
 
                     <p>
                         DICA
+                        {/* {tip}     */}
                     </p>
                 </div>
                 

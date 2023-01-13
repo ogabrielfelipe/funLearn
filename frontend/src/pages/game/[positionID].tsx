@@ -18,8 +18,8 @@ import Image from "next/image";
 import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
-import Countdown from 'react-countdown';
 
+import { Timer } from 'react-countdown-clock-timer';
 
 type detailsPositionType = {
     id: string,
@@ -86,6 +86,8 @@ export default function GameStudent(){
     const [tip, setTip] = useState<TipAnswer[]>(Array());
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
+
+    const [startCountDown, setStartCountDown] = useState<number>(setupGame.game.timeOut);
     
     function handleSelectionFirstAsk( asks: any[] ){
         return asks.find(value => {
@@ -231,37 +233,38 @@ export default function GameStudent(){
     }
 
 
+    function restartCountDown(){
+        console.log("Restarting")
+    }
+
+
     function handleShowModelTimeOut(){
-        console.log("chamei model")
-
-        let model = document.getElementById("modelTimeOut");
-        model?.classList.add(styles.modelTimeOutShow)
-    }
-
-    function handleCloseModelTimeOut(){
-        let model = document.getElementById("modelTimeOut");
-        model?.classList.remove(styles.modelTimeOutShow)
+        console.log("Chamei model <renderer>")
+        let modelOpen = document.getElementById("modelTimeOut");
+        modelOpen?.classList.add(styles.modelTimeOutShow);
     }
 
 
-    async function handleNewAttempt(gameID: string){
+
+    async function handleNewAttempt(){
         setLoading(true)
-        
         console.log(gameID)
+        setAskDateVisualized(Date.now()+setupGame.game.timeOut)
+
         apiClient.delete(`/game/removeLife/${gameID}`)
         .then(async resp => {
-            if (resp.status === 200){
-
-                await getPosition(positionID as string, false)
-                await findDatailsAsk(askID, gameID)
-
+            if (resp.status === 200){        
+                await getPosition(positionID as string, false);
+                await findDatailsAsk(askID, gameID)       
+                
+                handleCloseModelTimeOut()
+                
                 if (resp.data.position.life <= 0){
                     Router.push("/home/student")
                 }
                 setLoading(false)
                 return true
             }
-            handleCloseModelTimeOut()
             return false
         })
         .catch(err => {
@@ -272,16 +275,14 @@ export default function GameStudent(){
     }
 
 
-    const renderer = ({ minutes, seconds, completed }) => {
-        if (completed) {
-          handleShowModelTimeOut();
-          return <span>Tempo Escotado!</span>;
-        } else {
-
-          return <span>{minutes}:{seconds}</span>;
-        }
-      };
-
+    
+      function handleCloseModelTimeOut(){
+        console.log("fechei model <renderer>")
+        let modelClose = document.getElementById("modelTimeOut");
+        modelClose?.classList.remove(styles.modelTimeOutShow);
+        setStartCountDown(setupGame.game.timeOut)
+        //handleReset();
+    }
 
 
     useEffect(() => {  
@@ -320,7 +321,7 @@ export default function GameStudent(){
                 </div>
 
                 {/* Configurar para quando clicar, ele finalizar o QUIZZ e redirecionar para a tela inicial do módulo do estudante */}
-                <ButtonStudenTertiary>
+                <ButtonStudenTertiary >
                     <Link href="#">
                         Tela Inicial
                     </Link>
@@ -355,10 +356,25 @@ export default function GameStudent(){
                         <div className={styles.contentGame}>
                             <strong className={styles.textTimeAndTip}>
                                 <Time />
-                                <Countdown
-                                    date={askDateVisualized + setupGame.game.timeOut}
-                                    renderer={renderer}
-                                    autoStart
+                                <Timer
+                                    durationInSeconds={startCountDown}
+                                    formatted={true}
+                                    isPaused={false}
+                                    showPauseButton={false}
+                                    showResetButton={false} 
+
+                                    timerId={(teste) => {
+                                        console.log(teste)
+                                    }}
+
+                                    onFinish = {() => {
+                                        console.log("Acabou o tempo")
+                                        handleShowModelTimeOut();
+                                    }}
+
+                                    onReset = {(remainingDuration) => {
+                                        console.log("restart", remainingDuration)
+                                    }}
                                 />
                             </strong>
 
@@ -443,7 +459,7 @@ export default function GameStudent(){
                         <ButtonStudentSecondary>
                             Finalizar
                         </ButtonStudentSecondary>
-                        <ButtonStudentPrimary onClick={ () => handleNewAttempt(gameID)}>
+                        <ButtonStudentPrimary onClick={ handleNewAttempt}>
                             Tentar Novamente
                         </ButtonStudentPrimary>
                     </div>

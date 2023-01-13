@@ -2025,7 +2025,7 @@ prelude-ls@^1.2.1:
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prop-types@^15.5.0, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.5.0, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -2049,12 +2049,10 @@ queue-microtask@^1.2.2:
   resolved "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-react-countdown@^2.3.5:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/react-countdown/-/react-countdown-2.3.5.tgz#70c035b5cbc7e8fdb4ad91fe5f44afd7a7933a68"
-  integrity sha512-K26ENYEesMfPxhRRtm1r+Pf70SErrvW3g4CArLi/x6MPFjgfDFYePT4UghEj8p2nI0cqVV7/JjDgjyr//U60Og==
-  dependencies:
-    prop-types "^15.7.2"
+react-countdown-clock-timer@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-countdown-clock-timer/-/react-countdown-clock-timer-2.1.2.tgz#ed19375efb512daa76ca9bf8c319023021a4d3ca"
+  integrity sha512-fMzaRIpQWfN7L9/wlBPo/Ih7FzJt9A65bHy3aSrCE/tCkB1G9Fmb7Z1goUxr5CuSFpur+jzSCM4WJtNtYoN2nA==
 
 react-dom@18.2.0:
   version "18.2.0"

@@ -7,27 +7,91 @@ interface RemoveLifeGameRequest{
         id: string;
         type: string;
     },
-    positionID: string
+    gameID: string
 }
 
 
 class RemoveLifeGameService{
-    async execute( {userRequest, positionID}:RemoveLifeGameRequest ){
+    async execute( {userRequest, gameID}:RemoveLifeGameRequest ){
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
         }
 
         const removeLife = 1;
 
-        const position = await prismaClient.position.findUnique({
+        const game = await prismaClient.game.findUnique({
             where:{
-                id: positionID
+                id: gameID
+            }
+        })
+
+        if (!game){
+            throw new Error("game not found.")
+        }
+
+        const position = await prismaClient.position.findUnique({
+            where: {
+                id: game.positionID
             }
         })
 
         if (!position){
-            throw new Error("Position not found.")
+            throw new Error("position not found.")
         }
+
+        let lifeToday = position.life as number - removeLife;
+        let removeLifeByGame;
+        if (lifeToday <= 0){
+            console.log("Usuário nao possio mais vida")
+            removeLifeByGame = await this._FinishedGameByTimeOut(game.id)
+        }
+
+
+        removeLifeByGame = await prismaClient.game.update({
+            where: {
+                id: game.id
+            },
+            data: {
+                timeOut: true,
+                position: {
+                    update: {
+                        life: lifeToday
+                    }
+                }
+            },
+            select: {
+                id: true,
+                position: {
+                    select: {
+                        id: true,
+                        life: true
+                    }
+                }
+            }
+        })
+
+/*
+        const position = await prismaClient.position.findUnique({
+            where:{
+                id: game.positionID
+            }
+        })
+
+        if (!position){
+            throw new Error("position not found.")
+        }
+
+        let lifeToday: number = position.life - removeLife;
+
+        prismaClient.position.update({
+            where:{
+                id: position.id
+            },
+            data: {
+                life: lifeToday
+            }
+        })
+
 
         let resultPosition = {};
         let lifePosition = position.life as number;
@@ -102,7 +166,42 @@ class RemoveLifeGameService{
 
 
         return resultPosition
+*/
 
+        return removeLifeByGame;
+    }
+
+    async _FinishedGameByTimeOut(gameID: string){
+        let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
+
+        const removeLifeByGame = await prismaClient.game.update({
+            where: {
+                id: gameID
+            },
+            data: {
+                timeOut: true,
+                dateFinalization: DateTimePTBR.format(),
+                position: {
+                    update: {
+                        life: 0,
+                        finishedTime: true,
+                        dateFinalization: DateTimePTBR.format()
+                    }
+                }
+            },
+            select: {
+                id: true,
+                dateFinalization: true,
+                timeOut: true,
+                position: {
+                    select: {
+                        id: true,
+                        life: true,
+                        dateFinalization: true
+                    }
+                }
+            }
+        })
     }
 }
 

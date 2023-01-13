@@ -41,7 +41,8 @@ class RecommenceGameService{
                 qtdRecommence: position.qtdRecommence + valueRecommence,
                 recommence: true,
                 dateRecommence: dateRecommence,
-                dateFinalizationRecommence: dateFinalizationRecommence
+                dateFinalizationRecommence: dateFinalizationRecommence,
+                life: 3
             },
             select: {
                 id: true,

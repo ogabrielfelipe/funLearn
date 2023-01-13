@@ -18,15 +18,13 @@ class FindAskGameService{
             throw new Error("user is not a student.")
         }
 
-        prismaClient.game.update({
+        await prismaClient.game.update({
             where:{
                 id: gameID
             },
             data: {
                 dateVisualized: dateVisualized
             }
-        }).then(() => {
-
         })
         
 

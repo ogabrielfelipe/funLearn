@@ -223,6 +223,10 @@
     left: 0;
 }
 
+.nameTip{
+    margin-left: 15%;
+}
+
 
 .modelTimeOut{
     width: 100vw;

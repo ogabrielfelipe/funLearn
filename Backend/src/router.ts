@@ -54,7 +54,7 @@ import { StartGameController } from './controller/game/StartGameController';
 import { FindAskGameController } from './controller/game/FindAskGameController';
 import { CheckAnswerCorrectController } from './controller/game/CheckAnswerCorrectController';
 import { FindThemesByStudentController } from './controller/game/FindThemesByStudentController';
-import { RemoveLifeGameController } from './controller/game/RemoveLifeGameController';
+import { RemoveLifeByTimeGameController } from './controller/game/RemoveLifeByTimeGameController';
 import { FinishedGameController } from './controller/game/FinishedGameController';
 import { FindAsksByPositionController } from './controller/game/FindAsksByPositionController';
 import { RecommenceGameController } from './controller/game/RecommeceGameController';
@@ -194,7 +194,7 @@ router.get('/game/find/themes', isAuthenticated, new FindThemesByStudentControll
 router.get('/game/find/askByPosition/:positionID', isAuthenticated, new FindAsksByPositionController().handle)
 router.get('/game/find/classification/:teamID', isAuthenticated, new FindClassificationByTeamController().handle)
 router.get('/game/find/position/:positionID', isAuthenticated, new FindPositionController().handle)
-router.delete('/game/removeLife/:positionID', isAuthenticated, new RemoveLifeGameController().handle)
+router.delete('/game/removeLife/:gameID', isAuthenticated, new RemoveLifeByTimeGameController().handle)
 router.delete('/game/finish', isAuthenticated, new FinishedGameController().handle)
 
 

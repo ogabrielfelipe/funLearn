@@ -3,32 +3,32 @@ import { RemoveLifeGameService } from "../../service/game/RemoveLifeGameService"
 
 
 
-class RemoveLifeGameController{
+class RemoveLifeByTimeGameController{
     async handle(req: Request, res: Response){
 
         // #swagger.start
 
-        // #swagger.path = '/game/removeLife/:positionID'
+        // #swagger.path = '/game/removeLife/:gameID'
         // #swagger.method = 'delete'
         // #swagger.description = 'Endpoint para remover ou finalizar, caso não tenha mais vida.'
         // #swagger.produces = ["application/json"]
         // #swagger.tags = ['Game']
 
         /*
-            #swagger.parameters['positionID'] = {
+            #swagger.parameters['gameID'] = {
                 in: 'path',
-                description: " positionID: Deverá ser preenchido com o identificador do jogo.",
+                description: " gameID: Deverá ser preenchido com o identificador do jogo.",
                 requerid: true,
                 schema: { $ref: "#/definitions/CheckAnswer" }        
             }
          */
 
 
-        const positionID = req.params.positionID as string;
+        const gameID = req.params.gameID as string;
 
         const removeLifeGame = new RemoveLifeGameService();
         const result = await removeLifeGame.execute({
-            positionID: positionID,
+            gameID: gameID,
             userRequest: req.user
         })
 
@@ -56,4 +56,4 @@ class RemoveLifeGameController{
     }
 }
 
-export { RemoveLifeGameController }
+export { RemoveLifeByTimeGameController }

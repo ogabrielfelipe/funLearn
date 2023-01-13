@@ -19,7 +19,6 @@ import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
 import Countdown from 'react-countdown';
-import moment from "moment";
 
 
 type detailsPositionType = {
@@ -53,8 +52,12 @@ type AnswersAsk = {
 
 type TipAnswer = {
     name: string,
-    id: string
+    id: string,
+    used?: boolean
 }
+
+
+
 
 export default function GameStudent(){
     const apiClient = setupAPIClient();
@@ -62,18 +65,27 @@ export default function GameStudent(){
     const { positionID } = router.query;
 
     const [loading, setLoading] = useState(true);
-    const [detailsPosition, setDetailsPosition] = useState<detailsPositionType>();
+    //const [detailsPosition, setDetailsPosition] = useState<detailsPositionType>();
     const [listAsks, setListAsks] = useState(Array());
 
     const [firstAsk, setFirstAsk] = useState();
 
+    const [gameID, setGameID] = useState<string>("");
     const [askID, setAskID] = useState<string>("");
     const [askImage, setAskImage] = useState<string>("");
     const [askLevel, setAskLevel] = useState<string>("");
     const [askQuestion, setAskQuestion] = useState<string>("");
     const [askAnswers, setAskAnswers] = useState<AnswersAsk[]>(Array());
     const [askDateVisualized, setAskDateVisualized] = useState<number>("");
-    const [tip, setTip] = useState<TipAnswer []>(Array());
+
+    const [themeName, setThemeName] = useState<string>("");
+    const [lifePosition, setLifePosition] = useState<Array<number>>(Array());
+    const [coinPosition, setCoinPosition] = useState<number>(0);
+
+
+    const [tip, setTip] = useState<TipAnswer[]>(Array());
+    const [tipName, setTipName] = useState<string>("");
+    const [countTipUsed, setCountTipUsed] = useState<number>(0);
     
     function handleSelectionFirstAsk( asks: any[] ){
         return asks.find(value => {
@@ -81,35 +93,67 @@ export default function GameStudent(){
         })
     }
 
+    function populateTips(tips: TipAnswer[]){
+        let tipAux: TipAnswer[] = Array();
+        tips.map(value => {
+            tipAux.push({
+                id: value.id,
+                name: value.name,
+                used: false
+            })
+        })
+        setTip(tipAux)
+    }
+
+
     async function findDatailsAsk(askID: string, gameID: string){
         setLoading(true);
         await apiClient.get(`/game/find/ask/${askID}/${gameID}`)
         .then(resp => {
             if (resp.status === 200){
+                console.log(resp.data)  
+
+                setGameID(gameID);
                 setAskID(resp.data.id);
                 setAskImage(resp.data.image);
                 setAskLevel(resp.data.level);
                 setAskQuestion(resp.data.question);
                 setAskAnswers(resp.data.answer);
-                setAskDateVisualized(Date.parse(resp.data.game[0].dateVisualized))
-                setTip(resp.data.tip);
+                setAskDateVisualized(Date.parse(resp.data.game[0].dateVisualized));
+                populateTips(resp.data.tip);
                 setLoading(false);
+                return true
             }
         })
         .catch(err => {
             console.log(err)
             setLoading(false);
+            return false
         })
+    }
+
+    function convertLifeInArray(life: number){
+        let aux: Array<number> = Array<number>()
+        for (var i = 0; i < setupGame.game.life; i++){
+            var value = life - i;
+            if (value > 0){
+                aux.push(1)
+            }else {
+                aux.push(0)
+            }
+        } 
+
+        return aux
     }
 
     async function findAsksByPositionID(positionID:string) {
         setLoading(true);
-        await apiClient.get(`/game/find/askByPosition/${positionID}`)
-        .then(resp => {
+        apiClient.get(`/game/find/askByPosition/${positionID}`)
+        .then(async resp => {
             setLoading(false);
             console.log(resp.data)
             let askSelected = handleSelectionFirstAsk(resp.data);
-            findDatailsAsk(askSelected.ask.id, askSelected.id)
+            await findDatailsAsk(askSelected.ask.id, askSelected.id)
             return;
         })
         .catch(err => {
@@ -118,19 +162,25 @@ export default function GameStudent(){
         })
 
     }
-    async function getPosition(positionID: string){
+    async function getPosition(positionID: string, findAsks: boolean){
         setLoading(true);
-        await apiClient.get(`/game/find/position/${positionID}`)
+        apiClient.get(`/game/find/position/${positionID}`)
         .then(async resp => {
-            setDetailsPosition(resp.data);
-            
-            await findAsksByPositionID(positionID)
-
+            console.log(resp.data)            
+            setLifePosition(convertLifeInArray(resp.data.life));
+            setCoinPosition(resp.data.score);
+            setThemeName(resp.data.theme.name)
+            //setDetailsPosition(resp.data); 
+            if (findAsks){
+                await findAsksByPositionID(positionID)
+            }
             setLoading(false);
+            return true
         })
         .catch(err => {
             console.log(err);
             setLoading(false);
+            return false
         })
     }
 
@@ -152,6 +202,25 @@ export default function GameStudent(){
 
     function handleShowModelTips(){
         let model = document.getElementById("modelTips");
+        let tipFind = tip.filter((value) => {
+            if (value.used === false){
+                return value
+            }
+        })[0]
+
+        if (!tipFind){
+            setTipName("Essa pergunta não possui mais dicas");            
+            model?.classList.add(styles.modelTipsClose)
+            return;
+        }
+
+        let tipAux = tip.filter(value => {
+            return value.id != tipFind.id
+        })
+        tipFind.used = true;
+        tipAux.push(tipFind)
+        setTipName(tipFind.name)
+        setCountTipUsed(countTipUsed+1);
         model?.classList.add(styles.modelTipsClose)
     }
 
@@ -163,97 +232,95 @@ export default function GameStudent(){
 
 
     function handleShowModelTimeOut(){
+        console.log("chamei model")
+
         let model = document.getElementById("modelTimeOut");
         model?.classList.add(styles.modelTimeOutShow)
     }
 
+    function handleCloseModelTimeOut(){
+        let model = document.getElementById("modelTimeOut");
+        model?.classList.remove(styles.modelTimeOutShow)
+    }
 
-    const renderer = ({ hours, minutes, seconds, completed }) => {
+
+    async function handleNewAttempt(gameID: string){
+        setLoading(true)
+        
+        console.log(gameID)
+        apiClient.delete(`/game/removeLife/${gameID}`)
+        .then(async resp => {
+            if (resp.status === 200){
+
+                await getPosition(positionID as string, false)
+                await findDatailsAsk(askID, gameID)
+
+                if (resp.data.position.life <= 0){
+                    Router.push("/home/student")
+                }
+                setLoading(false)
+                return true
+            }
+            handleCloseModelTimeOut()
+            return false
+        })
+        .catch(err => {
+            console.log(err)
+            setLoading(false)
+            return false
+        })
+    }
+
+
+    const renderer = ({ minutes, seconds, completed }) => {
         if (completed) {
           handleShowModelTimeOut();
           return <span>Tempo Escotado!</span>;
         } else {
-          // Render a countdown
+
           return <span>{minutes}:{seconds}</span>;
         }
       };
 
 
 
-    useEffect(() => {        
-        
-        getPosition(positionID as string)
-
+    useEffect(() => {  
+        getPosition(positionID as string, true )
     }, [positionID])
 
     return (
         <>
             <Head>
-                <title>{detailsPosition?.theme.name} - FunLearn</title>
+                <title>{themeName} - FunLearn</title>
             </Head>
 
             <header className={styles.header}>
                 <div className={styles.contentGame}>
                     <div className={styles.life}>
                         {
-                            detailsPosition?.life === 3 ? (
-                                <>
-                                    <LottieFilesLife 
-                                    removeLife={false}
-                                    />
-
-                                    <LottieFilesLife 
-                                        removeLife={false}
-                                    />
-
-                                    <LottieFilesLife 
-                                        removeLife={false}
-                                    />
-                                </>
-                                
-                            ) : detailsPosition?.life === 2 ? (
-                                <>
-                                    <LottieFilesLife 
-                                    removeLife={false}
-                                    />
-
-                                    <LottieFilesLife 
-                                        removeLife={false}
-                                    />
-
-                                    <LottieFilesLife 
-                                        removeLife={true}
-                                    />
-                                </>
-                            ) : detailsPosition?.life === 1 ? (
-                                <>
-                                    <LottieFilesLife 
-                                    removeLife={false}
-                                    />
-
-                                    <LottieFilesLife 
-                                        removeLife={true}
-                                    />
-
-                                    <LottieFilesLife 
-                                        removeLife={true}
-                                    />
-                                </>
-                            ) : <></>
+                            lifePosition.map((life, index) => {
+                                return (
+                                    <>
+                                        <LottieFilesLife key={index}
+                                            removeLife={life === 1 ? false : true}
+                                        />
+                                    </>                                    
+                                )
+                            })
                         }
                     </div>
 
                     <div className={styles.contentCoin}>
                         <Coin/>
                         <strong className={styles.textCoin}>
-                            {detailsPosition?.score}
+                            {coinPosition}
                         </strong>
                     </div>
 
                 </div>
 
                 {/* Configurar para quando clicar, ele finalizar o QUIZZ e redirecionar para a tela inicial do módulo do estudante */}
-                <ButtonStudenTertiary onClick={handleShowModelTimeOut}>
+                <ButtonStudenTertiary>
                     <Link href="#">
                         Tela Inicial
                     </Link>
@@ -355,9 +422,8 @@ export default function GameStudent(){
                         <Lamp />
                     </div>
 
-                    <p>
-                        DICA
-                        {/* {tip}     */}
+                    <p className={styles.nameTip}>
+                        {tipName}
                     </p>
                 </div>
                 
@@ -377,7 +443,7 @@ export default function GameStudent(){
                         <ButtonStudentSecondary>
                             Finalizar
                         </ButtonStudentSecondary>
-                        <ButtonStudentPrimary>
+                        <ButtonStudentPrimary onClick={ () => handleNewAttempt(gameID)}>
                             Tentar Novamente
                         </ButtonStudentPrimary>
                     </div>

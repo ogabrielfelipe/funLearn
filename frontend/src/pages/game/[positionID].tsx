@@ -276,7 +276,7 @@ export default function GameStudent(){
 
 
     
-      function handleCloseModelTimeOut(){
+    function handleCloseModelTimeOut(){
         console.log("fechei model <renderer>")
         let modelClose = document.getElementById("modelTimeOut");
         modelClose?.classList.remove(styles.modelTimeOutShow);
@@ -452,7 +452,7 @@ export default function GameStudent(){
                         <Time />
                     </div>
                     <div className={styles.textTimeOut}> 
-                        <span>Tempo escotado!!!</span>
+                        <span>Tempo esgotado!!!</span>
                     </div>
 
                     <div className={styles.contentBtn}>

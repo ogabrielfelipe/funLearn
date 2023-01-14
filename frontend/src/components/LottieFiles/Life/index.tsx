@@ -10,9 +10,9 @@ interface LifeProps extends HTMLAttributes<HTMLDivElement>{
 
 
 
-export default function LottieFilesLife( { removeLife}: LifeProps){
+export default function LottieFilesLife( {removeLife, ...rest}: LifeProps){
 
-    const [removeLifeSt, setRemoveLifeSt] = useState(removeLife);
+    const removeLifeSt = removeLife;
 
     return (
         <>
@@ -21,6 +21,7 @@ export default function LottieFilesLife( { removeLife}: LifeProps){
                     width: '7rem',
                     marginRight: '-20px'
                 }}
+                {...rest}
             >
             <Player
                 src={ removeLifeSt === true ? LifeRemove : Life  }

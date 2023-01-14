@@ -66,11 +66,7 @@ export default function GameStudent(){
     const { positionID } = router.query;
 
     const [loading, setLoading] = useState(true);
-    // //const [detailsPosition, setDetailsPosition] = useState<detailsPositionType>();
-    // const [listAsks, setListAsks] = useState(Array());
-
-    // const [firstAsk, setFirstAsk] = useState();
-
+    
     const [gameID, setGameID] = useState<string>("");
     const [askID, setAskID] = useState<string>("");
     const [askImage, setAskImage] = useState<string>("");
@@ -89,6 +85,7 @@ export default function GameStudent(){
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
 
     const [startCountDown, setStartCountDown] = useState<number>(setupGame.game.timeOut);
+
     
     function handleSelectionFirstAsk( asks: any[] ){
         return asks.find(value => {
@@ -188,7 +185,7 @@ export default function GameStudent(){
         })
 
         let answerSelected = document.getElementById(`${answerID}`);
-        answerSelected?.classList.toggle(styles.contentAnswerSelected)        
+        answerSelected?.classList.add(styles.contentAnswerSelected)        
         setAnswerSelected(answerID)
     }
 
@@ -398,7 +395,7 @@ export default function GameStudent(){
                                     isPaused={false}
                                     showPauseButton={false}
                                     showResetButton={false} 
-
+                                    
                                     timerId={(teste) => {
                                         console.log(teste)
                                     }}
@@ -406,9 +403,7 @@ export default function GameStudent(){
                                     onFinish = {() => {
                                         handleShowModelTimeOut();
                                     }}
-
-                                    onReset = {(remainingDuration) => {
-                                    }}
+                                    
                                 />
                             </strong>
 
@@ -424,7 +419,7 @@ export default function GameStudent(){
                                 let alpha = ['A', 'B', 'C', 'D']
                                 return (
                                     <>
-                                        <div key={value.id} onClick={ () => selectAnswer(value.id) } id={value.id} className={styles.contentAnswer}>
+                                        <div key={value.id} onClick={ () => {selectAnswer(value.id)} } id={value.id} className={styles.contentAnswer}>
                                             <span hidden>{value.id}</span>
                                             <div className={styles.alphaLetters}>
                                                 <a href="#" id={`alpha-${value.id}`}>{alpha[index]}</a>

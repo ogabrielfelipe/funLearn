@@ -44,7 +44,7 @@ class FindAskGameService{
                     },
                     select:{
                         dateVisualized: true,
-                        timeOut: true,
+                        attempt: true,
                         dateCreated: true,
                         dateFinalization: true,
                     }

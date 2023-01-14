@@ -18,6 +18,7 @@ class RemoveLifeGameService{
         }
 
         const removeLife = 1;
+        const attempt = 1;
 
         const game = await prismaClient.game.findUnique({
             where:{
@@ -40,9 +41,9 @@ class RemoveLifeGameService{
         }
 
         let lifeToday = position.life as number - removeLife;
+        let attemptAnswer = game.attempt +  attempt;
         let removeLifeByGame;
         if (lifeToday <= 0){
-            console.log("Usuário nao possio mais vida")
             removeLifeByGame = await this._FinishedGameByTimeOut(game.id)
         }
 
@@ -52,7 +53,7 @@ class RemoveLifeGameService{
                 id: game.id
             },
             data: {
-                timeOut: true,
+                attempt: attemptAnswer,
                 position: {
                     update: {
                         life: lifeToday
@@ -70,104 +71,6 @@ class RemoveLifeGameService{
             }
         })
 
-/*
-        const position = await prismaClient.position.findUnique({
-            where:{
-                id: game.positionID
-            }
-        })
-
-        if (!position){
-            throw new Error("position not found.")
-        }
-
-        let lifeToday: number = position.life - removeLife;
-
-        prismaClient.position.update({
-            where:{
-                id: position.id
-            },
-            data: {
-                life: lifeToday
-            }
-        })
-
-
-        let resultPosition = {};
-        let lifePosition = position.life as number;
-        if (lifePosition <= 1){
-
-            let score: number = 0;
-            lifePosition = 0
-            let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
-
-            const pointTotal = await prismaClient.game.findMany({
-                where: {
-                    positionID: positionID
-                },
-                select: {
-                    point: true
-                }
-            })
-    
-            if (pointTotal){
-                for (let i = 0; i < pointTotal.length; i++){
-                    score += pointTotal[i].point
-                }
-            }
-
-            resultPosition = await prismaClient.position.update({
-                where: {
-                    id: positionID
-                },
-                data: {
-                    dateFinalization: DateTimePTBR.format(),
-                    finishedOver: true,
-                    life: lifePosition,
-                    score: score,
-                },
-                select:{
-                    id: true,
-                    dateFinalization: true,
-                    dateInitial: true,
-                    finished: true,
-                    finishedOver: true,
-                    finishedTime: true,
-                    life: true,
-                    score: true,
-                    started: true,
-
-                }
-            })
-        }else{
-
-            resultPosition = await prismaClient.position.update({
-                where: {
-                    id: positionID
-                },
-                data: {
-                    life: lifePosition - removeLife,
-                },
-                select:{
-                    id: true,
-                    dateFinalization: true,
-                    dateInitial: true,
-                    finished: true,
-                    finishedOver: true,
-                    finishedTime: true,
-                    life: true,
-                    score: true,
-                    started: true,
-
-                }
-            })
-
-        }
-
-
-        return resultPosition
-*/
-
         return removeLifeByGame;
     }
 
@@ -179,7 +82,6 @@ class RemoveLifeGameService{
                 id: gameID
             },
             data: {
-                timeOut: true,
                 dateFinalization: DateTimePTBR.format(),
                 position: {
                     update: {
@@ -192,7 +94,7 @@ class RemoveLifeGameService{
             select: {
                 id: true,
                 dateFinalization: true,
-                timeOut: true,
+                attempt: true,
                 position: {
                     select: {
                         id: true,

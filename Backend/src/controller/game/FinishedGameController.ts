@@ -26,8 +26,7 @@ class FinishedGameController{
                 in: 'body',
                 description: " positionID: Deverá ser preenchido com o identificador do jogo; \n
                         typeFinish: Deverá ser preenchido com o tipo de finalização; \n
-                        positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n
-                        attempt: Deverá ser preenchido com o número de tentativas que foi utilizada para responder.",
+                        positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo.",
                 requerid: true,
                 schema: { $ref: "#/definitions/FinishGame" }        
             }

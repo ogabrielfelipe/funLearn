@@ -12,15 +12,15 @@
             "quantityAsks": 4,
             "punctuation": [
                 {
-                    "attempt": 1,
+                    "attempt": 0,
                     "point": 500
                 },
                 {
-                    "attempt": 2,
+                    "attempt": 1,
                     "point": 350
                 },
                 {
-                    "attempt": 3,
+                    "attempt": 2,
                     "point": 200
                 }
             ],
@@ -31,15 +31,15 @@
             "quantityAsks": 3,
             "punctuation": [
                 {
-                    "attempt": 1,
+                    "attempt": 0,
                     "point": 750
                 },
                 {
-                    "attempt": 2,
+                    "attempt": 1,
                     "point": 600
                 },
                 {
-                    "attempt": 3,
+                    "attempt": 2,
                     "point": 450
                 }
             ],
@@ -50,15 +50,15 @@
             "quantityAsks": 3,
             "punctuation": [
                 {
-                    "attempt": 1,
+                    "attempt": 0,
                     "point": 1000
                 },
                 {
-                    "attempt": 2,
+                    "attempt": 1,
                     "point": 850
                 },
                 {
-                    "attempt": 3,
+                    "attempt": 2,
                     "point": 700
                 }
             ],

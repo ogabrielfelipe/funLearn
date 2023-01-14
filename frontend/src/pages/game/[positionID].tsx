@@ -66,18 +66,18 @@ export default function GameStudent(){
     const { positionID } = router.query;
 
     const [loading, setLoading] = useState(true);
-    //const [detailsPosition, setDetailsPosition] = useState<detailsPositionType>();
-    const [listAsks, setListAsks] = useState(Array());
+    // //const [detailsPosition, setDetailsPosition] = useState<detailsPositionType>();
+    // const [listAsks, setListAsks] = useState(Array());
 
-    const [firstAsk, setFirstAsk] = useState();
+    // const [firstAsk, setFirstAsk] = useState();
 
     const [gameID, setGameID] = useState<string>("");
     const [askID, setAskID] = useState<string>("");
     const [askImage, setAskImage] = useState<string>("");
-    const [askLevel, setAskLevel] = useState<string>("");
     const [askQuestion, setAskQuestion] = useState<string>("");
     const [askAnswers, setAskAnswers] = useState<AnswersAsk[]>(Array());
-    const [askDateVisualized, setAskDateVisualized] = useState<number>("");
+    const [askAttempt, setAskAttempt] = useState<number>(0);
+    const [answerSelected, setAnswerSelected] = useState<string>("")
 
     const [themeName, setThemeName] = useState<string>("");
     const [lifePosition, setLifePosition] = useState<Array<number>>(Array());
@@ -92,7 +92,7 @@ export default function GameStudent(){
     
     function handleSelectionFirstAsk( asks: any[] ){
         return asks.find(value => {
-            return value.answered === false && !value.timeOut ;
+            return value.answered === false;
         })
     }
 
@@ -108,21 +108,17 @@ export default function GameStudent(){
         setTip(tipAux)
     }
 
-
     async function findDatailsAsk(askID: string, gameID: string){
         setLoading(true);
         await apiClient.get(`/game/find/ask/${askID}/${gameID}`)
         .then(resp => {
             if (resp.status === 200){
-                console.log(resp.data)  
-
+                setAskAttempt(resp.data.game[0].attempt)
                 setGameID(gameID);
                 setAskID(resp.data.id);
                 setAskImage(resp.data.image);
-                setAskLevel(resp.data.level);
                 setAskQuestion(resp.data.question);
                 setAskAnswers(resp.data.answer);
-                setAskDateVisualized(Date.parse(resp.data.game[0].dateVisualized));
                 populateTips(resp.data.tip);
                 setLoading(false);
                 return true
@@ -153,8 +149,6 @@ export default function GameStudent(){
         setLoading(true);
         apiClient.get(`/game/find/askByPosition/${positionID}`)
         .then(async resp => {
-            setLoading(false);
-            console.log(resp.data)
             let askSelected = handleSelectionFirstAsk(resp.data);
             await findDatailsAsk(askSelected.ask.id, askSelected.id)
             return;
@@ -169,12 +163,10 @@ export default function GameStudent(){
     async function getPosition(positionID: string, findAsks: boolean){
         setLoading(true);
         apiClient.get(`/game/find/position/${positionID}`)
-        .then(async resp => {
-            console.log(resp.data)            
+        .then(async resp => {  
             setLifePosition(convertLifeInArray(resp.data.life));
             setCoinPosition(resp.data.score);
             setThemeName(resp.data.theme.name)
-            //setDetailsPosition(resp.data); 
             if (findAsks){
                 await findAsksByPositionID(positionID)
             }
@@ -189,8 +181,6 @@ export default function GameStudent(){
     }
 
     async function selectAnswer(answerID: string){
-        console.log(answerID);
-
         askAnswers.forEach(value => {
             var answerSelected = document.getElementById(`${value.id}`);
             answerSelected?.classList.remove(styles.contentAnswerSelected)
@@ -198,8 +188,8 @@ export default function GameStudent(){
         })
 
         let answerSelected = document.getElementById(`${answerID}`);
-        answerSelected?.classList.toggle(styles.contentAnswerSelected)
-        console.log(answerSelected);
+        answerSelected?.classList.toggle(styles.contentAnswerSelected)        
+        setAnswerSelected(answerID)
     }
 
     function handleShowModelTips(){
@@ -226,28 +216,30 @@ export default function GameStudent(){
         model?.classList.add(styles.modelTipsClose)
     }
 
-
     function handleCloseModelTips(){
         let model = document.getElementById("modelTips");
         model?.classList.remove(styles.modelTipsClose)
     }
 
-
-    function restartCountDown(){
-        console.log("Restarting")
+    function handleShowModelTimeOut(){
+        let modelOpen = document.getElementById("modelTimeOut");
+        modelOpen?.classList.add(styles.modelTimeOutShow);
     }
 
+    function handleCloseModelTimeOut(){
+        let modelClose = document.getElementById("modelTimeOut");
+        modelClose?.classList.remove(styles.modelTimeOutShow);
+        setStartCountDown(setupGame.game.timeOut)
+    }
 
-    function handleShowModelTimeOut(){
-        console.log("Chamei model <renderer>")
-        let modelOpen = document.getElementById("modelTimeOut");
+    function handleShowModelGameOver(){
+        let modelOpen = document.getElementById("modelGameOver");
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
 
     async function handleNewAttempt(){
         setLoading(true)
         console.log(gameID)
-        setAskDateVisualized(Date.now()+setupGame.game.timeOut)
 
         apiClient.delete(`/game/removeLife/${gameID}`)
         .then(async resp => {
@@ -255,10 +247,12 @@ export default function GameStudent(){
                 await getPosition(positionID as string, false);
                 await findDatailsAsk(askID, gameID)       
                 
-                handleCloseModelTimeOut()
                 
                 if (resp.data.position.life <= 0){
-                    Router.push("/home/student")
+                    handleShowModelGameOver()
+                    handleCloseModelTimeOut()
+                }else{
+                    handleCloseModelTimeOut()
                 }
                 setLoading(false)
                 return true
@@ -273,19 +267,65 @@ export default function GameStudent(){
     }
 
 
-    
-    function handleCloseModelTimeOut(){
-        console.log("fechei model <renderer>")
-        let modelClose = document.getElementById("modelTimeOut");
-        modelClose?.classList.remove(styles.modelTimeOutShow);
-        setStartCountDown(setupGame.game.timeOut)
-        //handleReset();
+    async function handleFinishedGame() {
+        setLoading(true);
+        let data = {
+            positionID: positionID,
+            typeFinish: "FINISHED",
+        }
+
+        apiClient.delete("/game/finish", {
+            data
+        })
+        .then(resp => {
+            Router.push("/home/student")
+            setLoading(false);
+        })
+        .catch(err => {
+            console.error(err);
+            setLoading(false);
+        })
+
     }
 
 
+    async function handleVerifyAnswerSelected() {
+        setLoading(true);
+        let data ={
+            gameID: gameID,
+            answerID: answerSelected,
+            askID: askID,
+            positionID: positionID,
+            attempt: askAttempt,
+            tip: countTipUsed
+        }
+        console.log(data);
+
+        apiClient.post("/game/answer/check",  data)
+        .then(resp => {
+            console.log(resp);
+            console.log(!resp.data.finishedGame.id, resp.data.finishedGame )
+            if (resp.data.finishedGame.id){
+                setLoading(false);
+                handleShowModelGameOver();
+            }else{
+                setLoading(false);
+                getPosition(positionID as string, true)
+            }
+
+        })
+        .catch(err => {
+            console.error(err);
+            setLoading(false);
+        })
+    }
+
+
+    
     useEffect(() => {  
         getPosition(positionID as string, true )
     }, [positionID])
+
 
     return (
         <>
@@ -319,10 +359,8 @@ export default function GameStudent(){
                 </div>
 
                 {/* Configurar para quando clicar, ele finalizar o QUIZZ e redirecionar para a tela inicial do módulo do estudante */}
-                <ButtonStudenTertiary >
-                    <Link href="#">
+                <ButtonStudenTertiary onClick={handleFinishedGame}>
                         Tela Inicial
-                    </Link>
                 </ButtonStudenTertiary>
 
             </header>
@@ -366,12 +404,10 @@ export default function GameStudent(){
                                     }}
 
                                     onFinish = {() => {
-                                        console.log("Acabou o tempo")
                                         handleShowModelTimeOut();
                                     }}
 
                                     onReset = {(remainingDuration) => {
-                                        console.log("restart", remainingDuration)
                                     }}
                                 />
                             </strong>
@@ -409,7 +445,7 @@ export default function GameStudent(){
 
 
                 <div className={styles.btnNext}>
-                    <ButtonStudentPrimary>
+                    <ButtonStudentPrimary onClick={handleVerifyAnswerSelected}>
                         Confirmar
                     </ButtonStudentPrimary>
                 </div>
@@ -454,9 +490,9 @@ export default function GameStudent(){
                     </div>
 
                     <div className={styles.contentBtn}>
-                        <ButtonStudentSecondary>
+                        <ButtonStudenTertiary onClick={handleFinishedGame}>
                             Finalizar
-                        </ButtonStudentSecondary>
+                        </ButtonStudenTertiary>
                         <ButtonStudentPrimary onClick={ handleNewAttempt}>
                             Tentar Novamente
                         </ButtonStudentPrimary>
@@ -464,22 +500,22 @@ export default function GameStudent(){
                 </div>
             </div>
 
-            <div className={styles.modelTimeOut} id={"modelTimeOut-GameOver"}>
+
+            <div className={styles.modelTimeOut} id={"modelGameOver"}>
                 <div className={styles.contentModelTimeOut}>
                     <div className={styles.iconModelTimeOut}>
-                        <Life />
+                        <Life 
+                            removeLife={true}
+                        />
                     </div>
                     <div className={styles.textTimeOut}> 
                         <span>Game Over!!!</span>
                     </div>
 
                     <div className={styles.contentBtn}>
-                        <ButtonStudentSecondary>
-                            Finalizar
-                        </ButtonStudentSecondary>
-                        <ButtonStudentPrimary onClick={ handleNewAttempt}>
-                            Tentar Novamente
-                        </ButtonStudentPrimary>
+                        <ButtonStudenTertiary onClick={() => {Router.push("/home/student")}}>
+                            Tela Inicial
+                        </ButtonStudenTertiary>
                     </div>
                 </div>
             </div>

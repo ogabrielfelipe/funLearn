@@ -7,6 +7,7 @@ import { FinishedGameOverService } from "../../service/game/FinishedGameOverServ
 import moment from "moment-timezone";
 import { ChangeGameByIDService } from "../../service/game/ChangeGameByIDService";
 import { FindPositionService } from "../../service/game/FindPositionService";
+import { RemoveLifeGameService } from "../../service/game/RemoveLifeGameService";
 
 
 enum TypeFinish {
@@ -35,8 +36,7 @@ class CheckAnswerCorrectController{
                         answerID: Deverá ser preenchido com o identificador da resposta selecionada; \n
                         positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n
                         attempt: Deverá ser preenchido com o número de tentativas que foi utilizada para responder; \n
-                        tip: Deverá ser preenchido com o número de dicas que foram utilziadas; \n
-                        time: Deverá ser preenchido com o tempo utilizado para responder a pergunta.",
+                        tip: Deverá ser preenchido com o número de dicas que foram utilziadas.",
                 requerid: true,
                 schema: { $ref: "#/definitions/CheckAnswer" }        
             }
@@ -52,6 +52,15 @@ class CheckAnswerCorrectController{
             attempt, 
             tip
         } = req.body;
+
+        // console.log({
+        //     "gameID":gameID,
+        //     "askID":askID, 
+        //     "answerID":answerID, 
+        //     "positionID":positionID, 
+        //     "attempt":attempt, 
+        //     "tip":tip
+        // })
 
 
         let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
@@ -129,7 +138,6 @@ class CheckAnswerCorrectController{
         }
 
         //Altera o cadastro do Game de acordo com as informações calculadas
-
         const changeGame = new ChangeGameByIDService();
         const changeGameResult = await changeGame.execute({
             gameID: gameID,
@@ -142,16 +150,27 @@ class CheckAnswerCorrectController{
             dateFinalization: DateTimePTBR.format()
         })
 
+        let lifePosition = position.life as number;
+        let removeLifeGame = {};
 
-        if (attempt === GameConfig.game.life && !answer.correct){
+        if (lifePosition > 1 && !answer.correct){
+            const removeLife = new RemoveLifeGameService();
+            removeLifeGame = await removeLife.execute({
+                gameID: gameID,
+                userRequest: req.user,
+            })
+        }
+
+
+        if (lifePosition === 1 && !answer.correct){
             const finishedGameOver = new FinishedGameOverService();
             finishedGame = await finishedGameOver.execute({
                 dateFinished: DateTimePTBR.format(),
-                finished: true,
-                life: attempt,
+                life: 0,
                 positionID: positionID,
                 score: pointAux,
                 userRequest: req.user,
+                finished: true,
                 typeFinish: "GAMEOVER" as TypeFinish
             });
         }
@@ -170,7 +189,7 @@ class CheckAnswerCorrectController{
             schema: { $ref: "#/definitions/CheckAnswerRes" }   
         } */
 
-        return res.status(200).json({ changeGameResult, finishedGame })
+        return res.status(200).json({ changeGameResult, finishedGame, removeLifeGame })
 
 
     }

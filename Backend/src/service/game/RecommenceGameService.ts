@@ -42,7 +42,12 @@ class RecommenceGameService{
                 recommence: true,
                 dateRecommence: dateRecommence,
                 dateFinalizationRecommence: dateFinalizationRecommence,
-                life: 3
+                life: 3,
+                score: 0,
+                finished: false,
+                finishedOver: false,
+                finishedTime: false,
+                dateFinalization: null
             },
             select: {
                 id: true,
@@ -71,6 +76,35 @@ class RecommenceGameService{
                     }
                 }
             }
+        })
+
+        prismaClient.game.findMany({
+            where: {
+                positionID: positionID 
+            },
+            select: {
+                id: true
+            }
+        })
+        .then(resp => {
+            resp.forEach(async value => {
+                await prismaClient.game.update({
+                    where: {
+                        id: value.id
+                    },
+                    data: {
+                        point: 0,
+                        tip: 0,
+                        attempt: 0,
+                        dateFinalization: null,
+                        answered: false,
+                        correct: false
+                    }
+                })
+            })
+        })
+        .catch(err => {
+            console.log(err);
         })
 
 

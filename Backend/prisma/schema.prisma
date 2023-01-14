@@ -139,7 +139,6 @@ model Game {
   attempt          Int
   dateCreated      DateTime
   dateVisualized   DateTime?
-  timeOut          Boolean?
   dateFinalization DateTime?
   answered         Boolean
 

@@ -13,7 +13,7 @@ interface CheckAnswerCorrectRequest{
 
 class CheckAnswerCorrectService{
     async execute( { answerID, userRequest }: CheckAnswerCorrectRequest ){
-
+        console.log(answerID)
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
         }

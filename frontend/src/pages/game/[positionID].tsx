@@ -11,6 +11,7 @@ import LottieFilesLife from "../../components/LottieFiles/Life";
 import Coin  from "../../components/LottieFiles/Coin";
 import Lamp  from "../../components/LottieFiles/Lamp";
 import Time  from "../../components/LottieFiles/Time";
+import Life  from "../../components/LottieFiles/Life";
 import { ButtonStudenTertiary, ButtonStudentSecondary, ButtonStudentPrimary } from "../../components/Button";
 
 import styles from './Game.module.css'
@@ -164,6 +165,7 @@ export default function GameStudent(){
         })
 
     }
+    
     async function getPosition(positionID: string, findAsks: boolean){
         setLoading(true);
         apiClient.get(`/game/find/position/${positionID}`)
@@ -185,8 +187,6 @@ export default function GameStudent(){
             return false
         })
     }
-
-
 
     async function selectAnswer(answerID: string){
         console.log(answerID);
@@ -211,7 +211,7 @@ export default function GameStudent(){
         })[0]
 
         if (!tipFind){
-            setTipName("Essa pergunta não possui mais dicas");            
+            setTipName("Não há Dicas.");            
             model?.classList.add(styles.modelTipsClose)
             return;
         }
@@ -243,8 +243,6 @@ export default function GameStudent(){
         let modelOpen = document.getElementById("modelTimeOut");
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
-
-
 
     async function handleNewAttempt(){
         setLoading(true)
@@ -453,6 +451,26 @@ export default function GameStudent(){
                     </div>
                     <div className={styles.textTimeOut}> 
                         <span>Tempo esgotado!!!</span>
+                    </div>
+
+                    <div className={styles.contentBtn}>
+                        <ButtonStudentSecondary>
+                            Finalizar
+                        </ButtonStudentSecondary>
+                        <ButtonStudentPrimary onClick={ handleNewAttempt}>
+                            Tentar Novamente
+                        </ButtonStudentPrimary>
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.modelTimeOut} id={"modelTimeOut-GameOver"}>
+                <div className={styles.contentModelTimeOut}>
+                    <div className={styles.iconModelTimeOut}>
+                        <Life />
+                    </div>
+                    <div className={styles.textTimeOut}> 
+                        <span>Game Over!!!</span>
                     </div>
 
                     <div className={styles.contentBtn}>

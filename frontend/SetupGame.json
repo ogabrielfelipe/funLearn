@@ -1,7 +1,7 @@
 {
     "game": {
         "life": 3,
-        "timeOut": 10,  "__comments__": "5 minutes in milliseconds"
+        "timeOut": 30,  "__comments__": "5 minutes in milliseconds"
 
 
     }

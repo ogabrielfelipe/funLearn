@@ -19,7 +19,7 @@ import Image from "next/image";
 import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
-import moment from "moment";
+
 import { Timer } from 'react-countdown-clock-timer';
 
 type detailsPositionType = {
@@ -73,8 +73,7 @@ export default function GameStudent(){
     const [askQuestion, setAskQuestion] = useState<string>("");
     const [askAnswers, setAskAnswers] = useState<AnswersAsk[]>(Array());
     const [askAttempt, setAskAttempt] = useState<number>(0);
-    const [answerSelected, setAnswerSelected] = useState<string>("");
-    const [timeFindAsk, setTimeFindAsk] = useState<string>(moment.utc(Date.now()).format());
+    const [answerSelected, setAnswerSelected] = useState<string>("")
 
     const [themeName, setThemeName] = useState<string>("");
     const [lifePosition, setLifePosition] = useState<Array<number>>(Array());
@@ -85,9 +84,8 @@ export default function GameStudent(){
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
 
-
     const [startCountDown, setStartCountDown] = useState<number>(setupGame.game.timeOut);
-    
+
     
     function handleSelectionFirstAsk( asks: any[] ){
         return asks.find(value => {
@@ -107,7 +105,7 @@ export default function GameStudent(){
         setTip(tipAux)
     }
 
-    async function findDetailsAsk(askID: string, gameID: string){
+    async function findDatailsAsk(askID: string, gameID: string){
         setLoading(true);
         await apiClient.get(`/game/find/ask/${askID}/${gameID}`)
         .then(resp => {
@@ -118,9 +116,6 @@ export default function GameStudent(){
                 setAskImage(resp.data.image);
                 setAskQuestion(resp.data.question);
                 setAskAnswers(resp.data.answer);
-                
-                countDownTimeAsk(Date.parse(resp.data.game[0].dateVisualized))
-
                 populateTips(resp.data.tip);
                 setLoading(false);
                 return true
@@ -152,7 +147,7 @@ export default function GameStudent(){
         apiClient.get(`/game/find/askByPosition/${positionID}`)
         .then(async resp => {
             let askSelected = handleSelectionFirstAsk(resp.data);
-            await findDetailsAsk(askSelected.ask.id, askSelected.id)
+            await findDatailsAsk(askSelected.ask.id, askSelected.id)
             return;
         })
         .catch(err => {
@@ -229,11 +224,9 @@ export default function GameStudent(){
     }
 
     function handleCloseModelTimeOut(){
-        setTimeFindAsk(moment.utc(Date.now()).format())
-        //countDownTimeAsk()
-
         let modelClose = document.getElementById("modelTimeOut");
         modelClose?.classList.remove(styles.modelTimeOutShow);
+        setStartCountDown(setupGame.game.timeOut)
     }
 
     function handleShowModelGameOver(){
@@ -249,7 +242,8 @@ export default function GameStudent(){
         .then(async resp => {
             if (resp.status === 200){        
                 await getPosition(positionID as string, false);
-                await findDetailsAsk(askID, gameID)                       
+                await findDatailsAsk(askID, gameID)       
+                
                 
                 if (resp.data.position.life <= 0){
                     handleShowModelGameOver()
@@ -323,33 +317,6 @@ export default function GameStudent(){
         })
     }
 
-    const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
-
-    function countDownTimeAsk(timeAsk: number){
-        const countDownTime = setInterval( () => {
-            const timeRemaining = timeAsk + setupGame.game.timeOut;
-            const dateNow =  new Date().getTime();
-
-            const timeRemainingFormatted = new Intl.DateTimeFormat('pt-br', { dateStyle: 'short', timeStyle: 'medium' }).format(timeRemaining)
-            const timeNowFormatted = new Intl.DateTimeFormat('pt-br', {dateStyle: 'short', timeStyle: 'medium'}).format(dateNow)
-            const diff = moment(timeRemainingFormatted, "DD/MM/YYYY HH:mm:ss").diff(moment(timeNowFormatted, "DD/MM/YYYY HH:mm:ss"), "seconds")
-            
-
-            if (diff <= 60){                
-                setTimeRemainingAsk(moment.utc(diff * 1000).format('ss[s]'))
-            }else {
-                setTimeRemainingAsk(moment.utc(diff * 1000).format('mm[m] ss[s]'))
-            }
-
-            if (diff <= 0){
-                clearInterval(countDownTime);                
-                handleShowModelTimeOut();
-                return;
-            }
-
-        }, 1000)
-    }
-
 
     
     useEffect(() => {  
@@ -388,6 +355,7 @@ export default function GameStudent(){
 
                 </div>
 
+                {/* Configurar para quando clicar, ele finalizar o QUIZZ e redirecionar para a tela inicial do módulo do estudante */}
                 <ButtonStudenTertiary onClick={handleFinishedGame}>
                         Tela Inicial
                 </ButtonStudenTertiary>
@@ -421,14 +389,13 @@ export default function GameStudent(){
                         <div className={styles.contentGame}>
                             <strong className={styles.textTimeAndTip}>
                                 <Time />
-                                {timeRemainingAsk}
                                 <Timer
                                     durationInSeconds={startCountDown}
                                     formatted={true}
                                     isPaused={false}
                                     showPauseButton={false}
                                     showResetButton={false} 
-
+                                    
                                     timerId={(teste) => {
                                         console.log(teste)
                                     }}
@@ -437,13 +404,6 @@ export default function GameStudent(){
                                         handleShowModelTimeOut();
                                     }}
                                     
-                                    onResume = {(time) => {
-                                        console.log(time)
-                                    }}
-
-                                    onReset = {(remainingDuration) => {
-                                        console.log(remainingDuration)
-                                    }}
                                 />
                             </strong>
 
@@ -459,7 +419,7 @@ export default function GameStudent(){
                                 let alpha = ['A', 'B', 'C', 'D']
                                 return (
                                     <>
-                                        <div key={index} onClick={ () => {selectAnswer(value.id)} } id={value.id} className={styles.contentAnswer}>
+                                        <div key={value.id} onClick={ () => {selectAnswer(value.id)} } id={value.id} className={styles.contentAnswer}>
                                             <span hidden>{value.id}</span>
                                             <div className={styles.alphaLetters}>
                                                 <a href="#" id={`alpha-${value.id}`}>{alpha[index]}</a>

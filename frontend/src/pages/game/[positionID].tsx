@@ -58,8 +58,6 @@ type TipAnswer = {
 }
 
 
-
-
 export default function GameStudent(){
     const apiClient = setupAPIClient();
     const router = useRouter();
@@ -80,11 +78,9 @@ export default function GameStudent(){
     const [lifePosition, setLifePosition] = useState<Array<number>>(Array());
     const [coinPosition, setCoinPosition] = useState<number>(0);
 
-
     const [tip, setTip] = useState<TipAnswer[]>(Array());
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
-
 
     const [startCountDown, setStartCountDown] = useState<number>(setupGame.game.timeOut);
     
@@ -241,6 +237,11 @@ export default function GameStudent(){
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
 
+    function handleShowModelYouWin(){
+        let modelOpen = document.getElementById("modelYouWin");
+        modelOpen?.classList.add(styles.modelTimeOutShow);
+    }
+
     async function handleNewAttempt(){
         setLoading(true)
         console.log(gameID)
@@ -269,7 +270,6 @@ export default function GameStudent(){
         })
     }
 
-
     async function handleFinishedGame() {
         setLoading(true);
         let data = {
@@ -290,7 +290,6 @@ export default function GameStudent(){
         })
 
     }
-
 
     async function handleVerifyAnswerSelected() {
         setLoading(true);
@@ -350,12 +349,9 @@ export default function GameStudent(){
         }, 1000)
     }
 
-
-    
     useEffect(() => {  
         getPosition(positionID as string, true )
     }, [positionID])
-
 
     return (
         <>
@@ -478,7 +474,6 @@ export default function GameStudent(){
 
                 </div>
 
-
                 <div className={styles.btnNext}>
                     <ButtonStudentPrimary onClick={handleVerifyAnswerSelected}>
                         Confirmar
@@ -487,7 +482,6 @@ export default function GameStudent(){
                 
             </main>
 
-
             {loading === true ? (
                 <LoadingManager/>
                 ) : (
@@ -495,7 +489,6 @@ export default function GameStudent(){
                     </>
                 )
             }
-
 
             <div className={styles.modelTips} id={"modelTips"}> 
                 <span className={styles.btnCloseModel} onClick={handleCloseModelTips} >
@@ -513,7 +506,6 @@ export default function GameStudent(){
                 </div>
                 
             </div>
-
 
             <div className={styles.modelTimeOut} id={"modelTimeOut"}>
                 <div className={styles.contentModelTimeOut}>
@@ -535,7 +527,6 @@ export default function GameStudent(){
                 </div>
             </div>
 
-
             <div className={styles.modelTimeOut} id={"modelGameOver"}>
                 <div className={styles.contentModelTimeOut}>
                     <div className={styles.iconModelTimeOut}>
@@ -545,6 +536,30 @@ export default function GameStudent(){
                     </div>
                     <div className={styles.textTimeOut}> 
                         <span>Game Over!!!</span>
+                    </div>
+
+                    <div className={styles.contentBtn}>
+                        <ButtonStudenTertiary onClick={() => {Router.push("/home/student")}}>
+                            Tela Inicial
+                        </ButtonStudenTertiary>
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.modelTimeOut} id={"modelYouWin"}>
+                <div className={styles.contentModelTimeOut}>
+                    <div className={styles.iconModelTimeOut}>
+                        <Life 
+                            removeLife={true}
+                        />
+                    </div>
+                    <div className={styles.textTimeOut}> 
+                        <span>Parabéns!!!!!</span>
+                        <span>
+                            Você completou o quiz e ganhou 
+                            <span className={styles.point}>1500</span>
+                            pontos.
+                        </span>
                     </div>
 
                     <div className={styles.contentBtn}>

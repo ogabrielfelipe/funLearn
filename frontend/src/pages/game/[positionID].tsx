@@ -5,8 +5,6 @@ import { LoadingManager } from "../../components/Loading";
 import { setupAPIClient } from "../../services/api";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-import Link from "next/link"
-
 import LottieFilesLife from "../../components/LottieFiles/Life";
 import Coin  from "../../components/LottieFiles/Coin";
 import Lamp  from "../../components/LottieFiles/Lamp";
@@ -20,7 +18,6 @@ import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
 import moment from "moment";
-import { Timer } from 'react-countdown-clock-timer';
 
 type detailsPositionType = {
     id: string,
@@ -82,7 +79,11 @@ export default function GameStudent(){
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
 
+<<<<<<< Updated upstream
     const [startCountDown, setStartCountDown] = useState<number>(setupGame.game.timeOut);
+=======
+
+>>>>>>> Stashed changes
     
     
     function handleSelectionFirstAsk( asks: any[] ){
@@ -113,10 +114,8 @@ export default function GameStudent(){
                 setAskID(resp.data.id);
                 setAskImage(resp.data.image);
                 setAskQuestion(resp.data.question);
-                setAskAnswers(resp.data.answer);
-                
+                setAskAnswers(resp.data.answer);                
                 countDownTimeAsk(Date.parse(resp.data.game[0].dateVisualized))
-
                 populateTips(resp.data.tip);
                 setLoading(false);
                 return true
@@ -418,29 +417,6 @@ export default function GameStudent(){
                             <strong className={styles.textTimeAndTip}>
                                 <Time />
                                 {timeRemainingAsk}
-                                <Timer
-                                    durationInSeconds={startCountDown}
-                                    formatted={true}
-                                    isPaused={false}
-                                    showPauseButton={false}
-                                    showResetButton={false} 
-
-                                    timerId={(teste) => {
-                                        console.log(teste)
-                                    }}
-
-                                    onFinish = {() => {
-                                        handleShowModelTimeOut();
-                                    }}
-                                    
-                                    onResume = {(time) => {
-                                        console.log(time)
-                                    }}
-
-                                    onReset = {(remainingDuration) => {
-                                        console.log(remainingDuration)
-                                    }}
-                                />
                             </strong>
 
 

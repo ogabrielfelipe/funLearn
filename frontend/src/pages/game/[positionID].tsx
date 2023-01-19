@@ -79,14 +79,17 @@ export default function GameStudent(){
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
 
-<<<<<<< Updated upstream
-    const [startCountDown, setStartCountDown] = useState<number>(setupGame.game.timeOut);
-=======
+    let oneLifeLater: boolean;
 
->>>>>>> Stashed changes
-    
-    
     function handleSelectionFirstAsk( asks: any[] ){
+        const verifyAsksAnswered = (x) => x.filter(value => {
+            return value.answered === true;
+        }).length === x.length;
+        
+        if (verifyAsksAnswered(asks)){
+            handleShowModelYouWin()
+        }
+
         return asks.find(value => {
             return value.answered === false;
         })
@@ -138,6 +141,12 @@ export default function GameStudent(){
                 aux.push(0)
             }
         } 
+
+        oneLifeLater = aux.filter(value => {
+            if (value === 1){
+                return value
+            }
+        }).length === 1;
 
         return aux
     }
@@ -225,7 +234,6 @@ export default function GameStudent(){
 
     function handleCloseModelTimeOut(){
         setTimeFindAsk(moment.utc(Date.now()).format())
-        //countDownTimeAsk()
 
         let modelClose = document.getElementById("modelTimeOut");
         modelClose?.classList.remove(styles.modelTimeOutShow);
@@ -236,10 +244,14 @@ export default function GameStudent(){
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
 
+
+
     function handleShowModelYouWin(){
         let modelOpen = document.getElementById("modelYouWin");
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
+
+
 
     async function handleNewAttempt(){
         setLoading(true)
@@ -321,6 +333,25 @@ export default function GameStudent(){
         })
     }
 
+
+    function handleFinishedGameByTime(gameID: string){
+        setLoading(true);
+
+        apiClient.delete(`/game/removeLife/${gameID}`)
+        .then(async resp => {
+            if (resp.status === 200){  
+                setLoading(false);
+                handleShowModelGameOver()
+            }
+        })
+        .catch(err => {
+            setLoading(false);
+            console.error(err);
+        })            
+    }
+
+
+
     const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
 
     function countDownTimeAsk(timeAsk: number){
@@ -332,7 +363,7 @@ export default function GameStudent(){
             const timeNowFormatted = new Intl.DateTimeFormat('pt-br', {dateStyle: 'short', timeStyle: 'medium'}).format(dateNow)
             const diff = moment(timeRemainingFormatted, "DD/MM/YYYY HH:mm:ss").diff(moment(timeNowFormatted, "DD/MM/YYYY HH:mm:ss"), "seconds")
             
-
+            // console.log(diff)
             if (diff <= 60){                
                 setTimeRemainingAsk(moment.utc(diff * 1000).format('ss[s]'))
             }else {
@@ -340,8 +371,12 @@ export default function GameStudent(){
             }
 
             if (diff <= 0){
-                clearInterval(countDownTime);                
-                handleShowModelTimeOut();
+                clearInterval(countDownTime);  
+                if (oneLifeLater){
+                    handleFinishedGameByTime(gameID)
+                }else{
+                    handleShowModelTimeOut();
+                }
                 return;
             }
 
@@ -533,7 +568,7 @@ export default function GameStudent(){
                         <span>Parabéns!!!!!</span>
                         <span>
                             Você completou o quiz e ganhou 
-                            <span className={styles.point}>1500</span>
+                            <span className={styles.point}>{coinPosition}</span>
                             pontos.
                         </span>
                     </div>

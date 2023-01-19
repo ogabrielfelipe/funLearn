@@ -287,6 +287,15 @@
     padding: 2rem;
 }
 
+.textYouWin{
+    align-self: center;
+    font-family: 'Bungee','Cabin', sans-serif;
+    font-size: 1.5rem;
+    color: #FFF;
+    margin: 1rem;
+    text-align: center;
+}
+
 .point{
     color: #8EFF00;
 }

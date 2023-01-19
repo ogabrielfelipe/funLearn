@@ -564,11 +564,13 @@ export default function GameStudent(){
                             removeLife={true}
                         />
                     </div>
-                    <div className={styles.textTimeOut}> 
+                    <div className={styles.textYouWin}> 
                         <span>Parabéns!!!!!</span>
+                        <br />
+                        <br />
                         <span>
                             Você completou o quiz e ganhou 
-                            <span className={styles.point}>{coinPosition}</span>
+                            <span className={styles.point}> {coinPosition} </span>
                             pontos.
                         </span>
                     </div>

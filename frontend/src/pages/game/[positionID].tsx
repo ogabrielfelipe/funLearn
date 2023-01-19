@@ -582,6 +582,56 @@ export default function GameStudent(){
                     </div>
                 </div>
             </div>
+
+            <div className={styles.modelTimeOut} id={"modelCertain"}>
+                <div className={styles.contentModelTimeOut}>
+                    <div className={styles.iconModelTimeOut}>
+                        <Life 
+                            removeLife={true}
+                        />
+                    </div>
+                    <div className={styles.textYouWin}> 
+                        <span>Você Acertou!!!</span>
+                        <br />
+                        <br />
+                        <span>
+                            Você recebeu
+                            <span className={styles.point}> {coinPosition} </span>
+                            pontos.
+                        </span>
+                    </div>
+
+                    <div className={styles.contentBtn}>
+                        <ButtonStudenTertiary>
+                            Próxima
+                        </ButtonStudenTertiary>
+                    </div>
+                </div>
+            </div>
+
+            <div className={styles.modelTimeOut} id={"modelWrong"}>
+                <div className={styles.contentModelTimeOut}>
+                    <div className={styles.iconModelTimeOut}>
+                        <Life 
+                            removeLife={true}
+                        />
+                    </div>
+                    <div className={styles.textYouWin}> 
+                        <span>Você Errou!!!</span>
+                        <br />
+                        <br />
+                        <span>
+                            A resposta correta era:
+                        </span>
+                    </div>
+
+                    <div className={styles.contentBtn}>
+                        <ButtonStudenTertiary>
+                            Próxima
+                        </ButtonStudenTertiary>
+                    </div>
+                </div>
+            </div>
         </>
     ) 
 

@@ -118,7 +118,6 @@ export function AuthProvider({ children }: AuthProviderProps){
         try{
             let response;
             if(typeSession === "student")   {
-                console.log(username, password);
                 response = await  api.post('/student/auth', {
                     register: Number(username), 
                     password

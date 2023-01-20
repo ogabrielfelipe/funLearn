@@ -18,6 +18,7 @@ import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
 import moment from "moment";
+import Countdown from "../../components/Countdown";
 
 type detailsPositionType = {
     id: string,
@@ -69,7 +70,7 @@ export default function GameStudent(){
     const [askAnswers, setAskAnswers] = useState<AnswersAsk[]>(Array());
     const [askAttempt, setAskAttempt] = useState<number>(0);
     const [answerSelected, setAnswerSelected] = useState<string>("");
-    const [timeFindAsk, setTimeFindAsk] = useState<string>(moment.utc(Date.now()).format());
+    //const [timeFindAsk, setTimeFindAsk] = useState<number>(Date.now());
 
     const [themeName, setThemeName] = useState<string>("");
     const [lifePosition, setLifePosition] = useState<Array<number>>(Array());
@@ -79,7 +80,10 @@ export default function GameStudent(){
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
 
+    //const [restartCountDown, setRestartCountDown] = useState<boolean>(false);
+
     let oneLifeLater: boolean;
+    let restartCountDown: boolean = false;
 
     function handleSelectionFirstAsk( asks: any[] ){
         const verifyAsksAnswered = (x) => x.filter(value => {
@@ -107,7 +111,7 @@ export default function GameStudent(){
         setTip(tipAux)
     }
 
-    async function findDetailsAsk(askID: string, gameID: string){
+    async function findDetailsAsk(askID: string, gameID: string, restartTime: boolean){
         setLoading(true);
         await apiClient.get(`/game/find/ask/${askID}/${gameID}`)
         .then(resp => {
@@ -151,12 +155,12 @@ export default function GameStudent(){
         return aux
     }
 
-    async function findAsksByPositionID(positionID:string) {
+    async function findAsksByPositionID(positionID:string, restartTime: boolean) {
         setLoading(true);
         apiClient.get(`/game/find/askByPosition/${positionID}`)
         .then(async resp => {
             let askSelected = handleSelectionFirstAsk(resp.data);
-            await findDetailsAsk(askSelected.ask.id, askSelected.id)
+            await findDetailsAsk(askSelected.ask.id, askSelected.id, restartTime)
             return;
         })
         .catch(err => {
@@ -166,7 +170,7 @@ export default function GameStudent(){
 
     }
     
-    async function getPosition(positionID: string, findAsks: boolean){
+    async function getPosition(positionID: string, findAsks: boolean, restartTime: boolean){
         setLoading(true);
         apiClient.get(`/game/find/position/${positionID}`)
         .then(async resp => {  
@@ -174,7 +178,7 @@ export default function GameStudent(){
             setCoinPosition(resp.data.score);
             setThemeName(resp.data.theme.name)
             if (findAsks){
-                await findAsksByPositionID(positionID)
+                await findAsksByPositionID(positionID, restartTime)
             }
             setLoading(false);
             return true
@@ -187,6 +191,7 @@ export default function GameStudent(){
     }
 
     async function selectAnswer(answerID: string){
+        console.log(askAnswers)
         askAnswers.forEach(value => {
             var answerSelected = document.getElementById(`${value.id}`);
             answerSelected?.classList.remove(styles.contentAnswerSelected)
@@ -233,8 +238,6 @@ export default function GameStudent(){
     }
 
     function handleCloseModelTimeOut(){
-        setTimeFindAsk(moment.utc(Date.now()).format())
-
         let modelClose = document.getElementById("modelTimeOut");
         modelClose?.classList.remove(styles.modelTimeOutShow);
     }
@@ -244,14 +247,10 @@ export default function GameStudent(){
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
 
-
-
     function handleShowModelYouWin(){
         let modelOpen = document.getElementById("modelYouWin");
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
-
-
 
     async function handleNewAttempt(){
         setLoading(true)
@@ -259,9 +258,9 @@ export default function GameStudent(){
 
         apiClient.delete(`/game/removeLife/${gameID}`)
         .then(async resp => {
-            if (resp.status === 200){        
-                await getPosition(positionID as string, false);
-                await findDetailsAsk(askID, gameID)                       
+            if (resp.status === 200){  
+                await getPosition(positionID as string, false, true);
+                await findDetailsAsk(askID, gameID, true)                       
                 
                 if (resp.data.position.life <= 0){
                     handleShowModelGameOver()
@@ -304,6 +303,7 @@ export default function GameStudent(){
 
     async function handleVerifyAnswerSelected() {
         setLoading(true);
+        restartCountDown = true
         let data ={
             gameID: gameID,
             answerID: answerSelected,
@@ -312,20 +312,25 @@ export default function GameStudent(){
             attempt: askAttempt,
             tip: countTipUsed
         }
-        console.log(data);
+
 
         apiClient.post("/game/answer/check",  data)
-        .then(resp => {
-            console.log(resp);
-            console.log(!resp.data.finishedGame.id, resp.data.finishedGame )
+        .then(resp => {  
             if (resp.data.finishedGame.id){
                 setLoading(false);
                 handleShowModelGameOver();
             }else{
-                setLoading(false);
-                getPosition(positionID as string, true)
-            }
+                getPosition(positionID as string, true, true)   
+                
+                askAnswers.forEach(value => {
+                    var answerSelected = document.getElementById(`${value.id}`);
+                    answerSelected?.classList.remove(styles.contentAnswerSelected)
+        
+                })
 
+
+                setLoading(false);
+            }
         })
         .catch(err => {
             console.error(err);
@@ -353,10 +358,12 @@ export default function GameStudent(){
 
 
     const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
+    //const [timeRemaining, setTimeRemaining] = useState<number>(Date.now() + setupGame.game.timeOut);
+
 
     function countDownTimeAsk(timeAsk: number){
         const countDownTime = setInterval( () => {
-            const timeRemaining = timeAsk + setupGame.game.timeOut;
+            const timeRemaining = timeAsk + setupGame.game.timeOut
             const dateNow =  new Date().getTime();
 
             const timeRemainingFormatted = new Intl.DateTimeFormat('pt-br', { dateStyle: 'short', timeStyle: 'medium' }).format(timeRemaining)
@@ -369,6 +376,7 @@ export default function GameStudent(){
             }else {
                 setTimeRemainingAsk(moment.utc(diff * 1000).format('mm[m] ss[s]'))
             }
+    
 
             if (diff <= 0){
                 clearInterval(countDownTime);  
@@ -381,10 +389,17 @@ export default function GameStudent(){
             }
 
         }, 1000)
+    
+        if (restartCountDown){
+            clearInterval(countDownTime);  
+            //setTimeRemaining(Date.now() + setupGame.game.timeOut)
+            restartCountDown=false
+        }
     }
 
+
     useEffect(() => {  
-        getPosition(positionID as string, true )
+        getPosition(positionID as string, true, true )
     }, [positionID])
 
     return (

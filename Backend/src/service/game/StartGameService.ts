@@ -84,6 +84,7 @@ class StartGameService{
                 finishedTime: true,
                 life: true,
                 score: true,
+                attempt: true,
                 student: {
                     select: {
                         id: true,

@@ -127,7 +127,8 @@ export default function GameStudent(){
         await apiClient.get(`/game/find/ask/${askID}/${gameID}`)
         .then(resp => {
             if (resp.status === 200){
-                setAskAttempt(resp.data.game[0].attempt)
+                console.log(resp.data)
+                setAskAttempt(resp.data.game[0].position.attempt)
                 setGameID(gameID);
                 setAskID(resp.data.id);
                 setAskImage(resp.data.image);
@@ -343,7 +344,6 @@ export default function GameStudent(){
         let data ={
             gameID: gameID,
             answerID: answerSelected,
-            askID: askID,
             positionID: positionID,
             attempt: askAttempt,
             tip: countTipUsed

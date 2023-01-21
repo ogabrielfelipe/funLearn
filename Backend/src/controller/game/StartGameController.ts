@@ -73,7 +73,6 @@ class StartGameController{
             for (let x = 0; x < listAsks[i].asks.length; x++) {
                 var games = await createGameByAskAndPosition.execute({
                     answered: false,
-                    attempt: 0,
                     correct: false,
                     point: 0,
                     tip: 0,

@@ -26,13 +26,15 @@ class FinishedGameController{
                 in: 'body',
                 description: " positionID: Deverá ser preenchido com o identificador do jogo; \n
                         typeFinish: Deverá ser preenchido com o tipo de finalização; \n
+                        attempt: Deverá ser preenchido com o numero de tentativas do usuário; \n
+                        life: Deverá ser preenchido com a vida do usuário; \n
                         positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo.",
                 requerid: true,
                 schema: { $ref: "#/definitions/FinishGame" }        
             }
          */
 
-        const {positionID, typeFinish, attempt } = req.body;
+        const {positionID, typeFinish, attempt, life } = req.body;
         let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
 
         const finishedGame = new FinishedGameOverService();
@@ -41,7 +43,8 @@ class FinishedGameController{
             dateFinished: DateTimePTBR.format(),
             typeFinish: typeFinish as TypeFinish,
             finished: true,
-            life: attempt,
+            life: life,
+            attempt: attempt,
             positionID: positionID,
             score: 0
         })

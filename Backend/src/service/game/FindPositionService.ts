@@ -18,8 +18,8 @@ class FindPositionService{
                 finishedTime: true,
                 life: true,
                 score: true,
+                attempt: true,
                 dateRecommence: true,
-                dateFinalizationRecommence: true,
                 qtdRecommence: true,
                 recommence: true,
                 student: {

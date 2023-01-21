@@ -8,11 +8,10 @@ interface RecommenceGameRequest{
     },
     positionID: string;
     dateRecommence: string;
-    dateFinalizationRecommence: string;
 }
 
 class RecommenceGameService{
-    async execute( { positionID, userRequest, dateRecommence, dateFinalizationRecommence }: RecommenceGameRequest) {
+    async execute( { positionID, userRequest, dateRecommence }: RecommenceGameRequest) {
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
         }
@@ -41,9 +40,9 @@ class RecommenceGameService{
                 qtdRecommence: position.qtdRecommence + valueRecommence,
                 recommence: true,
                 dateRecommence: dateRecommence,
-                dateFinalizationRecommence: dateFinalizationRecommence,
                 life: 3,
                 score: 0,
+                attempt: 0,
                 finished: false,
                 finishedOver: false,
                 finishedTime: false,
@@ -60,7 +59,7 @@ class RecommenceGameService{
                 life: true,
                 score: true,
                 dateRecommence: true,
-                dateFinalizationRecommence: true,
+                attempt: true,
                 qtdRecommence: true,
                 recommence: true,
                 student: {
@@ -95,7 +94,6 @@ class RecommenceGameService{
                     data: {
                         point: 0,
                         tip: 0,
-                        attempt: 0,
                         dateFinalization: null,
                         answered: false,
                         correct: false

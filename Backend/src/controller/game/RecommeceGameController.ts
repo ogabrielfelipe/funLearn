@@ -33,8 +33,7 @@ class RecommenceGameController{
         const result = await recomeceGame.execute({
             positionID: positionID,
             userRequest: req.user,
-            dateRecommence: DateTimePTBR.format(),
-            dateFinalizationRecommence: DateTimeFinalizationPTBR.format()
+            dateRecommence: DateTimePTBR.format()
         })
 
         /* #swagger.responses[403] = { 

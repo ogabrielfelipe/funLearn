@@ -4,7 +4,6 @@ interface ChangeGameRequest {
   gameID: string;
   point: number | null;
   tip: number | null;
-  attempt: number | null;
   answered: boolean | null;
   correct: boolean | null;
   dateFinalization: string | null;
@@ -19,7 +18,6 @@ class ChangeGameByIDService {
     gameID,
     point,
     tip,
-    attempt,
     answered,
     correct,
     dateFinalization,
@@ -48,7 +46,6 @@ class ChangeGameByIDService {
         data: {
             point: point === null? game.point : point,
             answered: answered === null? game.answered : answered,
-            attempt: attempt === null ? game.attempt : attempt,
             correct: correct === null ? game.correct : correct,
             dateFinalization: dateFinalization === null ? game.dateFinalization : dateFinalization,
             tip: tip === null ? game.tip : tip,

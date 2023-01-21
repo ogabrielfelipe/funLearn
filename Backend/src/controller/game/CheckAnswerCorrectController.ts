@@ -1,7 +1,7 @@
 import { request, Request, Response } from "express";
 import { CheckAnswerCorrectService } from "../../service/answer/CheckAnswerCorrectService";
 import GameConfig from "../../../configGame.json"
-import { CreatePositionGameService } from "../../service/game/CreatePositionGameService";
+import { CreatePositionGameService } from "../../service/game/[NOT USED]CreatePositionGameService";
 import { FinishedGameOverService } from "../../service/game/FinishedGameOverService";
 
 import moment from "moment-timezone";
@@ -32,10 +32,9 @@ class CheckAnswerCorrectController{
         /*
             #swagger.parameters['askID', 'answerID', 'positionID', 'attempt', 'tip', 'time'] = {
                 in: 'body',
-                description: " askID: Deverá ser preenchido com o identificador da pergunta; \n
-                        answerID: Deverá ser preenchido com o identificador da resposta selecionada; \n
+                description: " answerID: Deverá ser preenchido com o identificador da resposta selecionada; \n
                         positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n
-                        attempt: Deverá ser preenchido com o número de tentativas que foi utilizada para responder; \n
+                        attempt: Deverá ser preenchido com o número de tentativas do Jogador; \n
                         tip: Deverá ser preenchido com o número de dicas que foram utilziadas.",
                 requerid: true,
                 schema: { $ref: "#/definitions/CheckAnswer" }        
@@ -46,22 +45,18 @@ class CheckAnswerCorrectController{
 
         const { 
             gameID,
-            askID, 
             answerID, 
             positionID, 
             attempt, 
             tip
         } = req.body;
 
-        // console.log({
-        //     "gameID":gameID,
-        //     "askID":askID, 
-        //     "answerID":answerID, 
-        //     "positionID":positionID, 
-        //     "attempt":attempt, 
-        //     "tip":tip
-        // })
-
+        console.log(
+            gameID,
+            answerID, 
+            positionID, 
+            attempt, 
+            tip)
 
         let DateTimePTBR = moment.tz(new Date(), "America/Sao_Paulo");
 
@@ -76,19 +71,18 @@ class CheckAnswerCorrectController{
 
         let finishedGame = {};
         if ( (moment.tz(position.dateFinalization, "America/Sao_Paulo") <  DateTimePTBR ) && position.recommence === true ){
-            if ((moment.tz(position.dateFinalizationRecommence, "America/Sao_Paulo") <  DateTimePTBR )){
-                
-                const finishedGameOver = new FinishedGameOverService();
-                finishedGame = await finishedGameOver.execute({
-                    dateFinished: DateTimePTBR.format(),
-                    finished: true,
-                    life: attempt,
-                    positionID: position.id,
-                    score: 0,
-                    userRequest: req.user,
-                    typeFinish: "TIME" as TypeFinish
-                });               
-            }
+            const finishedGameOver = new FinishedGameOverService();
+            finishedGame = await finishedGameOver.execute({
+                dateFinished: DateTimePTBR.format(),
+                finished: true,
+                attempt: attempt,
+                life: 0,
+                positionID: position.id,
+                score: 0,
+                userRequest: req.user,
+                typeFinish: "TIME" as TypeFinish
+            });               
+            
         }
 
 
@@ -122,7 +116,6 @@ class CheckAnswerCorrectController{
         let auxPointAnswer: number = 0;
         auxPointAnswer = setupGame.punctuation.filter((value) => {
             if (value.attempt === attempt){
-                console.log(value)
                 return value.point
             }
         })[0].point;
@@ -142,7 +135,6 @@ class CheckAnswerCorrectController{
         const changeGameResult = await changeGame.execute({
             gameID: gameID,
             answered: true,
-            attempt: attempt,
             correct: answerCorrectCheck,
             point: pointAux,
             tip: tip,
@@ -167,6 +159,7 @@ class CheckAnswerCorrectController{
             finishedGame = await finishedGameOver.execute({
                 dateFinished: DateTimePTBR.format(),
                 life: 0,
+                attempt: attempt,
                 positionID: positionID,
                 score: pointAux,
                 userRequest: req.user,

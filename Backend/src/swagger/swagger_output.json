@@ -1962,7 +1962,7 @@
         }
       }
     },
-    "/game/find/ask/{askID}": {
+    "/game/find/ask/{askID}/{gameID}": {
       "get": {
         "tags": [
           "Game"
@@ -1978,6 +1978,14 @@
             "required": true,
             "type": "string",
             "description": " askID: Deverá ser preenchido com o identificador da pergunta proposto.",
+            "requerid": true
+          },
+          {
+            "name": "gameID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " gameID: Deverá ser preenchido com o identificador da game segundo a pergunta.",
             "requerid": true
           },
           {
@@ -2009,7 +2017,7 @@
       }
     },
     "/game/answer/check": {
-      "get": {
+      "post": {
         "tags": [
           "Game"
         ],
@@ -2026,7 +2034,7 @@
           {
             "name": "askID, answerID, positionID, attempt, tip, time",
             "in": "body",
-            "description": " askID: Deverá ser preenchido com o identificador da pergunta; \n   answerID: Deverá ser preenchido com o identificador da resposta selecionada; \n   positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n   attempt: Deverá ser preenchido com o número de tentativas que foi utilizada para responder; \n   tip: Deverá ser preenchido com o número de dicas que foram utilziadas; \n   time: Deverá ser preenchido com o tempo utilizado para responder a pergunta.",
+            "description": " answerID: Deverá ser preenchido com o identificador da resposta selecionada; \n   positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n   attempt: Deverá ser preenchido com o número de tentativas do Jogador; \n   tip: Deverá ser preenchido com o número de dicas que foram utilziadas.",
             "requerid": true,
             "schema": {
               "$ref": "#/definitions/CheckAnswer"
@@ -2139,6 +2147,43 @@
         }
       }
     },
+    "/game/find/classification/{teamID}": {
+      "get": {
+        "tags": [
+          "Game"
+        ],
+        "description": "Endpoint para calcular e exibir a classificação os alunos por turma.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "teamID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " teamID: Deverá ser preenchido com o identificador da turma.",
+            "requerid": true
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Token não encontrado"
+          }
+        }
+      }
+    },
     "/game/find/position/{positionID}": {
       "get": {
         "tags": [
@@ -2182,7 +2227,7 @@
         }
       }
     },
-    "/game/removeLife/{positionID}": {
+    "/game/removeLife/{gameID}": {
       "delete": {
         "tags": [
           "Game"
@@ -2193,11 +2238,11 @@
         ],
         "parameters": [
           {
-            "name": "positionID",
+            "name": "gameID",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": " positionID: Deverá ser preenchido com o identificador do jogo.",
+            "description": " gameID: Deverá ser preenchido com o identificador do jogo.",
             "requerid": true,
             "schema": {
               "$ref": "#/definitions/CheckAnswer"
@@ -2249,7 +2294,7 @@
           {
             "name": "positionID, typeFinish, attempt",
             "in": "body",
-            "description": " positionID: Deverá ser preenchido com o identificador do jogo; \n   typeFinish: Deverá ser preenchido com o tipo de finalização; \n   positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo; \n   attempt: Deverá ser preenchido com o número de tentativas que foi utilizada para responder.",
+            "description": " positionID: Deverá ser preenchido com o identificador do jogo; \n   typeFinish: Deverá ser preenchido com o tipo de finalização; \n   attempt: Deverá ser preenchido com o numero de tentativas do usuário; \n   life: Deverá ser preenchido com a vida do usuário; \n   positionID: Deverá ser preenchido com o identificador do registro que iniciou o jogo.",
             "requerid": true,
             "schema": {
               "$ref": "#/definitions/FinishGame"
@@ -3667,10 +3712,6 @@
     "CheckAnswer": {
       "type": "object",
       "properties": {
-        "askID": {
-          "type": "string",
-          "example": "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4"
-        },
         "answerID": {
           "type": "string",
           "example": "a31e6f30-caf0-488b-adcf-dda873f3bccf"

@@ -44,9 +44,13 @@ class FindAskGameService{
                     },
                     select:{
                         dateVisualized: true,
-                        attempt: true,
                         dateCreated: true,
                         dateFinalization: true,
+                        position: {
+                            select:{
+                                attempt: true
+                            }
+                        }
                     }
                 },
                 tip: {

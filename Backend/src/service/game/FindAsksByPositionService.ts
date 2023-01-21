@@ -37,8 +37,7 @@ class FindAsksByPositionService{
                     }
                 },
                 answered: true,
-                id: true,
-                attempt: true,
+                id: true
             }
         })
 

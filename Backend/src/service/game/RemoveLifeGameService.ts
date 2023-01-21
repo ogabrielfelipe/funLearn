@@ -41,7 +41,7 @@ class RemoveLifeGameService{
         }
 
         let lifeToday = position.life as number - removeLife;
-        let attemptAnswer = game.attempt +  attempt;
+        let attemptAnswer = position.attempt +  attempt;
         let removeLifeByGame;
         if (lifeToday <= 0){
             removeLifeByGame = await this._FinishedGameByTimeOut(game.id)
@@ -53,10 +53,10 @@ class RemoveLifeGameService{
                 id: game.id
             },
             data: {
-                attempt: attemptAnswer,
                 position: {
                     update: {
-                        life: lifeToday
+                        life: lifeToday,
+                        attempt: attemptAnswer
                     }
                 }
             },
@@ -65,7 +65,8 @@ class RemoveLifeGameService{
                 position: {
                     select: {
                         id: true,
-                        life: true
+                        life: true,
+                        attempt: true,
                     }
                 }
             }
@@ -94,12 +95,12 @@ class RemoveLifeGameService{
             select: {
                 id: true,
                 dateFinalization: true,
-                attempt: true,
                 position: {
                     select: {
                         id: true,
                         life: true,
-                        dateFinalization: true
+                        dateFinalization: true,
+                        attempt: true,
                     }
                 }
             }

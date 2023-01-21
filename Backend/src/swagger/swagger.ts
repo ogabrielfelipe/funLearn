@@ -483,7 +483,6 @@ const doc = {
             ]
           },
         CheckAnswer: { 
-            "askID": "6a4bb42b-2cc5-4508-8ce1-6d04ef0118b4", 
             "answerID": "a31e6f30-caf0-488b-adcf-dda873f3bccf", 
             "positionID": "f1ada8bf-efcc-4c48-8e40-76631a3ff804", 
             "time": "2",
@@ -738,7 +737,8 @@ const doc = {
         FinishGame:{ 
           "positionID": "a3b043d5-8555-4222-a4bc-a5972ad2650b",
           "typeFinish": "FINISHED",
-          "attempt": 3
+          "attempt": 3,
+          "life": 0
         },
         FinishGameRes: {
           "id": "c8d32602-8761-4cdf-8c36-6cd343576e10",

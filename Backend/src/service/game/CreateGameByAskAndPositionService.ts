@@ -5,7 +5,6 @@ interface CreateGameByAskRequest {
   askID: string;
   tip: number;
   point: number;
-  attempt: number;
   correct: boolean;
   answered: boolean;
   dateCreated: string;
@@ -17,7 +16,6 @@ class CreateGameByAskAndPositionService {
     positionID,
     askID,
     answered,
-    attempt,
     correct,
     dateCreated,
     dateFinalization,
@@ -28,7 +26,6 @@ class CreateGameByAskAndPositionService {
     const game = await prismaClient.game.create({
         data: {
             answered: answered,
-            attempt: attempt,
             correct: correct,
             dateCreated: dateCreated,
             dateFinalization: dateFinalization,

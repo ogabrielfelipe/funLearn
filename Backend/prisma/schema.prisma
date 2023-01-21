@@ -113,13 +113,14 @@ model Position {
   score        BigInt?
   life         Int?
 
+  attempt      Int      @default(0)
+
   recommence    Boolean @default(false)
   qtdRecommence Int     @default(0)
 
   dateInitial                DateTime
   dateFinalization           DateTime?
   dateRecommence             DateTime?
-  dateFinalizationRecommence DateTime?
 
   game Game[]
 
@@ -136,7 +137,6 @@ model Game {
   point            Int
   correct          Boolean
   tip              Int
-  attempt          Int
   dateCreated      DateTime
   dateVisualized   DateTime?
   dateFinalization DateTime?

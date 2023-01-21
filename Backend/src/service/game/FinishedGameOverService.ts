@@ -10,9 +10,10 @@ enum TypeFinish {
 interface FinishedGameOverRequest{
     positionID: string;
     score: number;
-    life: number;
     dateFinished: string;
     finished: boolean;
+    attempt: number;
+    life: number;
     userRequest: {
         id: string;
         type: string;
@@ -22,7 +23,7 @@ interface FinishedGameOverRequest{
 
 
 class FinishedGameOverService{
-    async execute( { positionID, dateFinished, finished, life, score, userRequest, typeFinish }:FinishedGameOverRequest ){
+    async execute( { positionID, dateFinished, finished, attempt, life, score, userRequest, typeFinish }:FinishedGameOverRequest ){
         if (userRequest.type != "student"){
             throw new Error("user is not a student.")
         }
@@ -59,6 +60,7 @@ class FinishedGameOverService{
             data: {
                 dateFinalization: dateFinished,
                 ...(typeFinish === "GAMEOVER" ? {finishedOver: finished} : typeFinish === "TIME" ? {finishedTime: finished} : {finished: finished}),
+                attempt: attempt,
                 life: life,
                 score: score,
             }

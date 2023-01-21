@@ -70,7 +70,6 @@ export default function GameStudent(){
     const [askAnswers, setAskAnswers] = useState<AnswersAsk[]>(Array());
     const [askAttempt, setAskAttempt] = useState<number>(0);
     const [answerSelected, setAnswerSelected] = useState<string>("");
-    //const [timeFindAsk, setTimeFindAsk] = useState<number>(Date.now());
 
     const [themeName, setThemeName] = useState<string>("");
     const [lifePosition, setLifePosition] = useState<Array<number>>(Array());
@@ -79,8 +78,6 @@ export default function GameStudent(){
     const [tip, setTip] = useState<TipAnswer[]>(Array());
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
-
-    //const [restartCountDown, setRestartCountDown] = useState<boolean>(false);
 
     let oneLifeLater: boolean;
     let restartCountDown: boolean = false;
@@ -424,12 +421,20 @@ export default function GameStudent(){
                         }
                     </div>
 
+
+                    <strong className={styles.textTimeAndTip}>
+                        <Time />
+                        {timeRemainingAsk}
+                    </strong>
+
                     <div className={styles.contentCoin}>
                         <Coin/>
                         <strong className={styles.textCoin}>
                             {coinPosition}
                         </strong>
                     </div>
+
+
 
                 </div>
 
@@ -451,7 +456,7 @@ export default function GameStudent(){
                                 <pre className="prettyprint lang-sql" style={{"color": "white", "padding": "0.5rem"}}>
                                     {askQuestion.split('`')[1]}
                                 </pre>
-                            )}                            
+                            )}                       
                         </span>
                         
                         {askImage != "" && (
@@ -469,12 +474,6 @@ export default function GameStudent(){
 
                     <div className={styles.containerAnswTip}>                        
                         <div className={styles.contentGame}>
-                            <strong className={styles.textTimeAndTip}>
-                                <Time />
-                                {timeRemainingAsk}
-                            </strong>
-
-
                             <strong className={styles.textTimeAndTip} style={{cursor: "pointer"}} onClick={handleShowModelTips}>  
                                 <Lamp />
                                 Dica

@@ -71,6 +71,9 @@ export default function GameStudent(){
     const [askAttempt, setAskAttempt] = useState<number>(0);
     const [answerSelected, setAnswerSelected] = useState<string>("");
 
+    const [pointAnswer, setPointAnswer] = useState<number>(0);
+    const [descriptionAnswerCorrect, setDescriptionAnswerCorrect] = useState<string>("");
+
     const [themeName, setThemeName] = useState<string>("");
     const [lifePosition, setLifePosition] = useState<Array<number>>(Array());
     const [coinPosition, setCoinPosition] = useState<number>(0);
@@ -78,6 +81,8 @@ export default function GameStudent(){
     const [tip, setTip] = useState<TipAnswer[]>(Array());
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
+
+    const [numberAsk, setNumberAsk] = useState<string>("");
 
     let oneLifeLater: boolean;
     let restartCountDown: boolean = false;
@@ -90,6 +95,15 @@ export default function GameStudent(){
         if (verifyAsksAnswered(asks)){
             handleShowModelYouWin()
         }
+
+        let asksAnswered = (x) => x.filter(value => {
+            if (value.answered === true){
+                return value;
+            }
+        }).length;
+        setNumberAsk(String(asksAnswered(asks))+"/"+String(asks.length))
+
+
 
         return asks.find(value => {
             return value.answered === false;
@@ -119,7 +133,7 @@ export default function GameStudent(){
                 setAskImage(resp.data.image);
                 setAskQuestion(resp.data.question);
                 setAskAnswers(resp.data.answer);                
-                countDownTimeAsk(Date.parse(resp.data.game[0].dateVisualized))
+                //countDownTimeAsk(Date.parse(resp.data.game[0].dateVisualized))
                 populateTips(resp.data.tip);
                 setLoading(false);
                 return true
@@ -188,7 +202,6 @@ export default function GameStudent(){
     }
 
     async function selectAnswer(answerID: string){
-        console.log(askAnswers)
         askAnswers.forEach(value => {
             var answerSelected = document.getElementById(`${value.id}`);
             answerSelected?.classList.remove(styles.contentAnswerSelected)
@@ -242,12 +255,34 @@ export default function GameStudent(){
     function handleShowModelGameOver(){
         let modelOpen = document.getElementById("modelGameOver");
         modelOpen?.classList.add(styles.modelTimeOutShow);
+
+
+        localStorage.removeItem('timeRemaining');
     }
 
     function handleShowModelYouWin(){
         let modelOpen = document.getElementById("modelYouWin");
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
+
+    function handleShowModelAnswerCorrect(){
+        let modelOpen = document.getElementById("modelCertain");
+        modelOpen?.classList.add(styles.modelTimeOutShow);
+    }
+    function handleCloseModelAnswerCorrect(){
+        let modelOpen = document.getElementById("modelCertain");
+        modelOpen?.classList.remove(styles.modelTimeOutShow);
+    }
+
+    function handleShowModelAnswerIncorrect(){
+        let modelOpen = document.getElementById("modelWrong");
+        modelOpen?.classList.add(styles.modelTimeOutShow);
+    }
+    function handleCloseModelAnswerIncorrect(){
+        let modelOpen = document.getElementById("modelWrong");
+        modelOpen?.classList.remove(styles.modelTimeOutShow);
+    }
+
 
     async function handleNewAttempt(){
         setLoading(true)
@@ -257,7 +292,9 @@ export default function GameStudent(){
         .then(async resp => {
             if (resp.status === 200){  
                 await getPosition(positionID as string, false, true);
-                await findDetailsAsk(askID, gameID, true)                       
+                await findDetailsAsk(askID, gameID, true)  
+                localStorage.removeItem('timeRemaining')                
+                countDownTimeAsk()                     
                 
                 if (resp.data.position.life <= 0){
                     handleShowModelGameOver()
@@ -290,6 +327,8 @@ export default function GameStudent(){
         .then(resp => {
             Router.push("/home/student")
             setLoading(false);
+
+            localStorage.removeItem('timeRemaining');
         })
         .catch(err => {
             console.error(err);
@@ -313,20 +352,19 @@ export default function GameStudent(){
 
         apiClient.post("/game/answer/check",  data)
         .then(resp => {  
+            console.log(resp.data)
             if (resp.data.finishedGame.id){
                 setLoading(false);
                 handleShowModelGameOver();
             }else{
-                getPosition(positionID as string, true, true)   
-                
-                askAnswers.forEach(value => {
-                    var answerSelected = document.getElementById(`${value.id}`);
-                    answerSelected?.classList.remove(styles.contentAnswerSelected)
-        
-                })
-
-
                 setLoading(false);
+                if (resp.data.isCorrect){
+                    setPointAnswer(resp.data.changeGameResult.point)
+                    handleShowModelAnswerCorrect();
+                }else{
+                    setDescriptionAnswerCorrect(resp.data.changeGameResult.ask.answer[0].description)
+                    handleShowModelAnswerIncorrect()
+                }
             }
         })
         .catch(err => {
@@ -335,6 +373,15 @@ export default function GameStudent(){
         })
     }
 
+
+    function handleFindNewAsk(){
+        getPosition(positionID as string, true, true)                   
+        askAnswers.forEach(value => {
+            var answerSelected = document.getElementById(`${value.id}`);
+            answerSelected?.classList.remove(styles.contentAnswerSelected)
+
+        })
+    }
 
     function handleFinishedGameByTime(gameID: string){
         setLoading(true);
@@ -355,25 +402,46 @@ export default function GameStudent(){
 
 
     const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
-    //const [timeRemaining, setTimeRemaining] = useState<number>(Date.now() + setupGame.game.timeOut);
+    
 
+    function countDownTimeAsk(){
+        let dateServer = Date.now();
 
-    function countDownTimeAsk(timeAsk: number){
+        let timeInLocalStorage = localStorage.getItem('timeRemaining');
+        let dateResponseAnswer: number;
+
+        if (timeInLocalStorage){
+            let infoCountDownJson = JSON.parse(timeInLocalStorage)
+            if (infoCountDownJson.positionID != positionID){
+                localStorage.removeItem('timeRemaining')
+                dateResponseAnswer = dateServer + setupGame.game.timeOut
+            }else{                
+                dateResponseAnswer = infoCountDownJson.time
+            }
+        }else{
+            dateResponseAnswer = dateServer + setupGame.game.timeOut
+        }
+        
         const countDownTime = setInterval( () => {
-            const timeRemaining = timeAsk + setupGame.game.timeOut
+            const timeRemaining: number = dateResponseAnswer;
             const dateNow =  new Date().getTime();
 
             const timeRemainingFormatted = new Intl.DateTimeFormat('pt-br', { dateStyle: 'short', timeStyle: 'medium' }).format(timeRemaining)
             const timeNowFormatted = new Intl.DateTimeFormat('pt-br', {dateStyle: 'short', timeStyle: 'medium'}).format(dateNow)
             const diff = moment(timeRemainingFormatted, "DD/MM/YYYY HH:mm:ss").diff(moment(timeNowFormatted, "DD/MM/YYYY HH:mm:ss"), "seconds")
             
-            // console.log(diff)
+
             if (diff <= 60){                
                 setTimeRemainingAsk(moment.utc(diff * 1000).format('ss[s]'))
             }else {
                 setTimeRemainingAsk(moment.utc(diff * 1000).format('mm[m] ss[s]'))
             }
-    
+            
+            let infoCountDown = {
+                "positionID": positionID,
+                "time": dateResponseAnswer
+            }
+            localStorage.setItem('timeRemaining', JSON.stringify(infoCountDown));
 
             if (diff <= 0){
                 clearInterval(countDownTime);  
@@ -386,17 +454,12 @@ export default function GameStudent(){
             }
 
         }, 1000)
-    
-        if (restartCountDown){
-            clearInterval(countDownTime);  
-            //setTimeRemaining(Date.now() + setupGame.game.timeOut)
-            restartCountDown=false
-        }
     }
 
 
     useEffect(() => {  
         getPosition(positionID as string, true, true )
+        countDownTimeAsk()
     }, [positionID])
 
     return (
@@ -474,6 +537,10 @@ export default function GameStudent(){
 
                     <div className={styles.containerAnswTip}>                        
                         <div className={styles.contentGame}>
+                            <strong className={styles.textTimeAndTip}>
+                                {numberAsk}
+                            </strong>
+
                             <strong className={styles.textTimeAndTip} style={{cursor: "pointer"}} onClick={handleShowModelTips}>  
                                 <Lamp />
                                 Dica
@@ -616,18 +683,18 @@ export default function GameStudent(){
                         />
                     </div>
                     <div className={styles.textYouWin}> 
-                        <span>Você Acertou!!!</span>
+                        <span style={{"color": "#FCC123", "fontSize": "2.2rem"}}>Você Acertou!!!</span>
                         <br />
                         <br />
                         <span>
                             Você recebeu
-                            <span className={styles.point}> {coinPosition} </span>
+                            <span className={styles.point}> {pointAnswer} </span>
                             pontos.
                         </span>
                     </div>
 
                     <div className={styles.contentBtn}>
-                        <ButtonStudenTertiary>
+                        <ButtonStudenTertiary onClick={ () => { handleFindNewAsk(); handleCloseModelAnswerCorrect()} }>
                             Próxima
                         </ButtonStudenTertiary>
                     </div>
@@ -642,16 +709,16 @@ export default function GameStudent(){
                         />
                     </div>
                     <div className={styles.textYouWin}> 
-                        <span>Você Errou!!!</span>
+                        <span  style={{"color": "#FF1B1B", "fontSize": "2.5rem"}}>Você Errou!!!</span>
                         <br />
                         <br />
                         <span>
-                            A resposta correta era:
+                            A resposta correta era: <br/> <span style={{"color": "#FCC123"}} >{descriptionAnswerCorrect}</span>
                         </span>
                     </div>
 
                     <div className={styles.contentBtn}>
-                        <ButtonStudenTertiary>
+                        <ButtonStudenTertiary onClick={() => { handleFindNewAsk(); handleCloseModelAnswerIncorrect(); } }>
                             Próxima
                         </ButtonStudenTertiary>
                     </div>

@@ -174,7 +174,7 @@ class CheckAnswerCorrectController{
                 typeFinish: "GAMEOVER" as TypeFinish
             });
         }
-
+        
 
         /* #swagger.responses[403] = { 
             description: 'Usuário da requisição não é um aluno.\n ' 
@@ -189,7 +189,7 @@ class CheckAnswerCorrectController{
             schema: { $ref: "#/definitions/CheckAnswerRes" }   
         } */
 
-        return res.status(200).json({ changeGameResult, finishedGame, removeLifeGame })
+        return res.status(200).json({ "isCorrect": answerCorrectCheck, changeGameResult, finishedGame, removeLifeGame })
 
 
     }

@@ -62,7 +62,6 @@ export default function HomeStudent(){
                 .then(resp2 => {
                     setClassification(resp2.data);
                     setLoading(false);
-                    console.log(classification)
                 })
                 .catch(err => {
                     console.log(err)
@@ -118,6 +117,13 @@ export default function HomeStudent(){
             if (resp.status === 200) {
                 setLoading(false);
                 Router.push(`/game/${resp.data.id}`)
+            
+                let localStorageCountDown = localStorage.getItem('timeRemaining')
+                if (localStorageCountDown){
+                    if (JSON.parse(localStorageCountDown).positionID === positionID){
+                        localStorage.removeItem('timeRemaining')
+                    }
+                }
             }
             setLoading(false);
         })  
@@ -151,31 +157,11 @@ export default function HomeStudent(){
                             return (
                                 <div className={styles.positionStudent} key={value.id}>
                                     {index === 0 ? <Image width={32} src={FirstPosition} alt={""} /> : index === 1 ? <Image width={32} src={SecondPosition} alt={""} /> : index === 2 ? <Image width={32} src={ThirdPosition} alt={""} /> :  <span className={styles.contentClass}>{index+1}</span> }
-                                    <span style={{fontSize: "1.1rem"}}> {value.nameStudent}</span> <span style={{fontSize: "1.1rem"}}> {value.score}</span>
+                                    <span style={{fontSize: "1.1rem"}}> {value.nameStudent.split("").length >= 9 ? value.nameStudent.slice(0, 9)+ " ..." : value.nameStudent}</span> <span style={{fontSize: "1.1rem"}}> {value.score}</span>
                                 </div>
                             )
                             })
-                        }
-{/**
- * 
- *  <div className={styles.positionStudent}>
-                            <Image width={32} src={FirstPosition} alt={""} />
-                            <span style={{fontSize: "1.1rem"}}>Gabriel F. - 15000</span>
-                        </div>
-                        <div className={styles.positionStudent}>
-                            <Image width={32} src={SecondPosition} alt={""} />
-                            <span style={{fontSize: "1.1rem"}}>Gabriel F. - 14999</span>
-                        </div>
-                        <div className={styles.positionStudent}>
-                            <Image width={32} src={ThirdPosition} alt={""} />
-                            <span style={{fontSize: "1.1rem"}}>Gabriel F. - 14995</span>
-                        </div>
-                        <div className={styles.positionStudent}>
-                            <span>4</span>
-                            <span style={{fontSize: "1.1rem"}}> Gabriel F. - 14995</span>
-                        </div>
- */}
-                       
+                        }                       
                     </div>
 
                 </div>
@@ -208,6 +194,7 @@ export default function HomeStudent(){
                 >
 
                     { themes.map((value, index) => {
+                        console.log(value)
                         let position = index+1;
                         position === 4 ? position = 1 : true
                         return (

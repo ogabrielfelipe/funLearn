@@ -1,8 +1,7 @@
 {
     "game": {
         "life": 3,
-        "timeOut": 90000,  "__comments__": "90000 = 1 minutes and 30 seconds in milliseconds"
-
+        "timeOut": 300000,  "__comments__": "300000 = 5 minutes in milliseconds"
 
     }
 }

@@ -39,6 +39,9 @@ class FindThemesByStudentService{
                     name: true,
                     description: true,
                     positions:{
+                        where:{
+                            studentID: userRequest.id
+                        },
                         select:{
                             id: true,
                             dateInitial: true,

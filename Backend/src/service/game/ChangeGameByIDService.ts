@@ -58,7 +58,20 @@ class ChangeGameByIDService {
             answered: true,
             point: true,
             dateCreated: true,
-            dateFinalization: true
+            dateFinalization: true,
+            ask:{
+                select:{
+                    answer: {
+                        where:{
+                            correct: true,
+                        },
+                        select: {
+                            description: true,
+                            correct: true,
+                        }
+                    }
+                }
+            }
         }
     })
 

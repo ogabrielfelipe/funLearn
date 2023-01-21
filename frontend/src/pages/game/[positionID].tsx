@@ -446,7 +446,12 @@ export default function GameStudent(){
                             Pergunta:
                         </strong>
                         <span className={styles.question}>
-                            {askQuestion}
+                            {askQuestion.split('`')[0]}
+                            {askQuestion.split('`')[1] && (
+                                <pre className="prettyprint lang-sql" style={{"color": "white", "padding": "0.5rem"}}>
+                                    {askQuestion.split('`')[1]}
+                                </pre>
+                            )}                            
                         </span>
                         
                         {askImage != "" && (
@@ -488,7 +493,13 @@ export default function GameStudent(){
                                             </div>
                                             <div>
                                                 <p className={styles.descriptionAns} >
-                                                    {value.description}
+                                                    {value.description.substring(0, 2)[0] == '`' ? (
+                                                        <pre className="prettyprint lang-sql" style={{"color": "white", "margin": "-0.5rem"}}>
+                                                            {value.description.split("`")}
+                                                        </pre>
+                                                    ) : (
+                                                        <>{value.description}</>
+                                                    )}
                                                 </p>
                                             </div>
                                         </div>    

@@ -270,6 +270,7 @@ export default function GameStudent(){
         let modelOpen = document.getElementById("modelCertain");
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
+
     function handleCloseModelAnswerCorrect(){
         let modelOpen = document.getElementById("modelCertain");
         modelOpen?.classList.remove(styles.modelTimeOutShow);
@@ -279,11 +280,11 @@ export default function GameStudent(){
         let modelOpen = document.getElementById("modelWrong");
         modelOpen?.classList.add(styles.modelTimeOutShow);
     }
+
     function handleCloseModelAnswerIncorrect(){
         let modelOpen = document.getElementById("modelWrong");
         modelOpen?.classList.remove(styles.modelTimeOutShow);
     }
-
 
     async function handleNewAttempt(){
         setLoading(true)
@@ -373,7 +374,6 @@ export default function GameStudent(){
         })
     }
 
-
     function handleFindNewAsk(){
         getPosition(positionID as string, true, true)                   
         askAnswers.forEach(value => {
@@ -399,11 +399,8 @@ export default function GameStudent(){
         })            
     }
 
-
-
     const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
     
-
     function countDownTimeAsk(){
         let dateServer = Date.now();
 
@@ -456,7 +453,6 @@ export default function GameStudent(){
         }, 1000)
     }
 
-
     useEffect(() => {  
         getPosition(positionID as string, true, true )
         countDownTimeAsk()
@@ -484,7 +480,6 @@ export default function GameStudent(){
                         }
                     </div>
 
-
                     <strong className={styles.textTimeAndTip}>
                         <Time />
                         {timeRemainingAsk}
@@ -496,8 +491,6 @@ export default function GameStudent(){
                             {coinPosition}
                         </strong>
                     </div>
-
-
 
                 </div>
 

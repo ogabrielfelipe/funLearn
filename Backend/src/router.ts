@@ -60,6 +60,7 @@ import { FindAsksByPositionController } from './controller/game/FindAsksByPositi
 import { RecommenceGameController } from './controller/game/RecommeceGameController';
 import { FindPositionController } from './controller/game/FindPositionController';
 import { FindClassificationByTeamController } from './controller/game/FindClassificationByTeamController';
+import { DashBoardTeacherController } from './controller/teacher/DashBoardTeacherController';
 
 const path = require('path')
 const router = Router();
@@ -95,6 +96,7 @@ router.post('/teacher', isAuthenticated, new CreateTeacherController().handle)
 router.put('/teacher', isAuthenticated, new ChangeTeacherController().handle)
 router.get('/teacher', isAuthenticated, new FindTeacherController().handle)
 router.get('/teachers', isAuthenticated, new FindManyTeacherController().handle)
+router.get('/teacher/dashboard/:teamID/:themeID', isAuthenticated, new DashBoardTeacherController().handle)
 
 // ----------- student -----------
 router.post('/student/auth/session', new AuthSessionStudentController().handle)

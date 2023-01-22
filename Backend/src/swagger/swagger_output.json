@@ -580,6 +580,57 @@
         }
       }
     },
+    "/teacher/dashboard/{teamID}/{themeID}": {
+      "get": {
+        "tags": [
+          "Teacher"
+        ],
+        "description": "Endpoint para buscar informações para preencher o dashboard do professor.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "teamID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " teamID: Deverá ser preenchido com o identificador da turma.",
+            "requerid": true
+          },
+          {
+            "name": "themeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": " themeID: Deverá ser preenchido com o identificador do tema.",
+            "requerid": true
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Busca efetuada com sucesso.",
+            "schema": {
+              "$ref": "#/definitions/Dashboard"
+            }
+          },
+          "401": {
+            "description": "Não autorizado."
+          },
+          "404": {
+            "description": "Turma não encontrada.\nTema não encontrado."
+          },
+          "500": {
+            "description": "Relacionado a erro de persistência no banco de dados."
+          }
+        }
+      }
+    },
     "/student/auth/session": {
       "post": {
         "tags": [
@@ -4462,6 +4513,10 @@
         "attempt": {
           "type": "number",
           "example": 3
+        },
+        "life": {
+          "type": "number",
+          "example": 0
         }
       }
     },
@@ -4552,6 +4607,222 @@
         "started": {
           "type": "boolean",
           "example": true
+        }
+      }
+    },
+    "Dashboard": {
+      "type": "object",
+      "properties": {
+        "infoPositions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "idPosition": {
+                "type": "string",
+                "example": "0c17f8fa-7d01-41f6-8587-40157534b36f"
+              },
+              "score": {
+                "type": "string",
+                "example": "4700"
+              },
+              "dateInitial": {
+                "type": "string",
+                "example": "1/18/2023, 9:24:06 PM"
+              },
+              "finished": {
+                "type": "number",
+                "example": 0
+              },
+              "finishedOver": {
+                "type": "number",
+                "example": 0
+              },
+              "finishedTime": {
+                "type": "number",
+                "example": 0
+              },
+              "life": {
+                "type": "number",
+                "example": 1
+              },
+              "dateFinalization": {},
+              "recommence": {
+                "type": "number",
+                "example": 1
+              },
+              "dateRecommence": {
+                "type": "string",
+                "example": "1/22/2023, 1:28:36 PM"
+              },
+              "qtdRecommence": {
+                "type": "number",
+                "example": 43
+              },
+              "attempt": {
+                "type": "number",
+                "example": 2
+              },
+              "idTeam": {
+                "type": "string",
+                "example": "a4aa0c99-d08a-497f-9d1c-24ff6e5d295d"
+              },
+              "nameTeam": {
+                "type": "string",
+                "example": "3° ano - Informatica"
+              },
+              "idStudent": {
+                "type": "string",
+                "example": "b3008250-1dd7-4501-aafe-818f8f14df75"
+              },
+              "nameStudent": {
+                "type": "string",
+                "example": "Rute"
+              },
+              "idTheme": {
+                "type": "string",
+                "example": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77"
+              },
+              "nameTheme": {
+                "type": "string",
+                "example": "Linguagem de Manipulação de dados (DML)"
+              }
+            }
+          }
+        },
+        "infoStudents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "idStudent": {
+                "type": "string",
+                "example": "a294a2ca-cdd8-4b4f-aa61-63341c271863"
+              },
+              "nameStudent": {
+                "type": "string",
+                "example": "João Manuel"
+              }
+            }
+          }
+        },
+        "infoGames": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "idGame": {
+                "type": "string",
+                "example": "7f4a48f3-0e88-4b65-b4dc-490f39e05c44"
+              },
+              "point": {
+                "type": "number",
+                "example": 0
+              },
+              "tip": {
+                "type": "number",
+                "example": 0
+              },
+              "positionID": {
+                "type": "string",
+                "example": "0c17f8fa-7d01-41f6-8587-40157534b36f"
+              },
+              "answered": {
+                "type": "number",
+                "example": 1
+              },
+              "handleCorrect": {
+                "type": "number",
+                "example": 0
+              },
+              "dateCreated": {
+                "type": "string",
+                "example": "1/18/2023, 9:24:06 PM"
+              },
+              "dateFinalization": {
+                "type": "string",
+                "example": "1/22/2023, 1:29:38 PM"
+              },
+              "dateVisualized": {
+                "type": "string",
+                "example": "1/22/2023, 1:29:35 PM"
+              },
+              "idAsk": {
+                "type": "string",
+                "example": "5b5d88ab-9474-4154-842e-8e536a703710"
+              },
+              "descriptionQuestion": {
+                "type": "string",
+                "example": "Considere as linguagens de manipulação (DML) e definição (DDL) de dados da SQL. As cláusulas CONSTRAINT, DISTINCT, FOREIGN KEY, HAVING e RENAME são corretas e respectivamente utilizadas no âmbito da:"
+              },
+              "level": {
+                "type": "string",
+                "example": "ADVANCED"
+              },
+              "idAnswer": {
+                "type": "string",
+                "example": "17bda62a-f62e-4478-81cb-be123538265b"
+              },
+              "descriptionAnswer": {
+                "type": "string",
+                "example": "DDL, DML, DDL, DML, DDL"
+              }
+            }
+          }
+        },
+        "statistics": {
+          "type": "object",
+          "properties": {
+            "studentsComplete": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "studentID": {
+                    "type": "string",
+                    "example": "a294a2ca-cdd8-4b4f-aa61-63341c271863"
+                  },
+                  "finished": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "finishedOver": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "finishedTime": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "dateFinalization": {},
+                  "nameStudent": {
+                    "type": "string",
+                    "example": "João Manuel"
+                  }
+                }
+              }
+            },
+            "classificationsStudents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "score": {
+                    "type": "string",
+                    "example": "5200"
+                  },
+                  "nameStudent": {
+                    "type": "string",
+                    "example": "João Manuel"
+                  },
+                  "studentID": {
+                    "type": "string",
+                    "example": "a294a2ca-cdd8-4b4f-aa61-63341c271863"
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

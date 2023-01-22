@@ -10,7 +10,31 @@
   padding: 0;
   border: 0;
   vertical-align: baseline;
+
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+  background: transparent; 
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+  background: #888; 
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+  }
+
+
+
 
 button{
   cursor: pointer;
@@ -25,17 +49,8 @@ body{
   background-image: url('../public/assets/BackgroundSistema.svg');
   background-repeat: no-repeat;
   background-size: cover;
-  /*
-  &::-webkit-scrollbar{
-    width: .6rem;
-  }
-  &::-webkit-scrollbar-track{
-    background-color: var(--bg-list-primary);
-  }
-  &::-webkit-scrollbar-thumb{
-    background-color: var(--bg-btn-primary);
-    border-radius: .5rem;
-  }*/
+
+   
 }
 
 

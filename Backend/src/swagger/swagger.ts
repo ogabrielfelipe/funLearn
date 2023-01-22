@@ -763,8 +763,74 @@ const doc = {
           "life": 0,
           "score": "0",
           "started": true
+        },
+        Dashboard:{
+          "infoPositions": [
+            {
+              "idPosition": "0c17f8fa-7d01-41f6-8587-40157534b36f",
+              "score": "4700",
+              "dateInitial": "1/18/2023, 9:24:06 PM",
+              "finished": 0,
+              "finishedOver": 0,
+              "finishedTime": 0,
+              "life": 1,
+              "dateFinalization": null,
+              "recommence": 1,
+              "dateRecommence": "1/22/2023, 1:28:36 PM",
+              "qtdRecommence": 43,
+              "attempt": 2,
+              "idTeam": "a4aa0c99-d08a-497f-9d1c-24ff6e5d295d",
+              "nameTeam": "3° ano - Informatica",
+              "idStudent": "b3008250-1dd7-4501-aafe-818f8f14df75",
+              "nameStudent": "Rute",
+              "idTheme": "a2cd9de8-34e5-436d-86c3-3852d2ca4a77",
+              "nameTheme": "Linguagem de Manipulação de dados (DML)"
+            }
+          ],
+          "infoStudents": [
+            {
+              "idStudent": "a294a2ca-cdd8-4b4f-aa61-63341c271863",
+              "nameStudent": "João Manuel"
+            }
+          ],
+          "infoGames": [
+            {
+              "idGame": "7f4a48f3-0e88-4b65-b4dc-490f39e05c44",
+              "point": 0,
+              "tip": 0,
+              "positionID": "0c17f8fa-7d01-41f6-8587-40157534b36f",
+              "answered": 1,
+              "handleCorrect": 0,
+              "dateCreated": "1/18/2023, 9:24:06 PM",
+              "dateFinalization": "1/22/2023, 1:29:38 PM",
+              "dateVisualized": "1/22/2023, 1:29:35 PM",
+              "idAsk": "5b5d88ab-9474-4154-842e-8e536a703710",
+              "descriptionQuestion": "Considere as linguagens de manipulação (DML) e definição (DDL) de dados da SQL. As cláusulas CONSTRAINT, DISTINCT, FOREIGN KEY, HAVING e RENAME são corretas e respectivamente utilizadas no âmbito da:",
+              "level": "ADVANCED",
+              "idAnswer": "17bda62a-f62e-4478-81cb-be123538265b",
+              "descriptionAnswer": "DDL, DML, DDL, DML, DDL"
+            }
+          ],
+          "statistics": {
+            "studentsComplete": [
+              {
+                "studentID": "a294a2ca-cdd8-4b4f-aa61-63341c271863",
+                "finished": 0,
+                "finishedOver": 0,
+                "finishedTime": 0,
+                "dateFinalization": null,
+                "nameStudent": "João Manuel"
+              }
+            ],
+            "classificationsStudents": [
+              {
+                "score": "5200",
+                "nameStudent": "João Manuel",
+                "studentID": "a294a2ca-cdd8-4b4f-aa61-63341c271863"
+              }
+            ]
+          }
         }
-
     }
 }
 

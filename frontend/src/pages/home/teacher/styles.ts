@@ -32,5 +32,73 @@ export const ContainerIpntBut = styled.form`
 `
 
 export const ContainerInput = styled.div`
-    width: 25rem;
+    max-width: 40%;
 `
+
+
+export const ContentFilters = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2rem;
+    margin: 1rem;
+
+    max-width: 100%;
+
+`
+export const ContentCharts = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+`
+export const Charts = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+`
+
+export const ContentListStudents = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+`
+
+
+export const ListStudent = styled.div`
+    background-color: #FFFFFF;
+    width: 80%;
+    height: 2rem;
+    border-radius: 0.6rem;
+    box-shadow: 0 0 .6rem 0 rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    margin-top: .6rem;
+
+    cursor: pointer;
+
+    &:hover{
+        box-shadow: 0 0 .6rem 0 rgba(0,0,0,0.5);
+
+    }
+`
+
+

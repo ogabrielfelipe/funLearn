@@ -87,7 +87,7 @@ export const ListStudent = styled.div`
     box-shadow: 0 0 .6rem 0 rgba(0,0,0,0.25);
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     text-align: center;
     padding: 0.5rem 1rem;
@@ -99,6 +99,7 @@ export const ListStudent = styled.div`
         box-shadow: 0 0 .6rem 0 rgba(0,0,0,0.5);
 
     }
+
 `
 
 

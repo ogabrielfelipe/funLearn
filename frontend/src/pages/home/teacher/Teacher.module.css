@@ -35,11 +35,22 @@
     flex-direction: column;
 }
 
+.tittleModel{
+    font-size: 22px;
+    font-family: 'Bungee','Cabin', sans-serif;
+
+    align-self: center;
+    margin-top: 1rem;
+}
+
 .btnClose{
-    padding: 0.6rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
     cursor: pointer;
     font-size: 18px;
     font-family: 'Bungee','Cabin', sans-serif;
+
+    position: fixed;
 
     align-self: flex-end;
 }
@@ -84,5 +95,7 @@
 .contentListAsks{
     display: flex;
     flex-direction: column;
+    border-top: 1px solid #000;
+    padding: 0.5rem 0;
 
 }

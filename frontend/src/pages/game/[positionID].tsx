@@ -18,7 +18,6 @@ import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
 import moment from "moment";
-import Countdown from "../../components/Countdown";
 
 type detailsPositionType = {
     id: string,
@@ -84,8 +83,9 @@ export default function GameStudent(){
 
     const [numberAsk, setNumberAsk] = useState<string>("");
 
+    const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
+
     let oneLifeLater: boolean;
-    let restartCountDown: boolean = false;
 
     function handleSelectionFirstAsk( asks: any[] ){
         const verifyAsksAnswered = (x) => x.filter(value => {
@@ -398,8 +398,6 @@ export default function GameStudent(){
             console.error(err);
         })            
     }
-
-    const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
     
     function countDownTimeAsk(){
         let dateServer = Date.now();

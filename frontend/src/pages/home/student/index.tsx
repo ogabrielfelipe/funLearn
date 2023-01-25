@@ -289,7 +289,7 @@ export default function HomeStudent(){
 
                 <div id="sidebarElement" className={styles.elementsInfoGame}>
                     <div className={styles.titleItemsElement}>
-                        <span> Significado dos Icones</span>
+                        <span> Significado dos Ícones</span>
                     </div>
                     <div className={styles.contentItemsElement}>
                         <LottieFilesCoin />
@@ -297,23 +297,23 @@ export default function HomeStudent(){
                     </div>
                     <div className={styles.contentItemsElement}>
                         <LottieFilesLamp />
-                        <span>Significa a Pontuação total do Tema.</span>
+                        <span>Significa as dicas relacionadas á aquela pergunta.</span>
                     </div>
                     <div className={styles.contentItemsElement}>
                         <LottieFilesLife removeLife={false}/>
-                        <span>Significa a Pontuação total do Tema.</span>
+                        <span>Significa as vidas que você tem naquele Tema.</span>
                     </div>
                     <div className={styles.contentItemsElement}>
                         <LottieFilesLife removeLife={true}/>
-                        <span>Significa a Pontuação total do Tema.</span>
+                        <span>Significa as vidas que você perdeu naquele Tema.</span>
                     </div>
                     <div className={styles.contentItemsElement}>
                         <LottieFilesTime />
-                        <span>Significa a Pontuação total do Tema.</span>
+                        <span>Significa o tempo que vocẽ tem para responder aquele Tema.</span>
                     </div>
                     <div className={styles.contentItemsElement}>
                         <LottieFilesCompleteThemeSmall />
-                        <span>Significa a Pontuação total do Tema.</span>
+                        <span>Significa que você já respondeu aquele Tema.</span>
                     </div>
 
 
@@ -334,7 +334,40 @@ export default function HomeStudent(){
                         <span> Regras do Jogo</span>
                     </div>
                     <div className={styles.contentItemsElement}>
-                        <span> <strong>Iniciante:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                        <span> 
+                            <strong> 
+                                O Aluno terá 3 vidas para completar o quizz, ao atingir as 3 tentativas irá finalizar o QUIZZ. (A cada erro a pontuação diminuirá) 
+                            </strong>
+
+                            <br />
+
+                            <div>
+                            - Iniciante:
+                                - Potuação - 500pts
+                                - 1 Tentativa: 500pts
+                                - 2º Tentativa: 350pts
+                                - 3º Tentativa: 200pts
+                                - À cada Dica: - 15pts
+                            </div>
+                                
+                            <div>
+                            - Intermediária:
+                                - Potuação - 750pts
+                                - 1 Tentativa: 750pts
+                                - 2º Tentativa: 600pts
+                                - 3º Tentativa: 450pts
+                                - À cada Dica: - 25pts
+                            </div>
+                            
+                            <div>
+                            - Avançada:
+                                - Potuação - 1000pts
+                                - 1 Tentativa: 1000pts
+                                - 2º Tentativa: 850pts
+                                - 3º Tentativa: 700pts
+                                - À cada Dica: - 35pts 
+                            </div>
+                        </span>
                     </div>
                 </div>
             </div>

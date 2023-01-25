@@ -70,6 +70,10 @@ export default function GameStudent(){
     const [askAttempt, setAskAttempt] = useState<number>(0);
     const [answerSelected, setAnswerSelected] = useState<string>("");
 
+
+    const [askGeralPoint, setAskGeralPoint] = useState<number>(0);
+    const [askLevel, setAskLevel] = useState<string>("");
+
     const [pointAnswer, setPointAnswer] = useState<number>(0);
     const [descriptionAnswerCorrect, setDescriptionAnswerCorrect] = useState<string>("");
 
@@ -81,6 +85,9 @@ export default function GameStudent(){
     const [tipName, setTipName] = useState<string>("");
     const [countTipUsed, setCountTipUsed] = useState<number>(0);
 
+    const [pointAsk, setPointAsk] = useState<number>(0);
+    const [tipUsedAnswered, setTipUsedAnswered] = useState<number>(0)
+
     const [numberAsk, setNumberAsk] = useState<string>("");
 
     const [timeRemainingAsk, setTimeRemainingAsk ] = useState<string>("");
@@ -88,6 +95,8 @@ export default function GameStudent(){
     let oneLifeLater: boolean;
 
     function handleSelectionFirstAsk( asks: any[] ){
+        console.log(asks)
+
         const verifyAsksAnswered = (x) => x.filter(value => {
             return value.answered === true;
         }).length === x.length;
@@ -134,7 +143,9 @@ export default function GameStudent(){
                 setAskImage(resp.data.image);
                 setAskQuestion(resp.data.question);
                 setAskAnswers(resp.data.answer);                
-                //countDownTimeAsk(Date.parse(resp.data.game[0].dateVisualized))
+                setAskGeralPoint(resp.data.pointAsk)
+                setAskLevel(resp.data.level === "INITIAL"? "Iniciante" : resp.data.level === "ADVANCED"? "Avançada":"Intermediária")
+
                 populateTips(resp.data.tip);
                 setLoading(false);
                 return true
@@ -341,7 +352,6 @@ export default function GameStudent(){
 
     async function handleVerifyAnswerSelected() {
         setLoading(true);
-        restartCountDown = true
         let data ={
             gameID: gameID,
             answerID: answerSelected,
@@ -357,12 +367,18 @@ export default function GameStudent(){
             if (resp.data.finishedGame.id){
                 setLoading(false);
                 handleShowModelGameOver();
+                setCountTipUsed(0)
             }else{
+                setCountTipUsed(0)
                 setLoading(false);
                 if (resp.data.isCorrect){
+                    setCountTipUsed(0)
+                    setPointAsk(resp.data.pointAsk)
+                    setTipUsedAnswered(resp.data.changeGameResult.tip)
                     setPointAnswer(resp.data.changeGameResult.point)
                     handleShowModelAnswerCorrect();
                 }else{
+                    setCountTipUsed(0)
                     setDescriptionAnswerCorrect(resp.data.changeGameResult.ask.answer[0].description)
                     handleShowModelAnswerIncorrect()
                 }
@@ -502,8 +518,12 @@ export default function GameStudent(){
                 <div className={styles.container}>
                     <div className={styles.containerAsk}>
                         <strong className={styles.strongQuestion}>
-                            Pergunta:
+                            <span>Nível: <span className={styles.contentDetailAsk}>{askLevel}</span></span> 
+                            <span className={styles.contentDetailAsk}>Pergunta: {parseInt(numberAsk.split("/")[0])+1 > 10 ? 10 : parseInt(numberAsk.split("/")[0])+1  }</span>
+                            <span>Pontuação: <span className={styles.contentDetailAsk}>{askGeralPoint}</span></span> 
                         </strong>
+
+                        <hr style={{"border": "1px solid #000000"}} />
                         <span className={styles.question}>
                             {askQuestion.split('`')[0]}
                             {askQuestion.split('`')[1] && (
@@ -528,9 +548,9 @@ export default function GameStudent(){
 
                     <div className={styles.containerAnswTip}>                        
                         <div className={styles.contentGame}>
-                            <strong className={styles.textTimeAndTip}>
+                            {/* <strong className={styles.textTimeAndTip}>
                                 {numberAsk}
-                            </strong>
+                            </strong> */}
 
                             <strong className={styles.textTimeAndTip} style={{cursor: "pointer"}} onClick={handleShowModelTips}>  
                                 <Lamp />
@@ -674,14 +694,13 @@ export default function GameStudent(){
                         />
                     </div>
                     <div className={styles.textYouWin}> 
-                        <span style={{"color": "#FCC123", "fontSize": "2.2rem"}}>Você Acertou!!!</span>
-                        <br />
-                        <br />
-                        <span>
-                            Você recebeu
-                            <span className={styles.point}> {pointAnswer} </span>
-                            pontos.
-                        </span>
+                        <span style={{"color": "#FCC123", "fontSize": "2.2rem", "textAlign": "center"}}>Você Acertou!!!</span>
+                        <div className={styles.contentPoint}>
+                            <span> Pergunta: <span style={{"color": "#b18e2e"}}> {pointAsk} </span> pontos</span>
+                            <span> Dicas usadas: <span style={{"color": "#b18e2e"}}> {tipUsedAnswered} </span></span>
+                            <span> Você recebeu: <span className={styles.point}> {pointAnswer} </span> pontos.</span>
+                            
+                        </div>
                     </div>
 
                     <div className={styles.contentBtn}>

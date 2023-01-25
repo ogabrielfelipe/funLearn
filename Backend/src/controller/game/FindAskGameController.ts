@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import moment from "moment-timezone";
 import { FindAskGameService } from "../../service/ask/FindAskGameService";
 
+import GameConfig from "../../../configGame.json"
 
 
 class FindAskGameController{
@@ -43,6 +44,20 @@ class FindAskGameController{
             userRequest: req.user
         })
 
+        const setupGame = GameConfig.level.filter((value) => {
+            if (value.description == result?.level){
+                return value
+            }
+        })[0]
+
+        //Filtra os pontos de acordo com a quantidade de tentativas que foram utilizadas
+        let auxPointAnswer: number = 0;
+        auxPointAnswer = setupGame.punctuation.filter((value) => {
+            if (value.attempt === 0){
+                return value.point
+            }
+        })[0].point;
+
             /* #swagger.responses[403] = { 
                 description: 'Usuário da requisição não é um aluno.\n ' 
             } */
@@ -57,7 +72,7 @@ class FindAskGameController{
             } */
 
 
-        return res.status(200).json(result);
+        return res.status(200).json({ "pointAsk": auxPointAnswer,...(result) });
 
     }
 }

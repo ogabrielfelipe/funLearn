@@ -182,7 +182,7 @@ class CheckAnswerCorrectController{
             schema: { $ref: "#/definitions/CheckAnswerRes" }   
         } */
 
-        return res.status(200).json({ "isCorrect": answerCorrectCheck, changeGameResult, finishedGame, removeLifeGame })
+        return res.status(200).json({ "isCorrect": answerCorrectCheck, "pointAsk": auxPointAnswer, changeGameResult, finishedGame, removeLifeGame })
 
 
     }

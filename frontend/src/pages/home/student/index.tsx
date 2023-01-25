@@ -17,13 +17,22 @@ import { ButtonStudentPrimary, ButtonStudentSecondary } from "../../../component
 
 import { AnimationTheme1, AnimationTheme2, AnimationTheme3 } from "../../../components/LottieFiles/ModuleStudent";
 import Carousel from "nuka-carousel/lib/carousel";
-import { CaretCircleRight, CaretDoubleRight, CaretLeft, CaretRight } from "phosphor-react";
+import { CaretCircleLeft, CaretCircleRight, CaretDoubleRight, CaretLeft, CaretRight } from "phosphor-react";
 
 import FirstPosition from "../../../../public/assets/firstPosition.svg"
 import SecondPosition from "../../../../public/assets/SecondPosition.svg"
 import ThirdPosition from "../../../../public/assets/ThirdPosition.svg"
 import Router from "next/router";
 import { LoadingManager } from "../../../components/Loading";
+import LottieFilesCompleteTheme from "../../../components/LottieFiles/CompleteTheme";
+import LottieFilesCoin from "../../../components/LottieFiles/CoinSmall";
+import LottieFilesLamp from "../../../components/LottieFiles/LampSmall";
+import LottieFilesLife from "../../../components/LottieFiles/LifeSmall";
+import LottieFilesTime from "../../../components/LottieFiles/TimeSmall";
+import LottieFilesCompleteThemeSmall from "../../../components/LottieFiles/CompleteThemeSmall";
+
+
+import ConfigGame from '../../../../../Backend/configGame.json';
 
 interface HomeStudentProps {
     userLog: {
@@ -37,6 +46,7 @@ export default function HomeStudent(){
     const [loading, setLoading] = useState(true);
     const cookies = parseCookies();
     let sidebarObj;
+
     function openClassification(){
         sidebarObj.classList.toggle(styles.moveClassification);
 
@@ -44,13 +54,35 @@ export default function HomeStudent(){
         sidebarElements?.classList.toggle(styles.elementsHidden)
 
         const iconBtnClassification = document.getElementById("iconBtnClassification");
-        iconBtnClassification?.classList.toggle(styles.btnClassificationRotate)
+        iconBtnClassification?.classList.toggle(styles.btnClassificationRotateShow)
 
+        const textBtnClassification = document.getElementById("textBtnClassification");
+        textBtnClassification?.classList.toggle(styles.textBtnClassification)
+
+
+        const btnClassification = document.getElementById("btnClassification");
+        btnClassification?.classList.toggle(styles.btnClassificationShow)
     }
+
+
+    let sideBarInfo;
+    function closeInfoGame(){
+        sideBarInfo.classList.toggle(styles.contentInfoGameClose);
+
+
+        const btnInfoGame = document.getElementById("btnInfoGame");
+        btnInfoGame?.classList.toggle(styles.btnInfoGameClose)
+
+        const iconBtnInfoGame = document.getElementById("iconBtnInfoGame");
+        iconBtnInfoGame?.classList.toggle(styles.btnContentInfoGameRotateClose)
+        
+        
+    }
+
+
 
     const [themes, setThemes] = useState(Array());
     const [classification, setClassification] = useState(Array());
-
     useEffect(() => {
         async function getThemesAndClassification(){
             setLoading(true);
@@ -107,8 +139,6 @@ export default function HomeStudent(){
 
 
     }
-
-
     async function handleRecommenceGame(positionID: string){
 
         setLoading(true);
@@ -142,9 +172,13 @@ export default function HomeStudent(){
             </Head>
             <HeaderStudent /> 
 
-            <div  ref={Sidebar => sidebarObj = Sidebar} className={styles.contentClassification}>
-                <button className={styles.btnClassification} onClick={openClassification}>
-                    <CaretCircleRight size={32} id="iconBtnClassification" />
+            <div ref={Sidebar => sidebarObj = Sidebar} className={styles.contentClassification} >
+                <button className={styles.btnClassification}  onClick={openClassification} id="btnClassification">
+                    <CaretCircleRight size={32} className={styles.btnClassificationRotate} id="iconBtnClassification" />
+                    <span id="textBtnClassification" className={styles.contentSpanBtnClassification}>
+                        Classificação
+                        <CaretCircleRight size={32} />
+                    </span>
                 </button>
                 <div id="sidebarElement" className={styles.elements}>
 
@@ -157,7 +191,7 @@ export default function HomeStudent(){
                             return (
                                 <div className={styles.positionStudent} key={value.id}>
                                     {index === 0 ? <Image width={32} src={FirstPosition} alt={""} /> : index === 1 ? <Image width={32} src={SecondPosition} alt={""} /> : index === 2 ? <Image width={32} src={ThirdPosition} alt={""} /> :  <span className={styles.contentClass}>{index+1}</span> }
-                                    <span style={{fontSize: "1.1rem"}}> {value.nameStudent.split("").length >= 9 ? value.nameStudent.slice(0, 9)+ " ..." : value.nameStudent}</span> <span style={{fontSize: "1.1rem"}}> {value.score}</span>
+                                    <span style={{fontSize: "1.1rem"}}> {value.nameStudent.split("").length >= 8 ? value.nameStudent.slice(0, 7)+ " ..." : value.nameStudent}</span> <span style={{fontSize: "1.1rem"}}> {value.score}</span>
                                 </div>
                             )
                             })
@@ -165,7 +199,6 @@ export default function HomeStudent(){
                     </div>
 
                 </div>
-
             </div>
 
             <Container>
@@ -198,7 +231,9 @@ export default function HomeStudent(){
                         let position = index+1;
                         position === 4 ? position = 1 : true
                         return (
-                            <>                            
+                            <>         
+
+
                                 <Content key={value.theme.id}>
                                     <TitleTheme> { value.theme.name } </TitleTheme>
                                     <ContentLottie>
@@ -216,13 +251,21 @@ export default function HomeStudent(){
                                     <DescriptionTheme>{ value.theme.description }</DescriptionTheme>
                                     {value.theme.positions.length === 0 ? (
                                         <ButtonStudentPrimary onClick={() => handleStartGame(value.theme.id)}>
-                                            Começar
+                                            Iniciar
                                         </ButtonStudentPrimary>
 
                                     ) : (
-                                        <ButtonStudentSecondary onClick={() => {handleRecommenceGame(value.theme.positions[0].id)}}>
-                                            Recomeçar
-                                        </ButtonStudentSecondary>
+                                        <>
+                                            <div className={styles.contentComplete}>
+                                                <LottieFilesCompleteTheme />
+                                            </div>
+
+                                            <ButtonStudentSecondary onClick={() => {handleRecommenceGame(value.theme.positions[0].id)}}>
+                                                Recomeçar
+                                            </ButtonStudentSecondary>
+
+                                        </>
+
                                     )}
                                 </Content>    
                         
@@ -232,12 +275,69 @@ export default function HomeStudent(){
                     }
                        
                     
-                </Carousel>
-
-
-
-                                
+                </Carousel>                                
             </Container>
+
+            <div ref={Sidebar => sideBarInfo = Sidebar} className={styles.contentInfoGame} >
+                <button className={styles.btnInfoGame} onClick={closeInfoGame} id="btnInfoGame">
+                    <CaretCircleRight size={32} id="iconBtnInfoGame" />
+                    <span id="textBtnInfoGame" className={styles.btnContentInfoGame}>
+                        Informações do Jogo
+                    </span>
+                </button>
+    
+
+                <div id="sidebarElement" className={styles.elementsInfoGame}>
+                    <div className={styles.titleItemsElement}>
+                        <span> Significado dos Icones</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <LottieFilesCoin />
+                        <span> Significa a Pontuação total do Tema.</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <LottieFilesLamp />
+                        <span>Significa a Pontuação total do Tema.</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <LottieFilesLife removeLife={false}/>
+                        <span>Significa a Pontuação total do Tema.</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <LottieFilesLife removeLife={true}/>
+                        <span>Significa a Pontuação total do Tema.</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <LottieFilesTime />
+                        <span>Significa a Pontuação total do Tema.</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <LottieFilesCompleteThemeSmall />
+                        <span>Significa a Pontuação total do Tema.</span>
+                    </div>
+
+
+                    <div className={styles.titleItemsElement}>
+                        <span> Informações sobre as Perguntas</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <span> <strong>Iniciante:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <span> <strong>Intermediária:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <span> <strong>Avançada:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                    </div>
+
+                    <div className={styles.titleItemsElement}>
+                        <span> Regras do Jogo</span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <span> <strong>Iniciante:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                    </div>
+                </div>
+            </div>
 
 
             {loading === true ? (

@@ -9,23 +9,27 @@ export const Container = styled.main`
 export const Header = styled.header`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin: 1rem;
-
     margin-bottom: 2rem;
 
 `
 
-export const ContainerButtons = styled.section`
+export const ContainerButtons = styled.section`    
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    translate: -50%;
+
     width: 100vw;
-    height: calc(100vh - 9rem);
+    height: 100vh;
 
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 20rem;
+    gap: 28rem;
 
     @media (max-width: 400px) {
         gap: 2rem;
@@ -33,25 +37,34 @@ export const ContainerButtons = styled.section`
     }
 
     @media (max-width: 450px) {
-        margin-top: 1rem;
-        gap: 5rem;
+        top: -10px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
         scale: .9;
     }
 
     @media (max-width: 920px) {
-        margin-top: 1rem;
+        margin-top: 30%;
         scale: .9;
     }
 
 `
 
 export const ContainerLogo = styled.div`
-    width: 8rem;
+    width: 20rem;
     height: auto;
 
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    translate: -50%;
+
+
     @media (max-width: 450px) {
-        width: 5rem;
+        width: 18rem;
         height: auto;
+        top: 5%;
     }
 `
 
@@ -60,8 +73,7 @@ export const ContainerBtnAdmin = styled.div`
     height: auto;
 
     @media (max-width: 450px) {
-        width: 10rem;
-        height: auto;
+        display: none;
     }
 `
 
@@ -71,7 +83,7 @@ export const ContainerBtnUser = styled.div`
 
 
     @media (max-width: 450px) {
-        width: 15rem;
+        width: 10rem;
         height: auto;
     }
 

@@ -143,15 +143,28 @@
 }
 
 .strongQuestion{
+    font-family: 'Cabin', sans-serif;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    
+    margin-bottom: 1rem;
+    width: 100%;
+    
+}
+
+.contentDetailAsk{
     font-family: 'Bungee','Cabin', sans-serif;
     font-size: 1.5rem;
-    display: block;
-    margin-bottom: 1rem;
 }
 
 .question{
     font-family: 'Cabin', sans-serif;
     font-size: 1.5rem;
+    margin-top: 5rem;
+
+    position: relative;
+    top: 2rem;
 }
 
 .contentImageAsk{
@@ -299,6 +312,14 @@
     color: #FFF;
     margin: 1rem;
     text-align: center;
+}
+
+.contentPoint{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: justify;
+    margin-top: 2rem;
 }
 
 .point{

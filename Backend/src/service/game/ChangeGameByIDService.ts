@@ -56,8 +56,10 @@ class ChangeGameByIDService {
             point: true,
             dateCreated: true,
             dateFinalization: true,
+            tip: true,
             ask:{
                 select:{
+                    level: true,
                     answer: {
                         where:{
                             correct: true,

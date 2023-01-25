@@ -170,8 +170,8 @@ export function AuthProvider({ children }: AuthProviderProps){
             }
         
         }catch(err){
-            toast.error('Não foi possível realizar o login, Motivo: "' + err.response.data.error+'"');
-            //console.log("Erro ao acessar ", err)
+            toast.error(!err.response?.data.error ? 'Não foi possível realizar o login, Motivo: Desconhecido' : 'Não foi possível realizar o login, Motivo: '+ err.response?.data.error);
+            console.log(err)
         }
     }
 

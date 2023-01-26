@@ -328,6 +328,10 @@ export default function HomeStudent(){
                         <span> 
                             <strong>Iniciante: </strong>
                             Nestas perguntas você poderá testar seus conhecimentos relacionado a introdução do tema propósto pelo seu professor.
+
+                            <br />
+                            <br />
+                            
                             <div>
                                 <strong>Pontução:</strong>
                                 <ul>
@@ -336,8 +340,11 @@ export default function HomeStudent(){
                                     <li><strong>3ª Tentativa: </strong>200pts</li>
                                 </ul>
                             </div>
+
+                            <br />
+
                             <div>
-                                <strong>Dicas:</strong>
+                                <strong>Dicas: </strong>
                                 Você poderá utilizar quantas dicas quiser, mas tem um porem, 
                                 a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>15pts.</strong>
                             </div>
@@ -347,26 +354,25 @@ export default function HomeStudent(){
                         <span> 
                             <strong>Intermediário: </strong>
                             Nestas perguntas você poderá testar seus conhecimentos relacionado a introdução do tema propósto pelo seu professor.
+
+                            <br />
+                            <br />
+
                             <div>
                                 <strong>Pontução:</strong>
                                 <ul>
-                                    <li><strong>1ª Tentativa: </strong>500pts</li>
-                                    <li><strong>2ª Tentativa: </strong>350pts</li>
-                                    <li><strong>3ª Tentativa: </strong>200pts</li>
+                                    <li><strong>1ª Tentativa: </strong>750pts</li>
+                                    <li><strong>2ª Tentativa: </strong>600pts</li>
+                                    <li><strong>3ª Tentativa: </strong>450pts</li>
                                 </ul>
-
-                                {/* 
-                                - Potuação - 750pts
-                                - 1 Tentativa: 750pts
-                                - 2º Tentativa: 600pts
-                                - 3º Tentativa: 450pts
-                                - À cada Dica: - 25pts
-                                 */}
                             </div>
+
+                            <br />
+
                             <div>
-                                <strong>Dicas:</strong>
+                                <strong>Dicas: </strong>
                                 Você poderá utilizar quantas dicas quiser, mas tem um porem, 
-                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>15pts.</strong>
+                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>25pts.</strong>
                             </div>
                         </span>    
                     </div>
@@ -374,27 +380,25 @@ export default function HomeStudent(){
                         <span> 
                             <strong>Avançado: </strong>
                             Nestas perguntas você poderá testar seus conhecimentos relacionado a introdução do tema propósto pelo seu professor.
+
+                            <br />
+                            <br />
+
                             <div>
                                 <strong>Pontução:</strong>
                                 <ul>
-                                    <li><strong>1ª Tentativa: </strong>500pts</li>
-                                    <li><strong>2ª Tentativa: </strong>350pts</li>
-                                    <li><strong>3ª Tentativa: </strong>200pts</li>
+                                    <li><strong>1ª Tentativa: </strong>1000pts</li>
+                                    <li><strong>2ª Tentativa: </strong>850pts</li>
+                                    <li><strong>3ª Tentativa: </strong>700pts</li>
                                 </ul>
-
-                                {/* 
-                                
-                                - Potuação - 1000pts
-                                - 1 Tentativa: 1000pts
-                                - 2º Tentativa: 850pts
-                                - 3º Tentativa: 700pts
-                                - À cada Dica: - 35pts 
-                                 */}
                             </div>
+
+                            <br />
+                            
                             <div>
-                                <strong>Dicas:</strong>
+                                <strong>Dicas: </strong>
                                 Você poderá utilizar quantas dicas quiser, mas tem um porem, 
-                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>15pts.</strong>
+                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>35pts.</strong>
                             </div>
                         </span>
                     </div>

@@ -345,8 +345,8 @@ export default function HomeStudent(){
 
                             <div>
                                 <strong>Dicas: </strong>
-                                Você poderá utilizar quantas dicas quiser, mas tem um porem, 
-                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>15pts.</strong>
+                                Você poderá utilizar quantas dicas quiser, mas tem um porém, 
+                                a <strong>CADA</strong> dica utilizada você perderá <strong>15pts.</strong>
                             </div>
                         </span>
                     </div>
@@ -371,8 +371,8 @@ export default function HomeStudent(){
 
                             <div>
                                 <strong>Dicas: </strong>
-                                Você poderá utilizar quantas dicas quiser, mas tem um porem, 
-                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>25pts.</strong>
+                                Você poderá utilizar quantas dicas quiser, mas tem um porém, 
+                                a <strong>CADA</strong> dica utilizada você perderá <strong>25pts.</strong>
                             </div>
                         </span>    
                     </div>
@@ -397,8 +397,8 @@ export default function HomeStudent(){
                             
                             <div>
                                 <strong>Dicas: </strong>
-                                Você poderá utilizar quantas dicas quiser, mas tem um porem, 
-                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>35pts.</strong>
+                                Você poderá utilizar quantas dicas quiser, mas tem um porém, 
+                                a <strong>CADA</strong> dica utilizada você perderá <strong>35pts.</strong>
                             </div>
                         </span>
                     </div>
@@ -410,19 +410,19 @@ export default function HomeStudent(){
                         <span> 
                             <strong>Das Vidas: </strong>
                             O Aluno terá 3 vidas para completar o quizz, ao atingir as 3 tentativas irá finalizar o QUIZZ. 
-                            Sendo que, a cada vida perdida a pontuação irá máxima irá diminuir de acordo com o nível da pergunta.
+                            Sendo que, a cada vida perdida a pontuação máxima irá diminuir de acordo com o nível da pergunta.
                         </span>
                     </div>
                     <div className={styles.contentItemsElement}>
                         <span> 
                             <strong>Do Tempo: </strong>
-                            O Aluno terá um tempo máximo de 5 minutos......
+                            O Aluno terá um tempo máximo de 5 minutos para terminar o Quizz, se não terminar dentro desse tempo o aluno irá perder uma vida.
                         </span>
                     </div>
                     <div className={styles.contentItemsElement}>
                         <span> 
                             <strong>Das Dicas: </strong>
-                            .........
+                            O professor poderá criar dicas para te ajudar a responder o Quizz, se utilizar destas dicas, você irá perder alguns pontos.
                         </span>
                     </div>
                 </div>

@@ -30,7 +30,7 @@ export const Content = styled.div`
     gap: .5rem;
 
     @media(max-width: 480px){
-        width: 60vw;
+        width: 70vw;
     }
 `
 
@@ -44,13 +44,14 @@ export const TitleTheme = styled.strong`
     text-align: center;
     
     @media(max-width: 650px){
-        font-size: 2rem;
+        margin-top: 8rem;
+        font-size: 1.3rem;
     }
 `
 
 export const DescriptionTheme = styled.span`
-  font-family: 'Cabin', sans-serif;
-  font-size: 1rem;
-  text-align: center;
+    font-family: 'Cabin', sans-serif;
+    font-size: 1rem;
+    text-align: center;
 `
 

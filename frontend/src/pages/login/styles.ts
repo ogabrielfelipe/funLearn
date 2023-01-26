@@ -88,7 +88,7 @@ export const ContainerBtnUser = styled.div`
     }
 
     @media (max-width: 920px) {
-        width: 17rem;
+        width: 14rem;
         height: auto;
     }
 `

@@ -35,10 +35,6 @@ export default function InitialView(){
                     </button>
                 
                 </div>
-                
-
-
-
             </main>
             
         </>

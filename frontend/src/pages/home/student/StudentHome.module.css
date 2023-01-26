@@ -15,8 +15,6 @@
     z-index: 999;
 
     border-radius: 0 1rem 1rem 0;
-
-
 }
 
 .contentInfoGame{
@@ -93,7 +91,6 @@
     transform: rotate(-180deg);
 }
 
-
 .elementsInfoGame{
     display: flex;
     flex-direction: column;
@@ -160,6 +157,12 @@
     transition: all .2s linear;
 }
 
+@media(max-width: 650px){
+    .btnClassification{
+        width: 4rem;
+    }
+}
+
 .btnClassificationShow{
     width: 5rem;
 }
@@ -172,8 +175,8 @@
 }
 
 @media(max-width: 650px){
-    .btnClassification{
-        width: 4rem;
+    .contentSpanBtnClassification{
+        /* display: none; */
     }
 }
 
@@ -217,10 +220,10 @@
 
 .elements::-webkit-scrollbar {
     width: 6px;               /* width of the entire scrollbar */
-  }
+}
   
 .elements::-webkit-scrollbar-track {
-background: transparent;        /* color of the tracking area */
+    background: transparent;        /* color of the tracking area */
 }
   
 .elements::-webkit-scrollbar-thumb {
@@ -280,8 +283,6 @@ background: transparent;        /* color of the tracking area */
 }
 
 .contentClass{
-
-
     font-family: 'Bungee','Cabin', sans-serif;
     font-size: 1.1rem;
 

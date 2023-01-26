@@ -1,60 +1,46 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
+import Head from "next/head"
+import Image from "next/image"
+import React from "react"
+
+import styles from "./Home.module.css"
+import illustration from "../../public/assets/IllustrationInitial2.svg"
+import Router from "next/router"
+
 
 import logo from "../../public/assets/logo.svg"
-import admin from "../../public/assets/Administrator.svg"
-import Student from '../../public/assets/Student.svg';
-import Teacher from '../../public/assets/Teacher.svg';
 
-import { Container, Header, ContainerButtons, ContainerLogo, ContainerBtnAdmin, ContainerBtnUser } from "./styles";
+export default function InitialView(){
+    return (
+        <>
+            <Head>
+                <title>Bem Vindo ao FunLearn!!</title>
+            </Head> 
+            <main className={styles.main}>
+                <div className={styles.contentIllustration}>
+                    <Image 
+                        src={illustration}
+                        alt={"Illustração de banco de dados."}
+                        layout={"responsive"}
+                    />
+                </div>
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <Head>
-        <title>FunLearn</title>
-      </Head> 
-      <Container>
-        <Header>
-          <ContainerLogo> 
-            <Link href="/">
-              <a>
-                <Image src={logo} layout="responsive"  alt={"Logo do Sistema."}/>
-              </a>
-            </Link>
-          </ContainerLogo>
+                <div className={styles.contentText}>
+                    <strong className={styles.textPrincipal}> Bem-vindo ao ambiente de Aprendizagem de  <span style={{"color": "#8870FF"}}>Banco de Dados</span></strong>
+                    <span className={styles.descriptionText}> A Plataforma tem como principal objetivo, como o próprio nome já diz, é deixar o ensino de banco de dados de uma forma
+                        mais descontraida e divertida para os alunos. </span>
+                
 
-          <ContainerBtnAdmin> 
-            <Link href="/login/admin">
-              <a>
-                <Image src={admin} layout="responsive" alt={"Botão para realizar login como administrador."}/>
-              </a>
-            </Link>
-          </ContainerBtnAdmin>
-        </Header>
+                    <button className={styles.btn} onClick={() => Router.push('/login')}>
+                        Que comecem os Jogos!!!
+                    </button>
+                
+                </div>
+                
 
-        <ContainerButtons>
-          <ContainerBtnUser>
-            <Link href="/login/student">
-              <a>
-                <Image src={Student} alt={"Botão para realizar login como estudante."}/>
-              </a>
-            </Link>
-          </ContainerBtnUser>
 
-          <ContainerBtnUser>
-            <Link href="/login/teacher">
-              <a>
-                <Image src={Teacher} alt={"Botão para realizar login como Professor."}/>
-              </a>
-            </Link>
-          </ContainerBtnUser>
-        </ContainerButtons>
-      </Container>
-    </>
-  );
-};
 
-export default Home;
+            </main>
+            
+        </>
+    )
+}

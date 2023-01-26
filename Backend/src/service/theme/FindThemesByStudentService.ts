@@ -49,6 +49,7 @@ class FindThemesByStudentService{
                             finished: true,
                             finishedOver: true,
                             finishedTime: true,
+                            score: true,
                         }
                     }
                 }

@@ -89,7 +89,7 @@ export default function HomeStudent(){
             await apiClient.get('/game/find/themes')
             .then(async resp => {
                 setThemes(resp.data);
-
+                console.log(resp.data)
                 await apiClient.get(`/game/find/classification/${resp.data[0].team.id}`)
                 .then(resp2 => {
                     setClassification(resp2.data);
@@ -231,9 +231,7 @@ export default function HomeStudent(){
                         let position = index+1;
                         position === 4 ? position = 1 : true
                         return (
-                            <>         
-
-
+                            <>    
                                 <Content key={value.theme.id}>
                                     <TitleTheme> { value.theme.name } </TitleTheme>
                                     <ContentLottie>
@@ -258,6 +256,12 @@ export default function HomeStudent(){
                                         <>
                                             <div className={styles.contentComplete}>
                                                 <LottieFilesCompleteTheme />
+                                            </div>
+
+
+                                            <div className={styles.contentPointTheme}>
+                                                <LottieFilesCoin />
+                                                {value.theme.positions[0].score}  
                                             </div>
 
                                             <ButtonStudentSecondary onClick={() => {handleRecommenceGame(value.theme.positions[0].id)}}>
@@ -321,13 +325,78 @@ export default function HomeStudent(){
                         <span> Informações sobre as Perguntas</span>
                     </div>
                     <div className={styles.contentItemsElement}>
-                        <span> <strong>Iniciante:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                        <span> 
+                            <strong>Iniciante: </strong>
+                            Nestas perguntas você poderá testar seus conhecimentos relacionado a introdução do tema propósto pelo seu professor.
+                            <div>
+                                <strong>Pontução:</strong>
+                                <ul>
+                                    <li><strong>1ª Tentativa: </strong>500pts</li>
+                                    <li><strong>2ª Tentativa: </strong>350pts</li>
+                                    <li><strong>3ª Tentativa: </strong>200pts</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <strong>Dicas:</strong>
+                                Você poderá utilizar quantas dicas quiser, mas tem um porem, 
+                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>15pts.</strong>
+                            </div>
+                        </span>
                     </div>
                     <div className={styles.contentItemsElement}>
-                        <span> <strong>Intermediária:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                        <span> 
+                            <strong>Intermediário: </strong>
+                            Nestas perguntas você poderá testar seus conhecimentos relacionado a introdução do tema propósto pelo seu professor.
+                            <div>
+                                <strong>Pontução:</strong>
+                                <ul>
+                                    <li><strong>1ª Tentativa: </strong>500pts</li>
+                                    <li><strong>2ª Tentativa: </strong>350pts</li>
+                                    <li><strong>3ª Tentativa: </strong>200pts</li>
+                                </ul>
+
+                                {/* 
+                                - Potuação - 750pts
+                                - 1 Tentativa: 750pts
+                                - 2º Tentativa: 600pts
+                                - 3º Tentativa: 450pts
+                                - À cada Dica: - 25pts
+                                 */}
+                            </div>
+                            <div>
+                                <strong>Dicas:</strong>
+                                Você poderá utilizar quantas dicas quiser, mas tem um porem, 
+                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>15pts.</strong>
+                            </div>
+                        </span>    
                     </div>
                     <div className={styles.contentItemsElement}>
-                        <span> <strong>Avançada:</strong> asdhasid hpiaushd iopashpdu hasipú dhasiphud piasuhdpuias hduiphaspid hapsihudpau ishdpiaush dpuiashdpiaushd puashdpuiashdpaisu  hdgipaus hdauipshd pasuidh </span>
+                        <span> 
+                            <strong>Avançado: </strong>
+                            Nestas perguntas você poderá testar seus conhecimentos relacionado a introdução do tema propósto pelo seu professor.
+                            <div>
+                                <strong>Pontução:</strong>
+                                <ul>
+                                    <li><strong>1ª Tentativa: </strong>500pts</li>
+                                    <li><strong>2ª Tentativa: </strong>350pts</li>
+                                    <li><strong>3ª Tentativa: </strong>200pts</li>
+                                </ul>
+
+                                {/* 
+                                
+                                - Potuação - 1000pts
+                                - 1 Tentativa: 1000pts
+                                - 2º Tentativa: 850pts
+                                - 3º Tentativa: 700pts
+                                - À cada Dica: - 35pts 
+                                 */}
+                            </div>
+                            <div>
+                                <strong>Dicas:</strong>
+                                Você poderá utilizar quantas dicas quiser, mas tem um porem, 
+                                a <strong>CADA</strong> dica utilizada vocẽ perderá <strong>15pts.</strong>
+                            </div>
+                        </span>
                     </div>
 
                     <div className={styles.titleItemsElement}>
@@ -335,38 +404,21 @@ export default function HomeStudent(){
                     </div>
                     <div className={styles.contentItemsElement}>
                         <span> 
-                            <strong> 
-                                O Aluno terá 3 vidas para completar o quizz, ao atingir as 3 tentativas irá finalizar o QUIZZ. (A cada erro a pontuação diminuirá) 
-                            </strong>
-
-                            <br />
-
-                            <div>
-                            - Iniciante:
-                                - Potuação - 500pts
-                                - 1 Tentativa: 500pts
-                                - 2º Tentativa: 350pts
-                                - 3º Tentativa: 200pts
-                                - À cada Dica: - 15pts
-                            </div>
-                                
-                            <div>
-                            - Intermediária:
-                                - Potuação - 750pts
-                                - 1 Tentativa: 750pts
-                                - 2º Tentativa: 600pts
-                                - 3º Tentativa: 450pts
-                                - À cada Dica: - 25pts
-                            </div>
-                            
-                            <div>
-                            - Avançada:
-                                - Potuação - 1000pts
-                                - 1 Tentativa: 1000pts
-                                - 2º Tentativa: 850pts
-                                - 3º Tentativa: 700pts
-                                - À cada Dica: - 35pts 
-                            </div>
+                            <strong>Das Vidas: </strong>
+                            O Aluno terá 3 vidas para completar o quizz, ao atingir as 3 tentativas irá finalizar o QUIZZ. 
+                            Sendo que, a cada vida perdida a pontuação irá máxima irá diminuir de acordo com o nível da pergunta.
+                        </span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <span> 
+                            <strong>Do Tempo: </strong>
+                            O Aluno terá um tempo máximo de 5 minutos......
+                        </span>
+                    </div>
+                    <div className={styles.contentItemsElement}>
+                        <span> 
+                            <strong>Das Dicas: </strong>
+                            .........
                         </span>
                     </div>
                 </div>

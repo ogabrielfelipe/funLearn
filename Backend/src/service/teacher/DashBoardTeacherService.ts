@@ -84,7 +84,7 @@ class DashBoardTeacherService{
             INNER JOIN students_on_teams st ON st.teamID = te.id
             INNER JOIN teams_on_themes as tt ON tt.teamID=st.teamID
             INNER JOIN student stu ON stu.id = st.studentID
-            LEFT JOIN position as p ON p.studentID = st.studentID
+            LEFT JOIN position as p ON p.studentID = st.studentID and p.themeID = tt.themeID
             WHERE 
                 te.id = ${team.id} and tt.themeID= ${theme.id}
             GROUP BY stu.id, p.finished, p.finishedOver, p.finishedTime, p.dateFinalization
@@ -96,7 +96,7 @@ class DashBoardTeacherService{
             INNER JOIN students_on_teams st ON st.teamID = te.id
             INNER JOIN teams_on_themes as teth ON teth.teamID=te.id
             INNER JOIN student stu ON stu.id = st.studentID
-            LEFT JOIN position as p ON p.studentID = st.studentID
+            LEFT JOIN position as p ON p.studentID = st.studentID and p.themeID=teth.themeID
             LEFT JOIN game as g ON g.positionID=p.id
             WHERE 
                 te.id = ${team.id} and teth.themeID= ${theme.id}

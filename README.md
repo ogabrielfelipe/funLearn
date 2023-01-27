@@ -1,6 +1,6 @@
 # FunLearn
     
-Este projeto tem como objetivo o desenvolvimento de uma ferramenta web, voltada para auxiliar professores e alunos no ensino e aprendizagem de comandos na linguagem SQL. O sistema visa trabalhar o conteúdo através de uma interface simples e intuitiva através de um jogo de perguntas e respostas envolvendo banco de dados, deixando assim, menos cansativa e mais divertida a aprendizagem.
+Este projeto tem como objetivo o desenvolvimento de uma ferramenta web, voltada para auxiliar professores e alunos no ensino e aprendizagem de diversos temas, ficando a critério do professor definir o tema e cadastrar as perguntas. O sistema visa trabalhar o conteúdo através de uma interface simples e intuitiva através de um jogo de perguntas e respostas, deixando assim, menos cansativa e mais divertida a aprendizagem.
 
 
 ## Backend

@@ -22,7 +22,8 @@ class FindManyAskService{
                 id: true,
                 question: true,
                 level: true,
-                active: true
+                active: true,
+                themeID: true
             }
         })
 

@@ -97,8 +97,12 @@ export default function AddStudant( { teams }: AddStudantProps ){
         })
         .catch(err => {
             setLoading(false);
-            console.log(err)
-            toast.error("Não foi possível realizar o cadastro, Motivo: "+err.response.data.error);
+            console.error(err)
+            if(err.response.data.mensage.split('`')[3] === 'student_register_key'){
+                toast.error("Não foi possível realizar o cadastro, Motivo: Já existe um aluno com essa matrícula.");
+                return;
+            }
+            toast.error("Não foi possível realizar o cadastro, Motivo: "+err.response.data);
         })
 
     }

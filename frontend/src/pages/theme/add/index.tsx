@@ -302,7 +302,6 @@ export default function AddTheme( { listTeachers, listTeams }:ThemeProps ){
                                                 <span>{l.name.length > 20 ? l.name.slice(0, 15)+"..." :  l.name}</span>
                                                 <span>{l.visible? "Visível" : "Invisível"}</span>
                                                 <div>
-                                                    <BtnAsk onClick={(e) => { e.preventDefault(); handleAlterTeam(l.id)}}><PencilLine size={22} weight="regular" /></BtnAsk>
                                                     <BtnAsk onClick={(e) => { e.preventDefault(); handleDeleteTeam(l.id)}}><Trash size={22} weight="regular" /></BtnAsk>
                                                 </div>
                                             </List>

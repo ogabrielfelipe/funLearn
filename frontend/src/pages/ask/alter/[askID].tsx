@@ -347,7 +347,6 @@ export default function AlterAsk(){
 
         apiClient.post('/tip', data)
         .then(resp => {
-
             let lisAuxTips = Array<TipsProps>()
             lisAuxTips.push({
                 id: resp.data.id,

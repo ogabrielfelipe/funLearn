@@ -2,7 +2,7 @@ import Head from "next/head";
 import Router from "next/router";
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
-import { ButtonConfirmBlue, ButtonConfirmPink } from "../../components/Button";
+import { ButtonConfirmBlue } from "../../components/Button";
 import { ContentItems } from "../../components/ContentItems";
 import { HeaderAuth } from "../../components/Header";
 import { InputFrom, SelectForm } from "../../components/Input";
@@ -13,10 +13,9 @@ import { setupAPIClient } from "../../services/api";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
 
-import { Container } from "../styles";
-import { OptionSelect } from "../team/add/styles";
-import { ContainerList, ContainerInput, Content, ContainerIpntBut } from "../team/styles";
-import { ContainerBtn, ContainerModal, ContentFormModel, ContentModel, Description, LabelInputFile, TextMsg, Title } from "./styles";
+// import { OptionSelect } from "../team/add/styles";
+import { ContainerList, ContainerInput, Content, Container, ContainerIpntBut } from "../team/styles";
+// import { ContainerBtn, ContainerModal, ContentFormModel, ContentModel, Description, LabelInputFile, TextMsg, Title } from "./styles";
 
 
 type TeamTeachersProps = {

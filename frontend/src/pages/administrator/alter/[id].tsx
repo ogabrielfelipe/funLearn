@@ -31,12 +31,9 @@ export default function AlterAdministrator( {administrators}: FindAdministratorP
     const router = useRouter();
     const { id } = router.query;
 
-    const [administratorList, setAdministratorList] = useState(administrators || [])
 
     const [nameAdministrator, setNameAdministrator] = useState("");
-
     const [userAdministrator, setUserAdministrator] = useState("");
-
     const [passwordAdministrator, setPasswordAdministrator] = useState("");
 
     var administratorSelectedPosition = "0";
@@ -82,23 +79,12 @@ export default function AlterAdministrator( {administrators}: FindAdministratorP
         e.preventDefault();
         setLoading(true);
 
-        // if (administratorSelected === "0"){
-        //     setLoading(false);
-        //     toast.warn(" Nenhum administrador selecionado! ")
-        //     return;
-        // }
-
         if (nameAdministrator === ""){
             setLoading(false);
             toast.warn("Por favor, informe o nome do administrador.")
             return;
         }
 
-        // if (passwordAdministrator === ""){
-        //     setLoading(false);
-        //     toast.warn("Por favor, informe uma senha para realizar o cadastro.")
-        //     return;
-        // }
 
         let data = {
             id: id,
@@ -149,14 +135,14 @@ export default function AlterAdministrator( {administrators}: FindAdministratorP
                                 type={"text"}
                                 placeholder="Usuário"
                                 value={userAdministrator}
-                                onChange={(e) => setUserAdministrator(e.target.value)}
+                                disabled
                             />
 
                             <InputFrom 
                                 title="Senha:"
                                 type={"password"}
                                 placeholder="Senha"
-                                value={passwordAdministrator    }
+                                value={passwordAdministrator}
                                 onChange={(e) => setPasswordAdministrator(e.target.value)}
                             />
 

@@ -17,8 +17,9 @@ type AsksTypeProps = {
     id: string,
     question: string,
     active: boolean,
-    level: string
-}
+    level: string,
+    themeID: string
+}   
 type ListView = {
     id: string,
     name1: string,
@@ -135,7 +136,12 @@ export default function Ask( { listAsks }: AsksProps){
                         let data = {
                             askID: askToDelete,
                             question: "",
-                            active: false
+                            active: false,
+                            themeID: asks.filter(ask => { 
+                                if (ask.id === askToDelete){
+                                    return ask
+                                }
+                            })[0].themeID
                         }
 
                         await apiClient.put('/ask', data)
@@ -191,7 +197,6 @@ export const getServerSideProps = canSSRAuth( async (ctx: any) => {
             question: ""
         }
     })
-    
     return {
         props:{
             listAsks: res.data,

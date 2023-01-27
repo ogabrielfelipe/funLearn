@@ -59,11 +59,6 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
         e.preventDefault();
         setLoading(true);
 
-        // if (administratorSelected === "0"){
-        //     setLoading(false);
-        //     toast.warn(" Nenhum administrator selecionado! ")
-        //     return;
-        // }
         if (nameAdministrator === ""){
             setLoading(false);
             toast.warn("Por favor, informe o nome do administrador.")
@@ -94,7 +89,12 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
         })
         .catch(err => {
             setLoading(false);
-            console.log(err)
+            console.log(err.response.data)
+            if (err.response.data.mensage.split("`")[3] === "administrator_username_key"){
+                toast.error("Não foi possível realizar o cadastro, Motivo: Já existe usuário Administrador com esse nome de usuário.");
+                return;
+
+            }
             toast.error("Não foi possível realizar o cadastro, Motivo: "+err.response.data.error);
         })
     }

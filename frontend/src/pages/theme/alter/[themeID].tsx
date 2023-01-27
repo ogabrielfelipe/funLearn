@@ -59,7 +59,6 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
     const [teamSelectedVisible, setTeamSelectedVisible] = useState("1")
 
     const [listTeamSelecteds, setListTeamSelecteds] = useState(Array())
-    const [modeAlter, setModeAlter] = useState(false)
 
     async function handleSelectedTeam(e){
         e.preventDefault();
@@ -98,18 +97,16 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
         .then(resp => {
             console.log(resp.data);
 
-            apiClient.get(`/theme?themeID=${themeID}`)
+            apiClient.get(`/theme/${themeID}`)
             .then(resp2 => {
-                const data = resp2.data;
                 let dataTeams = Array();
-                data.teams.forEach(l => {
+                resp2.data.teams.forEach(l => {
                     dataTeams.push({
                         id: l.team.id,
                         name: l.team.name,
                         visible: l.visible,
                     })
                 })
-
                 setListTeamSelecteds(dataTeams)
             })
             .catch(err => {
@@ -143,11 +140,10 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
             data
         })
         .then( resp => {
-            apiClient.get(`/theme?themeID=${themeID}`)
+            apiClient.get(`/theme/${themeID}`)
             .then(resp2 => {
-                const data = resp2.data;
                 let dataTeams = Array();
-                data.teams.forEach(l => {
+                resp2.data.teams.forEach(l => {
                     dataTeams.push({
                         id: l.team.id,
                         name: l.team.name,
@@ -363,6 +359,7 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
 
                                     <ContainerListAsk>
                                         {listTeamSelecteds.map((l, i) => {
+                                            console.log(l)
                                             return (
                                             <List key={l.id}>
                                                 <span hidden>{l.id}</span>

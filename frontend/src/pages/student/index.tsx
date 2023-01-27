@@ -12,13 +12,13 @@ import { ModalConfirmation } from "../../components/Modal";
 import { setupAPIClient } from "../../services/api";
 import { canSSRAuth } from "../../utils/canSSRAuth";
 
-import { Container } from "../styles";
 import { OptionSelect } from "../team/add/styles";
 import {
   ContainerList,
   ContainerInput,
   Content,
   ContainerIpntBut,
+  Container,
 } from "../team/styles";
 import {
   ContainerBtn,
@@ -92,11 +92,11 @@ export default function Studant({
     listStudantFor.push({
       id: s.id,
       name1: s.name,
-      name2: s.teams.filter((value) => {
+      name2: s.teams.length > 1 ? s.teams.filter((value) => {
         if (value.team.active === true) {
           return value.team.name;
         }
-      })[0].team.name,
+      })[0].team.name : s.teams[0].team.name,
     });
   });
   const [listStudantsConv, setListStudantsConv] = useState(
@@ -165,11 +165,11 @@ export default function Studant({
             listStudantFor.push({
               id: s.id,
               name1: s.name,
-              name2: s.teams.filter((value: any) => {
+              name2: s.teams.length > 1 ? s.teams.filter((value) => {
                 if (value.team.active === true) {
                   return value.team.name;
                 }
-              })[0].team.name,
+              })[0].team.name : s.teams[0].team.name,
             });
           });
           setVisubleModelImport(false);
@@ -178,8 +178,12 @@ export default function Studant({
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err);
-        toast.success("Não foi possível importar os dados dos alunos.");
+        console.log(err.response.data);
+        if(err.response.data.description.code === 'P2002'){
+          toast.error("Não foi possível importar os dados dos alunos. Motivo: A(s) Matricula(s) já existe.");
+          return;
+        }
+        toast.error("Não foi possível importar os dados dos alunos.");
       });
   }
 
@@ -194,6 +198,26 @@ export default function Studant({
     setPassImport("");
     setFileImport(null);
     setNameFileImport("");
+  }
+
+
+  function selectStudentModel(students: StudantsProps[], teamToDelete: string){
+    let student = students.filter((value) => {
+      if (value.id === teamToDelete) {
+        return value.teams;
+      }
+    });
+
+    if (student[0].teams.length > 1){
+      return student[0].teams.filter((value) => {
+        if (value.team.active) {
+          return value.team.id;
+        }
+      })[0].team.id
+    
+    }else{
+      return student[0].teams[0].team.id
+    }
   }
 
   return (
@@ -318,7 +342,7 @@ export default function Studant({
       {visibleModal === true ? (
         <ModalConfirmation
           title="Confirmação de Inativar"
-          description="Deseja realmente inativar essa turma?"
+          description="Deseja realmente inativar o Aluno?"
           msgBtnConfirm="Desejo Inativar"
           msgBtnCancel="Não quero Inativar"
           handleDeleteRegis={async () => {
@@ -330,17 +354,7 @@ export default function Studant({
               name: "",
               password: "",
               active: false,
-              teamID: studants
-                .filter((value) => {
-                  if (value.id === teamToDelete) {
-                    return value.teams;
-                  }
-                })[0]
-                .teams.filter((value) => {
-                  if (value.team.active) {
-                    return value.team.id;
-                  }
-                })[0].team.id,
+              teamID: selectStudentModel(studants, teamToDelete) ,
             };
 
             await apiClient
@@ -359,11 +373,11 @@ export default function Studant({
                         listTeamFor.push({
                           id: s.id,
                           name1: s.name,
-                          name2: s.teams.filter((value: any) => {
+                          name2: s.teams.length > 1 ? s.teams.filter((value) => {
                             if (value.team.active === true) {
                               return value.team.name;
                             }
-                          })[0].team.name,
+                          })[0].team.name : s.teams[0].team.name,
                         });
                       });
                       setListStudantsConv(listTeamFor);
@@ -395,8 +409,6 @@ export default function Studant({
 }
 
 export const getServerSideProps = canSSRAuth(async (ctx: any) => {
-  console.log(ctx);
-
   const apiClient = setupAPIClient(ctx);
   const res = await apiClient.get("/students", {
     data: {

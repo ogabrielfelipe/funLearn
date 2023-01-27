@@ -36,7 +36,6 @@ export default function AlterTeacher( { teachers }: AlterTeacherProps ){
     const router = useRouter();
     const { id } = router.query;
 
-    const [teamList, setTeamList] = useState(teachers || [])
     const [loading, setLoading] = useState(false);
 
 
@@ -44,15 +43,8 @@ export default function AlterTeacher( { teachers }: AlterTeacherProps ){
     const [userTeacher, setUserTeacher] = useState<any>();
     const [passTeacher, setNPassTeacher] = useState("");
 
-    const [teacherSelected, setTeacherSelected] = useState("0");
     const [teacherActive, setTeacherActive] = useState("1");
     
-    function handleTeacherSelected(e: any){
-        setTeacherSelected(e.target.value)
-    }
-    function handleTeacherActive(e: any){
-        setTeacherActive(e.target.value)
-    }
 
 
     useEffect(() =>{
@@ -63,7 +55,6 @@ export default function AlterTeacher( { teachers }: AlterTeacherProps ){
                 setLoading(false);
                 setNameTeacher(resp.data.name)
                 setUserTeacher(resp.data.username)
-                setTeacherSelected(resp.data.teacher.id)
                 setTeacherActive(resp.data.active === true ? "1": "0")
             })
             .catch(err => {
@@ -148,7 +139,7 @@ export default function AlterTeacher( { teachers }: AlterTeacherProps ){
                             <SelectForm
                                 title="Professor Ativo:"
                                 value={teacherActive}
-                                onChange={handleTeacherActive}
+                                onChange={(e) => setTeacherActive(e.target.value)}
                             >   
                                 <OptionSelect value={1}>Sim</OptionSelect>
                                 <OptionSelect value={0}>Não</OptionSelect>

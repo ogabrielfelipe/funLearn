@@ -6,14 +6,12 @@ import { toast } from "react-toastify";
 import { ButtonConfirmBlue, ButtonConfirmPink } from "../../../components/Button";
 import { ContentItems } from "../../../components/ContentItems";
 import { HeaderAuth } from "../../../components/Header";
-import { InputFrom, InputTextArea, SelectForm } from "../../../components/Input";
-import { ListView } from "../../../components/ListView";
+import { InputTextArea, SelectForm } from "../../../components/Input";
 import { LoadingManager } from "../../../components/Loading";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
-import { Container } from "../../styles";
+import { Container } from "../../team/styles"
 import { ContentButton, ContentForm, ContentInputForm, ContentInputForm2, OptionSelect } from "../../team/add/styles";
-import { ContainerList } from "../../team/styles";
 import { BtnAsk, ContainerListAsk, ContentImport, ContentSelects, ContentText, List } from "./styles";
 
 
@@ -317,6 +315,12 @@ export default function AddAsk(){
                 visible: i.visible
             }
         })
+
+        if (dataAnswer.length < 4){
+            toast.warn("São necessárias 4 respostas para poder salvar a pertunga.")
+            setLoading(false)
+            return;
+        }
 
         dataForm.append("question", askDescription)
         dataForm.append("active", askActive === "1"? String(true) : String(false))

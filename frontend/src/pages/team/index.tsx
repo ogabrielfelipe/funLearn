@@ -3,8 +3,7 @@ import { ButtonConfirmBlue } from "../../components/Button";
 import { ContentItems } from "../../components/ContentItems";
 import { InputFrom } from "../../components/Input";
 import { HeaderAuth } from "../../components/Header";
-import { Container } from "../styles";
-import { ContainerInput, ContainerIpntBut, ContainerList, Content } from "./styles";
+import { Container, ContainerInput, ContainerIpntBut, ContainerList, Content } from "./styles";
 import { ListView } from "../../components/ListView";
 import Router from "next/router";
 

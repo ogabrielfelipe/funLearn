@@ -41,10 +41,6 @@ cd funLearn && cd Backend/
 yarn or yarn install
 ```
 
-- Instalando a biblioteca do prisma
-```bash
-yarn add @prisma/client
-```
 
 - Para prosseguir é necessário criar o arquivo *.env* na raiz do Módulo e definir alguns parâmetros para o módulo funcionar corretamente. Os parâmetros são os seguintes:
     

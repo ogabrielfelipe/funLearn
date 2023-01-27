@@ -42,8 +42,8 @@ yarn or yarn install
 ```
 
 - Instalando a biblioteca do prisma
-```
-    yarn add @prisma/client
+```bash
+yarn add @prisma/client
 ```
 
 - Para prosseguir é necessário criar o arquivo *.env* na raiz do Módulo e definir alguns parâmetros para o módulo funcionar corretamente. Os parâmetros são os seguintes:

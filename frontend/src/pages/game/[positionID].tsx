@@ -480,24 +480,27 @@ export default function GameStudent(){
 
             <header className={styles.header}>
                 <div className={styles.contentGame}>
-                    <div className={styles.life}>
-                        {
-                            lifePosition.map((life, index) => {
-                                return (
-                                    <>
-                                        <LottieFilesLife key={index}
-                                            removeLife={life === 1 ? false : true}
-                                        />
-                                    </>                                    
-                                )
-                            })
-                        }
-                    </div>
+                    <div className={styles.contentLifeAndTimeMobile}>
+                        <div className={styles.life}>
+                            {
+                                lifePosition.map((life, index) => {
+                                    return (
+                                        <>
+                                            <LottieFilesLife key={index}
+                                                removeLife={life === 1 ? false : true}
+                                            />
+                                        </>                                    
+                                    )
+                                })
+                            }
+                        </div>
 
-                    <strong className={styles.textTimeAndTip}>
-                        <Time />
-                        {timeRemainingAsk}
-                    </strong>
+                        <strong className={styles.textTimeAndTip}>
+                            <Time />
+                            {timeRemainingAsk}
+                        </strong>
+                    </div>
+                    
 
                     <div className={styles.contentCoin}>
                         <Coin/>
@@ -506,11 +509,12 @@ export default function GameStudent(){
                         </strong>
                     </div>
 
+                    <ButtonStudenTertiary onClick={handleFinishedGame}>
+                            Tela Inicial
+                    </ButtonStudenTertiary>
+
                 </div>
 
-                <ButtonStudenTertiary onClick={handleFinishedGame}>
-                        Tela Inicial
-                </ButtonStudenTertiary>
             </header>
 
             <main> 

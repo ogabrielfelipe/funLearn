@@ -191,7 +191,7 @@ export default function HomeStudent(){
                             return (
                                 <div className={styles.positionStudent} key={value.id}>
                                     {index === 0 ? <Image width={32} src={FirstPosition} alt={""} /> : index === 1 ? <Image width={32} src={SecondPosition} alt={""} /> : index === 2 ? <Image width={32} src={ThirdPosition} alt={""} /> :  <span className={styles.contentClass}>{index+1}</span> }
-                                    <span style={{fontSize: "1.1rem"}}> {value.nameStudent.split("").length >= 8 ? value.nameStudent.slice(0, 7)+ " ..." : value.nameStudent}</span> <span style={{fontSize: "1.1rem"}}> {value.score}</span>
+                                    <span > {value.nameStudent.split("").length >= 8 ? value.nameStudent.slice(0, 7)+ " ..." : value.nameStudent}</span> <span> {value.score}</span>
                                 </div>
                             )
                             })
@@ -227,7 +227,6 @@ export default function HomeStudent(){
                 >
 
                     { themes.map((value, index) => {
-                        console.log(value)
                         let position = index+1;
                         position === 4 ? position = 1 : true
                         return (

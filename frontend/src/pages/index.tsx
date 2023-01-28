@@ -6,9 +6,6 @@ import styles from "./Home.module.css"
 import illustration from "../../public/assets/IllustrationInitial2.svg"
 import Router from "next/router"
 
-
-import logo from "../../public/assets/logo.svg"
-
 export default function InitialView(){
     return (
         <>

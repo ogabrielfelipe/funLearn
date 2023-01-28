@@ -16,6 +16,26 @@ export const Container = styled.main`
     top: -3.5rem;
 
 
+    /* Notebook */
+    @media all and (min-width: 1024px) and (max-width:1280){
+
+    }
+
+    /* Tablet */
+    @media all and (min-width: 768px) and (max-width:1024px){
+
+    }
+
+    /* Celular deitado */
+    @media all and (min-width: 480px) and (max-width:768px){
+        
+    }
+
+    /* Celular */
+    @media all and (max-width: 480px){     
+        height: 60vh;    
+        top: 6rem; 
+    }
 `
 
 export const Content = styled.div`
@@ -29,13 +49,52 @@ export const Content = styled.div`
 
     gap: .5rem;
 
-    @media(max-width: 480px){
-        width: 70vw;
+    /* Notebook */
+    @media all and (min-width: 1024px) and (max-width:1280){
+
     }
+
+    /* Tablet */
+    @media all and (min-width: 768px) and (max-width:1024px){
+    
+    }
+
+    /* Celular deitado */
+    @media all and (min-width: 480px) and (max-width:768px){
+        
+    }
+
+    /* Celular */
+    @media all and (max-width: 480px){
+        
+        height: 80vh;    
+        gap: 1rem;
+    }
+
 `
 
 export const ContentLottie = styled.div`
     max-width: 20rem;
+
+    /* Notebook */
+    @media all and (min-width: 1024px) and (max-width:1280){
+
+    }
+
+    /* Tablet */
+    @media all and (min-width: 768px) and (max-width:1024px){
+
+    }
+
+    /* Celular deitado */
+    @media all and (min-width: 480px) and (max-width:768px){
+        
+    }
+
+    /* Celular */
+    @media all and (max-width: 480px){      
+     max-width: 15rem;
+    }
 `
 
 export const TitleTheme = styled.strong`
@@ -43,9 +102,24 @@ export const TitleTheme = styled.strong`
     font-size: 1.5rem;
     text-align: center;
     
-    @media(max-width: 650px){
-        margin-top: 8rem;
-        font-size: 1.3rem;
+    /* Notebook */
+    @media all and (min-width: 1024px) and (max-width:1280){
+
+    }
+
+    /* Tablet */
+    @media all and (min-width: 768px) and (max-width:1024px){
+
+    }
+
+    /* Celular deitado */
+    @media all and (min-width: 480px) and (max-width:768px){
+        
+    }
+
+    /* Celular */
+    @media all and (max-width: 480px){        
+        font-size: 1rem;
     }
 `
 
@@ -53,5 +127,25 @@ export const DescriptionTheme = styled.span`
     font-family: 'Cabin', sans-serif;
     font-size: 1rem;
     text-align: center;
+
+    /* Notebook */
+    @media all and (min-width: 1024px) and (max-width:1280){
+
+    }
+
+    /* Tablet */
+    @media all and (min-width: 768px) and (max-width:1024px){
+
+    }
+
+    /* Celular deitado */
+    @media all and (min-width: 480px) and (max-width:768px){
+        
+    }
+
+    /* Celular */
+    @media all and (max-width: 480px){     
+        font-size: 0.9rem;
+    }
 `
 

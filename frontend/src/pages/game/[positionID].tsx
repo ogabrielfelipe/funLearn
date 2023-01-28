@@ -511,16 +511,15 @@ export default function GameStudent(){
                 <ButtonStudenTertiary onClick={handleFinishedGame}>
                         Tela Inicial
                 </ButtonStudenTertiary>
-
             </header>
 
             <main> 
                 <div className={styles.container}>
                     <div className={styles.containerAsk}>
                         <strong className={styles.strongQuestion}>
+                            <span>Pergunta: <span className={styles.contentDetailAsk}>  {parseInt(numberAsk.split("/")[0])+1 > 10 ? 10 : parseInt(numberAsk.split("/")[0])+1} </span></span>
                             <span>Nível: <span className={styles.contentDetailAsk}>{askLevel}</span></span> 
-                            <span className={styles.contentDetailAsk}>Pergunta: {parseInt(numberAsk.split("/")[0])+1 > 10 ? 10 : parseInt(numberAsk.split("/")[0])+1  }</span>
-                            <span>Pontuação: <span className={styles.contentDetailAsk}>{askGeralPoint}</span></span> 
+                            <span>Valor: <span className={styles.contentDetailAsk}>{askGeralPoint}</span></span> 
                         </strong>
 
                         <hr style={{"border": "1px solid #000000"}} />

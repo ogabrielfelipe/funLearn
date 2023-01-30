@@ -4,10 +4,8 @@ import styled from "styled-components"
 export const Container = styled.main`
     display: flex;
     flex-direction: column;
-
 `
 export const Content = styled.div`
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -18,21 +16,23 @@ export const Content = styled.div`
 
     border: none;
     border-bottom: 0.5px solid rgba(0,0,0, 0.25);
-
 `
 
 export const ContainerIpntBut = styled.form`
-
     display: flex;
     flex-direction: row;
 
     align-items: center;
     gap: 2.5rem;
-
 `
 
 export const ContainerInput = styled.div`
     max-width: 40%;
+
+    /* Celular */
+    @media all and (max-width: 480px){
+        // max-width: 100%;
+    }
 `
 
 
@@ -47,6 +47,10 @@ export const ContentFilters = styled.div`
 
     max-width: 100%;
 
+    /* Celular */
+    @media all and (max-width: 480px){
+        flex-direction: column;
+    }
 `
 export const ContentCharts = styled.div`
     display: flex;
@@ -56,6 +60,11 @@ export const ContentCharts = styled.div`
     gap: 1rem;
 
     width: 100%;
+
+    /* Celular */
+    @media all and (max-width: 480px){
+        
+    }
 `
 export const Charts = styled.div`
     display: flex;
@@ -65,6 +74,11 @@ export const Charts = styled.div`
     gap: 1rem;
 
     width: 100%;
+
+    /* Celular */
+    @media all and (max-width: 480px){
+        flex-direction: column;
+    }
 `
 
 export const ContentListStudents = styled.div`

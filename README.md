@@ -133,7 +133,7 @@ yarn dev
 Com o módulo em execução, você poderá acessa-lo pelo link: [http://localhost:3000](http://localhost:3000/), e terá acesso a tela inicial da plataforma.
 
 > Usuário padrão (Adminstrador):
-- Usuário: admin
-- Senha: funLearn
+> - Usuário: admin
+> - Senha: funLearn
 
 ![demo_inital_frontend](frontend/public/FrontEnd.png)

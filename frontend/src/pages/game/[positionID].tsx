@@ -18,6 +18,7 @@ import { env } from "process";
 
 import setupGame from "../../../SetupGame.json"
 import moment from "moment";
+import { toast } from "react-toastify";
 
 type detailsPositionType = {
     id: string,
@@ -340,17 +341,23 @@ export default function GameStudent(){
         .then(resp => {
             Router.push("/home/student")
             setLoading(false);
-
             localStorage.removeItem('timeRemaining');
         })
         .catch(err => {
             console.error(err);
             setLoading(false);
+            localStorage.removeItem('timeRemaining');
         })
 
     }
 
     async function handleVerifyAnswerSelected() {
+        
+        if (answerSelected === ''){
+            toast.info('Não foi selecionado nenhuma resposta.')
+            return;
+        }
+        
         setLoading(true);
         let data ={
             gameID: gameID,
@@ -368,19 +375,23 @@ export default function GameStudent(){
                 setLoading(false);
                 handleShowModelGameOver();
                 setCountTipUsed(0)
+                setAnswerSelected("")
             }else{
                 setCountTipUsed(0)
                 setLoading(false);
+                setAnswerSelected("")
                 if (resp.data.isCorrect){
                     setCountTipUsed(0)
                     setPointAsk(resp.data.pointAsk)
                     setTipUsedAnswered(resp.data.changeGameResult.tip)
                     setPointAnswer(resp.data.changeGameResult.point)
                     handleShowModelAnswerCorrect();
+                    setAnswerSelected("")
                 }else{
                     setCountTipUsed(0)
                     setDescriptionAnswerCorrect(resp.data.changeGameResult.ask.answer[0].description)
                     handleShowModelAnswerIncorrect()
+                    setAnswerSelected("")
                 }
             }
         })
@@ -432,6 +443,12 @@ export default function GameStudent(){
         }else{
             dateResponseAnswer = dateServer + setupGame.game.timeOut
         }
+
+        let infoCountDown = {
+            "positionID": positionID,
+            "time": dateResponseAnswer
+        }
+        localStorage.setItem('timeRemaining', JSON.stringify(infoCountDown));
         
         const countDownTime = setInterval( () => {
             const timeRemaining: number = dateResponseAnswer;
@@ -448,12 +465,6 @@ export default function GameStudent(){
                 setTimeRemainingAsk(moment.utc(diff * 1000).format('mm[m] ss[s]'))
             }
             
-            let infoCountDown = {
-                "positionID": positionID,
-                "time": dateResponseAnswer
-            }
-            localStorage.setItem('timeRemaining', JSON.stringify(infoCountDown));
-
             if (diff <= 0){
                 clearInterval(countDownTime);  
                 if (oneLifeLater){

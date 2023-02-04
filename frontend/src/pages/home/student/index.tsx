@@ -128,11 +128,13 @@ export default function HomeStudent(){
         .then(resp => {
             if (resp.status === 200) {
                 setLoading(false);
+                localStorage.removeItem('timeRemaining');
                 Router.push(`/game/${resp.data.initialDatas.id}`)
             }
             setLoading(false);
         })  
         .catch(err => {
+            localStorage.removeItem('timeRemaining');
             console.log(err);
             setLoading(false);
         })
@@ -145,19 +147,22 @@ export default function HomeStudent(){
         await apiClient.put(`game/recommence/start/${positionID}`)
         .then(resp => {
             if (resp.status === 200) {
+                localStorage.removeItem('timeRemaining');
                 setLoading(false);
                 Router.push(`/game/${resp.data.id}`)
-            
-                let localStorageCountDown = localStorage.getItem('timeRemaining')
-                if (localStorageCountDown){
-                    if (JSON.parse(localStorageCountDown).positionID === positionID){
-                        localStorage.removeItem('timeRemaining')
-                    }
-                }
+                
+
+                // let localStorageCountDown = localStorage.getItem('timeRemaining')
+                // if (localStorageCountDown){
+                //     if (JSON.parse(localStorageCountDown).positionID === positionID){
+                //         localStorage.removeItem('timeRemaining')
+                //     }
+                // }
             }
             setLoading(false);
         })  
         .catch(err => {
+            localStorage.removeItem('timeRemaining');
             console.log(err);
             setLoading(false);
         })

@@ -19,15 +19,9 @@
     flex-direction: row;
     gap: 3rem;
     align-items: center;
-
-    justify-content: center;
+    width: 99vw;
+    justify-content: space-evenly;
 }
-
-/* @media(max-width: 820px){
-    .contentGame{
-        display: inline;
-    }
-} */
 
 .life{
     display: flex;
@@ -70,6 +64,10 @@
 .containerAnswTip{
     width: 45%;
     height: 95%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .btnNext{
@@ -81,7 +79,7 @@
 .textTimeAndTip{
     font-family: 'Bungee','Cabin', sans-serif;
     font-size: 1.5rem;
-    color: #FCC123;
+    color: #FF9400;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -186,7 +184,7 @@
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    top: 15rem;
+    top: 5rem;
 
     opacity: 0;
     
@@ -327,6 +325,15 @@
 }
 
 
+.contentLifeAndTimeMobile{
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.contentTipAnswer{
+    align-self: center;
+}
 
 /* Notebook */
 @media all and (min-width: 1024px) and (max-width:1280){
@@ -388,7 +395,7 @@
     .textTimeAndTip{
         font-family: 'Bungee','Cabin', sans-serif;
         font-size: 1.2rem;
-        color: #FCC123;
+        color: #FF9400;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -397,6 +404,8 @@
     .contentLifeAndTimeMobile{
         display: flex;
         flex-direction: row;
+        gap: 0rem;
+        margin-right: 2rem;
     }
     .containerAsk{
         width: 85%;

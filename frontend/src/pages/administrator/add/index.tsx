@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Router from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { ButtonConfirmBlue, ButtonConfirmPink } from "../../../components/Button";
 import { ContentItems } from "../../../components/ContentItems";
@@ -9,10 +9,9 @@ import { InputFrom, SelectForm } from "../../../components/Input";
 import { LoadingManager } from "../../../components/Loading";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
-import { Container } from "../styles";
-import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "./styles";
+import { Container } from "../../team/styles";
+import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../../team/add/styles";
 import { parseCookies } from 'nookies'
-import { Password } from "phosphor-react";
 
 
 type AdministratorProps = {
@@ -29,11 +28,8 @@ interface FindAdministratorProps {
 
 export default function AddAdministrator( {administrators}: FindAdministratorProps){
     const [administratorList, setAdministratorList] = useState(administrators || [])
-
     const [nameAdministrator, setNameAdministrator] = useState("");
-
     const [userAdministrator, setUserAdministrator] = useState<any>();
-
     const [passwordAdministrator, setPasswordAdministrator] = useState("");
 
     var administratorSelectedPosition = "0";
@@ -107,7 +103,7 @@ export default function AddAdministrator( {administrators}: FindAdministratorPro
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Cadastro de Administradores"
+                    title="Cadastrar Administrador"
                 >
                     <ContentForm onSubmit={handleRegisterAdministrator}>
                         <ContentInputForm>

@@ -220,11 +220,30 @@ export default function HomeTeacher(){
             classificationStudents.y.push(Number(classification.score))
         })
 
+        let media = {
+            x: Array(),
+            y: Array(),
+        }
+        classificationsStudents.forEach(() => {
+            media.x.push("media")
+            media.y.push(3625)
+        })
+
+        console.log(media)
+
         setChartClassificationStudents( [
             {
                 x: classificationStudents.x,
                 y: classificationStudents.y,
-                type: "bar"
+                type: "bar",
+                name: "Classificação"
+            },
+            {
+                y: media.y,
+                x: classificationStudents.x,
+                mode: 'lines',
+                connectgaps: true,
+                name: `Média: ${3625}pts`
             }
         ])
     }
@@ -333,7 +352,7 @@ export default function HomeTeacher(){
                         {!chartClassificationStudents.length ? <></> : (
                             <Plot
                                 data={chartClassificationStudents}
-                                layout={ {title: 'Pontuação dos alunos' } } 
+                                layout={ {title: 'Pontuação dos alunos',  } } 
                                 style={{ "maxWidth": "35rem", "maxHeight": "25rem"}}
                             />
                         )}
@@ -397,7 +416,7 @@ export default function HomeTeacher(){
                         <span>Data da ultima vez que Recomeçou: <span className={styles.respInfo}>{infoPositionByStudent?.dateRecommence}</span></span>
                     </div>
                     <div className={styles.infos}>
-                        <strong className={styles.titleInfo}>Informações das Perguntas (Ultima Tentativa) </strong>                        
+                        <strong className={styles.titleInfo}>Informações por Pergunta.  <span style={{fontWeight: "normal", "fontSize": "1.2rem"}}>(Último Registro de Resposta do Tema)</span> </strong>                        
                             {infoGameStudent.map((value, index) => {
                                 return (
                                     <div className={styles.contentListAsks} key={value.idGame}>

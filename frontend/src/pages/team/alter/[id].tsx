@@ -134,7 +134,7 @@ export default function AlterTeam( {teachers}: FindTeacherProps){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Alteração da Turma"
+                    title="Alterar Turma"
                 >
                     <ContentForm onSubmit={handleRegisterTeam}>
                         <ContentInputForm>

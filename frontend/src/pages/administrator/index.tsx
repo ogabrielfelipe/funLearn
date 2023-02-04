@@ -3,7 +3,7 @@ import { ButtonConfirmBlue } from "../../components/Button";
 import { ContentItems } from "../../components/ContentItems";
 import { InputFrom } from "../../components/Input";
 import { HeaderAuth } from "../../components/Header";
-import { ContainerInput, ContainerIpntBut, ContainerList, Content, Container } from "./styles";
+import { ContainerInput, ContainerIpntBut, ContainerList, Content, Container } from "../team/styles";
 import { ListView } from "../../components/ListView";
 import Router from "next/router";
 
@@ -94,7 +94,7 @@ export default function Turma({ listAdministrator }: ListAdministrators){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Visualizar Administrador"
+                    title="Visualizar Administradores"
                 >
                     <Content>
                         <ButtonConfirmBlue onClick={() => { Router.push("/administrator/add") }}>
@@ -133,7 +133,7 @@ export default function Turma({ listAdministrator }: ListAdministrators){
             {visibleModal === true ? (
                 <ModalConfirmation 
                     title="Confirmação de Inativar"
-                    description="Deseja realmente inativar esse administrador?"
+                    description="Deseja realmente INATIVAR esse administrador?"
                     msgBtnConfirm="Desejo Inativar"
                     msgBtnCancel="Não quero Inativar"
                     handleDeleteRegis={async () => { 

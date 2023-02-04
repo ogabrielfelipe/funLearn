@@ -108,7 +108,7 @@ export default function AddTeam( {teachers}: FindTeacherProps){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Cadastro de Turmas"
+                    title="Cadastrar Turma"
                 >
                     <ContentForm onSubmit={handleRegisterTeam}>
                         <ContentInputForm>

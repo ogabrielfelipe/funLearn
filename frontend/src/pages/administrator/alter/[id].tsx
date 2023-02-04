@@ -9,8 +9,8 @@ import { InputFrom, SelectForm } from "../../../components/Input";
 import { LoadingManager } from "../../../components/Loading";
 import { setupAPIClient } from "../../../services/api";
 import { canSSRAuth } from "../../../utils/canSSRAuth";
-import { Container } from "../styles";
-import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../add/styles";
+import { Container } from "../../team/styles";
+import { ContentButton, ContentForm, ContentInputForm, OptionSelect } from "../../team/add/styles";
 import { parseCookies } from 'nookies'
 
 
@@ -118,7 +118,7 @@ export default function AlterAdministrator( {administrators}: FindAdministratorP
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Alteração do Administrador"
+                    title="Alterar Administrador"
                 >
                     <ContentForm onSubmit={handleRegisterAdministrator}>
                         <ContentInputForm>

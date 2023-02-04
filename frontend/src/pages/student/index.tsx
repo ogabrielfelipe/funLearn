@@ -342,7 +342,7 @@ export default function Studant({
       {visibleModal === true ? (
         <ModalConfirmation
           title="Confirmação de Inativar"
-          description="Deseja realmente inativar o Aluno?"
+          description="Deseja realmente INATIVAR o Aluno?"
           msgBtnConfirm="Desejo Inativar"
           msgBtnCancel="Não quero Inativar"
           handleDeleteRegis={async () => {

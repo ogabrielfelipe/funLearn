@@ -141,7 +141,7 @@ export default function Theme( { listThemes }:ThemeProps ){
             {visibleModal === true ? (
                 <ModalConfirmation 
                     title="Confirmação de Inativação"
-                    description="Deseja realmente inativar esse Tema?"
+                    description="Deseja realmente INATIVAR esse Tema?"
                     msgBtnConfirm="Desejo Inativar"
                     msgBtnCancel="Não quero Inativar"
                     handleDeleteRegis={async () => { 

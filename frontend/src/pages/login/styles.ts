@@ -92,3 +92,18 @@ export const ContainerBtnUser = styled.div`
         height: auto;
     }
 `
+
+export const ContainerBtnUserTeacher = styled.div`
+    width: 18rem;
+    height: auto;
+
+
+    @media (max-width: 450px) {
+        display: none;
+    }
+
+    @media (max-width: 920px) {
+        width: 14rem;
+        height: auto;
+    }
+`

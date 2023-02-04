@@ -11,8 +11,14 @@ import router from './router'
 
 const app = express();
 
-app.use(cors({ exposedHeaders: ['x-access-token', 'x-access-type'] }))
+
+
+app.use(cors({ exposedHeaders: ['x-access-token', 'x-access-type'], 
+                origin: true}))
 app.use(express.json())
+
+
+
 
 app.use(morgan("dev"))
 

@@ -109,7 +109,7 @@ export default function AlterTeacher( { teachers }: AlterTeacherProps ){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Alteração do Professor"
+                    title="Alterar Professor"
                 >
                     <ContentForm onSubmit={handleRegisterTeacher}>
                         <ContentInputForm>

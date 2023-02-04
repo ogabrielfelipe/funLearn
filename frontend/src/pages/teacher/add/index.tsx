@@ -96,7 +96,7 @@ export default function AddTeacher( { teachers }: AddTeacherProps ){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Cadastro do Professor"
+                    title="Cadastrar Professor"
                 >
                     <ContentForm onSubmit={handleRegisterTeam}>
                         <ContentInputForm>

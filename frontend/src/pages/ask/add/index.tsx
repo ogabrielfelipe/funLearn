@@ -354,7 +354,7 @@ export default function AddAsk(){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Cadastro de Pergunta"
+                    title="Cadastrar Pergunta"
                 >
                     <ContentForm onSubmit={handleRegisterAsk}>
                         <ContentInputForm>
@@ -379,7 +379,7 @@ export default function AddAsk(){
 
                             <ContentSelects>
                                 <SelectForm
-                                    title="Turma Ativa:"
+                                    title="Pergunta Ativa:"
                                     value={askActive}
                                     onChange={(e) => setAskActive(e.target.value)}
                                 >   

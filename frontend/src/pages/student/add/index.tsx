@@ -115,7 +115,7 @@ export default function AddStudant( { teams }: AddStudantProps ){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Cadastro de Aluno"
+                    title="Cadastrar Aluno"
                 >
                     <ContentForm onSubmit={handleRegisterTeam}>
                         <ContentInputForm>

@@ -157,11 +157,6 @@
     transition: all .2s linear;
 }
 
-/* @media(max-width: 650px){
-    .btnClassification{
-        width: 4rem;
-    }
-} */
 
 .btnClassificationShow{
     width: 5rem;
@@ -367,8 +362,7 @@
         background-color: transparent;
         position: fixed;
     
-        top: calc(50% - 35vh);
-    
+        top: calc(50% - 35vh);    
         left: calc(100% - 12rem);
         width: 12rem;
     
@@ -399,12 +393,10 @@
         top: calc(50% - 29.8vh);
         height: 70vh;
         width: 12rem;
-        padding: 1rem 0;
-    
+        padding: 1rem 0;    
     
         background-color: #8870FF;
-        box-shadow: 0 0 10px 0 rgba(0,0,0,0.25);
-    
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.25);    
     
         transition: all .5s linear;
         z-index: 999;
@@ -415,9 +407,28 @@
     .contentInfoGameClose{
         width: 0rem;
         border-radius: 1rem 0  0 1rem ;
+        
     }
     
 
+    /* .btnContentInfoGame{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        
+        z-index: 1;
+    } */
+
+    .btnInfoGameClose{
+        display: flex;
+        text-align: center;
+        left: calc(100% - 5rem);
+        width: 5rem;
+        top: calc(50% - 0.8rem);
+        border-radius: .6rem 0 0 .6rem;
+        font-size: 0;
+    }
 
 
     .btnClassification{
@@ -562,7 +573,7 @@
     
     .contentComplete{
         position: fixed;
-        top: 20%;
+        top: 8%;
         margin-right: 3rem;
         z-index: 99;
         align-self: flex-end;    

@@ -164,7 +164,7 @@ export default function Studant( { listTeachers, listTeams }: TeachersFindProps 
             {visibleModal === true ? (
                 <ModalConfirmation 
                     title="Confirmação de Inativar"
-                    description="Deseja realmente inativar esse professor?"
+                    description="Deseja realmente INATIVAR esse professor?"
                     msgBtnConfirm="Desejo Inativar"
                     msgBtnCancel="Não quero Inativar"
                     handleDeleteRegis={async () => { 

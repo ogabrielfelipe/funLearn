@@ -134,7 +134,7 @@ export default function AlterStudent( { teams }: AlterStudentProps ){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Alteração do Aluno"
+                    title="Alterar Aluno"
                 >
                     <ContentForm onSubmit={handleRegisterTeam}>
                         <ContentInputForm>

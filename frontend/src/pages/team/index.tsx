@@ -138,7 +138,7 @@ export default function Turma({ listTeams }: ListTeams){
             {visibleModal === true ? (
                 <ModalConfirmation 
                     title="Confirmação de Inativar"
-                    description="Deseja realmente inativar essa turma?"
+                    description="Deseja realmente INATIVAR essa turma?"
                     msgBtnConfirm="Desejo Inativar"
                     msgBtnCancel="Não quero Inativar"
                     handleDeleteRegis={async () => { 

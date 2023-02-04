@@ -275,7 +275,7 @@ export default function AlterTheme( { listTeachers, listTeams }:ThemeProps ){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Cadastrar Tema"
+                    title="Alterar Tema"
                 >
                     <ContentForm onSubmit={handleRegister}>
                         <ContentInputForm>

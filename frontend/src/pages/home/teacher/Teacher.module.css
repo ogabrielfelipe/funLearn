@@ -85,6 +85,8 @@
 }
 
 .titleInfo{
+    display: flex;
+    flex-direction: column;
     width: 100%;
     text-align: center;
     font-size: 25px;

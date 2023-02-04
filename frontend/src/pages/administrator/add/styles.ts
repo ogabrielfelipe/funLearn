@@ -12,10 +12,11 @@ export const ContentForm = styled.form`
 
 export const ContentInputForm = styled.div`
     width: 25rem;
-    height: auto;
+    height: 25rem;
     padding: 3rem;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: .6rem;
 `
 

@@ -11,7 +11,7 @@ export const ContentForm = styled.form`
 
 export const ContentInputForm = styled.div`
     width: 25rem;
-    height: auto;
+    height: 25rem;
     padding: 2rem;
     margin-left: 3rem;
     display: flex;

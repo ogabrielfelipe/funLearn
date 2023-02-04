@@ -550,11 +550,7 @@ export default function GameStudent(){
                     </div>
 
                     <div className={styles.containerAnswTip}>                        
-                        <div className={styles.contentGame}>
-                            {/* <strong className={styles.textTimeAndTip}>
-                                {numberAsk}
-                            </strong> */}
-
+                        <div className={styles.contentTipAnswer}>
                             <strong className={styles.textTimeAndTip} style={{cursor: "pointer"}} onClick={handleShowModelTips}>  
                                 <Lamp />
                                 Dica

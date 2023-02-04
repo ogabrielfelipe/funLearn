@@ -540,7 +540,7 @@ export default function AlterAsk(){
             <HeaderAuth/>
             <Container>
                 <ContentItems 
-                    title="Alterar de Pergunta"
+                    title="Alterar Pergunta"
                 >
                     <ContentForm onSubmit={handleRegisterAsk}>
                         <ContentInputForm>
@@ -564,7 +564,7 @@ export default function AlterAsk(){
 
                             <ContentSelects>
                                 <SelectForm
-                                    title="Turma Ativa:"
+                                    title="Pergunta Ativa:"
                                     value={askActive}
                                     onChange={(e) => setAskActive(e.target.value)}
                                 >   

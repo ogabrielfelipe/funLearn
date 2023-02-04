@@ -33,7 +33,7 @@ export const Container = styled.main`
 
     /* Celular */
     @media all and (max-width: 480px){     
-        height: 60vh;    
+        height: 50vh;    
         top: 6rem; 
     }
 `
@@ -68,7 +68,7 @@ export const Content = styled.div`
     @media all and (max-width: 480px){
         
         height: 80vh;    
-        gap: 1rem;
+        gap: 0rem;
     }
 
 `

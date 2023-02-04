@@ -178,7 +178,7 @@ export default function Studant({
       })
       .catch((err) => {
         setLoading(false);
-        console.log(err.response.data);
+        console.log(err.response);
         if(err.response.data.description.code === 'P2002'){
           toast.error("Não foi possível importar os dados dos alunos. Motivo: A(s) Matricula(s) já existe.");
           return;

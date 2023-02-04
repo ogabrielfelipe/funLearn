@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import { parseCookies } from 'nookies'
 import { AuthTokenError } from './errors/AuthTokenError'
+import setupGame from '../../SetupGame.json'
 
 import { signOut } from '../contexts/AuthContext'
 
@@ -8,7 +9,7 @@ export function setupAPIClient( ctx = undefined ){
     let cookies = parseCookies(ctx);
 
     const api = axios.create({
-        baseURL: 'http://192.168.0.150:3333',
+        baseURL: `${setupGame.config.protocol}://${setupGame.config.ipServer}:${setupGame.config.portServer}`,
         headers: {
             Authorization: `Bearer ${cookies['@nextauth.token']}`
         }

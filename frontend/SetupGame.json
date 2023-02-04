@@ -2,6 +2,11 @@
     "game": {
         "life": 3,
         "timeOut": 300000,  "__comments__": "300000 = 5 minutes in milliseconds"
-
+    },
+    "config":{
+        "protocol": "http",
+        "ipServer": "127.0.0.1",
+        "portServer": 3333
     }
+
 }

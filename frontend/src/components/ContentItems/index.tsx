@@ -15,7 +15,7 @@ function ContentItems( { children, title }: ContentItemsProps ){
         <Container>
             <Title>
                 {title}
-                <Image src={destaque} alt={"Imagem de destaque da tela de: "+title}/>
+                <Image src={destaque} height={22} alt={"Imagem de destaque da tela de: "+title}/>
             </Title>
             {children}
         </Container>

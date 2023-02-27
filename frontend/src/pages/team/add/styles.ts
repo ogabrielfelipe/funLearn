@@ -11,7 +11,7 @@ export const ContentForm = styled.form`
 
 export const ContentInputForm = styled.div`
     width: 25rem;
-    height: 25rem;
+    height: 24rem;
     padding: 2rem;
     margin-left: 3rem;
     display: flex;
@@ -47,9 +47,12 @@ export const ContentButton = styled.div`
     
     position: fixed;
     right: 7%;
+    bottom: 7%;
 
     margin: .6rem;
-    margin-bottom: 1rem;
 
+    @media (max-width: 1440px) {
+        bottom: 3.5%;
+    }
 
 `

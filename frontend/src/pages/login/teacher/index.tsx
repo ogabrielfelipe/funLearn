@@ -50,7 +50,7 @@ export default function LoginTeacher() {
         </ContainerLogo>
 
         <ContainerBtnAdmin> 
-          <Link href="/">
+          <Link href="/login">
             <a>
               <Image src={VoltarImg} layout="responsive" alt={"Botão para voltar a tela inicial."}/>
             </a>

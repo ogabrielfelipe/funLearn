@@ -74,7 +74,7 @@ export const Content = styled.div`
 `
 
 export const ContentLottie = styled.div`
-    max-width: 20rem;
+    max-width: 15rem;
 
     /* Notebook */
     @media all and (min-width: 1024px) and (max-width:1280){

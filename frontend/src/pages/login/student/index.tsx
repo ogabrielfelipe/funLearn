@@ -50,7 +50,7 @@ const Loginstudent: NextPage = () => {
         </ContainerLogo>
 
         <ContainerBtnAdmin> 
-          <Link href="/">
+          <Link href="/login">
             <a>
               <Image src={VoltarImg} layout="responsive" alt={"Botão para realizar login como administrador."}/>
             </a>

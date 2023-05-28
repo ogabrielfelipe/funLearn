@@ -51,7 +51,7 @@ export const ContainerLogo = styled.div`
 `
 
 export const ContainerCaricatura = styled.div`
-    width: 13rem;
+    width: 12rem;
     height: auto;
 
     margin-top: -25%;
@@ -62,7 +62,7 @@ export const TitleLogin = styled.strong`
     font-family: 'Bungee','Cabin', sans-serif;
 
     text-align: center;
-
+    line-height: 98%;
     margin-top: 2rem;
     color: #8870FF;
 ` 

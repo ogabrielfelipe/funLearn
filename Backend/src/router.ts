@@ -61,6 +61,7 @@ import { RecommenceGameController } from './controller/game/RecommeceGameControl
 import { FindPositionController } from './controller/game/FindPositionController';
 import { FindClassificationByTeamController } from './controller/game/FindClassificationByTeamController';
 import { DashBoardTeacherController } from './controller/teacher/DashBoardTeacherController';
+import { ImportAsksController } from './controller/ask/ImportAsksControler';
 
 const path = require('path')
 const router = Router();
@@ -199,6 +200,7 @@ router.get('/game/find/position/:positionID', isAuthenticated, new FindPositionC
 router.delete('/game/removeLife/:gameID', isAuthenticated, new RemoveLifeByTimeGameController().handle)
 router.delete('/game/finish', isAuthenticated, new FinishedGameController().handle)
 
-
+//Rota para importar perguntas
+//router.post('/util/importAsk', isAuthenticated, new ImportAsksController().handle)
 
 export default router

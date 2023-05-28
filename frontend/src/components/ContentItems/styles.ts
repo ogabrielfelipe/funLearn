@@ -15,6 +15,7 @@ export const Container = styled.div`
 
     display: flex;
     flex-direction: column;
+    
 
     @media (max-width: 920px) {
         width: 95vw;
@@ -28,6 +29,7 @@ export const Title = styled.strong`
     text-align: center;
     margin: .5rem;
 
+    line-height: 98%;
     display: flex;
     flex-direction: column;
 

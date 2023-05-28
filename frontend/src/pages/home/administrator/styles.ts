@@ -2,11 +2,12 @@ import styled from "styled-components"
 
 
 export const Container = styled.main`
-    width: 100vw;
-    height: calc(100vh - 5rem);
+    width: 98vw;
+    height: calc(100vh - 9rem);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-top: 1rem;
 
     justify-content: center;
     align-items: center;
@@ -47,12 +48,15 @@ export const Content = styled.div`
         font-size: 1.1rem;
         font-family: 'Bungee','Cabin', sans-serif;
         text-align: center;
+        line-height: 98%;
     }
 
     span{
         font-size: 8rem;
         font-family: 'Bungee','Cabin', sans-serif;
         filter: opacity(.6);
+        margin-top: 1.3rem;       
+        line-height: 98%;
     }
     
 

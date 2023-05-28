@@ -22,7 +22,7 @@ export default function InitialView(){
                 </div>
 
                 <div className={styles.contentText}>
-                    <strong className={styles.textPrincipal}> Bem-vindo ao ambiente de Aprendizagem de  <span style={{"color": "#8870FF"}}>Banco de Dados</span></strong>
+                    <h1 className={styles.textPrincipal}> Bem-vindo ao ambiente de Aprendizagem de  <span style={{"color": "#8870FF"}}>Banco de Dados</span>!!</h1>
                     <span className={styles.descriptionText}> A Plataforma funLearn tem como principal objetivo, como o próprio nome já diz, é deixar o ensino de banco de dados de uma forma
                         mais descontraida e divertida para os alunos. </span>
                 

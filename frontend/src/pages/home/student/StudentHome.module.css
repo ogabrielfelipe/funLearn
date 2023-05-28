@@ -83,7 +83,8 @@
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
-
+    
+    line-height: 98%;
     z-index: 1;
 }
 
@@ -116,6 +117,8 @@
     align-self: center;
     text-align: center;
     font-family: 'Bungee','Cabin', sans-serif;
+    
+    line-height: 98%;
 }
 
 .contentItemsElement{
@@ -238,6 +241,7 @@
     margin: 1rem 0;
     color: #8870FF;
 
+    line-height: 98%;
     transition: all 1 linear;
 }
 

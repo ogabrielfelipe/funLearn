@@ -61,7 +61,7 @@ export const TitleLogin = styled.strong`
     font-family: 'Bungee','Cabin', sans-serif;
 
     text-align: center;
-
+    line-height: 98%;
     margin-top: 2rem;
     color: #9684A3;
 ` 

@@ -36,6 +36,8 @@ export const ContentModel = styled.div`
 export const Title = styled.strong`
     font-size: 1.5rem;
     font-family: 'Bungee','Cabin', sans-serif;
+    
+    line-height: 98%;
 
 `
 

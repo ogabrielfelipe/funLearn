@@ -363,7 +363,7 @@
 
 
 /* Notebook */
-@media all and (min-width: 1024px) and (max-width:1280px){
+@media all and (min-width: 1024px) and (max-width:1440px){
    
     .iconModelWin{
         align-self: center;
@@ -372,9 +372,9 @@
     
     .contentLogoWin{
         position: absolute; 
-        top: -255px;
+        top: -310px;
         left: calc(50% - 260px);
-        transform: scale(.7);
+        transform: scale(.6);
     }
     
     .contentItemWin{
@@ -383,7 +383,7 @@
         
         position: relative; 
         top: 5px;
-        transform: scale(.8);
+        transform: scale(.7);
     }
 
     .point{

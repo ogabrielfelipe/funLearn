@@ -12,17 +12,19 @@ import Time from "../../components/LottieFiles/Time";
 import Life from "../../components/LottieFiles/Life";
 import {
   ButtonStudenTertiary,
-  ButtonStudentSecondary,
   ButtonStudentPrimary,
 } from "../../components/Button";
 
 import styles from "./Game.module.css";
 import Image from "next/image";
-import { env } from "process";
+
+import Congratulations from '../../../public/assets/congratulations.svg'
 
 import setupGame from "../../../SetupGame.json";
 import moment from "moment";
 import { toast } from "react-toastify";
+import LottieFilesTrophy from "../../components/LottieFiles/Trophy";
+import LottieFilesFireWorks from "../../components/LottieFiles/FireWorks";
 
 type detailsPositionType = {
   id: string;
@@ -717,18 +719,23 @@ export default function GameStudent() {
 
       <div className={styles.modelTimeOut} id={"modelYouWin"}>
         <div className={styles.contentModelTimeOut}>
-          <div className={styles.iconModelTimeOut}>
-            <Life removeLife={true} />
+          <div className={styles.iconModelWin}>
+            <div className={styles.contentLogoWin}>
+              <LottieFilesTrophy />
+            </div>
+            <div className={styles.contentItemWin}>
+              <Image 
+                src={Congratulations}
+                alt={"Imagem de Parabéns"}
+              />
+            </div>            
           </div>
           <div className={styles.textYouWin}>
-            <span>Parabéns!!!!!</span>
-            <br />
-            <br />
-            <span>
+            <h1>
               Você completou o quiz e ganhou
-              <span className={styles.point}> {coinPosition} </span>
-              pontos.
-            </span>
+            </h1>            
+            <h2 className={styles.point}> {coinPosition} Pontos </h2>
+             
           </div>
 
           <div className={styles.contentBtn}>

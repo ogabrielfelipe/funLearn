@@ -1,0 +1,14 @@
+.container{
+    transform: scale(.6);
+}
+
+.item1{
+    position: relative;
+    z-index: 2;
+}
+
+.item2{
+    position: relative;
+    top: -550px;
+
+}

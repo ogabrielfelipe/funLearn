@@ -1,7 +1,7 @@
 # FunLearn
     
 Este projeto tem como objetivo o desenvolvimento de uma ferramenta web, voltada para auxiliar professores e alunos no ensino e aprendizagem de diversos temas, ficando a critério do professor definir o tema e cadastrar as perguntas. O sistema visa trabalhar o conteúdo através de uma interface simples e intuitiva através de um jogo de perguntas e respostas, deixando assim, menos cansativa e mais divertida a aprendizagem.
->> Gravação da Defesa do TCC: [Clique aqui.](https://drive.google.com/file/d/1R6Nitmo61428LecRU1OL0tRvFthHj0rQ/view?usp=sharing)
+>Gravação da Defesa do TCC: [Clique aqui.](https://drive.google.com/file/d/1R6Nitmo61428LecRU1OL0tRvFthHj0rQ/view?usp=sharing)
 
 ## Backend
 
